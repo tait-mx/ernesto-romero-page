@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 20.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #a60904}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #327208}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0b12bd}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #a60904}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #0b12bd}
+span.s2 {color: #000000}
+span.s3 {color: #a60904}
+span.s4 {color: #327208}
+span.s5 {text-decoration: underline ; color: #0b00f4}
+span.s6 {font: 12.0px Helvetica}
+span.s7 {font: 12.0px Helvetica; text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>De palabras a frases</b></p>
+<p class="p2"><br></p>
+<p class="p3">Un patrón sencillo por sí mismo no es muy interesante. Pero los patrones se usan conjuntamente para obtener resultados más complejos.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Patrones dentro de patrones de lista</b></p>
+<p class="p2"><br></p>
+<p class="p3">Hemos visto que los patrones de listas (<a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pseq.html"><span class="s1">Pseq</span></a>, <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Prand.html"><span class="s1">Prand</span></a>, etc.) retornan números a partir de una lista predeterminada, ya sea en algún orden dado o rearregladas de manera aleatoria. La lista también puede incluir otros patrones. Cuando un patrón de listas encuentra otro patrón en su lista, el patrón interno es <i>incrustado</i> al flujo. Es decir, el patrón interno asume el control del flujo hasta que se le acaben los valores que retorna. Entonces el control regresa al patrón exterior. Esto es como llamar a una función en medio de otra función.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">No hay un límite preestablecido para el número de niveles de incrustación.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Si un patrón sencillo es como una palabra, un patrón de listas que usa otros patrones podría considerarse como una oración o frase. Se puede alternar entre distintos comportamientos ya sea de manera predecible, como en el ejemplo siguiente, o aleatoriamente usando algunos de los patrones de listas aleatorios.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// Segmentos de escala, en la secuencia: arriba, arriba, abajo (repetir)</p>
+<p class="p7">(</p>
+<p class="p7"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p7">p = <span class="s1">Pbind</span>(</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span></span>\degree<span class="s2">, </span><span class="s1">Pseq</span><span class="s2">([</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pseries</span>({ rrand(0, 7) }, 1, { rrand(4, 8) }),<span class="Apple-tab-span">	</span><span class="s3">// arriba (paso = 1)</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pseries</span>({ rrand(0, 7) }, 1, { rrand(4, 8) }),<span class="Apple-tab-span">	</span><span class="s3">// arriba (paso = 1)</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pseries</span>({ rrand(7, 14) }, -1, { rrand(4, 8) })<span class="Apple-tab-span">	</span><span class="s3">// abajo (paso = -1)</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span>], <span class="s1">inf</span>),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.125</p>
+<p class="p7">).play;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Pero se pone más divertido -- a los patrones de listas no les importa si están encerrando patrones de valores (como en el ejemplo anterior) o patrones de eventos. Esto significa que uno puede escribir un conjunto de patrones al estilo Pbind, cada uno representando una frase, e hilarlos conjuntamente. El siguiente ejemplo es más largo, pero solamente por el número mayor de patrones de frase. Sin embargo, la estructura es muy simple: <b>Pxrand([Pbind(), Pmono(), Pmono()...], inf)</b>. Algunas frases están escritas con Pmono para deslizar entre notas.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">(</p>
+<p class="p10">SynthDef<span class="s2">(</span><span class="s4">\bajo</span><span class="s2">, { </span>|freq = 440, gate = 1, amp = 0.5, slideTime = 0.17, ffreq = 1100, width = 0.15,</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>detune = 1.005, preamp = 4|</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>sig,</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>env = <span class="s1">Env</span>.adsr(0.01, 0.3, 0.4, 0.1);<span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span>freq = <span class="s1">Lag</span>.kr(freq, slideTime);</p>
+<p class="p7"><span class="Apple-tab-span">	</span>sig = <span class="s1">Mix</span>(<span class="s1">VarSaw</span>.ar([freq, freq * detune], 0, width, preamp)).distort * amp</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>* <span class="s1">EnvGen</span>.kr(env, gate, doneAction: 2);</p>
+<p class="p7"><span class="Apple-tab-span">	</span>sig = <span class="s1">LPF</span>.ar(sig, ffreq);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0, sig ! 2)</p>
+<p class="p7">}).memStore;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">(</p>
+<p class="p7"><span class="s1">TempoClock</span>.default.tempo = 132/60;</p>
+<p class="p7">p = <span class="s1">Pxrand</span>([</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Pbind</span><span class="s2">(<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// notas repetidas</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\bajo<span class="s2">,</span></p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\midinote<span class="s2">, 36,</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.75, 0.25, 0.25, 0.25, 0.5], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\legato</span>, <span class="s1">Pseq</span>([0.9, 0.3, 0.3, 0.3, 0.3], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>),</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Pmono</span><span class="s2">(</span><span class="s4">\bajo</span><span class="s2">,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// salto de octava</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\midinote</span>, <span class="s1">Pseq</span>([36, 48, 36], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.25, 0.25, 0.5], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>),</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Pmono</span><span class="s2">(</span><span class="s4">\bajo</span><span class="s2">,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// salto de tritono</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\midinote</span>, <span class="s1">Pseq</span>([36, 42, 41, 33], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.25, 0.25, 0.25, 0.75], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>),</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s1">Pmono</span><span class="s2">(</span><span class="s4">\bajo</span><span class="s2">,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// triada disminuida</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\midinote</span>, <span class="s1">Pseq</span>([36, 39, 36, 42], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.25, 0.5, 0.25, 0.5], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>)</p>
+<p class="p7">], <span class="s1">inf</span>).play(quant: 1);</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Atajo de notación:</b> Así como los arreglos se concatenan con ++, se pueden concatenar patrones de la misma manera. Escribir <b>patrón1 ++ patrón2<i> </i></b>es lo mismo que escribir <b>Pseq([patrón1, patrón2], 1)</b>.</p>
+<p class="p2"><br></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Algunas maneras de hilar patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Secuencialmente: </b>Cada subpatrón sigue al anterior en el mismo orden cada vez. Usar <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pseq.html"><span class="s1">Pseq</span></a> o <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pser.html"><span class="s1">Pser</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Orden aleatorio:</b> Los sub patrones en orden totalmente aleatorio (<a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Prand.html"><span class="s1">Prand</span></a>), orden aleatorio sin repeticiones (<a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pxrand.html"><span class="s1">Pxrand</span></a>), u orden aleatorio de acuerdo a un conjunto de posibilidades (<a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pwrand.html"><span class="s1">Pwrand</span></a>). <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pshuf.html"><span class="s1">Pshuf</span></a> crea un ordenamiento aleatorio y lo usa repetidamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Indexado directo de arreglos:</b> Patrones que se escogen en algún orden arbitrario mediante un índice. Esto da mayor control que Pwrand. Tanto <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pindex.html"><span class="s1">Pindex</span></a> como<span class="Apple-converted-space">  </span><a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pswitch.html"><span class="s1">Pswitch</span></a> pueden ser usados para esto.</p>
+<p class="p2"><br></p>
+<p class="p6">// segmentos de grados de escala, cada quinta elección es solamente impar (descendiendo)</p>
+<p class="p7">(</p>
+<p class="p7"><span class="s1">var</span><span class="Apple-tab-span">	</span>n = 10,</p>
+<p class="p7"><span class="Apple-tab-span">	</span>segmentosDeEscala = <span class="s1">Array</span>.fill(n, { <span class="s1">|i|</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(i.odd) {</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pseries</span>(11, -1, rrand(5, 10))</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>} {</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pseries</span>(rrand(-4, 4), 1, i+2)</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p7"><span class="Apple-tab-span">	</span>});</p>
+<p class="p9"><br></p>
+<p class="p7"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p7">p = <span class="s1">Pbind</span>(</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pswitch</span>(segmentosDeEscala, <span class="s1">Pseq</span>([<span class="s1">Pwhite</span>(0, n-1, 4), <span class="s1">Pwhite</span>(0, n-1, 1).select(<span class="s1">_</span>.odd)], <span class="s1">inf</span>)),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.125</p>
+<p class="p7">).play;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Máquinas de estado finito (Pfsm, pdfsm)</b></p>
+<p class="p2"><br></p>
+<p class="p3">Una máquina de estado finito es una manera de asociar un elemento con sus posibles sucesores. Es más cercano a una "gramática" que a una selección meramente aleatoria.<span class="Apple-converted-space">  </span><a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pfsm.html"><span class="s1">Pfsm</span></a><span class="s1"> </span>define una máquina de estado finito como un conjunto de posibles "puntos de entrada", seguido por una lista de "estados" posibles de la máquina y, para cada estado, una lista de posibles estados que pueden seguir el estado actual. Los estados pueden ser valores sencillos o patrones, es decir, las frases pueden ser vinculadas a otras frases que "tengan sentido" en sucesión (y las transiciones no deseadas serán prevenidas).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Si esto suena similar a una cadena de Markov, es debido a que la implementación de Pfsm es un caso especial de una cadena de Markov donde hay igual probabilidad de escoger el siguiente estado a partir de los sucesores válidos. En una cadena de Markov, las probabilidades son ponderadas de acuerdo al análisis de un flujo de datos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">La página de ayuda de Pfsm incluye muy buenos ejemplos de cómo organizar valores sencillos y frases de patrones. También ver <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/A Practical Guide/PG_Cookbook06_Phrase_Network.html"><span class="s1">PG_Cookbook06_Phrase_Network</span></a><span class="s1"> </span>para una aplicación de Pfsm para generar un sólo de jazz cursi.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s5"><a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pdfsm.html">Pdfsm</a></span> quiere decir "máquina de estado finito determinística", donde no hay selección aleatoria.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Nota acerca de extensiones:</b> Una buena implementación de cadenas de Markov para SuperCollider existe en el quark MathLib.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Librería de sub patrones nombrados</b></p>
+<p class="p2"><br></p>
+<p class="p3">Una muy efectiva manera de administrar frases es hacer una biblioteca, o más precisamente, un Diccionario (<a href="../../../../../../../SuperCollider3/build/Help/Collections/Dictionary.html"><span class="s1">Dictionary</span></a><span class="s1">)</span> de sub patrones y luego llamarlos uno a la vez. <a href="../../../../../../../SuperCollider3/build/Help/Libraries/JITLib/Patterns/Psym.html"><span class="s1">Psym</span></a> es el patrón para hacer esto. La ventaja aquí es que uno puede guardar las frases en un lugar separado, mientras que el patrón que uno realmente reproduce es mucho más simple y describe la intención musical a un nivel más alto.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// Usa el SynthDef bajo de arriba</p>
+<p class="p7">(</p>
+<p class="p7">~frases = (</p>
+<p class="p7"><span class="Apple-tab-span">	</span>repetido: <span class="s1">Pbind</span>(</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\bajo<span class="s2">,</span></p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\midinote<span class="s2">, 36,</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.75, 0.25, 0.25, 0.25, 0.5], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\legato</span>, <span class="s1">Pseq</span>([0.9, 0.3, 0.3, 0.3, 0.3], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>),</p>
+<p class="p7"><span class="Apple-tab-span">	</span>octava: <span class="s1">Pmono</span>(<span class="s4">\bajo</span>,</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\midinote</span>, <span class="s1">Pseq</span>([36, 48, 36], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.25, 0.25, 0.5], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>),</p>
+<p class="p7"><span class="Apple-tab-span">	</span>tritono: <span class="s1">Pmono</span>(<span class="s4">\bajo</span>,</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\midinote</span>, <span class="s1">Pseq</span>([36, 42, 41, 33], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.25, 0.25, 0.25, 0.75], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>),</p>
+<p class="p7"><span class="Apple-tab-span">	</span>dim: <span class="s1">Pmono</span>(<span class="s4">\bajo</span>,</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\midinote</span>, <span class="s1">Pseq</span>([36, 39, 36, 42], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>([0.25, 0.5, 0.25, 0.5], 1),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\amp</span>, 0.5, <span class="s4">\detune</span>, 1.005</p>
+<p class="p7"><span class="Apple-tab-span">	</span>)</p>
+<p class="p7">);</p>
+<p class="p9"><br></p>
+<p class="p7"><span class="s1">TempoClock</span>.default.tempo = 128/60;</p>
+<p class="p9"><br></p>
+<p class="p6">// el patrón que controla a un nivel más alto es muy simple ahora</p>
+<p class="p7">p = <span class="s1">Psym</span>(<span class="s1">Pxrand</span>(#[repetido, octava, tritono, dim], <span class="s1">inf</span>), ~frases).play;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Un patrón complicado con muchas incrustaciones puede ser difícil de leer ya que es más trabajo separar detalles al nivel de las notas que de la estructura global. El patrón que escoge las frases -- <b>Pxrand(#[repetido, octava, tritono, dim], inf)</b> --<span class="Apple-converted-space">  </span>se explica a sí mismo y Psym se encarga de los detalles transparentemente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Nota:</b> Debido a que algunas manipulaciones especiales son necesarias para patrones de eventos, hay dos versiones de Psym. Psym se encarga de patrones de eventos, mientras que Pnsym es para patrones de valores. Se puede pensar de esta manera: Pbind puede ser contenido dentro de Psym, pero contiene Pnsym.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>( Psym ( Pbind ( Pnsym ) ) )</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Bien:</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>Psym</b>(**, (patrón1: <b>Pbind</b>(**))</p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>Pbind</b>(\algúnValor, <b>Pnsym</b>(**, (patrón1: Pwhite(**)))</p>
+<p class="p2"><br></p>
+<p class="p11"><b>Mal:</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>Pbind</b>(\algúnValor, <b>Psym</b>(**, (patrón1: Pwhite(**)))</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Cambiando entre patrones para valores individuales</b></p>
+<p class="p2"><br></p>
+<p class="p3">En los anteriores ejemplos, si un patrón de lista encuentra a otro patrón como uno de sus valores de entrada, el sub patrón es incrustado en su totalidad antes de que se le permita continuar al patrón exterior. A veces uno quisiera obtener nada más un valor del sub patrón y luego escoger otro subpatrón para el siguiente evento. Pswitch, Psym y Pnsym tiene primos que hacen exactamente eso: <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pswitch1.html"><span class="s1">Pswitch1</span></a>, Psym1 y Pnsym1.</p>
+<p class="p2"><br></p>
+<p class="p6">// alturas al azar en dos rangos distintos; se lanza una moneda al aire para decidir este evento<span class="Apple-converted-space"> </span></p>
+<p class="p6">// 70% abajo, 30% arriba</p>
+<p class="p7">(</p>
+<p class="p7"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p7">p = <span class="s1">Pbind</span>(</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pswitch1</span>([<span class="s1">Pwhite</span>(7, 14, <span class="s1">inf</span>), <span class="s1">Pwhite</span>(-7, 0, <span class="s1">inf</span>)], <span class="s1">Pfunc</span> { 0.7.coin.binaryValue }),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.25</p>
+<p class="p7">).play;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Comparar con el siguiente:</p>
+<p class="p2"><br></p>
+<p class="p7">(</p>
+<p class="p7">p = <span class="s1">Pbind</span>(</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pswitch</span>([<span class="s1">Pwhite</span>(7, 14, <span class="s1">inf</span>), <span class="s1">Pwhite</span>(-7, 0, <span class="s1">inf</span>)], <span class="s1">Pfunc</span> { 0.7.coin.binaryValue }),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.25</p>
+<p class="p7">).play;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Con Pswitch, uno de los elementos se escoge de la lista y sigue tocando hasta que se acaba. Pero la longitud de ambos patrones Pwhite es infinita, por lo que el primero que se escoja mantendrá el control. Pswitch1 hace el 'volado' (cara o cruz) cada evento e incrusta solo uno de ellos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Psym1 y<span class="Apple-converted-space">  </span>Pnsym1 se comportan de manera similar, escogiendo el nombre para buscar el patrón en cada evento.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Tema relacionado: patrones condicionales</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s5"><a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pif.html">Pif</a></span><span class="Apple-converted-space">  </span>admite este tipo de estructura: si el siguiente valor de un patrón Booleano es verdadero, retorna el siguiente elemento del patrón A, de lo contrario lo toma del patrón B. Otra manera de escribir el ejemplo de Pswitch1 es usando pruebas booleanas directamente en los Pwhite en lugar de escribir una Pfunc para el tiro de la moneda. Esto puede ser más claro para leerse. Sin embargo, funciona solo si hay dos alternativas. Pswitch1 y Psym1 admiten cualquier número de elecciones.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">(</p>
+<p class="p7"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p7">p = <span class="s1">Pbind</span>(</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// traducción: if(0.7.coin) { rrand(-7, 0) } { rrand(7, 14 }</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pif</span>(<span class="s1">Pwhite</span>(0.0, 1.0, <span class="s1">inf</span>) &lt; 0.7, <span class="s1">Pwhite</span>(-7, 0, <span class="s1">inf</span>), <span class="s1">Pwhite</span>(7, 14, <span class="s1">inf</span>)),<span class="Apple-converted-space">   </span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.25</p>
+<p class="p7">).play;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Veremos más adelante en GP_06e_Control del Lenguaje que Pif puede ser usado en valores previamente calculados en el Pbind. Añada considerablemente a la inteligencia de la que Pbind es capaz, cuando sus flujos de valores están conscientes de otros valores en el evento.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p12"><span class="s2">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_03_Que es Pbind.html"><span class="s6">GP_03_Que es Pbind</span></a></span></p>
+<p class="p12"><span class="s2">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_05_Matematicas en patrones.html"><span class="s7">GP_05_Matematicas en patrones</span></a></span></p>
+</body>
+</html>

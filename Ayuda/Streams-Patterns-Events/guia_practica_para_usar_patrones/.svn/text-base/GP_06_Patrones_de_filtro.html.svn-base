@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; color: #201dee; min-height: 17.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; color: #0b00f4}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; color: #1800fe}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #1f2cb6}
+span.s2 {text-decoration: underline ; color: #1a00ff}
+span.s3 {text-decoration: underline ; color: #1800fe}
+span.s4 {color: #1500ff}
+span.s5 {text-decoration: underline ; color: #2638e1}
+span.s6 {color: #000000}
+span.s7 {text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+ul.ul2 {list-style-type: circle}
+</style>
+</head>
+<body>
+<p class="p1"><b>Patrones De Filtro</b></p>
+<p class="p2"><br></p>
+<p class="p3">Así como un filtro de un UGen modifica una señal de entrada, los patrones de filtro modifican el flujo de valores provenientes de un patrón.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Hemos visto algunas operaciones que modifican un flujo de valores: operadores matemáticos (que se convierten en patrones Punop, Pbinop o Pnaryop) y ciertos métodos de colección (principalmente collect, select y reject). Los patrones de filtro pueden hacer algunas cosas útiles y sorprendentes.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Todos los patrones de filtro toman al menos un patrón fuente que provee los valores/eventos a ser filtrados. Algunos patrones de filtros están diseñados para patrones de valore, algunos para patrones de eventos. Unos cuantos trabajan igual de bien tanto con valores individuales como con eventos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">A continuación, una vista panorámica categorizada. Ver los documentos separados para cada categoría.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><br></p>
+<p class="p5"><a href="GP_06a_Patrones de repeticion y restriccion.html"><b>Patrones de repetición y restricción</b></a></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pclutch(patrón, conectado):</b> Si el patrón 'conectado' es verdadero (true), Pclutch retorna el siguiente valore de 'patrón'. Si 'conectado' es falso, el valor previo del patrón es repetido. Es como el clutch de un coche: cuando está activado, el patrón se mueve adelante; cuando está desconectado, se mantiene donde está.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pn(patrón, repeticiones):</b> Incrusta el patrón fuente un número 'repeticiones' de veces. También funciona con valores individuales: Pn(1, 5) produce el número 1 cinco veces.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pstutter(n, patrón):</b> 'n' y 'patrón' son ambos patrones. Cada valor de 'patrón' es repetido 'n' veces. Si 'n' es un patrón, cada valor puede ser repetido un número diferente de veces.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>PdurStutter(n, patrón):</b> Como Pstutter, excepto que el patrón de valores es dividido por el número de repeticiones (de tal manera que el tiempo total para un ciclo repetido es el valor de duración proveniente del patrón fuente).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"></li>
+</ul>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfin(cuenta, patrón): </b>Retorna exactamente 'cuenta' valores del patrón fuente y luego se detiene.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pconst(suma, patrón, tolerancia):</b> Produce números hasta que la suma alcance un número predefinido. El último valor producido es ajustado para dar exactamente la suma.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfindur(dur, patrón, tolerancia):</b> Como Pconst, pero aplicando el comportamiento de restricción a los valores rítmicos del patrón. El patrón fuente corre hasta la duración especificada y luego se detiene. Es muy útil si uno sabe cuánto debe durar un comportamiento musical, pero no sabe cuántos eventos son necesarios para cubrir ese periodo de tiempo.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Psync(patrón, cuant, maxdur, tolerancia):</b> Como Pfindur, pero no tiene que tener una duración fija. En su lugar, toca ya sea hasta que alcance maxdur (en caso del cual se comporta igual que Pfindur, ajustando el último evento para que la duración total alcance maxdur), o el patrón se detiene antes y el último evento es redondeado hasta el siguiente múltiplo entero de quant.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p4"><br></p>
+<p class="p5"><a href="GP_06b_Patrones basados en tiempo.html"><b>Patrones basados en tiempo</b></a></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ptime(repeticiones):</b> Retorna la cantidad de tiempo transcurrido desde que se incrustó.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pstep(niveles, durs, repeticiones):</b> Repite un valor 'nivel' durante su correspondiente duración y luego se mueve al siguiente valor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pseg(niveles, durs, curvas, repeticiones):</b> Similar a Pstep, pero interpola al siguiente valor en lugar de dar el paso de manera abrupta al final de la duración. La interpolación es lineal por defecto, pero cualquier curva de envolvente puede ser usada. 'niveles' y 'durs' deben ser patrones.<span class="Apple-converted-space"> </span></li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Relacionado: Uso de <a href="../../../../../../../SuperCollider3/build/Help/Control/Env.html"><span class="s1">Env</span></a> como un patrón.</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<p class="p4"><br></p>
+<p class="p5"><a href="GP_06c_Composicion de Patrones.html"><b>Composición de Patrones</b></a></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pbindf(patrón, pares):</b> Añade nuevos pares de llave-valor a un patrón preexistente al estilo Pbind.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pchain(patrones):</b> Encadena patrones al estilo Pbind juntos, de tal manera que los pares llave-valor se incorporen a un mismo evento.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s2"><b>Paralelizando </b><a href="GP_06d_Patrones Paralelos.html"><span class="s3"><b>patrones de evento</b></span></a></span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ppar(lista, repeticiones):</b> Comenzar cada uno de los patrones de evento en la 'lista' al mismo tiempo. Cuando el último acaba, el Ppar también lo hace. Si repeticiones &gt; 1, todos los sub patrones comienzan otra vez desde el principio.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ptpar(lista, repeticiones):</b> Aquí, la lista consiste en [desplazamientoTemporal0, patrón0, desplazamientoTemporal1, patrón1...]. Cada patrón comienza a partir del número de pulsos dados como desplazamiento temporal. Los patrones pueden comenzar en diferentes tiempos relativos unos a los otros.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgpar(lista, repeticiones):</b> Como Ppar, pero crea un grupo separado para cada sub patrón.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgtpar(lista, repeticiones):</b> Se supone que funciona como un Ptpar con grupos separados para los sub patrones, pero esta clase está actualmente rota. .</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"></li>
+</ul>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pspawner(función):</b> La función es usada para hacer una rutina. Un objeto 'Spawner' ('generador') se pasa como entrada a la rutina y es usado para añadir o remover flujos hacia/desde el flujo paralelo. Nuevos patrones se pueden añadir en secuencia o en paralelo.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pspawn(patrón, spawnProtoEvent):</b> Admite casi todas las características de Pspawner pero usa un patrón para controlar el objeto Spawner en lugar de una función de rutina.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><a href="GP_06e_Control_de_Lenguaje.html"><b>Métodos de control del len</b></a><span class="s4"><b>guaje</b></span></p>
+<p class="p2"><br></p>
+<p class="p3">Algunos patrones imitan métodos en el mismo estilo que el lenguaje: condicionales (Pif), bucles (Pwhile) y limpieza de errores (Pprotect).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pif(condición, cierto, falso, predeterminado):</b> Evalúa el patrón 'condición' que retorna cierto o falso. Luego, un valor es tomado de la bifurcación cierto o falso antes de volver a evaluar la condición de nuevo. El valor o patrón 'predeterminado' entra en juego cuando las bifurcaciones 'cierto' y 'falso' han dejado de producir valores (es decir, retornan nulo). Si el valor predeterminado no es dado, Pif retorna control al patrón progenitor si hay un nulo en cualquier bifurcación.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pseed(semillaAleatoria, patrón):</b> Los generadores de números aleatorios dependen de valores de "semilla" ("seed"); asignar una semilla específica produce un flujo repetible de números pseudo aleatorios. Pseed asigna la semilla aleatoria antes de incrustar 'patrón', con lo cual efectivamente reinicia el generador de números aleatorios al principio del patrón.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pprotect(patrón, func):</b> Igual que el método 'protect' para manejar errores, si un error ocurre mientras se obtiene el siguiente valor, la función será evaluada antes de que el error interrumpa la ejecución.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ptrace(patrón, llave, flujoDeImpresión, prefijo):</b> Para depuración, Ptrace imprime cada valor retornado. ¿El patrón realmente está haciendo lo que uno cree? Esto nos dirá. Un Ptrace es creado automáticamente por el mensaje 'trace': unPatrón.trace(llave, flujoDeImpresión, prefijo) --&gt; Ptrace(unPatrón, llave, flujoDeImpresión, prefijo).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pwhile(func, patrón):</b> Igual que <a href="../../../../../../../SuperCollider3/build/Help/Language/Control-Structures.html"><span class="s5">while</span></a>: mientras la función evalúe cierta, el patrón es incrustado. La función es revisada una vez al principio y después, cuando el patrón ha llegado a su fin. Si se aplica a un patrón infinito no habrá bucle ya que el patrón no devolverá el control.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><a href="GP_06f_Control_del_servidor.html"><b>Métodos de control servidor</b></a></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pbus(patrón, dur, tiempoDeAtenuación, numCanales, velocidad):</b> Crea un grupo privado y canal para los sintes tocados por el patrón. El grupo y canal son liberados cuando el patrón acaba. Útil para aislar señales entre distintos patrones.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgroup(patrón):</b> Crea un grupo privado (sin canal privado) para los sintes del patrón.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfx(patrón, nombreDeEfecto, pares)</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfxb(patrón, nombreDeEfecto, pares):</b> Ambos patrones reproducen un sinte de efectos en la cola del grupo actual. Este sinte debe leer de un canal identificado por el argumento 'out' y escribir la señal procesada al mismo canal usando ya sea ReplaceOut o XOut. Pfx usa el mismo canal y grupo especificados en el evento entrante. Pfxb reparte un canal y grupo separado para el efecto y para el patrón.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pproto(funciónDeCreación, patrón, funciónDeLimpieza):</b> Reparte recursos en el servidor y añade referencias a ellos dentro del prototipo de evento usado para reproducir 'patrón'. Cuando el patrón se detiene (o es detenido), los recursos pueden ser removidos automáticamente (con la 'funciónDeLimpieza').</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><a href="GP_06g_Compartiendo_Datos.html"><b>Compartiendo Datos</b></a></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pkey(llave):</b> Lee la 'llave' en el evento de entrada, haciendo que valores previamente calculados sean accesibles en otros flujos.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Penvir(ambiente, patrón, independiente):</b> Corre el patrón dentro del ambiente dado.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfset(func, patrón):</b> Asigna valores predeterminados al evento de entrada antes de obtener el evento resultante del patrón dado.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Plambda(patrón, ámbito):</b> Crea un "ámbito de función" dentro del cual los valores son asignados usando Plet y los valores recuperados con Pget. Pget es como un Pkey, excepto que su ámbito es estrictamente interno, escondido del ámbito desde el cual se llama. Con Pkey, los valores de la fuente permanecen presentes en el evento que se retorna al ámbito que lo llama.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s6">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_05_Matematicas en patrones.html"><span class="s7">GP_05_Matematicas en patrones</span></a></span></p>
+<p class="p7"><span class="s6">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06a_Patrones de repeticion y restriccion.html"><span class="s7">GP_06a_Patrones de repeticion y restriccion</span></a></span></p>
+</body>
+</html>

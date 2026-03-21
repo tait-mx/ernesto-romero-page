@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #bf0000}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8b2719; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8b2719}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #002dad; min-height: 12.0px}
+span.s1 {font: 13.0px Helvetica}
+span.s2 {color: #3765bf}
+span.s3 {color: #0000bf}
+span.s4 {color: #000000}
+span.s5 {color: #007300}
+span.s6 {color: #002dad}
+span.s7 {text-decoration: underline}
+span.s8 {color: #606060}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>default group<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b><span class="s1"><b>id: 1</b></span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>root group (id:0) [</b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>default group (id:1)</b></p>
+<p class="p3"><b>]</b></p>
+<p class="p2"><br></p>
+<p class="p4">Cuando un servidor es arrancado, existe un grupo de nivel superior, con un ID de 0, el cual define la raíz del árbol de nodos. Este grupo está representado por la subclase <a href="RootNode.html"><span class="s2">RootNode</span></a> (nodo raíz) de la clase <a href="Group.html"><span class="s2">Group</span></a><span class="s2">. </span>Si el servidor fue arrancado desde SClang (y no desde la línea de comandos), se creará un grupo por defecto (<a href="default_group.html"><span class="s2">default_group</span></a>) con un ID de 1. Este grupo es el grupo por defecto de todos los nodos al utilizar "estilo objetos" y es el grupo que obtendrás si proporcionas un servidor como objetivo ("target"). Si no especificas un objetivo o envías nil, obtendrás al grupo por defecto del servidor por defecto.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3">Server</span>.default.boot;</p>
+<p class="p6"><span class="s4">a = </span><span class="s3">Synth</span><span class="s4">.new(</span><span class="s5">\default</span><span class="s4">); </span>// crea un sintetizador en el grupo por defecto del servidor por defecto</p>
+<p class="p6"><span class="s4">a.group; </span>// observa el ID del grupo</p>
+<p class="p2"><br></p>
+<p class="p4">El grupo por defecto cumple una importante función: provee un árbol de nodos básico y predecible para que métodos como Server:scope y Server:record no tengan problemas de orden de ejecución. En el siguiente ejemplo, el nodo del osciloscopio vendrá después del grupo por defecto.</p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s6">Server</span>.internal.boot;</p>
+<p class="p8"><br></p>
+<p class="p7">{ <span class="s6">SinOsc</span>.ar(mul: 0.2) }.scope(1);</p>
+<p class="p9"><br></p>
+<p class="p10">// observa la ventana "post"</p>
+<p class="p7"><span class="s6">Server</span>.internal.queryAllNodes;<span class="Apple-converted-space"> </span></p>
+<p class="p8"><br></p>
+<p class="p10">// nuestro sintetizador está dentro del grupo por defecto (ID 1).</p>
+<p class="p10">// el nodo del osciloscopio viene después del grupo por defecto,<span class="Apple-converted-space"> </span></p>
+<p class="p10">// por lo que no hay ningún problema</p>
+<p class="p11"><br></p>
+<p class="p7"><span class="s6">Server</span>.internal.quit;</p>
+<p class="p2"><br></p>
+<p class="p4">Observa que el grupo por defecto es persistente: es creado en el método initTree del servidor (ejecutado junto con cualquier código guardado en la variable de instancia <b>tree</b> del servidor; ve <b>Server</b> para más detalles) y es recreado después rearrancar el servidor, después de presionar Cmd - ., y después de que todos los nodos son liberados. Al utilizar mensajes OSC, esto significa que <span class="s7">un ID de nodo de 1 siempre puede ser utilizado:</span></p>
+<p class="p8"><br></p>
+<p class="p10"><span class="s4">s.sendMsg(</span><span class="s8">"/s_new"</span><span class="s4">, </span><span class="s8">"snd"</span><span class="s4">, 1832,0,1); </span>// añade en la cabeza del grupo 1</p>
+<p class="p2"><br></p>
+<p class="p4">El grupo por defecto puede ser liberado específicamente, pero generalmente no hay ninguna razón por la cual uno quisiera hacer eso.</p>
+<p class="p2"><br></p>
+<p class="p4">En general, uno debe añadir nodos al grupo por defecto en vez de al RootNode, a menos que uno tenga una razón específica para hacerlo (i.e. añadir alguna nueva funcionalidad, como grabar o visualizar en un oscilosopio, que dependa de un orden de nodos básico y predecible). Al utilizar "estilo objeto", el grupo por defecto es el objetivo por defecto para todos los nuevos nodos, por lo que normalmente los nodos no son añadidos al RootNode a menos que esto sea especificado explicitamente. Por supuesto que es posible hacerlo, pero sólo debe hacerse con un adecuado entendimiento de las cuestiones que involucra.</p>
+<p class="p2"><br></p>
+<p class="p4">Por ejemplo, si uno colocara un sintetizador de "efectos" después del grupo por defecto y llamara a Server:record o a Server:scope, los nodos resultantes no estarían ordenados correctamente:</p>
+<p class="p2"><br></p>
+<p class="p4"><b>default group [</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>sintetizador fuente 1</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>sintetizador fuente 2</b></p>
+<p class="p4"><b>]</b></p>
+<p class="p4"><b>sintetizador grabador</b></p>
+<p class="p4"><b>sintetizador de efectos</b></p>
+<p class="p2"><br></p>
+<p class="p4">En el ejemplo anterior, puede ser que el sintetizador que lleva a cabo la grabación no capture la señal de salida del sintetizador de efectos, ya que se encuentra después sen el orden de nodos.</p>
+<p class="p2"><br></p>
+<p class="p4">En este caso, un mejor método sería crear un grupo dentro del grupo por defecto y colocar al sintetizador de efectos después de él.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>default group [</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>source group [</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sintetizador fuente 1</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sintetizador fuente 2</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>]</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>sintetizador de efectos</b></p>
+<p class="p4"><b>]</b></p>
+<p class="p4"><b>sintetizador grabador</b></p>
+<p class="p2"><br></p>
+<p class="p4">Ver también: <b>RootNode, NodeMessaging </b>y <b>Order-of-execution</b></p>
+<p class="p2"><br></p>
+</body>
+</html>

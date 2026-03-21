@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #723423}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0031e5; min-height: 14.0px}
+span.s1 {color: #000000}
+span.s2 {text-decoration: underline}
+span.s3 {color: #0031e5}
+span.s4 {color: #052ba4}
+span.s5 {color: #57682e}
+span.s6 {color: #723423}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Funciones</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1"><b>Ver también: </b><a href="../Core/Kernel/Function.html"><span class="s2">Function</span></a>, <a href="../Core/Kernel/AbstractFunction.html"><span class="s2">AbstractFunction</span></a>, <a href="../Core/Kernel/FunctionDef.html"><span class="s2">FunctionDef</span></a></span></p>
+<p class="p2"><br></p>
+<p class="p4">Una Función (<a href="../Core/Kernel/Function.html"><span class="s3">Function</span></a>) es una expresión que define operaciones a ser realizadas cuando el mensaje 'value' sea enviado. En lenguajes funcionales, una funciónn sería conocida como una expresión lambda. Las definiciones de función están encerradas dentro de llaves {}. Las declaraciones de argumentos, si las hay, siguen de la llave abierta. Las declaraciones de variables siguen después de las declaraciones de argumentos. Una expresión sigue a las declaraciones.</p>
+<p class="p2"><br></p>
+<p class="p5">{ <span class="s4">arg</span> a, b, c;<span class="Apple-converted-space">  </span><span class="s4">var</span> d; <span class="Apple-converted-space">  </span>d = a * b; c + d }</p>
+<p class="p2"><br></p>
+<p class="p4">Las funciones no son evaluadas inmediatamente cuando ocurren en el código, sino que son pasadas como valores justo como enteros o cadenas (strings).</p>
+<p class="p2"><br></p>
+<p class="p4">Una función puede ser evaluada al pasarle el mensaje value y una lista de argumentos.</p>
+<p class="p2"><br></p>
+<p class="p4">Al ser evaluada, la función devuelve el valor de su expresión.</p>
+<p class="p2"><br></p>
+<p class="p5">f = { <span class="s4">arg</span> a, b; a + b };</p>
+<p class="p5">f.value(4, 5).postln;</p>
+<p class="p5">f.value(10, 200).postln;</p>
+<p class="p6"><br></p>
+<p class="p4">Una función vacía devuelve el valor nil al ser evaluada.</p>
+<p class="p6"><br></p>
+<p class="p5">{}.value.postln;</p>
+<p class="p6"><br></p>
+<p class="p4">Una función puede ser pensada como una máquina capaz de realizar una tarea bajo demanda, e.g. una calculadora. La calculadora puede recibir una entrada (argumentos) y puede sacar un valor, el resultado de las operaciones realizadas. La definición de la función puede ser entonces pensada como la construcción de la calculadora: una vez construida, la calculadora no hace nada hasta que un usuario le pide trabajar ( al pasarle el método value a la función ).</p>
+<p class="p4">La<span class="Apple-converted-space">  </span>siguiente<span class="Apple-converted-space">  </span>figura representa una función vacía, entrada sin salida, salida sin entrada, y el caso general con entrada y salida.</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b><img src="attachments/Funciones/functions.png" alt="attachments/Funciones/functions.png"></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Functions</b></p>
+<p class="p6"><br></p>
+<p class="p7"><b>Argumentos</b></p>
+<p class="p2"><br></p>
+<p class="p4">Una lista de argumentos sigue inmediatamente de la llave abierta de una definición de función. Una lista de argumentos empieza con la palabra reservada <b>arg</b>, o esta contenida entre dos barras verticales. Si una función no toma argumentos, entonces la lista de argumentos puede ser omitida.</p>
+<p class="p2"><br></p>
+<p class="p4">Los nombres de los argumentos en la lista pueden ser inicializados a un valor por defecto al usar un signo de igual. Los argumentos que no sean explícitamente inicializados serán fijados a nil si no se les pasa ningún valor.</p>
+<p class="p2"><br></p>
+<p class="p4">Si el último argumento de la lista es precedido por tres puntos (una ellipsis), entonces todos los argumentos restantes que fueron pasados serán asignados a esa variable como un Array. Los argumentos deberán estar separados por comas.</p>
+<p class="p2"><br></p>
+<p class="p4">ejemplos:</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s4">arg</span><span class="s1"> a, b, c=3; </span>// es equivalente a:</p>
+<p class="p9"><br></p>
+<p class="p5">|a, b, c=3|</p>
+<p class="p9"><br></p>
+<p class="p8"><span class="s4">arg</span><span class="s1"> x=</span><span class="s5">'stop'</span><span class="s1">, y, z=0; </span>// estos argumentos están inicializados</p>
+<p class="p9"><br></p>
+<p class="p8"><span class="s4">arg</span><span class="s1"> a, b, c ... d; </span>// cualquier argumento después de los primeros tres serán asignados a d como un Array</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Si quieres a todos los argumentos puestos en un Array.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s4">arg</span> ... z;</p>
+<p class="p6"><br></p>
+<p class="p4">En general los argumentos pueden ser inicializados a literales o expresiones, pero en el caso de Function-play o SynthDef-play, solo podrán ser inicializados a literales.</p>
+<p class="p2"><br></p>
+<p class="p8">// esto esta bien:</p>
+<p class="p9"><br></p>
+<p class="p5">{<span class="s4">arg</span> a = <span class="s4">Array</span>.geom(4, 100, 3); a * 4 }.value;</p>
+<p class="p9"><br></p>
+<p class="p8">// esto no:</p>
+<p class="p9"><br></p>
+<p class="p5">{<span class="s4">arg</span> freq = <span class="s4">Array</span>.geom(4, 100, 3); <span class="s4">Mix</span>(<span class="s4">SinOsc</span>.ar(freq, 0, 0.1)) }.play; <span class="s6">// silencio</span></p>
+<p class="p9"><br></p>
+<p class="p8">// pero esto si:</p>
+<p class="p5">(</p>
+<p class="p5"><span class="s4">SynthDef</span>(<span class="s5">\freqs</span>, { <span class="s4">arg</span> freq = #[ 100, 300, 900, 2700 ];<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>Out.ar(0, <span class="s4">Mix</span>(<span class="s4">SinOsc</span>.ar(freq, 0, 0.1)));</p>
+<p class="p5">}).play;</p>
+<p class="p5">)</p>
+<p class="p2"><br></p>
+<p class="p4">Ver <a href="Literals.html"><span class="s3">Literals</span></a> para mayor información.</p>
+<p class="p2"><br></p>
+<p class="p7"><b>Variables</b></p>
+<p class="p2"><br></p>
+<p class="p4">Following the argument declarations are the variable declarations. These may be declared in any order. Variable lists are preceeded by the reserved word <b>var</b>. There can be multiple var declaration lists if necessary. Variables may be initialized to default values in the same way as arguments. Variable declarations lists may not contain an ellipsis.</p>
+<p class="p2"><br></p>
+<p class="p4">Después de las declaraciones de los argumentos siguen las definiciones de las variables. Estas pueden estar declaradas en cualquier orden. Las listas de variables están precedidas de la palabra reservada <b>var</b>. Pueden haber múltples listas de declaración de variables si es necesario. Las variables pueden ser inicializadas a valores por defecto del mismo modo que los argumentos. Las listas de declaración de variables no pueden contener una ellipsis.</p>
+<p class="p2"><br></p>
+<p class="p4">ejemplos:</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s4">var</span> nivel=0, pendiente=1, curva=1;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p10"><br></p>
+</body>
+</html>

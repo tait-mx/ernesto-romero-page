@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.35">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025b2}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025b2; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316; min-height: 12.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #bf0000}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #0025b2}
+span.s2 {color: #000000}
+span.s3 {color: #606060}
+span.s4 {color: #416d1f}
+span.s5 {font: 12.0px Helvetica}
+span.s6 {color: #0000bf}
+span.s7 {color: #007300}
+span.s8 {color: #982316}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1">Evaluar:</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">SynthDescLib</span>.global.read;</p>
+<p class="p1"><span class="s1">SynthDescLib</span>.global.browse;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">y examinar la caja que enlista los controles para cada sinte.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><b></b><br></p>
+<p class="p5"><b>Los controles (usualmente) son argumentos</b></p>
+<p class="p2"><br></p>
+<p class="p1">Use controles, que usualmente se definen como argumentos a una ugenGraphFunc (función de gráfica de<span class="Apple-converted-space">  </span>ugen), ya sea cuando es creada y/o después de que está corriendo. Suministrar valores predeterminados a los argumentos para que el código sea más legible y para protegerlo contra error de usuario (como olvidar suministrar un valor para el argumento).</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p3">// 3 argumentos (controles) con valores predeterminados</p>
+<p class="p6">SynthDef<span class="s2">(</span></p>
+<p class="p7"><span class="s2"><span class="Apple-tab-span">	</span></span>"conControles"<span class="s2">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>{ <span class="s1">arg</span> freq = 440, beatFreq = 1, mul = 0.22;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([freq, freq+beatFreq], 0, mul)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p3">// artículos en el arreglo son pasados a los controles en un Sinte cuando es creado.<span class="Apple-converted-space"> </span></p>
+<p class="p1">z = <span class="s1">Synth</span>(<span class="s3">"conControles"</span>, [<span class="s4">\freq</span>, 440, <span class="s4">\beatFreq</span>, 1, <span class="s4">\mul</span>, 0.1]);</p>
+<p class="p2"><br></p>
+<p class="p3">// evaluar esta línea después de que el sinte esté corriendo para restaurar sus controles</p>
+<p class="p1">z.set(<span class="s4">\freq</span>, 700, <span class="s4">\beatFreq</span>, 2, <span class="s4">\mul</span>, 0.2);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1">Escribir los nombres de los controles y los valores apropiados en el arreglo dado como argumento a un sinte. Los nombres de control pueden ser dados como símbolos (que son nombrés únicos dentro del sistema de SuperCollider).</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Synth</span>(<span class="s3">"conControles"</span>, [<span class="s4">\freq</span>, 440, \beatFreq, 0.5, <span class="s4">\mul</span>, 0.1]);</p>
+<p class="p2"><br></p>
+<p class="p1">o como 'cuerdas' (un arreglo de caracteres)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Synth</span>(<span class="s3">"conControles"</span>, [<span class="s4">"freq"</span>, 440, "beatFreq", 0.5, <span class="s4">"mul"</span>, 0.1]);</p>
+<p class="p2"><br></p>
+<p class="p1">De cualquier manera, el patrón es</p>
+<p class="p2"><br></p>
+<p class="p1">[ nombreDeControl, valor, nombreDeControl, valor, nombreDeControl, valor].</p>
+<p class="p2"><br></p>
+<p class="p1">Ver los archivos para <span class="s5"><b>Symbol</b></span> y <span class="s5"><b>String</b></span> en el sistema de ayuda de SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1">Una tercera manera de pasar controles a un sinte:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s1">Synth</span>(<span class="s3">"conControles"</span>, [0, 440, 1, 1, 2, 0.1]);</p>
+<p class="p2"><br></p>
+<p class="p1">En este caso, el patrón es</p>
+<p class="p2"><br></p>
+<p class="p1">[ índiceDeControl, valor, índiceDeControl, valor, índiceDeControl].</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Para ajustar un control</b></p>
+<p class="p2"><br></p>
+<p class="p1">Use el mensaje .set para cambiar el valor de un control mientras el sinte esté corriendo.</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s3">"restauraMisControles"</span>, { <span class="s1">arg</span> freq = 440, mul = 0.22;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([freq, freq+1], 0, mul)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p1">)</p>
+<p class="p8"><br></p>
+<p class="p9">~unSinte = <span class="s6">Synth</span>(<span class="s3">"restauraMisControles"</span>, [<span class="s7">\freq</span>, 440, <span class="s7">\mul</span>, 0.06]);</p>
+<p class="p9">~<span class="s2">unSinte</span>.set(<span class="s7">\freq</span>, 600, <span class="s7">\mul</span>, 0.25);</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p5"><b>Variables globales</b></p>
+<p class="p2"><br></p>
+<p class="p1">En el ejemplo previo, el caracter '~' antes de unSinte define una variable global. Una ventaja de usar una variable global es que no es necesario haberla declarado explícitamente, como en</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">var</span><span class="s2"> aSynth; </span>// variables sin el '~' DEBEN ser declaradas primero!!</p>
+<p class="p2"><br></p>
+<p class="p1">Más precisamente, el caracter ~ pone una variable llamada unSinte dentro de una instancia de un objecto conocido como currentEnvironment ('ambienteActual). Para mayor información, ver el documento <span class="s5"><b>Environment</b></span> en el sistema de ayuda de SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p5"><b>Tiempos de demora</b></p>
+<p class="p2"><br></p>
+<p class="p1">Use un arreglo de tiempos de demora para exponer que tanto toma deslizarse suavemente de un valor de control a otro. Escriba los tiempos de demora en un arreglo y colóquelo en el synthdef después del ugenGraphFunc, como por ejemplo</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s3">"controlConDemoras"</span>, { <span class="s1">arg</span> freq1 = 440, freq2 = 443, mul = 0.12;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([freq1, freq2], 0, mul)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}, [4, 5]).load(s);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p9">~unSinte = <span class="s6">Synth</span>(<span class="s3">"controlConDemoras"</span>, [<span class="s7">\freq1</span>, 550, <span class="s7">\freq2</span>, 344, <span class="s7">\mul</span>, 0.1]);</p>
+<p class="p9">~unSinte.set(<span class="s7">\freq1</span>, 600, <span class="s7">\freq2</span>, 701, <span class="s7">\mul</span>, 0.05);</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p10"><br></p>
+<p class="p5"><b>Plantillas de SynthDefs</b></p>
+<p class="p2"><br></p>
+<p class="p1">El arreglo de tiempos de demoras implica que la plantilla de synthdef con dos componentes (discutido en <span class="s5"><b>3_SynthDefs</b></span>)</p>
+<p class="p10"><br></p>
+<p class="p3">// una plantilla para un synthdef con dos componentes</p>
+<p class="p6">SynthDef<span class="s2">(</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s3">"aSinte"</span><span class="s2">,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// primer argumento es un nombre</p>
+<p class="p1"><span class="Apple-tab-span">	</span>{ ... soy una funciónDeGráficaDeUgen ... }<span class="Apple-tab-span">	</span><span class="s8">// segundo argumento es una ugenGraphFunc</span></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">puede ser revisada para incluir tres componentes.</p>
+<p class="p2"><br></p>
+<p class="p3">// una plantilla redefinida para un synthdef con un arreglo de tiempos de demora</p>
+<p class="p3">// la definición de clase para el arreglo de tiempos de demora los llama 'velocidades' ('rates')</p>
+<p class="p6">SynthDef<span class="s2">(</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s3">"unSinte"</span>,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">// nombre<span class="Apple-tab-span">	</span></span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>{ ... soy una funciónDeGráficaDeUgen ... },<span class="Apple-tab-span">	</span><span class="s8">// ugenGraphFunc</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>[ ... tiemposDeDemora ... ]<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">// velocidades</span></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p10"><br></p>
+<p class="p12">ir a <b>7_funciones_de_prueba</b></p>
+</body>
+</html>

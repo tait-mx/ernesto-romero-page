@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.35">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025b2; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025b2}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #0025b2}
+span.s2 {color: #000000}
+span.s3 {color: #606060}
+span.s4 {color: #416d1f}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Filtraje</b></p>
+<p class="p2"><br></p>
+<p class="p3">La idea básica de la síntesis substractiva es similar a preparar café: algo pasa a través de un filtro para remover componentes no deseados al producto final.</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>El mensaje .dumpClassSubtree</b></p>
+<p class="p2"><br></p>
+<p class="p3">Obtenga una lista de ugens de filtros en SuperCollider mandando el mensaje .dumpClassSubTree (volcar el sub-árbol de la clase) a la clase Filter, tal como</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Filter</span>.dumpClassSubtree;</p>
+<p class="p2"><br></p>
+<p class="p3">(<span class="s1">Object</span>.dumpClassSubtree prints all SuperCollider classes)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">La lista de filtros, a partir del 06.06.09 incluye:</p>
+<p class="p2"><br></p>
+<p class="p3">Filter</p>
+<p class="p3">[</p>
+<p class="p3"><span class="Apple-converted-space">  </span>BPF</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ BRF ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>LPF</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ HPF ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>InsideOut</p>
+<p class="p3"><span class="Apple-converted-space">  </span>LPZ2</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ HPZ2 BPZ2 BRZ2 ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>LagUD</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ Lag2UD Lag3UD ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Decay2</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Decay</p>
+<p class="p3"><span class="Apple-converted-space">  </span>OnePole</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ OneZero ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Resonz</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Friction</p>
+<p class="p3"><span class="Apple-converted-space">  </span>MoogFF</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Median</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Integrator</p>
+<p class="p3"><span class="Apple-converted-space">  </span>DetectSilence</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Lag</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ Ramp Lag3 Lag2 ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>LPZ1</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ HPZ1 ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Ringz</p>
+<p class="p3"><span class="Apple-converted-space">  </span>WaveLoss</p>
+<p class="p3"><span class="Apple-converted-space">  </span>FOS</p>
+<p class="p3"><span class="Apple-converted-space">  </span>RLPF</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ RHPF ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>MeanTriggered</p>
+<p class="p3"><span class="Apple-converted-space">  </span>MedianTriggered</p>
+<p class="p3"><span class="Apple-converted-space">  </span>MidEQ</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Slew</p>
+<p class="p3"><span class="Apple-converted-space">  </span>LeakDC</p>
+<p class="p3"><span class="Apple-converted-space">  </span>TwoPole</p>
+<p class="p3"><span class="Apple-converted-space">    </span>[ TwoZero APF ]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>BEQSuite</p>
+<p class="p3"><span class="Apple-converted-space">  </span>[</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BBandStop</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BHiPass</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BLowShelf</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BPeakEQ</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BAllPass</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BHiShelf</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BBandPass</p>
+<p class="p3"><span class="Apple-converted-space">    </span>BLowPass</p>
+<p class="p3"><span class="Apple-converted-space">  </span>]</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Slope</p>
+<p class="p3"><span class="Apple-converted-space">  </span>Formlet</p>
+<p class="p3"><span class="Apple-converted-space">  </span>SOS</p>
+<p class="p3">]</p>
+<p class="p2"><br></p>
+<p class="p3">Buscar en Help/UGens/Filters en el sistema de ayuda de SuperCollider para ver las páginas de ayuda de los filtros junto con numerosos ejemplos.</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p5"><br></p>
+<p class="p3">Use un LPF, un filtro pasa bajas para substraer el contenido de alta frecuencia a una fuente de entrada.</p>
+<p class="p5"><br></p>
+<p class="p6">(</p>
+<p class="p7"><span class="s1">SynthDef</span><span class="s2">(</span>"substractivo"<span class="s2">, {</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">LPF</span>.ar(</p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">Pulse</span><span class="s2">.ar(440, 0.5, 0.1),<span class="Apple-tab-span">	</span></span>// la fuente a ser filtrada</p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">Line</span><span class="s2">.kr(8000, 660, 6)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// controlar la frecuencia del filtro con una línea</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p6">)</p>
+<p class="p5"><br></p>
+<p class="p7"><span class="s1">Synth("</span>substractivo<span class="s1">")</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">RLPF, un filtro pasa bajas resonante, remueve contenido de alta frecuencia y enfatiza la frecuencia de corte.</p>
+<p class="p5"><br></p>
+<p class="p6">(</p>
+<p class="p7"><span class="s1">SynthDef</span><span class="s2">(</span>"pasaFrecsGraves"<span class="s2">, {</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">RLPF</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Saw</span>.ar([220, 221] + LFNoise0.kr(1, 100, 200), 0.2),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[<span class="s1">LFNoise0</span>.kr(4, 600, 2400), <span class="s1">LFNoise0</span>.kr(3, 600, 2400)],</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.1</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s1">Synth</span><span class="s2">(</span>"pasaFrecsGraves"<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Resonz es un filtro muy muy muy fuerte. Usar para enfatizar una banda de frecuencias.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Transformar ruido en altura con una frecuencia de corte brusca.</p>
+<p class="p2"><br></p>
+<p class="p6">(</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s3">"ruidoHaciaAltura"</span>, { <span class="s1">arg</span> out = 0, mul = 1;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>out,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Resonz</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">WhiteNoise</span>.ar(mul),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">LFNoise0</span>.kr(4, 110, 660),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[0.005, 0.005]</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p6">(</p>
+<p class="p4">// activar el canal izquierdo y el derecho</p>
+<p class="p7"><span class="s1">Synth</span><span class="s2">(</span>"ruidoHaciaAltura"<span class="s2">, [</span><span class="s4">\out</span><span class="s2">, 0, </span><span class="s4">\mul</span><span class="s2">, 1]);</span></p>
+<p class="p7"><span class="s1">Synth</span><span class="s2">(</span>"ruidoHaciaAltura"<span class="s2">, [</span><span class="s4">\out</span><span class="s2">, 1, </span><span class="s4">\mul</span><span class="s2">, 1]);</span></p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p8"><br></p>
+<p class="p9">ir a <b>11_Síntesis_compuesta</b></p>
+</body>
+</html>

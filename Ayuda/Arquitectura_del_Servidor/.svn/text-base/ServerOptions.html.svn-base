@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0021e7}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica; color: #0021e7; min-height: 14.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica}
+p.p11 {margin: 0.0px 0.0px 0.0px 85.0px; text-indent: -85.0px; font: 12.0px Helvetica}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #9d1c12}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0026b4}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #2762d8}
+span.s3 {color: #000000}
+span.s4 {text-decoration: underline}
+span.s5 {font: 9.0px Monaco}
+span.s6 {color: #0026b4}
+span.s7 {color: #606060}
+span.s8 {color: #3d6d1d}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>ServerOptions<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>encapsula las opciones (de línea de comandos y otras) de un Server<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>Hereda de: </b><a href="../Core/Object.html"><span class="s2"><b>Object</b></span></a></p>
+<p class="p3"><br></p>
+<p class="p1">ServerOptions encapsula varias opciones para una aplicación servidor dentro dentro de un objeto Server. Esto hace a ServerOptions conveniente para arrancar múltiples servidores con las mismas opciones o para archivar conjuntos de opciones diferentes, etc. Cada <a href="Server.html"><span class="s2">Server</span></a><span class="s2"> </span>tiene una instancia de ServerOptions hecha para él si ninguna instancia le es enviada, a través de su argumento <b>options,<span class="Apple-converted-space"> </span></b> al momento de ser creado. (Este es el caso, por ejemplo, de los Servers local e internal, los cuales son creados al arrancar).</p>
+<p class="p2"><br></p>
+<p class="p1">La instancia de ServerOptions de un Server es guardada en su variable de instancia <b>options</b>, la cual puede ser accesada a través de sus correspondientes métodos "getter" y "setter".</p>
+<p class="p2"><br></p>
+<p class="p1"><b>N.B. </b>Las variables de instancia de una instancia de ServerOptions son traducidas a argumentos de línea de comando cuando una aplicación servidor es arrancada. Por lo que un Server que esté corriendo deberá ser reiniciado antes de que los cambios tomen efecto. También hay unas cuantas opciones de línea de comandos que no están actualmente encapsuladas en ServerOptions. Ver <a href="Server-Architecture.html"><span class="s2">Server-Architecture</span></a> para más detalles.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3"><b>Ver también:</b> <a href="Server.html"><span class="s4">Server</span></a>, <a href="Server-Architecture.html"><span class="s4">Server-Architecture</span></a> y <a href="Server-Command-Reference.html"><span class="s4">Server-Command-Reference</span></a>.</span></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Creación / Métodos de Clase</b></p>
+<p class="p6"><br></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>*new</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Crea y devuelve una nueva instancia de ServerOptions.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>*devices</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve un Arreglo de Cadenas de Caracteres ("String") enlistando los dispositivos de audio actualmente disponibles en el sistema.</p>
+<p class="p9"><a href="../Collections/Array.html"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></a></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>*inDevices</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve un Arreglo de Cadenas de Caracteres enlistando los dispositivos de audio actualmente disponibles en el sistema que cuentan con canales de entrada.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>*outDevices</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve un Arreglo de Cadenas de Caracteres enlistando los dispositivos de audio actualmente disponibles en el sistema que cuentan con canales de salida.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><br></p>
+<p class="p10"><b>Accesando las Variables de Instancia y de Clase (Las Opciones)</b></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>blockSize_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>blockSize</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número de muestras digitales en un periodo de control. El valor por defecto es 64.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>device_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>device</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una Cadena de Caracteres que te permite escoger un dispositivo de audio para usar como entrada y salida. El valor por defecto, nil, utilizará el dispositivo de entrada y salida por defecto del sistema (hay más información disponible abajo en los ejemplos).</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>inDevice_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>inDevice</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una Cadena de Caracteres que te permite escoger un dispositivo de entrada de audio. El valor por defecto, nil, utilizará el dispositivo de entrada por defecto del sistema.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>outDevice_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>outDevice</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una Cadena de Caracteres que te permite escoger un dispositivo de salida de audio. El valor por defecto, nil, utilizará el dispositivo de salida por defecto del sistema.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><b>hardwareBufferSize_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>hardwareBufferSize</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El tamaño de buffer del hardware preferido. Si no es nil, la aplicación servidor intentará fijar el tamaño de cuadro del buffer del hardware. No todos los tamaños son válidos. Ver la documentación de tu hardware de audio para los detalles. El valor por defecto es nil.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>initialNodeID_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>initialNodeID</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Por defecto, el objeto Server en el cliente empieza a asignar IDs de nodo a partir del número 1000, reservando los números 0-999 par nodos "permanentes". Aquí puedes cambiar ese valor por defecto.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>inputStreamsEnabled_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>inputStreamsEnabled</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una Cadena de Caracteres que permite apagar los flujos de entrada que no te interesan en un dispositivo de audio. Si la Cadena de Caracteres es "01100", por ejemplo, entonces sólo el segundo y el tercer flujo de entrada en el dispositivo serán habilitados. Apagar flujos puede reducir la carga del CPU. El valor por defecto es nil.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>loadDefs_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>loadDefs</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Un Booleano (<a href="../Core/Boolean.html"><span class="s2">Boolean</span></a>) indicando si cargar o no las definiciones de synth (SynthDefs) en la carpeta synthdefs/ (o en cualquier lugar especificado en la variable de entorno SC_SYNTHDEF_PATH) al arrancar. El valor por defecto es true.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>maxNodes_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>maxNodes</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número máximo de nodos. El valor por defecto es 1024.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><b>maxSynthDefs_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>maxSynthDefs</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número máximo de SynthDefs. El valor por defecto es 1024.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>memSize_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>memSize</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número de kilobytes de memoria en tiempo real asignada al servidor. Esta memoria es usada para asignar synths y la memoria que las unidades generadoras asignen por su cuenta (por ejemplo, en el caso de las unidades generadoras de retraso ("delays") que no utilizan buffers, como <a href="../UGens/Delays/CombN.html"><span class="s2">CombN</span></a>), y es distinta de la memoria utilizada para buffers. Colocar un valor muy pequeño es una causa común de los errores 'exception in real time: alloc failed'. El valor por defecto es 8192.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numAudioBusChannels_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numAudioBusChannels</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número de canales de audio, los cuales incluyen los canales de entrada y de salida. El valor por defecto es 128.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><b>numBuffers_ (argNumBuffers)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numBuffers</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>El número de buffers de muestras globales disponible.<b> (</b>Ver <a href="Buffer.html"><span class="s2">Buffer</span></a>.) El valor por defecto es 1024.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numControlBusChannels_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numControlBusChannels</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número de canales de control. El valor por defecto es 4096.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numInputBusChannels_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numInputBusChannels</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número de canales de entrada de audio. Esto no tiene que corresponder con las entradas de audio del hardware. El valor por defecto es 8.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><b>numOutputBusChannels_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numOutputBusChannels</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número de canales de salida de audio. Esto no tiene que corresponder con las salidas de audio del hardware (esto puede ser útil, por ejemplo, al hacer grabaciones). El valor por defecto es 8.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numRGens_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numRGens</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El número de generadores de números aleatorios a los que se les puede colocar una semilla. El valor por defecto es 64.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numWireBufs_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>numWireBufs</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El máximo número de buffers que son asignados para interconectar unidades generadoras. (No confunidr con los buffers globales de audio representados por Buffer). Esto fija el límite de complejidad de los SynthDefs que pueden ser cargados durante el tiempo de ejecución. Este valor será automáticamente incrementado si un SynthDef más complejo es cargado al arrancar, pero no puede ser incrementado sin rearrancar el servidor. El valor por defecto es 64.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><b>outputStreamsEnabled_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>outputStreamsEnabled</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una Cadena de Caracteres que permite apagar los flujos de salida que no te interesen en un dispositivo de audio. Si la Cadena de Caracteres es "11000", por ejemplo, entonces sólo el primero y el segundo flujo de salida en el dispositivo serán habilitados. Apagar flujos puede reducir la carga del CPU.<span class="Apple-converted-space"> </span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>protocol_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>protocol</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Un Símbolo representando al protocolo de comunicación. Ya sea \udp o \tcp. El valor por defecto es udp.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>remoteControlVolume_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>remoteControlVolume</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Un Booleano (<a href="../Core/Boolean.html"><span class="s2">Boolean</span></a>) indicando si el servidor debe permitir que su volumen sea definido remotamente. El valor por defecto es false ("falso").</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>sampleRate_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>sampleRate</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>La frecuencia de muestreo. Si no es nil, la aplicación servidor intentará fijar la frecuencia de muestreo del hardware. El hardware tiene que dar soporte a la frecuencia de muestreo que escojas.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>verbosity_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>verbosity</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Controla la verbosidad de los mensajes del servidor. Un valor de 0 es el comportamiento normal, -1 suprime los mensajes informativos y -2 surprime los mensajes informativos y muchos mensajes de error. El valor por defecto es 0.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>zeroConf_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>zeroConf</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Un Booleano (<a href="../Core/Boolean.html"><span class="s2">Boolean</span></a>) indicando si el servidor debe publicar su puerto utilizando "Zero Configuration Networking" para facilitar la interacción en red. Su valor por defecto es true ("cierto"); si encuentras retrasos inaceptables al arrancar el servidor, puedes intentar asignarle false ("false") como valor.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>restrictedPaths_(arg1)</b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>restrictedPaths</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Permite restringir las rutas del sistema en las cuales scsynth puede leer/escribir al estar corriendo. Un valor de nil (el valor por defecto) significa que no hay ninguna restricción. De otra modo, fíjalo como una Cadena de Caracteres que represente una sola ruta.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><b>Métodos de Instancia</b></p>
+<p class="p8"><br></p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span>asOptionsString (port)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve una Cadena de Caracteres que especifica las opciones en el formato requerido por la aplicación de línea de comando scsynth.</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>port </b>- El número de puerto de la aplicación server resultante. El valor por defecto es 57110.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span></span><b>firstPrivateBus</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p7"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve el índice del primer canal de audio del servidor que no es utilizado por las entradas y las salidas de hardware.</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p10"><b>Ejemplos</b></p>
+<p class="p3"><br></p>
+<p class="p12">// Obtén las opciones del servidor local</p>
+<p class="p3"><br></p>
+<p class="p13">o = <span class="s6">Server</span>.local.options;</p>
+<p class="p3"><br></p>
+<p class="p12">// Imprime el número de canales de salida</p>
+<p class="p3"><br></p>
+<p class="p13">o.numOutputBusChannels.postln;</p>
+<p class="p3"><br></p>
+<p class="p12">// Cámbialo a un nuevo número</p>
+<p class="p3"><br></p>
+<p class="p12"><span class="s3">o.numOutputBusChannels = 6; </span>// La siguiente vez que arranque, esto va a tomar efecto</p>
+<p class="p3"><br></p>
+<p class="p12">// especifica un dispositivo</p>
+<p class="p3"><br></p>
+<p class="p12"><span class="s3">o.device =</span><span class="s7">"MOTU Traveler"</span><span class="s3">; <span class="Apple-tab-span">	</span></span>// utiliza una tarjeta de audio específica</p>
+<p class="p12"><span class="s3">o.device = </span><span class="s6">nil</span><span class="s3">;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// utiliza la tarjeta de audio por defecto del sistema</p>
+<p class="p3"><br></p>
+<p class="p12">// Crea una nueva instancia de ServerOptions</p>
+<p class="p3"><br></p>
+<p class="p14"><span class="s3">o = </span>ServerOptions<span class="s3">.new;</span></p>
+<p class="p3"><br></p>
+<p class="p12">// Cambia el tamaño de la memoria al doble del tamaño por defecto</p>
+<p class="p3"><br></p>
+<p class="p13">o.memSize = 4096;</p>
+<p class="p3"><br></p>
+<p class="p12">// Crea un nuevo Server en la máquina local utilizando la variable o para sus opciones</p>
+<p class="p3"><br></p>
+<p class="p13">t = <span class="s6">Server</span>(<span class="s8">\Local2</span>, <span class="s6">NetAddr</span>(<span class="s7">"127.0.0.1"</span>, 57111), o);</p>
+<p class="p13">t.makeWindow;</p>
+<p class="p13">t.boot;</p>
+<p class="p13">t.quit;</p>
+<p class="p3"><br></p>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #7e2216}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0f32ae}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #526a25}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #0f32ae}
+span.s2 {text-decoration: underline ; color: #0f32ae}
+span.s3 {color: #000000}
+span.s4 {color: #7e2216}
+span.s5 {color: #526a25}
+span.s6 {color: #606060}
+span.s7 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Patrones de repetición y restricción</b></p>
+<p class="p2"><br></p>
+<p class="p3">Estos son esencialmente patrones de control de flujo. Cada uno toma un patrón fuente y ya sea que repita valores de él o se detenga temprano basado en una restricción predeterminada.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Patrones de repetición</b></p>
+<p class="p2"><br></p>
+<p class="p3">Estos patrones permiten la repetición de valores sencillos o (en el caso de Pn) patrones enteros.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pclutch(patrón, conectado):</b> Si el patrón 'conectado' es verdadero (true), Pclutch retorna el siguiente valore de 'patrón'. Si 'conectado' es falso, el valor previo del patrón es repetido. Es como el clutch de un coche: cuando está activado, el patrón se mueve adelante; cuando está desconectado, se mantiene donde está.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pn(patrón, repeticiones):</b> Incrusta el patrón fuente un número 'repeticiones' de veces. También funciona con valores individuales: Pn(1, 5) produce el número 1 cinco veces.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pstutter(n, patrón):</b> 'n' y 'patrón' son ambos patrones. Cada valor de 'patrón' es repetido 'n' veces. Si 'n' es un patrón, cada valor puede ser repetido un número diferente de veces.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>PdurStutter(n, patrón):</b> Como Pstutter, excepto que el patrón de valores es dividido por el número de repeticiones (de tal manera que el tiempo total para un ciclo repetido es el valor de duración proveniente del patrón fuente).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Ver también <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pstep.html"><span class="s1">Pstep</span></a>, descrita en <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/A Practical Guide/PG_06b_Time_Based_Patterns.html"><span class="s2">GP_06b_Patrones basados en T</span></a><span class="s2">iempo</span>. Pstep se puede usar como <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pstutter.html"><span class="s1">Pstutter</span></a>, pero la repetición es controlada por tiempo en lugar de repeticiones de cada elemento.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">// toca notas repetidos con diferente valor rítmico cada nueva altura</p>
+<p class="p5">// usando Pstutter</p>
+<p class="p6">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// haciendo 'n' un flujo separado para que dur y degree lo compartan</p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span></span><span class="s5">\n</span>, <span class="s1">Pwhite</span>(3, 10, <span class="s1">inf</span>),</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s5">\degree</span><span class="s3">, </span>Pstutter<span class="s3">(</span>Pkey<span class="s3">(</span><span class="s5">\n</span><span class="s3">), </span>Pwhite<span class="s3">(-4, 11, </span>inf<span class="s3">)),</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, <span class="s1">Pstutter</span>(<span class="s1">Pkey</span>(<span class="s5">\n</span>), <span class="s1">Pwhite</span>(0.1, 0.4, <span class="s1">inf</span>)),</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>\legato<span class="s3">, 0.3</span></p>
+<p class="p6">).play;</p>
+<p class="p9"><br></p>
+<p class="p6">p.stop;</p>
+<p class="p9"><br></p>
+<p class="p9"><br></p>
+<p class="p5">// usando Pfin / Pn</p>
+<p class="p5">// Pn del Pbind un bucle infinito</p>
+<p class="p5">// Plazy construye un nuevo Pbind para cada iteración</p>
+<p class="p5">// Pfin corta de tajo el Pbind cuando es tiempo de un valor nuevo</p>
+<p class="p9"><br></p>
+<p class="p6">p = <span class="s1">Pn</span>(</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>Plazy<span class="s3"> {</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s3">(</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s1">Pfin</span>(rrand(3, 10), rrand(-4, 11)),</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, rrand(0.1, 0.4)<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p6"><span class="Apple-tab-span">	</span>},</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>inf</p>
+<p class="p6">).play;</p>
+<p class="p9"><br></p>
+<p class="p6">p.stop;</p>
+<p class="p9"><br></p>
+<p class="p9"><br></p>
+<p class="p5">// usando Pclutch</p>
+<p class="p5">// la regla es: cuando un grado cambia, la duración también debe cambiar</p>
+<p class="p5">// si Pdiff retorna 0, el grado no ha cambiado, entonces,</p>
+<p class="p5">// los valores no cero del Pdiff "conectan" el clutch y permiten la generación de una nueva dur<span class="Apple-converted-space"> </span></p>
+<p class="p5">// de lo contrario, la vieja dur se mantiene</p>
+<p class="p6">p = <span class="s1">Pbind</span>(</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s1">Pstutter</span>(<span class="s1">Pwhite</span>(3, 10, <span class="s1">inf</span>), <span class="s1">Pwhite</span>(-4, 11, <span class="s1">inf</span>)),</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, <span class="s1">Pclutch</span>(<span class="s1">Pwhite</span>(0.1, 0.4, <span class="s1">inf</span>), <span class="s1">Pdiff</span>(<span class="s1">Pkey</span>(<span class="s5">\degree</span>)).abs &gt; 0),</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>\legato<span class="s3">, 0.3</span></p>
+<p class="p6">).play;</p>
+<p class="p9"><br></p>
+<p class="p6">p.stop;</p>
+<p class="p9"><br></p>
+<p class="p10"><br></p>
+<p class="p4"><b>Patrones de restricción (o interrupción)</b></p>
+<p class="p2"><br></p>
+<p class="p3">En lugar de prolongar un flujo por repetición, estos patrones usan diferentes métodos para detener dinámicamente un flujo. Son especialmente útiles para modularizar la construcción de patrones. Una sección de nuestro código puede ser responsable de la generación de patrones numéricos o de eventos. Mediante los patrones de restricción, esa parte del código no tiene que saber cuántos eventos o qué tanto tiempo tocar, pueden simplemente retornar patrones infinitos que serán envueltos, en otra parte del código, por estos patrones, que determinarán según condiciones apropiadas su detención.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfin(cuenta, patrón): </b>Retorna exactamente 'cuenta' valores del patrón fuente y luego se detiene.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pconst(suma, patrón, tolerancia):</b> Produce números hasta que la suma alcance un número predefinido. El último valor producido es ajustado para dar exactamente la suma.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfindur(dur, patrón, tolerancia):</b> Como Pconst, pero aplicando el comportamiento de restricción a los valores rítmicos del patrón. El patrón fuente corre hasta la duración especificada y luego se detiene. Es muy útil si uno sabe cuánto debe durar un comportamiento musical, pero no sabe cuántos eventos son necesarios para cubrir ese periodo de tiempo.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"></li>
+</ul>
+<p class="p5">// Dos variantes de la misma cosa</p>
+<p class="p5">// Usar Pconst o Pfindur para crear segmentos de 4 pulsos con ritmo aleatorio</p>
+<p class="p5">// Pconst y Pfindur pueden ambos asegurar que el ritmo total no sea mayor a 4.0</p>
+<p class="p9"><br></p>
+<p class="p7"><span class="s3">p = </span>Pn<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>// siempre un do grave en el tiempo fuerte</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s1">Pseq</span>([-7, <span class="s1">Pwhite</span>(0, 11, <span class="s1">inf</span>)], 1),</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, <span class="s1">Pconst</span>(4, <span class="s1">Pwhite</span>(1, 4, <span class="s1">inf</span>) * 0.25)</p>
+<p class="p6">), <span class="s1">inf</span>).play;</p>
+<p class="p9"><br></p>
+<p class="p6">p.stop;</p>
+<p class="p9"><br></p>
+<p class="p7"><span class="s3">p = </span>Pn<span class="s3">(</span>Pfindur<span class="s3">(4, </span>Pbind<span class="s3">(</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s1">Pseq</span>([-7, <span class="s1">Pwhite</span>(0, 11, <span class="s1">inf</span>)], 1),</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, <span class="s1">Pwhite</span>(1, 4, <span class="s1">inf</span>) * 0.25</p>
+<p class="p6">)), <span class="s1">inf</span>).play;</p>
+<p class="p9"><br></p>
+<p class="p6">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Psync(patrón, cuant, maxdur, tolerancia):</b> Como Pfindur, pero no tiene que tener una duración fija. En su lugar, toca ya sea hasta que alcance maxdur (en caso del cual se comporta igual que Pfindur, ajustando el último evento para que la duración total alcance maxdur), o el patrón se detiene antes y el último evento es redondeado hasta el siguiente múltiplo entero de cuant.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p6">(</p>
+<p class="p5">// en este caso, el patrón se detiene al alcanzar maxdur</p>
+<p class="p5">// tiempo transcurrido = 4</p>
+<p class="p6"><span class="s1">var</span><span class="Apple-tab-span">	</span>startTime;</p>
+<p class="p7"><span class="s3">p = (</span>Psync<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s5">\dur</span><span class="s3">, 0.25,<span class="Apple-tab-span">	</span></span>// duración total = infinita</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\time</span>, <span class="s1">Pfunc</span> { startTime = startTime ? (<span class="s1">thisThread</span>.clock.beats.debug(<span class="s6">"tiempo"</span>)) }</p>
+<p class="p6">), 1, 4) ++ <span class="s1">Pfuncn</span>({</p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s1">thisThread</span><span class="s3">.clock.beats.debug(</span>"Tiempo de finalizacion"<span class="s3">);</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>(<span class="s1">thisThread</span>.clock.beats - startTime).debug(<span class="s6">"Transcurrido"</span>);</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>nil</p>
+<p class="p6">}, 1)).play;</p>
+<p class="p6">)</p>
+<p class="p9"><br></p>
+<p class="p6">(</p>
+<p class="p5">// en este caso, el patrón se detiene antes de maxdur (4)</p>
+<p class="p5">// la duración del Pbind (1.25) se redondea hasta 2 (el siguiente múltiplo de 1)</p>
+<p class="p6"><span class="s1">var</span><span class="Apple-tab-span">	</span>startTime;</p>
+<p class="p7"><span class="s3">p = (</span>Psync<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s5">\dur</span><span class="s3">, </span><span class="s1">Pn</span><span class="s3">(0.25, 5),<span class="Apple-tab-span">	</span></span>// duración total = 0.25 * 5 = 1.25</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s5">\time</span>, <span class="s1">Pfunc</span> { startTime = startTime ? (<span class="s1">thisThread</span>.clock.beats.debug(<span class="s6">"time"</span>)) }</p>
+<p class="p6">), 1, 4) ++ <span class="s1">Pfuncn</span>({</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s1">thisThread</span>.clock.beats.debug(<span class="s6">"finish time"</span>);</p>
+<p class="p6"><span class="Apple-tab-span">	</span>(<span class="s1">thisThread</span>.clock.beats - startTime).debug(<span class="s6">"Transcurrido"</span>);</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>nil</p>
+<p class="p6">}, 1)).play;</p>
+<p class="p6">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p12"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06_Patrones de filtro.html"><span class="s7">GP_06_Patrones de filtro</span></a></span></p>
+<p class="p12"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06b_Patrones basados en tiempo.html"><span class="s7">GP_06b_Patrones basados en tiempo</span></a></span></p>
+</body>
+</html>

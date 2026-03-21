@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20091026;13010900">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica" }
+		P.p2 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p3 { margin-bottom: 0in; color: #001bb9; font-family: "Helvetica"; font-size: 9pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p5 { margin-bottom: 0in; color: #0025b2; font-family: "Monaco"; font-size: 6pt }
+		P.p7 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p8 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p9 { margin-bottom: 0in; color: #982316; font-family: "Monaco"; font-size: 6pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>ReplaceOut</B> <B>envía
+una señal a un bus, reemplazando los contenidos anteriores</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><FONT SIZE=2><B>Hereda de:
+<A HREF="../../Core/Object.html">Object</A></B></FONT> <FONT SIZE=2><B>:
+<A HREF="../../Core/Kernel/AbstractFunction.html">AbstractFunction</A></B></FONT>
+<FONT SIZE=2><B>: <A HREF="../UGen.html">UGen</A></B></FONT> <FONT SIZE=2><B>:
+<A HREF="AbstractOut.html">AbstractOut</A></B></FONT> <FONT SIZE=2><B>:
+<A HREF="Out.html">Out</A></B></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><FONT SIZE=2><B>*ar(bus,
+channelsArray)&nbsp; </B>- escribir una señal a un bus de audio.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><FONT SIZE=2><B>*kr(bus,
+channelsArray)&nbsp; </B>- escribir una señal a un bus de control.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><FONT SIZE=2><B>bus –</B>
+el índice del bus al cual escribir. Los números más bajos son
+escritos a la tarjeta</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2><B>channelsArray
+</B>- un Arreglo de canales o salida individual a los cuales
+escribir. Este parámetro no puede cambiarse una vez que la SynthDef
+ha sido creada.</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>Out </B><SPAN STYLE="font-weight: normal">añade
+su salida a un bus dado, haciéndolo disponible para todos los nodos
+posteriores en el árbol de nodos. (Ver </SPAN><B>Synth</B> <SPAN STYLE="font-weight: normal">y
+</SPAN><B>Orden-of-execution</B> <SPAN STYLE="font-weight: normal">para
+más información.) ReplaceOut reemplaza dichos contenidos. Esto
+puede ser útil para el procesamiento.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Ver los archivos de ayuda
+<A HREF="../../ServerArchitecture/Server-Architecture.html">Server-Architecture</A>
+y <A HREF="../../ServerArchitecture/Bus.html">Bus</A> para más
+información sobre los buses y cómo son utilizados.</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">(</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">SynthDef(&quot;ReplaceOutHelp&quot;,
+{ arg out=0, freq=440;</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">var source;</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">source = SinOsc.ar(freq,
+0, 0.1);</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">// escribir en el bus,
+reemplazando los contenidos anteriores</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">ReplaceOut.ar(out,
+source);</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">}).send(s);</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">)</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">// cada Synth reemplaza la
+salida del anterior</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">x = Synth.tail(s,
+&quot;ReplaceOutHelp&quot;, [\freq, 500]);</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">y = Synth.tail(s,
+&quot;ReplaceOutHelp&quot;, [\freq, 600]);</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">z = Synth.tail(s,
+&quot;ReplaceOutHelp&quot;, [\freq, 700]);</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">// liberarlos en orden
+inverso; los Synths viejos todavía están ahí.</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">z.free;</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">y.free;</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">x.free;</P>
+</BODY>
+</HTML>

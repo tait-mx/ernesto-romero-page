@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #ad140d}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #001bb9}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #7f2a1c}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #001bb9}
+span.s2 {color: #606060}
+span.s3 {color: #000000}
+span.s4 {font: 12.0px Helvetica}
+span.s5 {color: #0034a8}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Filtros basados en tiempo</b></p>
+<p class="p2"><br></p>
+<p class="p3">La familia de UGens Delay, Comb, y Allpass crea efectos basados en tiempo para dar un sentido de localización y espacio.</p>
+<p class="p4"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p5">// 2 SynthDefs - el 1ro para hacer granos y el 2nd para retrasarlos</p>
+<p class="p4"><br></p>
+<p class="p5">// el SynthDef que hace los granos está en el canal izquierdo</p>
+<p class="p5">// el SynthDef que retrasa los granos está en el canal derecho</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">"algunosGranos"</span>, { <span class="s1">arg</span> centerFreq = 777, freqDev = 200, grainFreq = 2;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> gate;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>gate = <span class="s1">Impulse</span>.kr(grainFreq);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">LFNoise0</span>.kr(4, freqDev, centerFreq),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>.sine(0.1), gate, 0.1)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p4"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">"unDelay"</span>, { <span class="s1">arg</span> delay = 0.25;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">DelayN</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">In</span>.ar(0, 1),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>delay,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>delay</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">////////////////////////////////////////////////</p>
+<p class="p5">// prueba los granos ... y después apágalos</p>
+<p class="p5">// ... están todos en el canal izquierdo ... ¡bien!</p>
+<p class="p6"><span class="s1">Synth</span><span class="s3">(</span>"algunosGranos"<span class="s3">);</span></p>
+<p class="p5">////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p5">// crea 2 grupos, el 1ro para fuentes y el 2do para efectos</p>
+<p class="p3">(</p>
+<p class="p3">~fuentes = <span class="s1">Group</span>.head(s);</p>
+<p class="p3">~efectos = <span class="s1">Group</span>.tail(s);</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">// coloca los granos en el delay ... la fuente está en el canal izquierdo y la fuente retrasada</p>
+<p class="p5">// está en el derecho</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s1">Synth</span>.head(~fuentes, <span class="s2">"algunosGranos"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.head(~efectos, <span class="s2">"unDelay"</span>);</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>Filtros de retroalimentación</b></p>
+<p class="p4"><br></p>
+<p class="p3">Los filtros Comb y Allpass son ejemplos de UGens que alimentan parte de su salida a su propia entrada. Los filtros Allpass cambian la fase de las señales que pasan a través de ellos. Por esta razón, son útiles, aunque no parezcan diferir mucho de los filtros comb.</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">/////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p5">// ¡¡¡PRENDE EL SERVIDOR INTERNO!!</p>
+<p class="p5">// primero un filtro comb y después uno allpass (con los mismos parámetros) - compáralos</p>
+<p class="p5">/////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p5">// ejemplo de comb</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">CombN</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar(500.rrand(1000), 0, 0.2) * <span class="s1">Line</span>.kr(1, 0, 0.1),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.3,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>6</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}.scope;</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">// ejemplo de allpass - no muy diferente al ejemplo de comb</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>AllpassN<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar(500.rrand(1000), 0, 0.2) * <span class="s1">Line</span>.kr(1, 0, 0.1),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.3,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>6</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}.scope;</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">/////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p5">//<span class="Apple-converted-space"> </span></p>
+<p class="p5">// primero un ejemplo de comb y después un allpass</p>
+<p class="p5">// ambos ejemplos tienen los mismos parámetros</p>
+<p class="p5">// los 2 ejemplos tienen tiempos de retraso relativamente cortos ... 0.1 segundos</p>
+<p class="p5">//</p>
+<p class="p5">/////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">// comb</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">CombN</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar(500.rrand(1000), 0, 0.2) * <span class="s1">Line</span>.kr(1, 0, 0.1),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.1,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.025,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>6</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}.scope;<span class="Apple-tab-span">	</span></p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">// allpass ... ¿cuál es la diferencia entre este ejemplo y el filtro comb?</p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>AllpassN<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar(500.rrand(1000), 0, 0.2) * <span class="s1">Line</span>.kr(1, 0, 0.1),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.1,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.025,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>6</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p8">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p1"><b>Reverberación</b></p>
+<p class="p4"><br></p>
+<p class="p3">El siguiente ejemplo es de James McCartney. Viene del documento<span class="s4"><b> 01 ¿Por qué SuperCollider?</b></span> que era parte de la distribución de SuperCollider 2.</p>
+<p class="p4"><br></p>
+<p class="p3">El ejemplo es más o menos un filtro Schroeder - una señal pasada a través de un banco paralelo de filtros comb, la cual después pasa a través de una serie de filtros allpass.</p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="s1">var</span> s, z, y;</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>// 10 voces de un sonido de percusión sinusoidal aleatoria:</p>
+<p class="p3">s = <span class="s1">Mix</span>.ar(<span class="s1">Array</span>.fill(10, { <span class="s1">Resonz</span>.ar(<span class="s1">Dust</span>.ar(0.2, 50), 200 + 3000.0.rand, 0.003)}) );</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>// tiempo de pre-retraso de la reverberación:</p>
+<p class="p3">z = <span class="s1">DelayN</span>.ar(s, 0.048);</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>// 7 delays comb con la duración modulada y en paralelo:</p>
+<p class="p3">y = <span class="s1">Mix</span>.ar(<span class="s1">Array</span>.fill(7,{ <span class="s1">CombL</span>.ar(z, 0.1, <span class="s1">LFNoise1</span>.kr(0.1.rand, 0.04, 0.05), 15) }));<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>// dos cadenas paralelas de 4 delays allpass (8 en total):</p>
+<p class="p3">4.do({ y = <span class="s1">AllpassN</span>.ar(y, 0.050, [0.050.rand, 0.050.rand], 1) });</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>// añade sonido original al reverberador y tócalo:</p>
+<p class="p3">s+(0.2*y)</p>
+<p class="p3">}.scope<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p8">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p1"><b>Componentes</b></p>
+<p class="p4"><br></p>
+<p class="p3">Lo siguiente muestra una manera de dividir el ejemplo de JMC en componentes.</p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p6"><span class="s1">SynthDef</span><span class="s3">(</span>"dustFiltrado"<span class="s3">, {</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>.arFill(10, { <span class="s1">Resonz</span>.ar(<span class="s1">Dust</span>.ar(0.2, 50), <span class="s1">Rand</span>(200, 3200), 0.003) })</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s1">SynthDef</span><span class="s3">(</span>"preDelay"<span class="s3">, {</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>ReplaceOut<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>4,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">DelayN</span>.ar(<span class="s1">In</span>.ar(2, 1), 0.048, 0.048)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p4"><br></p>
+<p class="p7">SynthDef<span class="s3">(</span><span class="s2">"combs"</span><span class="s3">, {</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>ReplaceOut<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>6,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>.arFill(7, { <span class="s1">CombL</span>.ar(<span class="s1">In</span>.ar(4, 1), 0.1, <span class="s1">LFNoise1</span>.kr(<span class="s1">Rand</span>(0, 0.1), 0.04, 0.05), 15) })</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p4"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">"allpass"</span>, { <span class="s1">arg</span> gain = 0.2;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> source;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>source = <span class="s1">In</span>.ar(6, 1);</p>
+<p class="p3"><span class="Apple-tab-span">	</span>4.do({ source = <span class="s1">AllpassN</span>.ar(source, 0.050, [<span class="s1">Rand</span>(0, 0.05), <span class="s1">Rand</span>(0, 0.05)], 1) });</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>ReplaceOut<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>8,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>source * gain</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p4"><br></p>
+<p class="p3"><span class="s1">SynthDef</span>(<span class="s2">"laMezcladora"</span>, { <span class="s1">arg</span> gain = 1;</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>ReplaceOut<span class="s3">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>.ar([<span class="s1">In</span>.ar(2, 1), <span class="s1">In</span>.ar(8, 2)]) * gain</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5">// al ser ejecutada cada línea, se convierte en el nodo cola. el resultado es que</p>
+<p class="p5">// "dustFiltrado" es el primer nodo y "laMezcladora" es el último nodo ...</p>
+<p class="p5">// ... exactamente lo que necesitamos</p>
+<p class="p3">(</p>
+<p class="p6"><span class="s1">Synth</span><span class="s3">.tail(s, </span>"dustFiltrado"<span class="s3">);</span></p>
+<p class="p3"><span class="s1">Synth</span>.tail(s, <span class="s2">"preDelay"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.tail(s, <span class="s2">"combs"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.tail(s, <span class="s2">"allpass"</span>);</p>
+<p class="p6"><span class="s1">Synth</span><span class="s3">.tail(s, </span>"laMezcladora"<span class="s3">);</span></p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p3">s.queryAllNodes;</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p3">O, usa grupos para controlar el orden de ejecución.</p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p3">~fuentes = <span class="s1">Group</span>.tail(s);</p>
+<p class="p3">~proc1 = <span class="s1">Group</span>.tail(s);</p>
+<p class="p3">~proc2 = <span class="s1">Group</span>.tail(s);</p>
+<p class="p3">~proc3 = <span class="s1">Group</span>.tail(s);</p>
+<p class="p3">~final = <span class="s1">Group</span>.tail(s);</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p5">// los nodos, abajo, están asignados a los grupos, como fueron ordenados arriba</p>
+<p class="p3"><span class="s1">Synth</span>.head(~final, <span class="s2">"laMezcladora"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.head(~proc3, <span class="s2">"allpass"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.head(~proc2, <span class="s2">"combs"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.head(~proc1, <span class="s2">"preDelay"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.head(~fuentes, <span class="s2">"dustFiltrado"</span>);</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p3">s.queryAllNodes;</p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p8">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Para contexto, aquí, abajo, está el texto completo del documento <span class="s4"><b>01 ¿Por qué SuperCollider?</b></span> (por James McCartney) de la distribución de SuperCollider 2.</p>
+<p class="p2"><br></p>
+<p class="p8">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s4"> <span class="Apple-tab-span">	</span></span><b>SuperCollider 2.0</b></p>
+<p class="p2"><br></p>
+<p class="p9"><b>¿Por qué SuperCollider 2.0?</b></p>
+<p class="p2"><br></p>
+<p class="p1">SuperCollider version 2.0 es un nuevo lenguaje de programación.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>¿Por qué inventar un nuevo lenguaje y no usar un lenguaje ya existente?</b><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">La composición de música asistida por computadora es un problema de especificación. Tanto la síntesis de sonido como la composición de sonidos son problemas complejos y demandan un lenguaje que sea altamente expresivo para tratar con esa complejidad. El procesamiento de señales en tiempo real es un problema que demanda una implementación eficiente con operaciones en tiempo acotado. No existía ningún lenguaje que combinara las características que quería y necesitaba para hacer síntesis de música digital. El lenguaje SuperCollider es muy parecido a Smalltalk. Todo es un objeto. Tiene objetos de clase, métodos, modelo dinámico, clausuras completas, argumentos por defecto, listas de argumentos de tamaño variable, asignación múltiple, etc. La implementación provee una búsqueda de métodos rápida y constante, recolección de basura en tiempo real, y asignación de pilas de la mayoría de los contextos de función, manteniendo una semántica de clausura completa.</p>
+<p class="p2"><br></p>
+<p class="p1">La máquina virtual de SuperCollider está diseñada para que pueda ser corrida a nivel de interrupción. No había ningún otro lenguaje fácilmente disponible que fuera de alto nivel, en tiempo real y capaz de correr a nivel de interrupción.</p>
+<p class="p2"><br></p>
+<p class="p1">SuperCollider versión 1.0 fue completamente reescrito para hacerlo al mismo tiempo más expresivo y más eficiente. Esto requirió repensar la implementación a la luz de la experiencia de la primera versión. Opino que la nueva versión se ha beneficiado significativamente de esta reconsideración. No es simplemente la versión 1.0 con más características.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>¿Por qué usar un lenguaje basado en texto en vez de un lenguaje gráfico?</b></p>
+<p class="p2"><br></p>
+<p class="p1">Hay al menos dos respuestas a esto.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>Dinamismo:</b> La mayoría de los ambientes de síntesis gráficos usan unidades generadoras alojadas estáticamente. En SuperCollider, el usuario puede crear estructuras que producen eventos dinámicamente y en un modo anidado. "Patches" pueden ser construidos dinámicamente y parametrizados no sólo por números de punto flotante en una partitura estática, sino también por otras gráficas de unidades generadoras. O puedes construir "patches" algorítmicos al vuelo. Este tipo de fluidez no es posible en un lenguaje con unidades generadoras alojadas estáticamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>Brevedad:</b> En SuperCollider, las simetrías en un "patch" pueden ser explotadas tanto por la expansión multicanal como por la construcción de "patches" programática. Por ejemplo, el siguiente pequeño programa genera un "patch" de 49 unidades generadoras. En un programa gráfico esto puede requerir de una cantidad de tiempo y espacio importante para conectarse. Otra ventaja es que el tamaño del "patch" que se encuentra abajo puede ser fácilmente expandido o contraído con sólo cambiar algunas constantes.</p>
+<p class="p4"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3">var s, z, y;</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>// 10 voces de un sonido de percusión sinusoidal aleatoria:</p>
+<p class="p3">s = <span class="s5">Mix</span>.ar(<span class="s5">Array</span>.fill(10, { <span class="s5">Resonz</span>.ar(<span class="s5">Dust</span>.ar(0.2, 50), 200 + 3000.0.rand, 0.003)}) );</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>// tiempo de pre-retraso de la reverberación:</p>
+<p class="p3">z = <span class="s5">DelayN</span>.ar(s, 0.048);</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>// 7 delays comb con modulación de duración y en paralelo:</p>
+<p class="p3">y = <span class="s5">Mix</span>.ar(<span class="s5">Array</span>.fill(7,{ <span class="s5">CombL</span>.ar(z, 0.1, <span class="s5">LFNoise1</span>.kr(0.1.rand, 0.04, 0.05), 15) }));<span class="Apple-converted-space"> </span></p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>// dos cadenas paralelas de 4 delays allpass (8 en total):</p>
+<p class="p3">4.do({ y = <span class="s5">AllpassN</span>.ar(y, 0.050, [0.050.rand, 0.050.rand], 1) });</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>// añade sonido original al reverberador y tócalo:</p>
+<p class="p3">s+(0.2*y)</p>
+<p class="p3">}.scope<span class="Apple-converted-space"> </span></p>
+<p class="p3">)</p>
+<p class="p4"><br></p>
+<p class="p1">Los ambientes de síntesis gráficos se están haciendo muy comunes. Pareciera como si uno nuevo fuera anunciado cada mes. Ninguno de ellos tiene la flexibilidad dinámica del completo ambiente de programación de SuperCollider. Echale un vistazo a los archivos de ayuda de SuperCollider y velo por ti mismo.</p>
+<p class="p2"><br></p>
+<p class="p8">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p10">ir a <b>14_Modulación_de_Frecuencia</b></p>
+</body>
+</html>

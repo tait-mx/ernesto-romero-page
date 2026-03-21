@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0026b4}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0021e7}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica; min-height: 16.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #ad140d}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #000000}
+span.s3 {color: #0024f8}
+span.s4 {text-decoration: underline}
+span.s5 {color: #0026b4}
+span.s6 {color: #606060}
+span.s7 {color: #001bb9}
+span.s8 {color: #ad140d}
+span.s9 {color: #2c7014}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>Set<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>un conjunto conforme a igualdad</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2"><b>Hereda de: </b><a href="../Core/Object.html"><b>Object</b></a><b> : </b><a href="Collection.html"><b>Collection</b></a></span><b><span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p1">Un Set (Conjunto) es una colección de objetos de los cuales no hay dos iguales.</p>
+<p class="p1">La mayoría de sus métodos son heredados de Collection.</p>
+<p class="p1">El contenido de un Set no está ordenado. No puedes contar con el orden de los elementos en un Set.</p>
+<p class="p1">Para un Set ordenado, ver <a href="OrderedIdentitySet.html"><span class="s3">OrderedIdentitySet</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Ver también: <a href="IdentitySet.html"><span class="s4">IdentitySet</span></a>, <a href="List.html"><span class="s4">List</span></a>, <a href="Dictionary.html"><span class="s4">Dictionary</span></a></span></p>
+<p class="p2"><br></p>
+<p class="p5"><br></p>
+<p class="p6"><b>Añadiendo y Quitando:</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>add(anObject)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Añade un objeto (a través del argumento <b>anObject</b>) al Set. No será añadido ningún objeto que sea igual a un objeto ya existente en el Set.</p>
+<p class="p7"><br></p>
+<p class="p8"><span class="s5">Set</span>[1, 2, 3].add(4).postln;</p>
+<p class="p9"><br></p>
+<p class="p8"><span class="s5">Set</span>[1, 2, 3].add(3).postln;</p>
+<p class="p9"><br></p>
+<p class="p8"><span class="s5">Set</span>[<span class="s6">"abc"</span>, <span class="s6">"def"</span>, <span class="s6">"ghi"</span>].add(<span class="s6">"jkl"</span>).postln;</p>
+<p class="p9"><br></p>
+<p class="p10"><span class="s5">Set</span>["abc", "def", "ghi"].add("def").postln;</span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>remove(anObject)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Quita un objeto del Set.</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s5">Set</span>[1, 2, 3].remove(3).postln;</p>
+<p class="p7"><br></p>
+<p class="p11"><br></p>
+<p class="p6"><b>Iteración:</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>do(function)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Evalúa la función por cada elemento en el Set.</p>
+<p class="p1">A la función se le envían dos argumentos, el elemento y un índice entero.</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s5">Set</span>[1, 2, 3, 300].do({ <span class="s5">arg</span> item, i; item.postln });</p>
+<p class="p9"><br></p>
+<p class="p1"><b>keyAt(index)</b></p>
+<p class="p2"><br></p>
+<p class="p1">devuelveel objeto en el <b>índice</b> interno. El índice no es determinista.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Operaciones específicas de Set:</b></p>
+<p class="p5"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><b>sect(that)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>devuelve el conjunto intersección teórica de <b>this</b> y <b>that</b></p>
+<p class="p1"><b>this &amp; that</b></p>
+<p class="p9"><br></p>
+<p class="p8">a = <span class="s7">Set</span>[1, 2, 3]; b = <span class="s7">Set</span>[2, 3, 4, 5];</p>
+<p class="p8">sect(a, b);</p>
+<p class="p12"><span class="s2">a &amp; b // sintaxis más corta</p>
+<p class="p2"><br></p>
+<p class="p1"><b>union(that)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>devuelve el conjunto unión teórica de <b>this</b> y <b>that</b></p>
+<p class="p1"><b>this | that</b></p>
+<p class="p9"><br></p>
+<p class="p8">a = <span class="s7">Set</span>[1, 2, 3]; b = <span class="s7">Set</span>[2, 3, 4, 5];</p>
+<p class="p8">union(a, b);</p>
+<p class="p12"><span class="s2">a | b // sintaxis más corta</p>
+<p class="p2"><br></p>
+<p class="p1"><b>difference(that)<span class="Apple-tab-span">	</span></b>devuelve el conjunto de todos los elementos de <b>this</b>, pero no de <b>that</b></p>
+<p class="p1"><b>this - that</b></p>
+<p class="p9"><br></p>
+<p class="p8">a = <span class="s7">Set</span>[1, 2, 3]; b = <span class="s7">Set</span>[2, 3, 4, 5];</p>
+<p class="p8">difference(a, b);</p>
+<p class="p12"><span class="s2">a - b // sintaxis más corta</p>
+<p class="p2"><br></p>
+<p class="p1"><b>symmetricDifference(that)</b><span class="Apple-tab-span">	</span>devuelve el conjunto de todos los elementos que no son elementos ni de <b>this</b> ni de <b>that</b></p>
+<p class="p1"><b>this -- that</b></p>
+<p class="p9"><br></p>
+<p class="p8">a = <span class="s7">Set</span>[1, 2, 3]; b = <span class="s7">Set</span>[2, 3, 4, 5];</p>
+<p class="p8">symmetricDifference(a, b);</p>
+<p class="p12"><span class="s2">a -- b // sintaxis más corta</p>
+<p class="p2"><br></p>
+<p class="p1"><b>isSubsetOf(that)</b><span class="Apple-tab-span">	</span>devuelve true (cierto) si todos los elementos de <b>this</b> también son elementos de <b>that</b></p>
+<p class="p2"><br></p>
+<p class="p8">a = <span class="s7">Set</span>[1, 2, 3, 4];</p>
+<p class="p8"><span class="s7">Set</span>[1, 2].isSubsetOf(a); <span class="s8">// cierto</span></p>
+<p class="p8"><span class="s7">Set</span>[1, 5].isSubsetOf(a); <span class="s8">// falso</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p12">// ejemplo:</p>
+<p class="p9"><br></p>
+<p class="p8">a = <span class="s7">Set</span>[1, 2, 3, 4];</p>
+<p class="p12"><span class="s2">b = a.powerset; // conjunto de todas las partes</p>
+<p class="p12"><span class="s2">a.isSubsetOf(b); // falso: ningún conjunto es parte de sí mismo</p>
+<p class="p12"><span class="s2">b.asArray.reduce(<span class="s9">\union</span>) == a; // cierto: las partes no pueden contener elementos distintos a los originales</p>
+<p class="p8">b.asArray.reduce(<span class="s9">\difference</span>).isEmpty; <span class="s8">// cierto</span></p>
+<p class="p9"><br></p>
+<p class="p12">// puedes usar Set para quitar de forma eficiente duplicaciones en un Array (Arreglo):</p>
+<p class="p9"><br></p>
+<p class="p8">a = [1, 2, 3, 4, 3, 5, 5, 2, 2, 1];</p>
+<p class="p12"><span class="s2">a.as(<span class="s7">Set</span>);<span class="Apple-tab-span">	</span>// convertir a Set</p>
+<p class="p12"><span class="s2">a.as(<span class="s7">Set</span>).as(<span class="s7">Array</span>); // y convertirlo de regreso</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

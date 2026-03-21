@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8b2719}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+span.s1 {color: #002dad}
+span.s2 {color: #000000}
+span.s3 {color: #8b2719}
+span.s4 {color: #606060}
+span.s5 {color: #4b6b25}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1">// El lenguaje de programación J es un sucesor de APL. &lt;http://www.jsoftware.com&gt;</p>
+<p class="p1">// Estos lenguajes están hechos para procesar arreglos ("Arrays") de datos y son capaces de</p>
+<p class="p1">// expresar nociones complejas de interación de forma implícita.</p>
+<p class="p1">// Los siguientes son algunos conceptos tomados o inspirados por J.</p>
+<p class="p1">// Pensar arreglos multidimensionales puede causar tanto alucinaciones como una expansión de<span class="Apple-converted-space"> </span></p>
+<p class="p1">// la mente. Comprender lo que está sucediendo en estos ejemplos puede necesitar algo de esfuerzo.</p>
+<p class="p2"><br></p>
+<p class="p1">// iota llena un arreglo con un contador</p>
+<p class="p3">z = <span class="s1">Array</span>.iota(2, 3, 3);</p>
+<p class="p1"><span class="s2">z.rank; </span>// 3 dimensiones</p>
+<p class="p1"><span class="s2">z.shape; </span>// da los tamaños de las dimensiones</p>
+<p class="p1"><span class="s2">z = z.reshape(3, 2, 3); </span>// reshape cambia las dimensiones de un arreglo</p>
+<p class="p1"><span class="s2">z.rank; </span>// 3 dimensiones</p>
+<p class="p3">z.shape;</p>
+<p class="p2"><br></p>
+<p class="p1">// llena un arreglo de 2 dimensiones (2D)</p>
+<p class="p3"><span class="s1">Array</span>.fill2D(3,3,{1.0.rand.round(0.01)});</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Array</span>.fill2D(2,3,{<span class="s1">|i,j|</span> i@j});</p>
+<p class="p2"><br></p>
+<p class="p1">// llena un arreglo de 3 dimensiones (3D)</p>
+<p class="p3"><span class="s1">Array</span>.fill3D(2,2,2,{1.0.rand.round(0.01)});</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Array</span>.fill3D(2,2,2,{<span class="s1">|i,j,k|</span> `[i,j,k]});</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">// utilizando dup para crear arreglos</p>
+<p class="p3">(1..4) dup: 3;</p>
+<p class="p3">100.rand dup: 10;</p>
+<p class="p3">{100.rand} dup: 10;</p>
+<p class="p3">{100.rand} dup: 3 dup: 4;</p>
+<p class="p3">{{100.rand} dup: 3} dup: 4;</p>
+<p class="p3">{<span class="s1">|i|</span> i.squared} dup: 10;</p>
+<p class="p3">{<span class="s1">|i|</span> i.nthPrime} dup: 10;</p>
+<p class="p2"><br></p>
+<p class="p1">// ! es una abreviación de dup</p>
+<p class="p3">(1..4) ! 3;</p>
+<p class="p3">100.rand ! 10;</p>
+<p class="p3">{100.rand} ! 10;</p>
+<p class="p3">{100.rand} ! 3 ! 4;</p>
+<p class="p3">{{100.rand} ! 3} ! 4;</p>
+<p class="p3">{<span class="s1">|i|</span> i.squared} ! 10;</p>
+<p class="p3">{<span class="s1">|i|</span> i.nthPrime} ! 10;</p>
+<p class="p2"><br></p>
+<p class="p1">// otras formas de hacer lo mismo:</p>
+<p class="p1"><span class="Apple-tab-span">	</span>// aplicación parcial</p>
+<p class="p3"><span class="s1">_</span>.squared ! 10;</p>
+<p class="p3"><span class="s1">_</span>.nthPrime ! 10;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-tab-span">	</span>// operando en una lista</p>
+<p class="p3">(0..9).squared;</p>
+<p class="p3">(0..9).nthPrime;</p>
+<p class="p2"><br></p>
+<p class="p1">// adverbios de los operadores</p>
+<p class="p1">// los adverbios son el tercer argumento enviado a los operadores binarios y modifica la manera</p>
+<p class="p1">// en que iteran SequenceableCollections o Streams.</p>
+<p class="p1">// ver el archivo de ayuda Adverbs</p>
+<p class="p3">[10, 20, 30, 40, 50] + [1, 2, 3]; <span class="Apple-tab-span">	</span><span class="s3">// normal</span></p>
+<p class="p3">[10, 20, 30, 40, 50] +.f [1, 2, 3]; <span class="Apple-tab-span">	</span><span class="s3">// reciclado ("folded")</span></p>
+<p class="p3">[10, 20, 30, 40, 50] +.s [1, 2, 3]; <span class="Apple-tab-span">	</span><span class="s3">// más corto</span></p>
+<p class="p3">[10, 20, 30, 40, 50] +.x [1, 2, 3]; <span class="Apple-tab-span">	</span><span class="s3">// cruzar</span></p>
+<p class="p3">[10, 20, 30, 40, 50] +.t [1, 2, 3]; <span class="Apple-tab-span">	</span><span class="s3">// tabla</span></p>
+<p class="p2"><br></p>
+<p class="p1">// profundidad de los operadores</p>
+<p class="p1">// J tiene un concepto llamado "verb rank", el cual es probablemente demasiado complejo de</p>
+<p class="p1">// entender y de implementar en SC, pero la "profundidad de los operadores" es similar y más</p>
+<p class="p1">// simple.</p>
+<p class="p1">// A un operador binario se le puede otorgar una profundidad en la cual operar.</p>
+<p class="p1">// Las profunidades negativas iteran en el operando opuesto.</p>
+<p class="p1">// Esto se entiendee mejor mediante ejemplos.</p>
+<p class="p1">// De momento, no es posible combinar adverbios y profundidad.</p>
+<p class="p3">z = <span class="s1">Array</span>.iota(3,3);</p>
+<p class="p3">y = [100, 200, 300];</p>
+<p class="p3">z + y;</p>
+<p class="p1"><span class="s2">z +.0 y; </span>// lo mismo que arriba. y añadido a cada hilera de z</p>
+<p class="p1"><span class="s2">z +.1 y; </span>// y añadido a cada columna de z</p>
+<p class="p1"><span class="s2">z +.2 y; </span>// y añadido a cada elemento de z</p>
+<p class="p1"><span class="s2">z +.-1 y; </span>// z añadido a cada elemento de y</p>
+<p class="p2"><br></p>
+<p class="p1">// deepCollect opera una función en las diferentes dimensiones o profundidades de un arreglo.</p>
+<p class="p3">z = <span class="s1">Array</span>.iota(3, 2, 3);</p>
+<p class="p3">f = {<span class="s1">|item|</span> item.reverse };</p>
+<p class="p3">z.deepCollect(0, f);</p>
+<p class="p3">z.deepCollect(1, f);</p>
+<p class="p3">z.deepCollect(2, f);</p>
+<p class="p2"><br></p>
+<p class="p3">f = {<span class="s1">|item|</span> item.stutter };</p>
+<p class="p3">z.deepCollect(0, f);</p>
+<p class="p3">z.deepCollect(1, f);</p>
+<p class="p3">z.deepCollect(2, f);</p>
+<p class="p2"><br></p>
+<p class="p1">// slice puede obtener secciones de arreglos multidimensionales.</p>
+<p class="p1">// nil obtiene todos los índices de una dimensión</p>
+<p class="p3">z = <span class="s1">Array</span>.iota(4,5);</p>
+<p class="p3">z.slice(<span class="s1">nil</span>, (1..3));</p>
+<p class="p3">z.slice(2, (1..3));</p>
+<p class="p3">z.slice((2..3), (0..2));</p>
+<p class="p3">z.slice((1..3), 3);</p>
+<p class="p3">z.slice(2, 3);</p>
+<p class="p2"><br></p>
+<p class="p3">z = <span class="s1">Array</span>.iota(3,3,3);</p>
+<p class="p3">z.slice([0,1],[1,2],[0,2]);</p>
+<p class="p3">z.slice(<span class="s1">nil</span>,<span class="s1">nil</span>,[0,2]);</p>
+<p class="p3">z.slice(1);</p>
+<p class="p3">z.slice(<span class="s1">nil</span>,1);</p>
+<p class="p3">z.slice(<span class="s1">nil</span>,<span class="s1">nil</span>,1);</p>
+<p class="p3">z.slice(<span class="s1">nil</span>,2,1);</p>
+<p class="p3">z.slice(<span class="s1">nil</span>,1,(1..2));</p>
+<p class="p3">z.slice(1,[0,1]);</p>
+<p class="p3">z.flop;</p>
+<p class="p2"><br></p>
+<p class="p1">// sorting order</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s2">z = {100.rand}.dup(10); </span>// genera un arreglo aleatorio;</p>
+<p class="p1">// "order" devuelve un arreglo de índices que tendrían los elementos del arreglo si este estuviera</p>
+<p class="p1">// ordenado</p>
+<p class="p3">o = z.order;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="s2">y = z[o]; </span>// usando el orden como índice devuelve el arreglo ordenado</p>
+<p class="p2"><br></p>
+<p class="p1">// enviar el mensaje "order" al orden devuelve un arreglo con los índices que regresarían al arreglo</p>
+<p class="p1">// ordenado a su orden mezclado (revuelto) original</p>
+<p class="p3">p = o.order;<span class="Apple-converted-space"> </span></p>
+<p class="p3">x = y[p];</p>
+<p class="p2"><br></p>
+<p class="p1">// bubble recicla o envuelve un elemento en un arreglo de un elemento. recibe como arguemntos la</p>
+<p class="p1">// profundidad y los niveles</p>
+<p class="p3">z = <span class="s1">Array</span>.iota(4,4);</p>
+<p class="p3">z.bubble;</p>
+<p class="p3">z.bubble(1);</p>
+<p class="p3">z.bubble(2);</p>
+<p class="p3">z.bubble(0,2);</p>
+<p class="p3">z.bubble(1,2);</p>
+<p class="p3">z.bubble(2,2);</p>
+<p class="p2"><br></p>
+<p class="p1">// de forma similar, unbubble, desenvuelve un arreglo si éste contiene un solo elemento.</p>
+<p class="p3">5.unbubble;</p>
+<p class="p3">[5].unbubble;</p>
+<p class="p3">[[5]].unbubble;</p>
+<p class="p3">[[5]].unbubble(0,2);</p>
+<p class="p3">[4,5].unbubble;</p>
+<p class="p3">[[4],[5]].unbubble;</p>
+<p class="p3">[[4],[5]].unbubble(1);</p>
+<p class="p3">z.bubble.unbubble;</p>
+<p class="p3">z.bubble(1).unbubble(1);</p>
+<p class="p3">z.bubble(2).unbubble(2);</p>
+<p class="p2"><br></p>
+<p class="p1">// laminar con el operador +++</p>
+<p class="p1">// el operador +++ toma cada elemento de la segunda lista y lo añade al elemento correspondiente<span class="Apple-converted-space"> </span></p>
+<p class="p1">// en la primera lista. Si la segunda lista es más corta, recicla (envuelve).</p>
+<p class="p3">z = <span class="s1">Array</span>.iota(5,2);</p>
+<p class="p3">z +++ [77,88,99];</p>
+<p class="p3">z +++ [[77,88,99]];</p>
+<p class="p3">z +++ [[[77,88,99]]];</p>
+<p class="p3">z +++ [ [[77]],[[88]],[[99]] ];</p>
+<p class="p1">// lo mismo que:</p>
+<p class="p3">z +++ [77,88,99].bubble;</p>
+<p class="p3">z +++ [77,88,99].bubble(0,2);</p>
+<p class="p3">z +++ [77,88,99].bubble(1,2);</p>
+<p class="p2"><br></p>
+<p class="p3">z +++ [11,22,33].pyramidg;</p>
+<p class="p3">z +++ [11,22,33].pyramidg.bubble;</p>
+<p class="p3">z +++ [[11,22,33].pyramidg];</p>
+<p class="p3">z +++ [[[11,22,33].pyramidg]];</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">z = (1..4);</p>
+<p class="p3">10.do {<span class="s1">|i|</span><span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>z.pyramid(i+1).postln;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>z.pyramidg(i+1).postln;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">""</span>.postln;</p>
+<p class="p3">};</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p1">// reshapeLike te permite hacer un arreglo anidado que puede ser reestructurado con la forma de otro</p>
+<p class="p1">// arreglo</p>
+<p class="p3">a = [[10,20],[30, 40, 50], 60, 70, [80, 90]];</p>
+<p class="p3">b = [[1, 2, [3, 4], [[5], 6], 7], 8, [[9]]];</p>
+<p class="p3">a.reshapeLike(b);</p>
+<p class="p3">b.reshapeLike(a);</p>
+<p class="p2"><br></p>
+<p class="p1">// si el tamaño es diferente, el comportamiento por defecto es reciclar ("wrap"):</p>
+<p class="p2"><br></p>
+<p class="p3">a = [[10,20],[30, 40, 50]];</p>
+<p class="p3">b = [[1, 2, [3, 4], [[5], 6], 7], 8, [[9]]];</p>
+<p class="p3">a.reshapeLike(b);</p>
+<p class="p2"><br></p>
+<p class="p1">// pero puedes especificar otros operadores de índices</p>
+<p class="p2"><br></p>
+<p class="p3">a.reshapeLike(b, <span class="s5">\foldAt</span>);</p>
+<p class="p2"><br></p>
+<p class="p3">a.reshapeLike(b, <span class="s5">\clipAt</span>);</p>
+<p class="p2"><br></p>
+<p class="p3">a.reshapeLike(b, <span class="s5">\at</span>);</p>
+<p class="p2"><br></p>
+<p class="p1">// allTuples generará todas las combinaciones de los sub-arreglos</p>
+<p class="p3">[[1, 2, 3], [4, 5], 6].allTuples;</p>
+<p class="p3">[[1, 2, 3], [4, 5, 6, 7], [8, 9]].allTuples;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

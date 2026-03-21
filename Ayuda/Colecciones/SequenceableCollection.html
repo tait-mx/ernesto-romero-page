@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 42.0px; font: 12.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 42.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 42.0px; font: 9.0px Monaco}
+p.p8 {margin: 0.0px 0.0px 0.0px 42.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 42.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p13 {margin: 0.0px 0.0px 0.0px 42.0px; font: 9.0px Monaco; color: #606060}
+p.p14 {margin: 0.0px 0.0px 0.0px 42.0px; font: 9.0px Monaco; color: #5e342b}
+p.p15 {margin: 0.0px 0.0px 0.0px 42.0px; font: 6.0px Monaco; min-height: 9.0px}
+p.p16 {margin: 0.0px 0.0px 0.0px 42.0px; font: 9.0px Helvetica; min-height: 11.0px}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #1851ca}
+span.s3 {color: #194094}
+span.s4 {text-decoration: underline}
+span.s5 {font: 12.0px Helvetica}
+span.s6 {color: #000000}
+span.s7 {color: #606060}
+span.s8 {color: #5f633c}
+span.s9 {color: #5e342b}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>SequenceableCollection<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>colección indexable por enteros</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>hereda de: </b><a href="../Core/Object.html"><span class="s2"><b>Object</b></span></a><b> : </b><a href="Collection.html"><span class="s3"><b>Collection</b></span></a></p>
+<p class="p2"><br></p>
+<p class="p1">SequenceableCollection es una subclase de Collection cuyos elementos pueden ser indexados por un entero. Tiene muchas subclases útiles; <a href="Array.html"><span class="s3"><b>Array</b></span></a> y <a href="List.html"><span class="s3"><b>List</b></span></a> están dentro de las mas comúnmente usadas.</p>
+<p class="p2"><br></p>
+<p class="p3"><br></p>
+<p class="p4"><b>Métodos de Clase</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>*series(size, start, step)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// *serie(tamaño, inicio, paso)</p>
+<p class="p5">Llena una SequenceableCollection con una serie aritmética.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.series(5, 10, 2);</p>
+<p class="p6"><br></p>
+<p class="p1"><b>*geom(size, start, grow)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// *geom(tamaño, inicio, crecimiento)</p>
+<p class="p5">Llena una SequenceableCollection con una serie geométrica.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.geom(5, 1, 3);</p>
+<p class="p8"><br></p>
+<p class="p1"><b>*fib(size, a, b)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// *fib(tamaño, a, b)</p>
+<p class="p5">Llena una SequenceableCollection con una serie de Fibonacci.</p>
+<p class="p5">b es el valor de inicio (1 por defecto), a es el valor del paso inicial (0 por defecto)</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.fib(5);</p>
+<p class="p7"><span class="s3">Array</span>.fib(5, 2, 32); // inicia en 32 y el paso inicial de 2</p>
+<p class="p9"><br></p>
+<p class="p1"><b>*rand(size, minVal, maxVal)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// *azar(tamaño, valMin, valMax)</p>
+<p class="p5">Llena una SequenceableCollection<span class="Apple-converted-space">  </span>con valores al azar dentro del rango entre minVal y maxVal.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.rand(8, 1, 100);</p>
+<p class="p9"><br></p>
+<p class="p1"><b>*rand2(size, val)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>*azar2(tamaño, val)</p>
+<p class="p5">Llena una SequenceableCollection<span class="Apple-converted-space">  </span>con valores al azar dentro del rango entre minVal y maxVal.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.rand2(8, 100);</p>
+<p class="p9"><br></p>
+<p class="p1"><b>*linrand(size, minVal, maxVal)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// *azarlin(tamaño, valMin, valMax)</p>
+<p class="p5">Llena una SequenceableCollection<span class="Apple-converted-space">  </span>con valores al azar dentro del rango entre minVal y maxVal con una<span class="Apple-converted-space"> </span></p>
+<p class="p5">distribución lineal.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.linrand(8, 1, 100);</p>
+<p class="p8"><br></p>
+<p class="p1"><b>*exprand(size, minVal, maxVal)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// *azarexp(tamaño, valMin, valMax)</p>
+<p class="p5">Llena una SequenceableCollection<span class="Apple-converted-space">  </span>con valores al azar dentro del rango entre minVal y maxVal con una<span class="Apple-converted-space"> </span></p>
+<p class="p5">distribución exponencial.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.exprand(8, 1, 100);</p>
+<p class="p9"><br></p>
+<p class="p1"><b>*interpolation(size, start, end)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// *interpolación(tamaño, inicio, fin)</p>
+<p class="p5">Llena una SequenceableCollection con los valores interpolados entre los valores de start y end.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s3">Array</span>.interpolation(5, 3.2, 20.5);</p>
+<p class="p10"><br></p>
+<p class="p10"><br></p>
+<p class="p4"><b><span class="s4">Métodos de Instancia</span></b></p>
+<p class="p10"><br></p>
+<p class="p1"><b>first<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>primero</p>
+<p class="p5">Devuelve el primer elemento de la collección,<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p1"><b>last<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>último</p>
+<p class="p5">Devuelve el último elemento de la collección,<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p1"><b>putFirst(item) <span class="Apple-converted-space">  <span class="Apple-tab-span">	</span></span></b>//<span class="Apple-converted-space">  </span>ponerPrimero(elemento)</p>
+<p class="p1"><b>putLast(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>ponerUltimo(elemento)</p>
+<p class="p5">Pone el <b>item</b> en el primer o último índice de la collección. Notar que si la colección esta vacía (y por lo tanto no tiene espacios indexados) el item no será creado.</p>
+<p class="p6"><br></p>
+<p class="p1"><b>indexOf(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// índice(elemento)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Devuelve el índice de un elemento (item) en la colección, o nil si no se encuentra.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>indexOfEqual(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// índiceDeIgual(elemento)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Devuelve el índice de algo que este en la colección que sea igual a item, o nil si no se encuentra.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>indicesOfEqual(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>índicesDeIgual(elemento)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Devuelve un arreglo (array) de índices de cosas que esten en la colección y que sean iguales a item, o nil si no se encuentra.</p>
+<p class="p11"><br></p>
+<p class="p12"><span class="Apple-tab-span">	</span>y = [7, 8, 7, 6, 5, 6, 7, 6, 7, 8, 9]</p>
+<p class="p12"><span class="Apple-tab-span">	</span>y.indicesOfEqual(7);</p>
+<p class="p12"><span class="Apple-tab-span">	</span>y.indicesOfEqual(5);</p>
+<p class="p2"><br></p>
+<p class="p1"><b>indexOfGreaterThan(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// índiceDeMayorQue(elemento)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Devuelve el primer índice que contenga un elemento mayor que <b>item</b>.</p>
+<p class="p2"><br></p>
+<p class="p12"><span class="Apple-tab-span">	</span>y = <span class="s3">List</span>[ 10, 5, 77, 55, 12, 123];<span class="Apple-converted-space"> </span></p>
+<p class="p12"><span class="Apple-tab-span">	</span>y.indexOfGreaterThan(70);<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>find(sublist, offset)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// ecnontrar(sublista, desplazamiento)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Si la <b>sublist (</b>sublista) existe en el receptor (en el orden especificado), en un desplazamiento (offset) mayor que o igual al <b>offset</b> inicial, entonces devuelve el índice de inicio.</p>
+<p class="p11"><br></p>
+<p class="p12"><span class="Apple-tab-span">	</span>y = [7, 8, 7, 6, 5, 6, 7, 6, 7, 8, 9]</p>
+<p class="p12"><span class="Apple-tab-span">	</span>y.find([7, 6, 5]);</p>
+<p class="p2"><br></p>
+<p class="p1"><b>findAll(arr, offset)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>encontrarTodos(arreglo, desplazamiento)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Similar a <b>find()</b> pero devuelve un arreglo con todos los índices en los que la secuencia<span class="Apple-converted-space">  </span>se encuentra</p>
+<p class="p11"><br></p>
+<p class="p12"><span class="Apple-tab-span">	</span>y = [7, 8, 7, 6, 5, 6, 7, 6, 7, 8, 9]</p>
+<p class="p12"><span class="Apple-tab-span">	</span>y.findAll([7, 6]);</p>
+<p class="p2"><br></p>
+<p class="p1"><b>indexIn(val)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// índiceEn(valor)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>devuelve el índice del valor mas cercano a val en la colección (la colección debe de estar ordenada)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p12"><span class="s5"><span class="Apple-tab-span">	</span></span>[2, 3, 5, 6].indexIn(6.7)</p>
+<p class="p11"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>indexInBetween(val)<span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>índiceEnMedio(val)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>devuelve<span class="Apple-converted-space">  </span>un índice decimal interpolado linealmente para al valor (val)<b><span class="Apple-converted-space"> </span></b> (la colección debe de estar ordenada)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>la operación inversa es <b>blendAt</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p12"><span class="s5"><span class="Apple-tab-span">	</span></span>x = [2, 3, 5, 6].indexInBetween(5.2)</p>
+<p class="p12"><span class="Apple-tab-span">	</span>[2, 3, 5, 6].blendAt(x)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><b>blendAt(floatIndex)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>mezclarEn(índicedecimal)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>devuelve un valor interpolado linealmente entre los dos índices mas cercanos</p>
+<p class="p1"><span class="Apple-tab-span">	</span>la operación inversa es <b>indexInBetween</b></p>
+<p class="p12"><span class="s5"><b><span class="Apple-tab-span">	</span></b></span>x = [2, 5, 6].blendAt(0.4)</p>
+<p class="p10"><br></p>
+<p class="p10"><br></p>
+<p class="p1"><b>copyRange(start, end)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>copiarRango(inicio, fin)</p>
+<p class="p5">Devuelve una nueva SequenceableCollection que es una copia de los espacios indexados del receptor desde <b>start</b> hasta <b>end</b>.</p>
+<p class="p5">x.copyRange(a,b) también puede ser escrito como <b>x[a..b]</b></p>
+<p class="p9"><br></p>
+<p class="p7">(</p>
+<p class="p7"><span class="s3">var</span> y, z;</p>
+<p class="p7">z = [1, 2, 3, 4, 5];</p>
+<p class="p7">y = z.copyRange(1, 3);</p>
+<p class="p7">z.postln;</p>
+<p class="p7">y.postln;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p1"><b>copyToEnd(start)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// copiarHastaFinal(inicio)</p>
+<p class="p5">Devuelve una nueva SequenceableCollection que es una copia de los espacios indexados del receptor desde start hasta el final de la colección. x.copyToEndtambién puede ser escrito como <b>x[a..]</b></p>
+<p class="p6"><br></p>
+<p class="p1"><b>copyFromStart(end)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>copiarDesdeInicio(fin)</p>
+<p class="p5">Devuelve una nueva SequenceableCollection que es una copia de los espacios indexados del receptor desde el principio de la colección hasta <b>end</b>. x.copyFromStart también se puede escribir como <b>x[..a]</b></p>
+<p class="p9"><br></p>
+<p class="p1"><b>remove(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>remueve(elemento)</p>
+<p class="p5">Remueve el <b>item</b> de la colección.</p>
+<p class="p6"><br></p>
+<p class="p1"><b>take(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>toma(elemento)</p>
+<p class="p5">Remueve y devuelve<span class="Apple-converted-space">  </span><b>item</b> de la colección. El último elemento de la colección se trasladará para ocupar el espacio vacante (y el tamaño de la colección decrece en uno). Ver tambien takeAt, definido en <a href="ArrayedCollection.html"><span class="s3">ArrayedCollection</span></a>.</p>
+<p class="p6"><br></p>
+<p class="p7">a = [11, 12, 13, 14, 15];</p>
+<p class="p7">a.take(12);</p>
+<p class="p7">a</p>
+<p class="p6"><br></p>
+<p class="p1"><b>keep(n)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>conserva(n)</p>
+<p class="p5">Conserva los primeros <b>n</b> elementos del arreglo. Si <b>n</b> es negativo, conserva los últimos –<b>n</b><span class="Apple-converted-space">  </span>elementos.</p>
+<p class="p6"><br></p>
+<p class="p7">a = [1, 2, 3, 4, 5];</p>
+<p class="p7">a.keep(3);</p>
+<p class="p7">a.keep(-3);</p>
+<p class="p6"><br></p>
+<p class="p1"><b>drop(n)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>desecha(n)</p>
+<p class="p5">Desecha los primeros <b>n</b> elementos del arreglo. Si <b>n</b> es negativo, desecha los últimos –<b>n</b><span class="Apple-converted-space">  </span>elementos.</p>
+<p class="p6"><br></p>
+<p class="p7">a = [1, 2, 3, 4, 5];</p>
+<p class="p7">a.drop(3);</p>
+<p class="p7">a.drop(-3);</p>
+<p class="p6"><br></p>
+<p class="p1"><b>join(joiner)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>junta(eslabón)</p>
+<p class="p5">Devuelve un <a href="String.html"><span class="s3">String</span></a> formado al conectar todos los elementos del receptor, con <b>joiner</b> en medio.</p>
+<p class="p6"><br></p>
+<p class="p13"><span class="s6">[</span>"m"<span class="s6">, </span>"ss"<span class="s6">, </span>"ss"<span class="s6">, </span>"pp"<span class="s6">, </span>""<span class="s6">].join(</span>"i"<span class="s6">)</span></p>
+<p class="p9"><br></p>
+<p class="p1"><b>flat<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>plano</p>
+<p class="p5">Devuelve una colección en la que toda anidación ha sido aplanada (flattened)</p>
+<p class="p6"><br></p>
+<p class="p7">[[1, 2, 3], [[4, 5], [[6]]]].flat;</p>
+<p class="p9"><br></p>
+<p class="p1"><b>flatten(numLevels)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>aplanar(númNiveles)</p>
+<p class="p5">Devuelve una colección en la que cierto nivel de anidación, determinado por numLevel,<span class="Apple-converted-space">  </span>ha sido aplanado.</p>
+<p class="p6"><br></p>
+<p class="p7">[[1, 2, 3], [[4, 5], [[6]]]].flatten(1).postcs;</p>
+<p class="p8"><br></p>
+<p class="p7">[[1, 2, 3], [[4, 5], [[6]]]].flatten(2).postcs;</p>
+<p class="p9"><br></p>
+<p class="p1"><b>flop<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>combina</p>
+<p class="p5">IInvierte filas y columnas en una Collection de dos dimensiones (de adentro hacia afuera).</p>
+<p class="p5">Ver tambíen: <a href="../Core/Kernel/Function.html"><span class="s3">Function</span></a>.</p>
+<p class="p8"><br></p>
+<p class="p7">[[1, 2, 3], [4, 5, 6]].flop;</p>
+<p class="p14"><span class="s6">[[1, 2, 3], [4, 5, 6], [7, 8]].flop; </span>// los arreglos mas pequeños se envuelven (se dan la vuelta y vuelven a empezar)</p>
+<p class="p14"><span class="s6">[].flop; </span>// el resultado es siempre 2-d</p>
+<p class="p8"><br></p>
+<p class="p1"><b>lace(length)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>enlazar(longitud)</p>
+<p class="p5">Devuelve una nueva Collection cuyos elementos son secuencias entrelazadas de los elementos de las subcolecciones del receptor, de hasta un tamaño determinado por <b>lenght</b>. El receptor no cambia.</p>
+<p class="p6"><br></p>
+<p class="p7">(</p>
+<p class="p7">x = [ [1, 2, 3], 6, <span class="s3">List</span>[<span class="s7">"botellota"</span>, <span class="s8">'laureles'</span>]];</p>
+<p class="p7">y = x.lace(12);</p>
+<p class="p7">x.postln;</p>
+<p class="p7">y.postln;</p>
+<p class="p7">)</p>
+<p class="p9"><br></p>
+<p class="p1"><b>resamp0(newSize)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>remuest0(nuevoTamaño)</p>
+<p class="p5">Devuelve una Collection del tamaño deseado, con valores remuestreados del receptor, espaciados equidistantememente<span class="Apple-converted-space">  </span>y sin interpolacion</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4].resamp0(13);</p>
+<p class="p7">[1, 2, 3, 4].resamp0(2);</p>
+<p class="p6"><br></p>
+<p class="p1"><b>resamp1(newSize)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>remuest1(nuevoTamaño)</p>
+<p class="p5">Devuelve una Collection del tamaño deseado, con valores remuestreados del receptor, espaciados equidistantemente<span class="Apple-converted-space">  </span>y con interpolacion</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4].resamp1(12);</p>
+<p class="p7">[1, 2, 3, 4].resamp1(3);</p>
+<p class="p6"><br></p>
+<p class="p1"><b>choose<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>escoger</p>
+<p class="p5">Escoge<span class="Apple-converted-space">  </span>al azar un elemento de la colección.</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4].choose;</p>
+<p class="p6"><br></p>
+<p class="p1"><b>wchoose<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>pescoger</p>
+<p class="p5">Escoge al azar un elemento de la colección usando una lista de probabilidades o pesos.</p>
+<p class="p5">Los pesos deben de sumar 1.0</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4].wchoose([0.1, 0.2, 0.3, 0.4]);</p>
+<p class="p6"><br></p>
+<p class="p1"><b>sort(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>ordena(función)</p>
+<p class="p5">Odena los elementos de la colección usando el argumnto de la función de comparación.</p>
+<p class="p5">La función debe tomar dos elementos como argumentos y devolver ture (verdadero) si el primer<span class="Apple-converted-space"> </span></p>
+<p class="p5">argumento debe ser acomodado antes del segundo argumento.</p>
+<p class="p5">S la función es nil,<span class="Apple-converted-space">  </span>la siguiente función por defecto es usada.</p>
+<p class="p6"><br></p>
+<p class="p7">{ <span class="s3">arg</span> a, b; a &lt; b }</p>
+<p class="p15"><br></p>
+<p class="p16"><br></p>
+<p class="p7">[6, 2, 1, 7, 5].sort;</p>
+<p class="p8"><br></p>
+<p class="p7">[6, 2, 1, 7, 5].sort({ <span class="s3">arg</span> a, b; a &gt; b }); <span class="s9">// orden en reversa</span></p>
+<p class="p9"><br></p>
+<p class="p6"><br></p>
+<p class="p1"><b>sortBy(key)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// ordenaPor(clave)</p>
+<p class="p5">Ordena los contenidos de la colección usando la clave <b>key</b>, la cual se asume está dentro de cada elemento del receptor.</p>
+<p class="p15"><br></p>
+<p class="p7">(</p>
+<p class="p7">a = [</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">Dictionary</span>[<span class="s8">\a</span>-&gt;5, <span class="s8">\b</span>-&gt;1, <span class="s8">\c</span>-&gt;62],<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">Dictionary</span>[<span class="s8">\a</span>-&gt;2, <span class="s8">\b</span>-&gt;9, <span class="s8">\c</span>-&gt;65],<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">Dictionary</span>[<span class="s8">\a</span>-&gt;8, <span class="s8">\b</span>-&gt;5, <span class="s8">\c</span>-&gt;68],<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">Dictionary</span>[<span class="s8">\a</span>-&gt;1, <span class="s8">\b</span>-&gt;3, <span class="s8">\c</span>-&gt;61],<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">Dictionary</span>[<span class="s8">\a</span>-&gt;6, <span class="s8">\b</span>-&gt;7, <span class="s8">\c</span>-&gt;63],<span class="Apple-converted-space"> </span></p>
+<p class="p7">]</p>
+<p class="p7">)</p>
+<p class="p7">a.sortBy(<span class="s8">\b</span>);</p>
+<p class="p7">a.sortBy(<span class="s8">\c</span>);</p>
+<p class="p9"><br></p>
+<p class="p6"><br></p>
+<p class="p1"><b>order(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// ordenar(función)</p>
+<p class="p5">Devuelve un arreglo de índices que acomodará la colección en orden. <b>function</b> es tratado del mismo modo que con el método <b>sort</b>.</p>
+<p class="p15"><br></p>
+<p class="p16"><br></p>
+<p class="p7">[6, 2, 1, 7, 5].order;</p>
+<p class="p8"><br></p>
+<p class="p9"><br></p>
+<p class="p1"><b>swap(i, j)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>intercambiar(i, j)</p>
+<p class="p5">Intercabiar dos elementos en la colección en los índices i y j.</p>
+<p class="p6"><br></p>
+<p class="p1"><b>pairsDo(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>paresHacer(función)</p>
+<p class="p5">Llama la función para cada par de elementos subsecuentes en la SequenceableCollection.</p>
+<p class="p5">La función pasa los dos elementos y un índice.</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4, 5].pairsDo({ <span class="s3">arg</span> a, b; [a, b].postln; });</p>
+<p class="p6"><br></p>
+<p class="p1"><b>doAdjacentPairs(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>hacerParesAdyacentes<b><span class="Apple-tab-span">	</span>(función)</b></p>
+<p class="p5">Llama la función para cada par de elementos adyacentes en la SequenceableCollection.</p>
+<p class="p5">La función pasa los dos elementos adyacentes y un índice.</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4, 5].doAdjacentPairs({ <span class="s3">arg</span> a, b; [a, b].postln; });</p>
+<p class="p6"><br></p>
+<p class="p1"><b>separate(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>separar(función)</p>
+<p class="p5">Separa la colección en subcolecciones llamando la función para cada par adyacente de elemntos.</p>
+<p class="p5">Si la función responde true (verdadero), entonces se hace una separación entre los elementos.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="Apple-converted-space"> </span>[1, 2, 3, 5, 6, 8, 10].separate({ <span class="s3">arg</span> a, b; (b - a) &gt; 1 }).postcs;</p>
+<p class="p9"><br></p>
+<p class="p1"><b>clump(groupSize)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>grupo(TamañoDelGrupo)</p>
+<p class="p5">Separa la colección en sub-colecciones separando cada groupSize elements.</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4, 5, 6, 7, 8].clump(3).postcs;</p>
+<p class="p9"><br></p>
+<p class="p1"><b>clumps(groupSizeList)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>grupos(ListaDeTamañoDeGrupo)</p>
+<p class="p5">Separa la colección en sub-colecciones separando los elementos en grupos cuyos tamaños estan dados por enteros en el groupSizeList.</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4, 5, 6, 7, 8].clumps([1, 2]).postcs;</p>
+<p class="p9"><br></p>
+<p class="p1"><b>curdle(probability)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>grumos(probabilidad)</p>
+<p class="p5">Separa la colección en sub-colecciones separando los elementos de acuerdo a una<span class="Apple-converted-space"> </span></p>
+<p class="p5">probabilidad dada.</p>
+<p class="p6"><br></p>
+<p class="p7">[1, 2, 3, 4, 5, 6, 7, 8].curdle(0.3).postcs;</p>
+<p class="p8"><br></p>
+<p class="p1"><b>integrate<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>integrar</p>
+<p class="p5">Devuelve una colección con la suma incremental de todos los elementos</p>
+<p class="p8"><br></p>
+<p class="p7">[3, 4, 1, 1].integrate;</p>
+<p class="p8"><br></p>
+<p class="p1"><b>differentiate<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>diferenciar</p>
+<p class="p5">Devuelve una colección con las diferencias por pares de todos os elementos.</p>
+<p class="p9"><br></p>
+<p class="p7">[3, 4, 1, 1].differentiate;</p>
+<p class="p6"><br></p>
+<p class="p1"><b>reduce(operator)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>reducir(operador)</p>
+<p class="p5">Aplica el método mencionado por <b>operator</b> al primero y segundo elemento de la colección - después aplica el método al resultado y al tercer elemento de la colección - después applica el método al resultado y al cuarto elemento de la colección - y asi continúa hasta el final del arreglo. <b>operator</b> puede ser <a href="../Core/Kernel/Function.html"><span class="s3">Function</span></a> o <a href="../Core/Symbol.html"><span class="s3">Symbol</span></a>.</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p14"><span class="s6">[3, 4, 5, 6].reduce(</span><span class="s8">'*'</span><span class="s6">); </span>// esto es lo mismo que [3, 4, 5, 6].product</p>
+<p class="p14"><span class="s6">[3, 4, 5, 6].reduce(</span><span class="s8">\lcm</span><span class="s6">); </span>// mínimo común múltiplo de todo el conjunto de números</p>
+<p class="p7">[<span class="s7">"d"</span>, <span class="s7">"e"</span>, (0..9), <span class="s7">"h"</span>].reduce(<span class="s8">'++'</span>); <span class="s9">// concatenación</span></p>
+<p class="p7">[3, 4, 5, 6].reduce({ <span class="s3">|a, b|</span> sin(a) * sin(b) }); <span class="s9">// producto de senos</span></p>
+<p class="p8"><br></p>
+<p class="p6"><br></p>
+<p class="p1"><b>convertDigits(base)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>//<span class="Apple-converted-space">  </span>cinvierteDígitos(base)</p>
+<p class="p5">Devuelve un entero resultante de la interpretación de los elemntos como dígitos de una base dada (10 por defecto).</p>
+<p class="p5">Ver también <b>asDigits</b> en <a href="../Math/Integer.html"><span class="s3">Integer</span></a> para el método complementario.</p>
+<p class="p8"><br></p>
+<p class="p7">[1, 0, 0, 0].convertDigits;</p>
+<p class="p7">[1, 0, 0, 0].convertDigits(2);</p>
+<p class="p7">[1, 0, 0, 0].convertDigits(3);</p>
+<p class="p9"><br></p>
+<p class="p1"><b>hammingDistance(that)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// distanciaHamming(eso)</p>
+<p class="p5">Devuelve una cuentaelementos de arreglos que no son iguales en posiciones idénticas. <span class="s4">http://en.wikipedia.org/wiki/Hamming_distance</span></p>
+<p class="p6"><br></p>
+<p class="p5">Las colecciones no son envueltas (wraped) - si un arreglo es mas corto que otro, la diferencia en tamaño debe ser incluida en la cuenta</p>
+<p class="p9"><br></p>
+<p class="p7">[0, 0, 0, 1, 1, 1, 0, 1, 0, 0].hammingDistance([0, 0, 1, 1, 0, 0, 0, 0, 1, 1])</p>
+<p class="p13">"SuperMan"<span class="s6">.hammingDistance(</span>"SuperCollider"<span class="s6">);</span></p>
+<p class="p9"><br></p>
+<p class="p9"><br></p>
+<p class="p9"><br></p>
+<p class="p4"><b>Soporte Matemático<span class="Apple-converted-space"> </span></b></p>
+<p class="p1">Ver Operadores para una descripción los mensajes binarios y unarios</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Mensajes Unarios:</b></p>
+<p class="p2"><br></p>
+<p class="p1">Todos los mensajes siguientes mandan el mensaje performUnaryOp al receptor con el selector<span class="Apple-converted-space"> </span></p>
+<p class="p1">del mensaje unitario como argumento.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>neg, reciprocal, bitNot, abs, asFloat, asInt, ceil, floor, frac, sign, squared, cubed, sqrt</b></p>
+<p class="p1"><b>exp, midicps, cpsmidi, midiratio, ratiomidi, ampdb, dbamp, octcps, cpsoct, log, log2,<span class="Apple-converted-space"> </span></b></p>
+<p class="p1"><b>log10, sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, rand, rand2, linrand, bilinrand,<span class="Apple-converted-space"> </span></b></p>
+<p class="p1"><b>sum3rand, distort, softclip, nyqring, coin, even, odd, isPositive, isNegative,<span class="Apple-converted-space"> </span></b></p>
+<p class="p1"><b>isStrictlyPositive, real, imag, magnitude, magnitudeApx, phase, angle, rho, theta,<span class="Apple-converted-space"> </span></b></p>
+<p class="p1"><b>asFloat, asInteger</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>performUnaryOp(aSelector)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// realizaOperaciónBinaria(unSelector)</p>
+<p class="p5">Crea una nueva colección con los resultados de aplicar el selector a todos los elementos del receptor.</p>
+<p class="p9"><br></p>
+<p class="p7">[1, 2, 3, 4].neg;</p>
+<p class="p8"><br></p>
+<p class="p7">[1, 2, 3, 4].reciprocal;</p>
+<p class="p6"><br></p>
+<p class="p4"><b>Mensajes Binarios:</b></p>
+<p class="p3"><br></p>
+<p class="p1">Todos los mensajes siguientes mandan el mensaje performBinaryOp al receptor con el selector del mensaje binario y el segundo operando como argumentos.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>+, -, *, /, div, %, **, min, max, &lt;, &lt;=, &gt;, &gt;=, &amp;, |, bitXor, lcm, gcd, round, trunc, atan2,<span class="Apple-converted-space"> </span></b></p>
+<p class="p1"><b>hypot, &gt;&gt;, +&gt;&gt;, fill, ring1, ring2, ring3, ring4, difsqr, sumsqr, sqrdif, absdif, amclip,<span class="Apple-converted-space"> </span></b></p>
+<p class="p1"><b>scaleneg, clip2, excess, &lt;!, rrand, exprand</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>performBinaryOp(aSelector, theOperand)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// realizaOperaciónBinaria(unSelector, elOperando)</b></p>
+<p class="p5">Crea una nueva colección de los resultados de aplicar el selector con el operando a todos los elementos en el receptor.</p>
+<p class="p5">Si el operando es una colección entonces los elementos de esa colección se ponen en pares con los elementos del receptor.</p>
+<p class="p6"><br></p>
+<p class="p7">([1, 2, 3, 4] * 10);</p>
+<p class="p8"><br></p>
+<p class="p7">([1, 2, 3, 4] * [4, 5, 6, 7]);</p>
+<p class="p9"><br></p>
+<p class="p6"><br></p>
+</body>
+</html>

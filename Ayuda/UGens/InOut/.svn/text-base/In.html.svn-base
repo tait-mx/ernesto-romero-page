@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20091022;4245200">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<META NAME="Info 2" CONTENT="">
+	<META NAME="Info 3" CONTENT="">
+	<META NAME="Info 4" CONTENT="">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p2 { margin-bottom: 0in; color: #0000bf; font-family: "Monaco"; font-size: 5pt }
+		P.p3 { margin-bottom: 0in; color: #0000bf; font-family: "Helvetica"; font-size: 7pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p5 { margin-left: 0.12in; text-indent: -0.12in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p6 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p7 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p8 { margin-bottom: 0in; color: #606060; font-family: "Monaco"; font-size: 5pt }
+		P.p9 { margin-bottom: 0in; color: #bf0000; font-family: "Monaco"; font-size: 5pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>In</B> <B>lee
+una señal de un bus</B></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Hereda de:
+<A HREF="../../Core/Object.html">Object</A></B></FONT><FONT SIZE=1> </FONT><FONT SIZE=1><B>:
+<A HREF="../../Core/Kernel/AbstractFunction.html">AbstractFunction</A></B></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><B>: <A HREF="../UGen.html">UGen</A></B></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><B>: <A HREF="../Multichannel/MultiOutUGen.html">MultiOutUGen</A></B></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><B>: <A HREF="AbstractIn.html">AbstractIn</A></B></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>*ar(bus,
+numChannels) –</B> lee una señal de un bus de audio.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>*kr(bus,
+numChannels) </B>- lee una señal de un bus de control.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>bus –</B>
+el índice del bus del cual leer.</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>numChannels
+–</B> el número de canales (p. ej. buses adyacentes) en los cuales
+leer. El valor por defecto es 1. No puedes modular este número
+asignándolo como argumento en una SynthDef.</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>In.kr es
+funcionalmente similar a <A HREF="InFeedback.html">InFeedback</A></FONT><FONT SIZE=1><B>.</B></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><SPAN STYLE="font-weight: normal">Esto es ya que
+lee todos los datos el bus, ya sea si son del ciclo actual o el
+anterior. Esto permite que reciba datos de nodos posteriores. In.ar
+lee sólo datos del ciclo actual, y asignará 0 a todos los datos de
+los ciclos anteriores (para uso dentro de ese synth; los datos
+permanecen en el bus). Debido a esto y el hecho de que los distintos
+ugens de salida </SPAN></FONT><FONT SIZE=1><I><SPAN STYLE="font-weight: normal">mezclan</SPAN></I></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">su
+salida con datos del ciclo actual pero </SPAN></SPAN></FONT><FONT SIZE=1><I><SPAN STYLE="font-weight: normal">sobreescriben</SPAN></I></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">los
+datos del ciclo anterior tal vez sea necesario utilizar un bus de
+control privado cuando este tipo de retroalimentación es deseado.
+Hay un ejemplo debajo que demuestra el problema. Ver los archivos de
+ayuda </SPAN></SPAN></FONT><FONT SIZE=1><A HREF="InFeedback.html">InFeedback</A>
+y <A HREF="../../ServerArchitecture/Order-of-execution.html">Order-of-execution</A>
+para más detalles.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Nota que usar
+la clase </FONT><FONT SIZE=1><B>Bus</B></FONT><FONT SIZE=1> </FONT><FONT SIZE=1><SPAN STYLE="font-weight: normal">para
+alocar un bus multicanal simplemente reserva una serie de índices de
+buses sucesivos con los alocadores de objetos bus del </SPAN></FONT><FONT SIZE=1><A HREF="../../ServerArchitecture/Server.html">Server</A>.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>abus.index
+simplemente devuelve el primero de dichos índices. Al usar un Bus
+con </FONT><FONT SIZE=1><B>In</B></FONT><FONT SIZE=1> </FONT><FONT SIZE=1><SPAN STYLE="font-weight: normal">o
+el UGen </SPAN></FONT><FONT SIZE=1><A HREF="Out.html">Out</A> no hay
+nada que te impida leer o escribir a un rango más grande, o de
+asignar deliberadamente un bus que ha sido alocado. Eres responsible
+de asegurarte que el número de canales coincida y que no haya
+conflictos. Ver los archivos de ayuda <A HREF="../../ServerArchitecture/Server-Architecture.html">Server-Architecture</A>
+y <A HREF="../../ServerArchitecture/Bus.html">Bus</A> para más
+información sobre cómo son usados.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Los busses de
+entrada del hardware comienzan justo después de los busses de salida
+del hardware, y pueden ser leídos utilizando In.ar (Para más
+detalles, ver <A HREF="../../ServerArchitecture/Server-Architecture.html">Server-Architecture.</A>)
+El número de busses de entrada y salida del hardware puede variar
+dependiendo de tus opciones del servidor. Para una clase envolvente
+adecuada que lidie con este asunto ver <A HREF="SoundIn.html">SoundIn</A>.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Leer de un
+bus de audio</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s =
+Server.local;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.boot;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(&quot;help-PinkNoise&quot;,
+{ arg out=0;&nbsp;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(out,
+PinkNoise.ar(0.1))&nbsp;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(&quot;help-In&quot;,
+{ arg out=0, in=0;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var input;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>input =
+In.ar(in, 1);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(out,
+input);</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// tocar
+ruido en el canal derecho</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>x =
+Synth(&quot;help-PinkNoise&quot;, [\out, 1]);</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">&nbsp;</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// leer la
+entrada y reproducirla en el canal izquierdo</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth.after(x,
+&quot;help-In&quot;, [\out, 0, \in, 1]);&nbsp;</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>leer de un
+bus de control</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(&quot;help-InKr&quot;,{
+arg out=0, in=0;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(out,</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SinOsc.ar(In.kr(in,
+1), 0, 0.1)</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(&quot;help-lfo&quot;,
+{ arg out=0;&nbsp;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.kr(out,
+LFNoise1.kr(0.3, 200, 800))&nbsp;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>b =
+Bus.control(s,1);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>b.set(800);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth(&quot;help-InKr&quot;,[\in,
+b]);&nbsp;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>b.set(400);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>b.set(300);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth(&quot;help-lfo&quot;,
+[\out, b]);</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>leer datos de
+control de un synth posterior en el orden de nodos</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(&quot;help-Infreq&quot;,
+{ arg bus;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(0,
+FSinOsc.ar(In.kr(bus), 0, 0.5));</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(&quot;help-Outfreq&quot;,
+{ arg freq = 400, bus;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.kr(bus,
+SinOsc.kr(1, 0, freq/40, freq));</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>b =
+Bus.control(s,1);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// añadir el
+primer Synth de control al final del servidor default, no hay sonido
+todavía</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>x =
+Synth.tail(s, &quot;help-Outfreq&quot;, [\bus, b]);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// añadir el
+synth que genera sonido ANTES de él; recibe los datos de x del ciclo
+anterior</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>y =
+Synth.before(x, &quot;help-Infreq&quot;, [\bus, b]);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// añade
+otro Synth de control antes d y, al inicio del servidor.</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// ahora
+sobreescribe los datos del ciclo anterior de x antes de que y los
+reciba</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>z =
+Synth.head(s, &quot;help-Outfreq&quot;, [\bus, b, \freq, 800]);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// obtén
+otro bus</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>c =
+Bus.control(s, 1);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// ahora y
+recibe los datos de x aunque z sigue ahí</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>y.set(\bus,
+c); x.set(\bus, c);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>x.free;
+y.free; z.free;</FONT></P>
+</BODY>
+</HTML>

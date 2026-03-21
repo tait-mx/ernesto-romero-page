@@ -1,0 +1,1158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20091025;20201200">
+	<META NAME="CocoaVersion" CONTENT="824.48">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p2 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 11pt }
+		P.p3 { margin-bottom: 0in; color: #0011ed; font-family: "Helvetica"; font-size: 7pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p5 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p6 { margin-bottom: 0in; font-family: "Monaco"; font-size: 7pt }
+		P.p7 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 8pt }
+		P.p8 { margin-bottom: 0in; color: #606060; font-family: "Monaco"; font-size: 5pt }
+		P.p9 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p10 { margin-bottom: 0in; color: #9a1f12; font-family: "Monaco"; font-size: 5pt }
+		P.p11 { margin-bottom: 0in; color: #9a1f12; font-family: "Monaco"; font-size: 5pt }
+		P.p13 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p14 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 5pt }
+		P.p15 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 5pt }
+		P.p16 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p17 { margin-bottom: 0in; color: #0013fe; font-family: "Helvetica"; font-size: 7pt }
+		P.p18 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>String
+arreglo de caracteres</B></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Hereda de:
+<A HREF="../Core/Object.html">Object</A></B></FONT><FONT SIZE=1> </FONT><FONT SIZE=1><B>:
+<A HREF="Collection.html">Collection</A></B></FONT><FONT SIZE=1> </FONT><FONT SIZE=1><B>:</B></FONT><FONT SIZE=1>
+</FONT><A HREF="SequenceableCollection.html"><FONT SIZE=1><B>SequenceableCollection</B></FONT></A><FONT SIZE=1>
+</FONT><FONT SIZE=1><B>: <A HREF="ArrayedCollection.html">ArrayedCollection</A></B></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><B>:</B></FONT><FONT SIZE=1> </FONT><A HREF="RawArray.html"><FONT SIZE=1><B>RawArray</B></FONT></A></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>String
+representa un arreglo de caracteres.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Los Strings
+pueden ser escritos literalmente utilizando comillas:</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;my
+string&quot;.class.postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Métodos
+de clase</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>*readNew(file)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Lee los
+contenidos enteros de un Archivo y los devuelve como un String nuevo.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Métodos
+de Instancia</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>at(index)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Los Strings
+responden a .at de manera similar que otras colecciones con índices.
+Cada elemento es un <B>Char</B>.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;ABCDEFG&quot;.at(2).postln;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>compare(aString)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve -1,
+0 ó 1, dependiendo si el receptor debe ser clasificado antes que el
+argumento, o si debe ser clasificado después del argumento. Es un
+caso de comparación sensitiva.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>&lt;
+aString</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve una
+variable Boolean si el receptor debe ser clasificado antes que el
+argumento</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>== aString</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve una
+variable Boolean si los dos Strings son iguales.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>post</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Escribe el
+String en la ventana de post.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>postln</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Escribe el
+String y un salto de línea en la ventana de post.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>postc
+postcln</B>Tal como post y postln arriba, pero formateado como
+comentario.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;This is
+a comment.&quot;.postcln;</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>postf</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Escribe un
+String formateado con argumentos a la ventana de post. El caracter %
+en el String formateado es reemplazado por una representación en
+String de un argumento. Para escribir el caracter % utiliza \\% .</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>postf(&quot;this
+% a %. pi = %, list = %\n&quot;, &quot;is&quot;, &quot;test&quot;,
+pi.round(1e-4), (1..4))</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>this is a
+test. pi = 3.1416, list = [ 1, 2, 3, 4 ]</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>format</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve una
+string formateada con argumentos. El caracter % en el String
+formateado es reemplazado por una representación en String de un
+argumento. Para escribir el caracter % utiliza \\% .</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>format(&quot;this
+% a %. pi = %, list = %\n&quot;, &quot;is&quot;, &quot;test&quot;,
+pi.round(1e-4), (1..4))</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>this is a
+test. pi = 3.1416, list = [ 1, 2, 3, 4 ]</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>matchRegexp(string,
+start, end)</B></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>comparación
+regular de expresiones POSIX.&nbsp;</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve
+'true' si el receptor (un patrón de expresiones regular) es igual a
+un String pasado a él.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>start</B>
+es un desfazamiento a partir del cual empezar la búsqueda en el
+string. (Por defecto, 1). <B>end</B> <SPAN STYLE="font-weight: normal">indica
+donde detenerse.</SPAN></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;c&quot;.matchRegexp(&quot;abcdefg&quot;,
+2, 5); // true</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;c&quot;.matchRegexp(&quot;abcdefg&quot;,
+4, 5); // false</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;behaviou?r&quot;.matchRegexp(&quot;behavior&quot;);
+// true</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;behaviou?r&quot;.matchRegexp(&quot;behaviour&quot;);
+// true</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;behaviou?r&quot;.matchRegexp(&quot;behavir&quot;);
+// false</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;b.h.v.r&quot;.matchRegexp(&quot;behavor&quot;);
+// true</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;b.h.vi*r&quot;.matchRegexp(&quot;behaviiiiir&quot;);
+// true</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;(a|u)nd&quot;.matchRegexp(&quot;und&quot;);
+// true</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;(a|u)nd&quot;.matchRegexp(&quot;and&quot;);
+// true</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;[a-c]nd&quot;.matchRegexp(&quot;ind&quot;);
+// false</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;[a-c]nd&quot;.matchRegexp(&quot;bnd&quot;);
+// true</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>findRegexp(string)</B></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Búsqueda
+regular de expresiones POSIX.&nbsp;</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;foobar&quot;.findRegexp(&quot;o*bar&quot;);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;32424
+334 /**aaaaaa*/&quot;.findRegexp(&quot;/\\*\\*a*\\*/&quot;);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;foobar&quot;.findRegexp(&quot;(o*)(bar)&quot;);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;aaaabaaa&quot;.findAllRegexp(&quot;a+&quot;);</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>error</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Escribe un
+anuncio de error y luego escribe el String.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>warn</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Escribe un
+anuncio de advertencia y luego escribe el String.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>inform</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Escribe el
+String.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>++ aString</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve una
+concatenación de dos strings.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>+ aString</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve una
+concatenación de dos strings con un espacio entre ellas.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>compile</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Compila un
+String que contiene código válido de SuperCollider y devuelve una
+Función.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var f;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>f = &quot;2 +
+1&quot;.compile.postln;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>f.value.postln;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>asCompileString</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+String formateado para compilar.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var f;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>f =
+&quot;myString&quot;;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>f.postln;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>f.asCompileString.postln;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>postcs</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Tal como
+postln, pero escribe el compileString del receptor.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>List[1, 2,
+[&quot;comment&quot;, [3, 2]], { 1.0.rand }].postcs;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>interpret</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Compila y
+ejecuta un string que contiene código válido de SuperCollider,
+devolviendo el resultado.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;2 +
+1&quot;.interpret.postln;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>interpretPrint</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Compila,
+ejecuta y escribe el resultado de un String que contiene código
+válido de SuperCollider.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;2 +
+1&quot;.interpretPrint;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>asSymbol</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+Símbolo derivado del String.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var z;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>z =
+&quot;myString&quot;.asSymbol.postln;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>z.class.postln;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>asInteger</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+valor entero derivado de un String. Los string que comiencen con un
+valor no numérico devuelven 0.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;4&quot;.asInteger.postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>asFloat</B></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+Float derivado del String. Los Strings que comienzan con valores no
+numéricos devuelven 0.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;4.3&quot;.asFloat.postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>asSecs</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+Float basado en convertir un String de tiempo en formato
+(dd):hh:mm:ss.s.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Este es el
+método inverso a SimpleNumber:asTimeString.&nbsp;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">&nbsp;</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(45296.asTimeString).asSecs;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;32.1&quot;.asSecs;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;62.1&quot;.asSecs;
+// warns</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;0:0:59.9&quot;.asSecs;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;1:1:1.1&quot;.asSecs;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;-1&quot;.asSecs;
+// neg sign supported</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;-12:34:56&quot;.asSecs;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;12:-34:56&quot;.asSecs;
+// warns</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;-23:12.3456&quot;.asSecs;
+//</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;-1:00:00:00&quot;.asSecs;
+// days too.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>catArgs(...
+args)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Concatena
+este String con los siguientes argumentos.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are some args: &quot;.catArgs(\fish, SinOsc.ar, {4 + 3}).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>scatArgs(...
+args)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Igual a
+catArgs, pero con espacios en medio.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are some args: &quot;.scatArgs(\fish, SinOsc.ar, {4 + 3}).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>ccatArgs(...
+args)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Igual a
+catArgs, pero con comas en medio.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;a
+String&quot;.ccatArgs(\fish, SinOsc.ar, {4 + 3}).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>catList(list)
+scatList(list) ccatList(list)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Igual a
+catArgs, scatArgs y ccatArgs arriba, pero toma una colección
+(usualmente una Lista o un Arreglo) como un argumento.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;a
+String&quot;.ccatList([\fish, SinOsc.ar, {4 + 3}]).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>split(separator)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+Arreglo de Strings dividido en el separador. El separador es un <B>Char</B><SPAN STYLE="font-weight: normal">,
+y no está incluído en el arreglo de salida. El separador default es
+$/, útil para rutas Unix.</SPAN></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;This/could/be/a/Unix/path&quot;.split.postln;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words&quot;.split($ ).postln;</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>ascii</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+Arreglo de números asci a partir de los caracteres del String.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;wertvoll&quot;.ascii;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>find(string,
+ignoreCase, offset)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve el
+índice del string en el receptor, o nil si no se encuentra uno. Si
+<B>ignoreCase</B> <SPAN STYLE="font-weight: normal">es 'true', find
+no distingue entre mayúsculas y minúsculas. </SPAN><B>offset</B> <SPAN STYLE="font-weight: normal">es
+el punto a partir del cual inicia la búsqueda en el string.</SPAN></FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words&quot;.find(&quot;are&quot;).postln;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words&quot;.find(&quot;fish&quot;).postln;</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>findBackwards(string,
+ignoreCase, offset)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Igual a find,
+pero inicia al final del string.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// comparaa</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+words are several words&quot;.find(&quot;words&quot;); // 6</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+words are several words&quot;.findBackwards(&quot;words&quot;); // 24</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>findAll(string,&nbsp;
+ignoreCase, offset)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve los
+índices del string en el receptor, o nil si no los encuentra.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words which are fish&quot;.findAll(&quot;are&quot;).postln;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words which are fish&quot;.findAll(&quot;fish&quot;).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>contains(string)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve una
+variable <B>Boolean</B> indicando si el String contiene la el
+argumento.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words&quot;.contains(&quot;are&quot;).postln;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words&quot;.contains(&quot;fish&quot;).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>containsi(string)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Igual a
+contains, pero sin atender a mayúsculas o minúsculas.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words&quot;.containsi(&quot;ArE&quot;).postln;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>containsStringAt(index,
+string)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve una
+variable <B>Boolean</B> <SPAN STYLE="font-weight: normal">indicando
+si el String contiene el argumento en el índice especificado.</SPAN></FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;These
+are several words&quot;.containsStringAt(6, &quot;are&quot;).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>icontainsStringAt(index,
+string)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Igual a
+containsStringAt, pero sin atender a mayúsculas y minúsculas.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>escapeChar(charToEscape)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Añade el
+caracter escape en la posición elegida.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;This
+will become a Unix friendly string&quot;.escapeChar($ ).postln;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>tr(from,
+to)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Transliteración.
+Reemplaza todas las instancias de 'from' a 'to'.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;:-(:-(:-(&quot;.tr($(,
+$)); //turn the frowns upside down</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>replace(find,
+replace)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Tal como <B>tr</B>,
+pero con strings como argumentos.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Here
+are several words which are fish&quot;.replace(&quot;are&quot;,
+&quot;were&quot;);</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>printOn(stream)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Escribe un
+String en un stream.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Print
+this on Post&quot;.printOn(Post);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>//
+equivalente a :</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Post &lt;&lt;
+&quot;Print this on Post&quot;;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>storeOn(stream)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Igual a
+printOn, pero formateado como asCompileStream.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Store
+this on Post&quot;.storeOn(Post);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>//
+equivalente a:</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Post &lt;&lt;&lt;
+&quot;Store this on Post&quot;;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>inspectorClass</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve la
+clase StringInspector.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>stripRTF</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+nuevo String sin el formato RTF.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// igual a
+File-readAllStringRTF</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>g =
+File(&quot;/code/SuperCollider3/build/Help/UGens/Chaos/HenonC.help.rtf&quot;,&quot;r&quot;);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>g.readAllString.stripRTF.postln;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>g.close;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Unix
+Support</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Donde es
+relevante, el directorio actual de trabajo es el mismo donde se
+encuentra la aplicación de SuperCollider, y la shell es la shell
+Bourne (sh). Observa que cwd, y la shell en sí misma, no es
+persistente:</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;echo
+$0&quot;.unixCmd; // print the shell (sh)</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;pwd&quot;.unixCmd;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;cd
+Help/&quot;.unixCmd;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;pwd&quot;.unixCmd;</FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;export
+FISH=mackerel&quot;.unixCmd;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;echo
+$FISH&quot;.unixCmd;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Es posible,
+sin embargo, ejecutar comandos complejos:</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;pwd; cd
+Help/; pwd&quot;.unixCmd;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;export
+FISH=mackerel; echo $FISH&quot;.unixCmd;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Si
+necesitaras que una variable de entorno persista, puedes utilizar
+<B>setenv</B> (ver debajo).</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>unixCmd(action,
+postOutput)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Ejecuta un
+String en la terminal utilizando la Bourne shell (sh). Devuelve el
+pid (nombre de un proceso) del proceso nuevo creado (utiliza
+Integer.pidRunning para probar si un pid está corriendo). Action es
+una Función que es llamada cuando el proceso es terminado. Recibe
+dos argumentos: el código de salida y el pid del proceso terminado.
+PostOutput es una variable Boolean que controla si la información
+del proceso es escrita en la ventana de post.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;ls
+Help&quot;.unixCmd;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;echo
+one; sleep 1; echo two; sleep 1&quot;.unixCmd { |res, pid| [\done,
+res, pid].postln };</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>unixCmdGetStdOut</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Similar a
+unixCmd, excepto que el stdout del proeso es devuelto (de manera
+sincrónica), en vez de enviado a la ventana de post.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>~listing =
+&quot;ls Help&quot;.unixCmdGetStdOut; // Grab</FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>~listing.reverse.as(Array).stutter.join.postln;
+// Mangle</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>runInTerminal</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Ejecuta un
+String en una terminal nueva. (El string es incorporado en un archivo
+de script y ejecutado utilizando una shell. “usr/bash” es la
+shell usada por defecto pero tú puedes especificar qué shell
+utilizar como un argumento.)</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;echo
+---------Hello delightful SuperCollider
+user----------&quot;.runInTerminal;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>setenv(value)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Le da a la
+variable de ambiente indicada en el String el valor del string <B>value</B>.
+Este valor persistirá hasta que sea cambiado o hasta que SC sea
+cerrado. Observa que si <B>value</B> <SPAN STYLE="font-weight: normal">es
+una ruta, tal vez tengas que utilizar el método standardizePath en
+él (ver abajo).</SPAN></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// todas las
+synthdefs en este directorio serán </FONT>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// serán
+cargadas al arrancar el servidor local</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;SC_SYNTHDEF_PATH&quot;.setenv(&quot;~/scwork/&quot;.standardizePath);&nbsp;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;echo
+$SC_SYNTHDEF_PATH&quot;.unixCmd;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>getenv</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve el
+valor contenido en la variable de ambiente indicada por String.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;USER&quot;.getenv;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>pathMatch</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve un
+<SPAN STYLE="font-weight: normal">Arreglo que contiene todas las
+rutas iguales a este String. Se pueden usar comodines, sin recursión.</SPAN></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Post &lt;&lt;
+&quot;Help/*&quot;.pathMatch;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>loadPaths</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Realiza
+pathMatch (ver abajo) en este String, luego carga y ejecuta todas las
+rutas en el Arreglo resultante.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Help/Collections/loadPaths
+example.rtf&quot;.loadPaths; //This file posts some text</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>load</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Carga y
+ejecuta el archivo en la ruta representada por el receptor.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>loadRelative</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Carga y
+ejecuta el archivo en la ruta representada por el receptor,
+interpretando la ruta con relación al documento o archivo de texto
+en uso. Requiere que el archivo haya sido guardado.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>resolveRelative</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Convierte el
+receptor de una ruta relativa a una ruta absoluta, en relación al
+documento o archivo de texto en uso. Requiere que el archivo haya
+sido guardado.</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>standardizePath</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Expande ~ a
+tu directorio home, y resuelve ligas simbólicas. Ver <B>PathName
+</B><SPAN STYLE="font-weight: normal">para usos más complejos</SPAN>.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;~/&quot;.standardizePath;
+//This will print your home directory</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>basename</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve el
+nombre de archivo de una ruta Unix.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Imaginary/Directory/fish.rtf&quot;.basename;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>dirname</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve el
+nombre de directorio de una ruta Unix.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Imaginary/Directory/fish.rtf&quot;.dirname;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>splitext</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Quita la
+extensión de un nombre de archivo o ruta y devuelve ambos en un
+<B>Arreglo </B><SPAN STYLE="font-weight: normal">como [ruta o nombre
+de archivo, extensión].</SPAN></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;fish.rtf&quot;.splitext;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Imaginary/Directory/fish.rtf&quot;.splitext;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Document
+Support</B></FONT></P>
+<P CLASS="p16" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>newTextWindow(title,
+makeListener)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Crea un nuevo
+<B>Documento </B><SPAN STYLE="font-weight: normal">con esto.</SPAN></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Here is
+a new Document&quot;.newTextWindow;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>openDocument</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Crea un nuevo
+<B>Documento</B> a partir de la ruta correspondiendo a esto. Devuelve
+el Documento.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>d =
+&quot;Help/Help.html&quot;.openDocument;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>d.class;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>openTextFile(selectionStart,
+selectionLength)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Crea un nuevo
+<B>Documento</B> <SPAN STYLE="font-weight: normal">a partir de la
+ruta correspondiendo a esto. Los argumentos de la selección
+preseleccionarán el rango indicado en la nueva ventana. Entrega
+esto.</SPAN></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>d =
+&quot;Help/Help.html&quot;.openTextFile(20, 210);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>d.class;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>findHelpFile</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Devuelve la
+ruta para el archivo de ayuda nombrado así, si existe; de otro modo,
+devuelve nil.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Document&quot;.findHelpFile;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;foobar&quot;.findHelpFile;</FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>openHelpFile</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Realiza la
+operación findHelpFile(arriba) en esto, y abre el archivo si existe;
+de otro modo abre el archivo de ayuda principal.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;Document&quot;.openHelpFile;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;foobar&quot;.openHelpFile;</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>speak(channel,
+force)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Envía el
+string al sintetizador de voz de OS (Sólo para OSX). Ver: <A HREF="../OSX/Speech.html">Speech</A></FONT></P>
+<P CLASS="p17" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;hi i'm
+talking with the default voice now, i guess&quot;.speak;</FONT></P>
+<P CLASS="p17" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Drawing
+Support</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Los
+siguientes métodos deberán ser llamados dentro de un
+Window-drawHook o una función SCUserView-drawFunc, y sólo será
+visible una vez que la ventana o la vista (view) sea actualizada
+(refreshed). Cada llamada a Window-refresh SCUserView-refresh
+'sobreescribirá' cualquier dibujo previo al ejecutar la función
+actualmente definida.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Ver también:
+<A HREF="../GUI/Cocoa-GUI/SCWindow.html">Window</A>, <A HREF="../GUI/Cocoa-GUI/SCUserView.html">SCUserView</A>,
+<A HREF="../GUI/GUI-Tools/Color.html">Color</A>, and <A HREF="../GUI/Main-GUI/Pen.html">Pen</A>.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Observa:</B>
+para GUIs multiplataforma, utiliza en vez de esto Pen.stringAtPoint,
+Pen.stringInRect, Pen.stringCenteredIn, Pen.stringLeftJustIn,
+Pen.stringRightJustIn.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>draw</B></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Dibuja el
+String en el punto (<A HREF="../Geometry/Point.html">Point</A></FONT><A HREF="../Geometry/Point.html"><SPAN STYLE="text-decoration: none"><FONT SIZE=1>)
+</FONT></SPAN></A><FONT SIZE=1><A HREF="mailto:0@0">0@0</A>. Si no ha
+habido transformaciones de estado de los gráficos esta será la
+esquina superior izquierda de la ventana. Ver también <A HREF="../GUI/Main-GUI/Pen.html">Pen</A>.</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w =
+Window.new.front;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.view.background_(Color.white);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.drawHook =
+{</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;abababababa\n\n\n&quot;.scramble.draw</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>};</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.refresh</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>drawAtPoint(point,
+font, color)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Dibuja el
+String en el punto (<A HREF="../Geometry/Point.html">Point</A></FONT><A HREF="../Geometry/Point.html"><SPAN STYLE="text-decoration: none"><FONT SIZE=1>)
+</FONT></SPAN></A><FONT SIZE=1>utilizando la <A HREF="../GUI/Main-GUI/Font.html">Font</A>
+y <A HREF="../GUI/GUI-Tools/Color.html">Color</A> especificados.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w =
+Window.new.front;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.view.background_(Color.white);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.drawHook =
+{</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;abababababa\n\n\n&quot;.scramble.drawAtPoint(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>100@100,&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Font(&quot;Courier&quot;,
+30),&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Color.blue(0.3,
+0.5))</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>};</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.refresh</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>drawInRect(rect,
+font, color)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Dibuja el
+String en un <A HREF="../Geometry/Rect.html">Rect</A> dado utilizando
+los <A HREF="../GUI/Main-GUI/Font.html">Font</A> y <A HREF="../GUI/GUI-Tools/Color.html">Color</A>
+especificados.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w =
+Window.new.front;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>r = Rect(100,
+100, 100, 100);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.view.background_(Color.white);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.drawHook =
+{</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;abababababa\n\n\n&quot;.scramble.drawInRect(r,
+Font(&quot;Courier&quot;, 12), Color.blue(0.3, 0.5));</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Pen.strokeRect(r);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>};</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.refresh</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>drawCenteredIn(rect,
+font, color)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Dibuja el
+String en un <A HREF="../Geometry/Rect.html">Rect</A> dado utilizando
+la <A HREF="../GUI/Main-GUI/Font.html">Font</A> y <A HREF="../GUI/GUI-Tools/Color.html">Color</A>
+especificadas.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w =
+Window.new.front;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.view.background_(Color.white);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>r = Rect(100,
+100, 100, 100);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.drawHook =
+{</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;abababababa\n\n\n&quot;.scramble.drawCenteredIn(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>r,&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Font(&quot;Courier&quot;,
+12),&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Color.blue(0.3,
+0.5)</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Pen.strokeRect(r);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>};</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.refresh</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>drawLeftJustIn(rect,
+font, color)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Dibuja el
+String en un <A HREF="../Geometry/Rect.html">Rect</A> dado utilizando
+la <A HREF="../GUI/Main-GUI/Font.html">Font</A> y <A HREF="../GUI/GUI-Tools/Color.html">Color</A>
+especificadas.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w =
+Window.new.front;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.view.background_(Color.white);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>r = Rect(100,
+100, 100, 100);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.drawHook =
+{</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;abababababa\n\n\n&quot;.scramble.drawLeftJustIn(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>r,&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Font(&quot;Courier&quot;,
+12),&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Color.blue(0.3,
+0.5)</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Pen.strokeRect(r);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>};</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.refresh</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>drawRightJustIn(rect,
+font, color)</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Dibuja el
+String en un <A HREF="../Geometry/Rect.html">Rect</A> dado utilizando
+la <A HREF="../GUI/Main-GUI/Font.html">Font</A> y <A HREF="../GUI/GUI-Tools/Color.html">Color</A>
+especificadas.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w =
+Window.new.front;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.view.background_(Color.white);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>r = Rect(100,
+100, 100, 100);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.drawHook =
+{</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>&quot;abababababa\n\n\n&quot;.scramble.drawRightJustIn(</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>r,&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Font(&quot;Courier&quot;,
+12),&nbsp;</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Color.blue(0.3,
+0.5)</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Pen.strokeRect(r);</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>};</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>w.refresh</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+</BODY>
+</HTML>

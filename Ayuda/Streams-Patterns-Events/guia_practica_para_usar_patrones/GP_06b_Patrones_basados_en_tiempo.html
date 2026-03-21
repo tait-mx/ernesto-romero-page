@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #97170d}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #416f16}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #0c21b8}
+span.s2 {color: #416f16}
+span.s3 {color: #000000}
+span.s4 {text-decoration: underline ; color: #0b00f4}
+span.s5 {color: #97170d}
+span.s6 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Patrones basados en tiempo</b></p>
+<p class="p2"><br></p>
+<p class="p3">Los "patrones basados en tiempo" son definidos aquí como patrones que usan tiempo como parte de sus cálculos. Naturalmente los patrones de eventos son impulsados por tiempo cuando son tocados por un reloj (y técnicamente se pueden requerir eventos de un flujo de eventos sin que sean reproducidos por un EventStreamPlayer -- ReproductorDeFlujosDeEventos --, pero esto no es un uso típico).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">La mayoría de estos patrones funcionan acordándose del tiempo actual del reloj en el momento en el que se incrusta el patrón al flujo de valores. El valor temporal usado para los cálculos es entonces el tiempo del reloj al tiempo de la evaluación menos el tiempo de comienzo -- es decir, el número de pulsos que han transcurrido desde que el patrón comenzó su incrustación. Se el patrón es incrustado varias veces, el tiempo de comienzo es también restablecido para que el patrón comience desde el principio.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">No hay nada que prevenga usar estos patrones fuera de un contexto de programación de itinerarios. En estos documentos ese contexto sería el de un patrón de eventos reproducido por un reloj, pero los flujos hechos a partir de estos patrones pueden ser usados en rutinas planificadas o también en funciones. Sin embargo, sólo un contexto de programación de itinerarios puede asegurar una coordinación precisa para la solicitud de valores.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ptime(repeticiones):</b> Retorna la cantidad de tiempo transcurrido desde que se incrustó. Un uso típico de este patrón es detener un flujo/patrón de valores después de cierta cantidad de tiempo.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"></li>
+</ul>
+<p class="p3">Este patrón <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pif.html"><span class="s1">Pif</span></a> usa Ptime para obtener valores de la bifurcación cierta para exactamente 4 pulso después de que el primer valor es solicitado. Después de eso, la condición será falsa y Pif revertirá a la bifurcación falsa, que es nula. Esto causa la detención del flujo. (Esto es como<span class="Apple-converted-space">  </span><a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pfindur.html"><span class="s1">Pfindur</span></a> para patrones de eventos, pero Pif/Ptime funciona también con patrones de valores).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">// Este es un truco muy útil: como Pfindur pero con patrones de valores</p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pif</span>(<span class="s1">Ptime</span>(<span class="s1">inf</span>) &lt; 4.0, <span class="s1">Pwhite</span>(-4, 11, <span class="s1">inf</span>)),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.25</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pstep(niveles, durs, repeticiones):</b> Repite un valor 'nivel' durante su correspondiente duración y luego se mueve al siguiente valor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pseg(niveles, durs, curvas, repeticiones):</b> Similar a Pstep, pero interpola al siguiente valor en lugar de dar el paso de manera abrupta al final de la duración. La interpolación es lineal por defecto, pero cualquier curva de envolvente puede ser usada. 'niveles' y 'durs' deben ser patrones.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p4">// la curva es 5 - aquí se puede ver la curva, primero ascendiendo y luego descendiendo</p>
+<p class="p5"><span class="s1">Env</span>(#[0, 1, 0], #[1, 1], 5).plot;</p>
+<p class="p6"><br></p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// usando \note, Pseg dará números de nota fraccionales</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// no se puede usar \degree porque maneja números no enteros diferentemente</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\note<span class="s3">, </span><span class="s1">Pseg</span><span class="s3">(</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">Pwhite</span><span class="s3">(-7, 19, </span><span class="s1">inf</span><span class="s3">),<span class="Apple-tab-span">	</span></span>// números de nota cromáticos</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// versión alternativa para números diatónicos</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// PdegreeToKey hace la misma conversión que \degree --&gt; \note</p>
+<p class="p4">//<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>PdegreeToKey(Pwhite(-4, 11, inf), Pkey(\scale), 12),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pwhite</span>(1, 4, <span class="s1">inf</span>) * 0.5,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>5, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.125</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Usando envolventes como patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s4"><a href="../../../../../../../SuperCollider3/build/Help/Control/Env.html">Env</a></span> admite el protocolo de flujos: 'asStream' ('comoFlujo') convierte un Env en un flujo y valores coordinados en el tiempo pueden ser obtenidos de él usando 'next' ('siguiente'). El flujo retorna el valor que tendría el envolvente al momento del tiempo transcurrido. De la misma manera .at(tiempo) retorna el valor del envolvente en el tiempo especificado.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">e = <span class="s1">Env</span>.linen(1, 1, 1);</p>
+<p class="p5">e.at(2);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">// == 1</span></p>
+<p class="p5">e.at(2.5);<span class="Apple-tab-span">	</span><span class="s5">// == 0.5</span></p>
+<p class="p6"><br></p>
+<p class="p4">// imprime los valores del envolvente</p>
+<p class="p5">r = fork {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>stream = e.asStream;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>12.do({</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>stream.next.postln;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.25.wait;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>});</p>
+<p class="p5">};</p>
+<p class="p6"><br></p>
+<p class="p4">// Usar un envolvente para panear notas de izquierda a derecha y de vuelta</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwhite</span>(-4, 11, 32),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\pan</span>, <span class="s1">Env</span>(#[-1, 1, -1], #[2, 2], <span class="s2">\sin</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.125</p>
+<p class="p5">).play;</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Los parámetros del envolvente nodoDeLiberación y el nodoDeBucle no tienen efecto ya que sólo tienen sentido si son usados dentro de un Sinte con un EnvGen con compuerta.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Cuando acaba el envolvente, el flujo mantendrá el valor final indefinidamente. El truco <span class="s1">Pif</span>(<span class="s1">Ptime</span>(<span class="s1">inf</span>) &lt; totalTime, <span class="s1">Env</span>(...)) sirve para hacer que se detenga.</p>
+<p class="p2"><br></p>
+<p class="p4">// Usar un envolvente para panear notas de izquierda a derecha y de vuelta</p>
+<p class="p4">// Toca sólo un ciclo</p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// cambiar a inf: no necesitamos saber exactamente cuántos eventos necesitamos</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwhite</span>(-4, 11, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\pan</span>, <span class="s1">Pif</span>(<span class="s1">Ptime</span>(<span class="s1">inf</span>) &lt;= 4.0, <span class="s1">Env</span>(#[-1, 1, -1], #[2, 2], <span class="s2">\sin</span>)),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.125</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p6"><br></p>
+<p class="p4">// Para mantener el envolvente iterando en un bucle, envolver Pif dentro de Pn</p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwhite</span>(-4, 11, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\pan</span>, <span class="s1">Pn</span>(<span class="s1">Pif</span>(<span class="s1">Ptime</span>(<span class="s1">inf</span>) &lt;= 4.0, <span class="s1">Env</span>(#[-1, 1, -1], #[2, 2], <span class="s2">\sin</span>)), <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.125</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="../guía práctica para usar patrones/GP_06a_Patrones de repeticion y restriccion.html"><span class="s6">GP_06a_Patrones de repeticion y restriccion</span></a></span></p>
+<p class="p9"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="../guía práctica para usar patrones/GP_06c_Composicion de Patrones.html"><span class="s6">GP_06c_Composicion de Patrones</span></a></span></p>
+</body>
+</html>

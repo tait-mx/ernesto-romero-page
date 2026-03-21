@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="1038.11">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; min-height: 22.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0000ca}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #317700}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #a70000}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #a7110a}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0000ee}
+span.s1 {color: #0000ee}
+span.s2 {color: #0200f5}
+span.s3 {color: #0000ca}
+span.s4 {color: #000000}
+span.s5 {color: #317700}
+span.s6 {color: #317713}
+span.s7 {color: #a70000}
+span.s8 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Creando variaciones sobre un patrón rítmico de base</b></p>
+<p class="p2"><br></p>
+<p class="p3">Normalmente los patrones son objetos sin estado propio. Esto parecería descartar la posibilidad de hacerle cambios sobre la marcha al material que está siendo tocado por el patrón. De hecho, modificar el objeto de un patrón existente es difícil y no siempre apropiado (ya que con esa aproximación no se pueden confinar los cambios al flujo que realiza los cambios).</p>
+<p class="p4"><br></p>
+<p class="p3"><span class="s1"><a href="../Patterns/Plazy.html"><b>Plazy</b></a></span><span class="s2"><b> </b></span>ofrece una aproximación alternativa: usar una función para generar un nuevo objeto de patrón periódicamente y reproducir estos patrones en sucesión, uno por uno. (Plazy incrusta sólo un patrón; envolviendo Plazy en <a href="../Patterns/Pn.html"><span class="s3">Pn</span></a> lo hace muchas veces).</p>
+<p class="p4"><br></p>
+<p class="p3">La lógica en este ejemplo es un poco más complicada: para cada compás, comenzar con arreglos que contienen el patrón rítmico básico para cada parte (bombo, tarola y hi-hat) e insertar notas ornamentales con distintas amplitudes y duraciones. Los arreglos sujetan los datos del ritmo ya que este tipo de generación rítmica requiere conciencia de el compás entero (el futuro), mientras que los patrones en general no ven hacia adelante.</p>
+<p class="p4"><br></p>
+<p class="p3">Esto sugiere un objeto para almacenaje de datos que también encapsule la lógica específica para cada parte. Vimos anteriormente que <a href="../Patterns/Penvir.html"><span class="s3">Penvir</span></a> mantiene un ambiente diferente para cada flujo hecho del patrón. En otras palabras, Penvir permite que comportamientos más complicados sean modelados usando un objeto que encapsula tanto una lógica hecha a la medida como los datos sobre los que opera.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">Los ornamentos específicos a ser añadidos son ligeramente diferentes para las tres partes, por lo que hay tres ambientes. Algunas funciones son compartidas; en lugar de cortar y pegarlas en cada ambiente, las pondremos en un ambiente separado y lo usaremos como pariente de los ambientes para cada parte de la batería.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">La mayor parte de la lógica está en los ambientes de las partes que toca la batería y consisten en su mayoría de manipulaciones directas sobre arreglos. Desempaquemos el patron que usa los ambientes para generar notas:<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5">~bombo = <span class="s3">Penvir</span>(~ambBombo, <span class="s3">Pn</span>(<span class="s3">Plazy</span>({</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~init.value;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~addNotes.value;</p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span></span>Pbindf<span class="s4">(</span></p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s4">(</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s4">, </span>\bombo<span class="s4">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\preamp</span>, 0.4,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*(~pbindPairs.value(#[amp, decay2]))</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\freq</span>, <span class="s3">Pif</span>(<span class="s3">Pkey</span>(<span class="s5">\amp</span>) &gt; 0, 1, <span class="s5">\rest</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>)</p>
+<p class="p5">}), <span class="s3">inf</span>)).play(quant: 4);</p>
+<p class="p4"><br></p>
+<p class="p3"><b>Penvir(~ambBombo, ...)</b> : Le dice al patrón que corra dentro del ambiente ~bombo.</p>
+<p class="p4"><br></p>
+<p class="p3"><b>Pn(..., inf)</b> : Repite el patrón interior (Plazy) un número infinito de veces.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3"><b>Plazy({ ... })</b> : La función puede hacer cualquier cosa que se quiera, mientras retorne un patrón. Las dos primeras líneas hacen el trabajo duro, especialmente ~addNotes.value, accesando el ambiente para usar el código generador del ritmo. Esto cambia los datos en el ambiente que son conectados al Pbind en la línea ~pbindPairs.value(). El patrón reproducirá hasta acabarse, Plazy devolverá el control a su pariente -- Pn --, que repite Plazy.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3"><b>Pbindf(..., \freq, ...)</b> : Pbindf añade nuevos valores a los eventos, obteniéndolos de un patrón diferente. Este uso es para sacar provecho de una característica del evento preestablecido. Si la llave \freq es un símbolo (en lugar de un número o un arreglo), el evento representa un silencio y nada se tocará en el servidor. No importa si el SynthDef tiene o no un control de 'freq'; un símbolo en este espacio produce un silencio. Aquí es un condicional sencillo para producir un silencio cuando amp == 0.</p>
+<p class="p4"><br></p>
+<p class="p3"><b>Pbind(...)</b> : La sección principal de las notas: nombre del SynthDef, parámetros generales y valores rítmicos para el ambiente. (La sintaxis * explica la necesidad de un Pbindf. La expresión de \freq debe seguir al resultado de pbindPairs, pero no es posible poner más argumentos después de *(...). Pbindf permite que el Pbind interno esté cerrado y al mismo tiempo puede aceptar valores adicionales).</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">(</p>
+<p class="p8">// este bombo no suena muy bien en bocinas baratas</p>
+<p class="p8">// pero si los monitores tienen graves decentes, es electro-delicioso</p>
+<p class="p6">SynthDef<span class="s4">(</span><span class="s5">\kik</span><span class="s4">, { </span>|basefreq = 50, ratio = 7, sweeptime = 0.05, preamp = 1, amp = 1,</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>decay1 = 0.3, decay1L = 0.8, decay2 = 0.15, out|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">var</span><span class="Apple-tab-span">	</span>fcurve = <span class="s3">EnvGen</span>.kr(<span class="s3">Env</span>([basefreq * ratio, basefreq], [sweeptime], <span class="s5">\exp</span>)),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>env = <span class="s3">EnvGen</span>.kr(<span class="s3">Env</span>([1, decay1L, 0], [decay1, decay2], -4), doneAction: 2),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sig = <span class="s3">SinOsc</span>.ar(fcurve, 0.5pi, preamp).distort * env * amp;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">Out</span>.ar(out, sig ! 2)</p>
+<p class="p5">}).memStore;</p>
+<p class="p9"><br></p>
+<p class="p6">SynthDef<span class="s4">(</span><span class="s5">\</span><span class="s6">kraftySnr</span><span class="s4">, { </span>|amp = 1, freq = 2000, rq = 3, decay = 0.3, pan, out|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">var</span><span class="Apple-tab-span">	</span>sig = <span class="s3">PinkNoise</span>.ar(amp),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>env = <span class="s3">EnvGen</span>.kr(<span class="s3">Env</span>.perc(0.01, decay), doneAction: 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>sig = <span class="s3">BPF</span>.ar(sig, freq, rq, env);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">Out</span>.ar(out, <span class="s3">Pan2</span>.ar(sig, pan))</p>
+<p class="p5">}).memStore;</p>
+<p class="p9"><br></p>
+<p class="p5">~commonFuncs = (</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// guardar el tiempo de comienzo, para reconocer el último compás de un ciclo de 4</p>
+<p class="p5"><span class="Apple-tab-span">	</span>init: {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(~startTime.isNil) { ~startTime = <span class="s3">thisThread</span>.clock.beats };</p>
+<p class="p5"><span class="Apple-tab-span">	</span>},</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// convertir los arreglos de ritmos a patrones</p>
+<p class="p5"><span class="Apple-tab-span">	</span>pbindPairs: { <span class="s3">|keys|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">var</span><span class="Apple-tab-span">	</span>pairs = <span class="s3">Array</span>(keys.size * 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>keys.do({ <span class="s3">|key|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(key.envirGet.notNil) { pairs.add(key).add(<span class="s3">Pseq</span>(key.envirGet, 1)) };</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>pairs</p>
+<p class="p5"><span class="Apple-tab-span">	</span>},</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// identificar silencios en el arreglo de ritmos</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// (para saber donde colocar las notas)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>getRestIndices: { <span class="s3">|array|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">var</span><span class="Apple-tab-span">	</span>result = <span class="s3">Array</span>(array.size);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>array.do({ <span class="s3">|item, i|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(item == 0) { result.add(i) }</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>result</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">);</p>
+<p class="p5">)</p>
+<p class="p9"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s3">TempoClock</span>.default.tempo = 104 / 60;</p>
+<p class="p9"><br></p>
+<p class="p5">~kikEnvir = (</p>
+<p class="p5"><span class="Apple-tab-span">	</span>parent: ~commonFuncs,</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el patrón rítmico que se mantiene constante para cada compás</p>
+<p class="p5"><span class="Apple-tab-span">	</span>baseAmp: #[1, 0, 0, 0,<span class="Apple-converted-space">  </span>0, 0, 0.7, 0,<span class="Apple-converted-space">  </span>0, 1, 0, 0,<span class="Apple-converted-space">  </span>0, 0, 0, 0] * 0.5,</p>
+<p class="p5"><span class="Apple-tab-span">	</span>baseDecay: #[0.15, 0, 0, 0,<span class="Apple-converted-space">  </span>0, 0, 0.15, 0,<span class="Apple-converted-space">  </span>0, 0.15, 0, 0,<span class="Apple-converted-space">  </span>0, 0, 0, 0],</p>
+<p class="p5"><span class="Apple-tab-span">	</span>addNotes: {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">var</span><span class="Apple-tab-span">	</span>beat16pos = (<span class="s3">thisThread</span>.clock.beats - ~startTime) % 16,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>available = ~getRestIndices.(~baseAmp);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp = ~baseAmp.copy;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~decay2 = ~baseDecay.copy;</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// si es el último compás de un ciclo de 4, hacer redobles más complejos</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(beat16pos.inclusivelyBetween(12, 16)) {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>available.scramble[..rrand(5, 10)].do({ <span class="s3">|index|</span></p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// crescendo</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp[index] = index.linexp(0, 15, 0.2, 0.5);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~decay2[index] = 0.15;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>} {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>available.scramble[..rrand(0, 2)].do({ <span class="s3">|index|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp[index] = rrand(0.15, 0.3);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~decay2[index] = rrand(0.05, 0.1);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">);</p>
+<p class="p9"><br></p>
+<p class="p5">~snrEnvir = (</p>
+<p class="p5"><span class="Apple-tab-span">	</span>parent: ~commonFuncs,</p>
+<p class="p5"><span class="Apple-tab-span">	</span>baseAmp: #[0, 0, 0, 0,<span class="Apple-converted-space">  </span>1, 0, 0, 0,<span class="Apple-converted-space">  </span>0, 0, 0, 0,<span class="Apple-converted-space">  </span>1, 0, 0, 0] * 1.5,</p>
+<p class="p5"><span class="Apple-tab-span">	</span>baseDecay: #[0, 0, 0, 0,<span class="Apple-converted-space">  </span>0.7, 0, 0, 0,<span class="Apple-converted-space">  </span>0, 0, 0, 0,<span class="Apple-converted-space">  </span>0.4, 0, 0, 0],</p>
+<p class="p5"><span class="Apple-tab-span">	</span>addNotes: {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">var</span><span class="Apple-tab-span">	</span>beat16pos = (<span class="s3">thisThread</span>.clock.beats - ~startTime) % 16,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>available = ~getRestIndices.(~baseAmp),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>choice;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp = ~baseAmp.copy;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~decay = ~baseDecay.copy;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(beat16pos.inclusivelyBetween(12, 16)) {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>available.scramble[..rrand(5, 9)].do({ <span class="s3">|index|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp[index] = index.linexp(0, 15, 0.5, 1.8);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~decay[index] = rrand(0.2, 0.4);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>} {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>available.scramble[..rrand(1, 3)].do({ <span class="s3">|index|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp[index] = rrand(0.15, 0.3);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~decay[index] = rrand(0.2, 0.4);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">);</p>
+<p class="p9"><br></p>
+<p class="p5">~hhEnvir = (</p>
+<p class="p5"><span class="Apple-tab-span">	</span>parent: ~commonFuncs,</p>
+<p class="p5"><span class="Apple-tab-span">	</span>baseAmp: 15 ! 16,</p>
+<p class="p5"><span class="Apple-tab-span">	</span>baseDelta: 0.25 ! 16,</p>
+<p class="p5"><span class="Apple-tab-span">	</span>addNotes: {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">var</span><span class="Apple-tab-span">	</span>beat16pos = (<span class="s3">thisThread</span>.clock.beats - ~startTime) % 16,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>available = (0..15),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>toAdd;</p>
+<p class="p10"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s7">// </span>si es el último compás de un ciclo de 4, hacer redobles más complejos</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp = ~baseAmp.copy;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~dur = ~baseDelta.copy;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(beat16pos.inclusivelyBetween(12, 16)) {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>toAdd = available.scramble[..rrand(2, 5)]</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>} {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>toAdd = available.scramble[..rrand(0, 1)]</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>toAdd.do({ <span class="s3">|index|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp[index] = ~doubleTimeAmps;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~dur[index] = ~doubleTimeDurs;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span>},</p>
+<p class="p5"><span class="Apple-tab-span">	</span>doubleTimeAmps: <span class="s3">Pseq</span>(#[15, 10], 1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span>doubleTimeDurs: <span class="s3">Pn</span>(0.125, 2)</p>
+<p class="p5">);</p>
+<p class="p9"><br></p>
+<p class="p9"><br></p>
+<p class="p5">~kik = <span class="s3">Penvir</span>(~kikEnvir, <span class="s3">Pn</span>(<span class="s3">Plazy</span>({</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~init.value;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~addNotes.value;</p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span></span>Pbindf<span class="s4">(</span></p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s4">(</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s4">, </span>\kik<span class="s4">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\preamp</span>, 0.4,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*(~pbindPairs.value(#[amp, decay2]))</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>),</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el evento predeterminado checa \freq --</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// si un símbolo como \rest o incluso sólo \,</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el evento será un silencio y ningún sinte será tocado</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\freq</span>, <span class="s3">Pif</span>(<span class="s3">Pkey</span>(<span class="s5">\amp</span>) &gt; 0, 1, <span class="s5">\rest</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>)</p>
+<p class="p5">}), <span class="s3">inf</span>)).play(quant: 4);</p>
+<p class="p9"><br></p>
+<p class="p5">~snr = <span class="s3">Penvir</span>(~snrEnvir, <span class="s3">Pn</span>(<span class="s3">Plazy</span>({</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~init.value;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~addNotes.value;</p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span></span>Pbindf<span class="s4">(</span></p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s4">(</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s4">, </span>\kraftySnr<span class="s4">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*(~pbindPairs.value(#[amp, decay]))</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\freq</span>, <span class="s3">Pif</span>(<span class="s3">Pkey</span>(<span class="s5">\amp</span>) &gt; 0, 5000, <span class="s5">\rest</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>)</p>
+<p class="p5">}), <span class="s3">inf</span>)).play(quant: 4);</p>
+<p class="p9"><br></p>
+<p class="p5">~hh = <span class="s3">Penvir</span>(~hhEnvir, <span class="s3">Pn</span>(<span class="s3">Plazy</span>({</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~init.value;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~addNotes.value;</p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span></span>Pbindf<span class="s4">(</span></p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s4">(</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s4">, </span>\kraftySnr<span class="s4">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\rq</span>, 0.06,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\amp</span>, 15,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\decay</span>, 0.04,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*(~pbindPairs.value(#[amp, dur]))</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\freq</span>, <span class="s3">Pif</span>(<span class="s3">Pkey</span>(<span class="s5">\amp</span>) &gt; 0, 12000, <span class="s5">\rest</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>)</p>
+<p class="p5">}), <span class="s3">inf</span>)).play(quant: 4);</p>
+<p class="p5">)</p>
+<p class="p9"><br></p>
+<p class="p8">// detenerse justo antes de la barra de compás</p>
+<p class="p5">t = <span class="s3">TempoClock</span>.default;</p>
+<p class="p5">t.schedAbs(t.nextTimeOnGrid(4, -0.001), {</p>
+<p class="p5"><span class="Apple-tab-span">	</span>[~kik, ~snr, ~hh].do(<span class="s3">_</span>.stop);</p>
+<p class="p5">});</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p11"><span class="s4">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Recetario06_Redes_de_frases.html"><span class="s8">GP_Recetario06_Redes_de_frases</span></a></span></p>
+<p class="p11"><span class="s4">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Ref01_Componentes_de_los_Patrones.html"><span class="s8">GP_Ref01_Componentes_de_los_Patrones</span></a></span></p>
+</body>
+</html>

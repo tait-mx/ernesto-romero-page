@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #872a1f}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+</style>
+</head>
+<body>
+<p class="p1"><b>Sintaxis y gramática</b></p>
+<p class="p2"><br></p>
+<p class="p3">Antes de que de hecho corra un programa, SuperCollider examina el código para asegurarse de que la sintaxis y la gramática estén correctas. Por ejemplo, ¿están todos los nombres de las variables y/o las palabras clave correctamente escritas en el programa? Las instrucciones están terminadas con punto y coma?</p>
+<p class="p4"><br></p>
+<p class="p3">Si se encuentran errores de sintaxis o de gramática, SuperCollider escribe una notificación en la ventana post. Tales mensajes son descriptivos pero escuetos.</p>
+<p class="p4"><br></p>
+<p class="p3">• ERROR: Parse error</p>
+<p class="p3"><span class="Apple-converted-space">   </span>in file 'selected text'</p>
+<p class="p3"><span class="Apple-converted-space">   </span>line 1 char 2 :</p>
+<p class="p3"><span class="Apple-converted-space">  </span>4,•<span class="Apple-converted-space"> </span></p>
+<p class="p3">-----------------------------------</p>
+<p class="p3">• ERROR: Command line parse failed</p>
+<p class="p3">nil</p>
+<p class="p4"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Errores comunes</b></p>
+<p class="p4"><br></p>
+<p class="p3">1. el nombre de alguna clase o variable está mal escrito</p>
+<p class="p3">2. una variable está siendo usada antes de haber sido declarada</p>
+<p class="p3">3. falta un paréntesis, corchete o llave o está siendo usado en un contexto incorrecto</p>
+<p class="p3">4. falta alguna coma o punto y coma requeridos o están siendo usados de manera impropia</p>
+<p class="p4"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p3">Dos comandos útiles en el menú Edit de SuperCollider:</p>
+<p class="p4"><br></p>
+<p class="p3">1. "Go to Line ..." ("Ve a la línea ...") te transporta al número de línea que escojas. Usa esto cuando el mensaje de error identifique el número de línea en el que el problema ocurrió.</p>
+<p class="p4"><br></p>
+<p class="p3">2. "Find" ("Busca") busca palabras o frases. Usa "Find" para localizar código que ha sido identificado en mensajes de error o para reemplazar todas las instancias de alguna palabra mal escrita.</p>
+<p class="p4"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p4"><br></p>
+<p class="p6">ve a <b>3_Errores_durante _la_ejecución<span class="Apple-converted-space">  </span>(Runtime_errors)</b></p>
+</body>
+</html>

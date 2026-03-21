@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #911107}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #85190f}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #4d6d19}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1325b7}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #85190f}
+span.s2 {color: #1325b7}
+span.s3 {color: #000000}
+span.s4 {text-decoration: underline ; color: #0b00f4}
+span.s5 {color: #4d6d19}
+span.s6 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Vocabulario básico: generando valores</b></p>
+<p class="p2"><br></p>
+<p class="p3">Algunos patrones serán demostrados a partir de la construcción Pbind. Esto es una muestra de lo que vendrá -- secuenciar eventos sonoros con patrones. Por el momento no es necesario preocuparse por cómo funciona Pbind. Se comenzará con una lista de patrones básicos, que en un principio parecerá muy larga. Se sugiere concentrarse en los patrones marcados con un asterisco, son los más básicos y comúnmente usados.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Para obtener más información sobre cualquiera de estos patrones, seleccionar la clase y abrir la página de ayuda.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Referencia rápida</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Patrones primarios</b></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pseq(lista, repeticiones, separaciónDeOrígen):</b> Reproducir a través de la lista entera un número 'repeticiones' de veces . Similar a lista.do.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Prand(lista, repeticiones):</b> Escoger elementos de la lista al azar<span class="Apple-converted-space">  </span>(similar a lista.choose).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pxrand(lista, repeticiones):</b> Escoger al azar, excluyendo repetir el mismo elemento dos veces seguidas.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pshuf(lista, repeticiones):</b> Barajar la lista en orden aleatorio y usar el mismo orden de repeticiones un número 'repeticiones' de veces. Como lista.scramble.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pwrand(list, pesos, repeticiones):</b> Escoger al azar mediante probabilidades ponderadas, usando<span class="Apple-converted-space">  </span>pesos, al igual que en lista.wchoose(pesos). Pesos es un arreglo que especifica las probabilidades de los resultados posibles para cada elemento de lista.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pseries(comienzo, paso, longitud):</b> Serie aritmética (adición)</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pgeom(comienzo, crecimiento, longitud):</b> Serie geométrica (multiplicación, factor de crecimiento).</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pwhite(bajo, alto, longitud):</b> Números al azar, distribución igual ("ruido blanco"). Igual a rrand(bajo, alto).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pexprand(bajo, alto, longitud):</b> Números al azar, distribución exponencial. Como exprand(bajo, alto).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pbrown(bajo, alto, paso, longitud):</b> Movimiento browniano, escala aritmética (adición).</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pfunc(siguienteFunción, funciónDeRestuarar):</b> Toma el flujo de valores a partir de una función suministrada por el usuario.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Pfuncn(función, repeticiones):</b> Tomar valores de la función pero detenerse después de 'repeticiones'<span class="Apple-converted-space">  </span>veces.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s1"><b>* </b></span><b>Proutine(funciónDeRutina):</b> Usa la función como una rutina. La función deberá retornar valores usando .yield (ceder) o .embedInStream (incrustar en un flujo).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Patrones adicionales de listas</b></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pser(lista, repeticiones, separación):</b> Reproducir a través de la lista tantas veces como sea necesario, pero producir el resultado solamente un número 'repeticiones' de veces.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pslide(lista, repeticiones, longitud, paso, comienzo, recircularAlFinal):</b> Reproducir segmentos traslapantes de la lista.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pwalk(lista, patrónDePasos, patrónDeDirección, posiciónDeComienzo):</b> Caminata aleatoria sobre la lista.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Place(lista, repeticiones, separaciónDeOrígen):</b> Entrelazar los arreglos que se encuentren en la lista principal.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ppatlace(lista, repeticiones, separaciónDeOrígen):</b> Entrelazar los patrones que se encuentren en la lista principal.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ptuple(lista, repeticiones):</b> Coleccionar los elementos de la lista en un arreglo (una tupla).<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Generadoes de números aleatorios adicionales</b></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgbrown(bajo, alto, paso, longitud):</b> Movimiento browniano, escala geométrica (multiplicación).</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pbeta(bajo, alto, prob1, prob2, longitud):</b> Distribución beta, donde prob1 = α (alpha) y prob2 = β (beta).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pcauchy(media, envergadura, longitud):</b> Distribución de Cauchy.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgauss(media, desviación, longitud):</b> Distribución gausiana (uniforme).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Phprand(bajo, alto, longitud):</b> Retorna el mayor de dos números aleatorios con distribución uniforme.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Plprand(bajo, alto, longitud):</b> Retorna el menos de dos números aleatorios con distribución uniforme.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pmeanrand(bajo, alto, longitud):</b> Retorna el promedio de dos numeros aleatorios con distribución uniforme, es decir (alto +<span class="Apple-converted-space">  </span>bajo) / 2.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ppoisson(media, longitud):</b> Distribución de Poisson.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pprob(distribución, bajo, alto, longitud, tamañoDeTabla):</b> Distribución arbitraria, basada en una tabla de probabilidades.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Descripción funcional del patrones</b></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Patrones de lista</b></p>
+<p class="p2"><br></p>
+<p class="p3">Lo más obvio que uno quisiera hacer con un patrón es darle una lista de valores y obtener su lectura en orden. Se tienen varias elecciones, que difieren en cómo se trata el parámetro 'repeticiones'.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pseq(lista, repeticiones, separaciónDeOrígen):</b> Reproducir a través de la lista entera un número 'repeticiones' de veces.</li>
+</ul>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pser(lista, repeticiones, separación):</b> Reproducir a través de la lista tantas veces como sea necesario, pero producir el resultado sólamente un número 'repeticiones' de veces.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p6">// el método .all produce todos los elementos de un flujo finito</p>
+<p class="p7"><span class="s2">Pseq</span><span class="s3">(#[1, 2, 3], 4).asStream.all;<span class="Apple-tab-span">	</span></span>// 12 elementos = 4 repeticiones * 3 elementos</p>
+<p class="p8"><span class="s2">Pser</span>(#[1, 2, 3], 4).asStream.all;<span class="Apple-tab-span">	</span><span class="s1">// sólo 4 elementos</span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s4"><a href="../../../../Users/jslach/SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pseq.html">Pseq</a></span> es una elección obvia para hacer flujos de valores para alturas o ritmos que se conocen.</p>
+<p class="p2"><br></p>
+<p class="p3">Antes de reproducir un Pbind como este, encender el servidor.</p>
+<p class="p2"><br></p>
+<p class="p8">s.boot;</p>
+<p class="p9"><br></p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s2">Pseq</span>(#[0, 0, 4, 4, 5, 5, 4], 1),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, <span class="s2">Pseq</span>(#[0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1], 1)</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p3">Para detener los ejemplos usar la tecla de acceso rápido "stop" (cmd-. en Mac OSX, alt-. en Windows, checar la documentación para otros editores). O también:</p>
+<p class="p2"><br></p>
+<p class="p8">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Una variación, <a href="../../../../Users/jslach/SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pslide.html"><span class="s2">Pslide</span></a>, reproduce segmentos que se sobreponen de la lista de entrada.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pslide(lista, repeticiones, longitud, paso, comienzo, recircularAlFinal):</b><span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">repeats: <span class="Apple-tab-span">	</span>número de segmentos.</p>
+<p class="p3">longitud:<span class="Apple-tab-span">	</span>longitud de cada segmento.</p>
+<p class="p3">paso:<span class="Apple-tab-span">	</span>el paso entre el comienzo de cada segmento respecto al previo.</p>
+<p class="p3">comienzo: en qué índice comenzar.</p>
+<p class="p3">recircularAlFinal: si es cierto (true, preestablecido), la indexación recircula ('reenvuelve') alrededor de la lista si se llega a pasar del principio o el final. Si es falsa (false), el patrón se detiene si produce un elemento nulo (nil) o se sale de los límites.</p>
+<p class="p2"><br></p>
+<p class="p3">Si paso == 1, entonces el primer segmento es 'comienzo', el segundo es 'comienzo' + 1, y así en adelante.</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">Pslide</span>(#[1, 2, 3, 4, 5, 6, 7, 8], 10, 3, 1, 0, <span class="s2">false</span>).asStream.all;</p>
+<p class="p9"><br></p>
+<p class="p7">// o, para enseñar los segmentos como arreglos separados</p>
+<p class="p8"><span class="s2">Pslide</span>(#[1, 2, 3, 4, 5, 6, 7, 8], 10, 3, 1, 0, <span class="s2">false</span>).clump(3).asStream.all;</p>
+<p class="p9"><br></p>
+<p class="p7">// Parvada de gaviotas!</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s2">Pslide</span>((-6, -4 .. 12), 8, 3, 1, 0),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, <span class="s2">Pseq</span>(#[0.1, 0.1, 0.2], <span class="s2">inf</span>),</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span></span>\sustain<span class="s3">, 0.15</span></p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Patrones de lista de orden aleatorio</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Prand(lista, repeticiones):</b> Escoge elementos de una lista aleatoriamente.</p>
+<p class="p2"><br></p>
+<p class="p7">// Prand: grados escalares (pentatónicos) con igual probabilidad.</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s2">Prand</span>([0, 1, 2, 4, 5], <span class="s2">inf</span>),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pxrand(lista, repeticiones):</b> Escoger al azar pero nunca repetir el mismo elemento dos veces en sucesión inmediata.</p>
+<p class="p2"><br></p>
+<p class="p7">// Pxrand: igual que el ejemplo anterior pero sin repetir una altura dos veces seguidas</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s2">Pxrand</span>([0, 1, 2, 4, 5], <span class="s2">inf</span>),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pshuf(lista, repeticiones):</b> Barajar la lista en orden aleatorio y usar el mismo orden un número 'repeticiones' de veces.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">// Pshuf: se ordenan aleatoriamente una vez y luego se repiten</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s2">Pshuf</span>([0, 1, 2, 4, 5], <span class="s2">inf</span>),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pwrand(lista, pesos, repeticiones):</b> Escoge al azar de acuerdo con probabilidades ponderadas.</p>
+<p class="p2"><br></p>
+<p class="p7">// Pwrand: estas probabilidades favorecen notas de la triada dentro de los grados de la escala.</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s2">Pwrand</span>((0..7), [4, 1, 3, 1, 3, 2, 1].normalizeSum, <span class="s2">inf</span>),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pwalk(lista, patrónDePasos, patrónDeDirección, posiciónDeComienzo): </b>Caminata aleatoria sobre la lista. Este patrón es un poco más complicado. Ver su página de ayuda para más detalles.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Entrelazado de valores y generación de arreglos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Las siguientes son operaciones opuestas: entrelazar significa dividir arreglos y fusionarlos en un flujo de valores individuales; por otro lado, los arreglos se pueden generar a partir de flujos de valores individuales.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Place(lista, repeticiones, separaciónDeOrígen):</b> Tomar un elemento de cada arreglo contenido en el arreglo principal en sucesión. La manera más fácil de explicarlo es viendo cómo funciona el ejemplo:</p>
+<p class="p2"><br></p>
+<p class="p8">Place([0, [1, 2], [3, 4, 5]], 3).asStream.all;</p>
+<p class="p8">--&gt; [ 0, 1, 3, 0, 2, 4, 0, 1, 5 ]</p>
+<p class="p2"><br></p>
+<p class="p3">Si convertimos esto en una matriz, los arreglos originales son claramente visibles:</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">Place</span>([0, [1, 2], [3, 4, 5]], 3).clump(3).do(<span class="s2">_</span>.postln);</p>
+<p class="p9"><br></p>
+<p class="p7"><span class="s3">[ 0, 1, 3 ]<span class="Apple-tab-span">	</span></span>// columna de la izquierda: 0 del primer elemento del Place</p>
+<p class="p7"><span class="s3">[ 0, 2, 4 ]<span class="Apple-tab-span">	</span></span>// segunda columna: alterna entre 1 y 2, a partir del segundo elemento del Place</p>
+<p class="p7"><span class="s3">[ 0, 1, 5 ]<span class="Apple-tab-span">	</span></span>// tercera columna: 3, 4, 5 a partir de el tercer elemento del Place</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Ppatlace(lista, repeticiones, separaciónDeOrígen):</b> Tomar un valor de cada subpatrón en orden.</p>
+<p class="p2"><br></p>
+<p class="p7">// Ejercicio del Hanon</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s5">\degree</span><span class="s3">, </span>Ppatlace<span class="s3">([</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s2">Pseries</span><span class="s3">(0, 1, 8),<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// primera nota, tercera nota, etc.<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s2">Pseries</span><span class="s3">(2, 1, 7)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// segunda nota, cuarta nota, etc.</p>
+<p class="p8"><span class="Apple-tab-span">	</span>], <span class="s2">inf</span>),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 0.25</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p3">Esto es una probadita de lo que vendrá: los patrones se pueden anidar.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Ptuple(lista, repeticiones):</b> Tomar un valor de cada elemento en el arreglo y retornarlos todos como un arreglo de valores.</p>
+<p class="p2"><br></p>
+<p class="p7">// Acordes</p>
+<p class="p7">// \degree recibe [7, 9, 4], luego [6, 7, 4] sucesivamente. Se expanden en acordes en el servidor.</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span></span>\degree<span class="s3">, </span><span class="s2">Ptuple</span><span class="s3">([</span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Pseries</span>(7, -1, 8),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Pseq</span>([9, 7, 7, 7, 4, 4, 2, 2], 1),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Pseq</span>([4, 4, 4, 2, 2, 0, 0, -3], 1)</p>
+<p class="p8"><span class="Apple-tab-span">	</span>], 1),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 1</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p5"><b>Generando valores</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Series aritméticas y geométricas</b></p>
+<p class="p2"><br></p>
+<p class="p3">Ahora pasemos a patrones que producen valores matemáticamente sin usar una lista predeterminada.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pseries(comienzo, paso, longitud):</b> Series aritméticas, sucesivamente añadiendo 'paso' al valor de comienzo, retornando un total de elementos igual a 'longitud' .</p>
+<p class="p3"><b>Pgeom(start, grow, length):</b> Series geométricas, sucesivamente multiplicando el valor actual por 'crecimiento'.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">// Usar Pseries para una escala y Pgeom para una aceleración</p>
+<p class="p8">(</p>
+<p class="p8">p = <span class="s2">Pbind</span>(</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\degree</span>, <span class="s2">Pseries</span>(-7, 1, 15),</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, <span class="s2">Pgeom</span>(0.5, 0.89140193218427, 15)</p>
+<p class="p8">).play;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Números aleatorios y distribuciones de probabilidades</b></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pwhite(bajo, alto, longitud):</b> Produce un número 'longitud' de números aleatorios con distribución uniforme ('white' --blanco-- se refiere al ruido blanco).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pexprand(bajo, alto, longitud):</b> Lo mismo, pero los números aleatorios tienen una distribución exponencial que favorece los números bajos. Esto es bueno para frecuencias y duraciones (ya que se necesitan más notas con una duración corta para balancear el peso de las notas largas).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pbrown(bajo, alto, paso, longitud):</b> Movimiento browniano. Cada valor añade un paso aleatorio al valor previo, donde el paso tiene una distribución uniforme entre -paso y +paso.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgbrown(bajo, alto, paso, longitud):</b> Movimiento browniano en escala geométrica. Cada valor multiplica un factor aleatorio (el 'paso') al valor previo.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pprob(distribución, bajo, alto, longitud, tamañoDeTabla):</b> Distribución arbitraria, basada en una tabla de probabilidades.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pbeta(bajo, alto, prob1, prob2, longitud):</b> Distribución beta, donde prob1 = α (alpha) y prob2 = β (beta).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pcauchy(media, envergadura, longitud):</b> Distribución de Cauchy.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgauss(media, desviación, longitud):</b> Distribución gausiana (uniforme).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Phprand(bajo, alto, longitud):</b> Retorna el mayor de dos numeros aleatorios con distribución uniforme.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Plprand(bajo, alto, longitud):</b> Retorna el menos de dos numeros aleatorios con distribución uniforme.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pmeanrand(bajo, alto, longitud):</b> Retorna el promedio de dos numeros aleatorios con distribución uniforme, es decir (alto +<span class="Apple-converted-space">  </span>bajo) / 2.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ppoisson(media, longitud):</b> Distribución de Poisson.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pprob(distribución, bajo, alto, longitud, tamañoDeTabla):</b> Dado un arreglo de probabilidades relativas a lo largo de el rango deseado (un histograma) que representa una distribución arbitrara, genera números aleatorios correspondientes a dicha distribución.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Para ver una distribución hacer un histograma:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">Pmeanrand</span>(0.0, 1.0, <span class="s2">inf</span>).asStream.nextN(10000).histo(200, 0.0, 1.0).plot;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Patrones para todo tipo de uso</b></p>
+<p class="p2"><br></p>
+<p class="p3">No todo está preprogramado en las clases de patrón. Los siguientes patrones permiten incrustar lógica hecha a la medida.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pfunc(siguienteFunción, funciónDeRestuarar):</b> El siguiente (next) valor es el valor de retorno de siguienteFunción. Si se llama el método .reset en un flujo hecho a partir de este patrón, la funciónDeRestaurar es evaluada. El flujo correrá indefinidamente hasta que siguienteFunción retorne nulo (nil).</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pfuncn(función, repeticione):</b> Igual que Pfunc, sacar valores provenientes de evaluar la función. Sin embargo, Pfuncn retorna exactamente un número 'repeticiones' de valores y luego se detiene. El número predeterminado de repeticiones es 1.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Proutine(funciónDeRutina):</b> Usar la funciónDeRutina en una rutina. Los valores de salida del flujo son lo valores que la funciónDeRutina cede (.yield). Proutine termina cuando cede un valor nulo (nil).</p>
+<p class="p2"><br></p>
+<p class="p3">En el siguiente capítulos se verá el patrón central para secuenciar audio: <b>Pbind</b>.</p>
+<p class="p2"><br></p>
+<p class="p12"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_01_Guia practica para usar patrones.html"><span class="s6">GP_01_Guia practica para usar patrones</span></a></span></p>
+<p class="p12"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_03_Que es Pbind.html"><span class="s6">GP_03_Que es Pbind</span></a></span></p>
+</body>
+</html>

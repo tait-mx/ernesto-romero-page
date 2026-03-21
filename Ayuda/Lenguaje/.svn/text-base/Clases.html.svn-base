@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; color: #113b96}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; color: #63382c}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+span.s1 {color: #0045d7}
+span.s2 {color: #113b96}
+span.s3 {color: #000000}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Clases</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Todos los objetos en SuperCollider son miembros de una clase que describe los datos e interface del objeto. El nombre de una clase debe comenzar con mayúscula. Los nombres de las clases son los únicos valores globales en el lenguaje SC. Como las clases son ellas mismas objetos, el valor del identificador de un nombre de clase es el objeto que representa esa clase.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Variables de Instancia</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Los datos de on objeto estan contenidoas en sus variables de instancia. Las variables de instancia son de dos tipos, nombrados e indexados. Cada objeto contiene una copia aparte de sus variables de instancia.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Algunas instancias de clases no tienen ninguna variables de instancia sino que en cambio poseen un valor atómico. Las clases cuyas instancias consisten en un valor atómico son <a href="../Math/Integer.html"><span class="s1">Integer</span></a>, <a href="../Math/Float.html"><span class="s1">Float</span></a>, <a href="../Core/Symbol.html"><span class="s1">Symbol</span></a>, <a href="../Core/True.html"><span class="s1">True</span></a>, <a href="../Core/False.html"><span class="s1">False</span></a>, <a href="../Core/Nil.html"><span class="s1">Nil</span></a>, <a href="../Math/Infinitum.html"><span class="s1">Infinitum</span></a>, <a href="../Core/Char.html"><span class="s1">Char</span></a>, <a href="../GUI/Color.html"><span class="s1">Color</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Las listas de declaración de las variables de instancias ocurren después de las llaves de la definición de clase y están precedidas por la palabra reservada <b>var</b>. Los nombres de las instancias de variables en la lista pueden estar inicializados a un valor literal por defecto usando un signo de igual. Las variables de instancia que no sean inicializadas tomarán el valor nil.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Solo se pueden acceder directamente y cambiar las variables de instancia a través de los propios métodos de la clase. Las variables de instancia pueden exponerse a clientes agregando<span class="Apple-converted-space">  </span>mensajes getter y setter (obtener y fijar) a la clase . Un mensaje <b>getter</b> es un mensaje con el mismo nombre que la variable y que devuelve el valor de esa variable cuando es mandado al receptor. Un mensaje <b>setter</b> es un mensaje con el mismo nombre que la variable y con un guión bajo agregado que fija el valor de la variable de instancia con el valor del argumento del mensaje.<span class="Apple-converted-space">  </span>Los métodos getter y setter pueden estar definidos en la declaración de las variables de instancia. Un mensaje getter para una variable de instancia se crea escribiendon signo de menor que &lt; antes del nombre de la variable. Un mensaje setter para una variable de instancia se crea escribiendon signo de mayor que &gt; antes del nombre de la variable. Si ambos ocurren deben ocurrir en el orden &lt;&gt;.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s2">var</span> a, &lt;b, &gt;c, &lt;&gt;d;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>a no tiene ni getter ni setter,</p>
+<p class="p3"><span class="Apple-tab-span">	</span>b tiene getter pero no setter.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>c solo tiene setter.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>d tiene ambos getter y setter.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">Point<span class="s3"> {</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>// tanto x como y son variables de instancia que tienen ambos métodos getter y setter</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>// y valor cero por defecto</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">var</span> &lt;&gt;x = 0, &lt;&gt;y = 0;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>...</p>
+<p class="p5">}</p>
+<p class="p8"><br></p>
+<p class="p5">p = <span class="s2">Point</span>.new;</p>
+<p class="p7"><span class="s3">p.x_(5);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envía el mensaje setter para fijar x en 5</p>
+<p class="p7"><span class="s3">p.y_(7);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envía el mensaje setter para fijar y en 7</p>
+<p class="p7"><span class="s3">p.x = 5;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envía el mensaje setter por asignación (Ver [03 Assignment])</p>
+<p class="p7"><span class="s3">p.y = 7;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envía el mensaje setter por asignación (Ver [03 Assignment])</p>
+<p class="p7"><span class="s3">a = p.x;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envía el mensaje getter para x</p>
+<p class="p7"><span class="s3">b = p.y;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envía el mensaje getter para y</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Variables de Clase</b></p>
+<p class="p2"><br></p>
+<p class="p3">Las variables de clase son valores que se comparten entre todos los objetos de la clase. Las listas de declaración de variables de clase están precedidas por la palabra reservada <b>classvar</b> y pueden estar entremezcladas con listas de declaración de variables de instancia. Las variables de clase, así como las de instancia, solo se pueden acceder directamente a través de métodos de la clase. También pueden crearse métodos getter y setter para las variables de clase usando los signos menor que &lt; y mayor que &gt;.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Métodos de Instancia</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Los mensajes de una interface de clase son implementados en los métodos de la clase. Cuando a un objeto se le envía un mensaje el método cuyo nombre corresponda con el selector de mensaje en la clase del receptor es ejecutado.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Las definiciones de método siguen despúes de las declaraciones de las variables de clase y de instancia en la clase.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Method definitions are similar to FunctionDefs in syntax. Method definitions begin with the message selector. The message selector must be an identifier or a binary operator. Methods have arguments and variable declarations with the same syntax as in FunctionDefs. Methods however have an implicit first argument named <b>this</b> which is the receiver of the message. The variable 'this' may be referred to just like any of the other arguments and variables in the method. You may not assign a value to 'this'.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Las definiciones de método son similares a las FunctionDefs en la sintaxis. Las definiciones de método comienzan con el selectror de mensaje. El selector de mensaje debe ser un identificador o una operación binaria. Los métodos tienen argumentos y declaraciones de variable con la misma sintaxis que los FunctionDefs. Los métodos, como sea, tienen un primer argumento implícito llamado <b>this</b> quien es el receptor del mensaje. Uno puede referirse a la variable 'this' justo como a cualquier otro argumento o variable en el método. No se puede asignar un valor a 'this'.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Métodos de Clase</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Los métodos de clase son métodos que implementan mensajes enviados al objeto de la clase. Un ejemplo común es el mensaje <b>new</b> que es enviado al objeto de la clase para crear una nueva instancia de la clase. Los nombres de los métodos de clase tienen un asterisco que precede al selectror de mensaje.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">También ver: <a href="../Core/Kernel/Class.html"><span class="s1">Class</span></a></p>
+<p class="p2"><br></p>
+</body>
+</html>

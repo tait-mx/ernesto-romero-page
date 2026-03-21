@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #9a2521}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0023b5}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+span.s1 {color: #1e53d0}
+span.s2 {color: #0023b5}
+span.s3 {color: #000000}
+span.s4 {font: 9.0px Monaco}
+span.s5 {color: #606060}
+span.s6 {color: #2a58cb}
+span.s7 {color: #074ade}
+span.s8 {color: #406d17}
+span.s9 {text-decoration: underline ; color: #002ce2}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Routine (Rutina)</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Superclase: Thread</b></p>
+<p class="p2"><br></p>
+<p class="p3">Las Rutinas son funciones que pueden devolver (entregar un valor) a la mitad y después continuar donde<span class="Apple-converted-space"> </span></p>
+<p class="p3">se quedaron cuando sean llamadas otra vez. Las Rutinas pueden ser usadas para implementar co-rutinas<span class="Apple-converted-space"> </span></p>
+<p class="p3">como se les encuentra en Scheme y otros lenguajes.</p>
+<p class="p3">Las Rutinas sun útiles para escribir cosas que se comporten como Streams (flujos).</p>
+<p class="p3">Las Rutinas heredan comportamientos para operaciones matemáticas y filtrado de <a href="../../Streams-Patterns-Events/Stream.html"><span class="s1">Stream</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>*new(func, stackSize, seed)<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p3">Crea una instancia de Routine con una funci'on dada (func).</p>
+<p class="p3">El stackSize (tamaño de la Pila de datos) y el random seed<span class="Apple-converted-space"> </span></p>
+<p class="p3">(semilla de aleatoriedad) pueden ser remplazados si se desea.</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4">a = <span class="s2">Routine</span>.new({ 1.yield; 2.yield; });</p>
+<p class="p4">a.next.postln;</p>
+<p class="p4">a.next.postln;</p>
+<p class="p4">a.next.postln;</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>value(inval) <span class="Apple-converted-space">       </span></b> // valor(valor de entrada)</p>
+<p class="p3"><b>resume(inval)<span class="Apple-converted-space">   </span></b> //<span class="Apple-converted-space">  </span>resumir(valor de entrada) - continuar desde donde se quedó</p>
+<p class="p3"><b>next(inval)<span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span></b>// siguiente(valor de entrada)</p>
+<p class="p2"><br></p>
+<p class="p3">Todos estos son sinónimos del mismo método.</p>
+<p class="p2"><br></p>
+<p class="p3">La función de la Routine es iniciada si no ha sido llamada aún o es<span class="Apple-converted-space"> </span></p>
+<p class="p3">resumida desde donde se quedó. El argumento inval es pasado como el argumento</p>
+<p class="p3">para la función de la Routine si esta siendo iniciada o como el resultado del método yield</p>
+<p class="p3">si está siendo resumida desde un yield. El resultado del método será</p>
+<p class="p3">lo que la Routine produzca.</p>
+<p class="p2"><br></p>
+<p class="p3">Básicamente existen dos condiciones para una Routine: una es cuando la rutina inicia. El otro caso</p>
+<p class="p3">es que la rutina continúa despues de que se ha aplicado el método yield.</p>
+<p class="p2"><br></p>
+<p class="p3">Cuando la rutina inicia (al llamar los métodos de arriba), se está pasado el primer inval.</p>
+<p class="p3">Este inval es accesible como el argumento de la función de la rutina.</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">Routine</span> { <span class="s2">arg</span> inval;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval.postln;</p>
+<p class="p5"><span class="s3">}.value(</span>"hola rutina"<span class="s3">);</span></p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p3">Cuando hay un yield en la rutina, la siguiente vez que se llame <i>next</i> (o un sinónimo), la rutina continúa<span class="Apple-converted-space"> </span></p>
+<p class="p3">desde ahí, y se tiene la oportunidad de ingresar un dato desde afuera. Para acceder a ese valor desde</p>
+<p class="p3">la rutina que continúa, hay que asignar el resultado de la llamada yield a una variable:</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4">r = <span class="s2">Routine</span> { <span class="s2">arg</span> inval;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s2">var</span> valorEntregadoPorYield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval.postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>valorEntregadoPorYield = 123.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>valorEntregadoPorYield.postln;</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p4">}</p>
+<p class="p4">)</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3">r.value(</span>"hola rutina"<span class="s3">);</span></p>
+<p class="p5"><span class="s3">r.value(</span>"adios mundo"<span class="s3">);</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">El caso típico es que el nombre inval (o inevent) sea reusado, en vez de declarar una variable como "<span class="s4">valorEntregadoPorYield":</span></p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4">r = <span class="s2">Routine</span> { <span class="s2">arg</span> inval;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval.postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval = 123.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval.postln;</p>
+<p class="p4">}</p>
+<p class="p4">)</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3">r.value(</span>"hola rutina"<span class="s3">);</span></p>
+<p class="p5"><span class="s3">r.value(</span>"adios mundo"<span class="s3">);</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Comúnmente una rutina usa múltiples yields, en donde el valor de inval es reasignado repetidamente.</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4">r = <span class="s2">Routine</span> { <span class="s2">arg</span> inval;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval.postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>5.do { <span class="s2">arg</span> i;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>inval = (i + 10).yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>inval.postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>}</p>
+<p class="p4">}</p>
+<p class="p4">)</p>
+<p class="p4">(</p>
+<p class="p4">5.do {</p>
+<p class="p4"><span class="Apple-tab-span">	</span>r.value(<span class="s5">"hola rutina"</span>).postln;</p>
+<p class="p4">}</p>
+<p class="p4">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>reset (reiniciar)</b></p>
+<p class="p2"><br></p>
+<p class="p3">Hace que la rutina reinicie desde el principio la siguiente vez que sea llamada.</p>
+<p class="p3">Una Routine no se puede aplicar un reset ella misma excepto si se llama con un</p>
+<p class="p3">método yieldAndReset.</p>
+<p class="p2"><br></p>
+<p class="p3">Ver también en la clase <b>Object :</b></p>
+<p class="p3"><b>yield(outval)<span class="Apple-converted-space">  <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></b>//<span class="Apple-converted-space">  </span>producir(valor de salida)</p>
+<p class="p3"><b>yieldAndReset(outval)<span class="Apple-tab-span">	</span></b>// producirYReiniciar(valor de salida)</p>
+<p class="p3"><b>alwaysYield(outval)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// siempreProducir(valor de salida)</p>
+<p class="p2"><br></p>
+<p class="p3">Si la función de una Routine regresa entonces siempre producirá nil hasta que se reinicie.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>play(clock, quant)</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>clock</b>:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un Clock (reloj), <b>TempoClock</b> por defecto</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>quant</b>:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ver el archivo de ayuda de <a href="../../Scheduling/Quant.html"><span class="s6">Quant</span></a><span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p3">En la aplicación SuperCollider, una Routine puede ser ejecutada usando un Clock, al igual que lo puede hacer cualquier Stream.</p>
+<p class="p3">Cada vez que una Routine hace un yield, debe de hacerlo con un número de punto flotante (float - decimal), el reloj interpretará eso,<span class="Apple-converted-space"> </span></p>
+<p class="p3">usualmente haciendo una pausa por esa cantidad de segundos, y después resumirá la rutina, entregandole el tiempo actual del reloj.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>usando Object-idle:<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>idle(time) <span class="Apple-converted-space"> </span></b> //<span class="Apple-converted-space">  </span>ausente(tiempo)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>dentro de una rutina, devuelve valores hasta que este tiempo transcurra. El tiempo es medido en relación al reloj del proceso (the thread's clock).</p>
+<p class="p3"><span class="Apple-tab-span">	</span>(ver <a href="Routine.html"><span class="s7">Routine</span></a>)</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>// durante 6 segundos, devuelve 200, después continúa</p>
+<p class="p4"><span class="Apple-tab-span">	</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span>r = <span class="s2">Routine</span> {</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>199.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>189.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>200.idle(6);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>199.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>189.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>};</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>fork {</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>loop {</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>r.value.postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.wait;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p4"><span class="Apple-tab-span">	</span>}</p>
+<p class="p4"><span class="Apple-tab-span">	</span>);</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>// el valor también puede ser un stream o una función</p>
+<p class="p4"><span class="Apple-tab-span">	</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span>r = <span class="s2">Routine</span> {</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>199.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>189.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Routine</span> { 100.do { <span class="s2">|i|</span> i.yield } }.idle(6);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>199.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>189.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>};</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>fork {</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>loop {</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>r.value.postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.wait;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p4"><span class="Apple-tab-span">	</span>}</p>
+<p class="p4"><span class="Apple-tab-span">	</span>);</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Variables de instancia que se pueden acceder</b></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b><i>Routine</i> hereda de <i>Thread</i>,<span class="Apple-converted-space">  </span>quien permite tener acceso<span class="Apple-converted-space">  </span>a algunas de sus variables de instancia:</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>beats<span class="Apple-converted-space">  </span></b>// tiempos - como en múscica</p>
+<p class="p3"><span class="Apple-tab-span">	</span>devuelve los tiempos transcurridos (tiempo lógico) de la rutina. Los tiempos (beats) no proceden cuando la rutina<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>no esta siendo ejecutada.</p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p3"><b>seconds </b>// segundos</p>
+<p class="p3"><b><span class="Apple-tab-span">	</span></b>devuelve los segundos transcurridos (tiempo lógico) de la rutina. Los segundos no proceden cuando la rutina<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>no esta siendo ejecutada.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>clock<span class="Apple-converted-space">  </span></b>// reloj</p>
+<p class="p3"><span class="Apple-tab-span">	</span>devuelve el reloj del proceso (the thread's clock). Si no ha sido ejecutado, es el SystemClock (reloj del sistema)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4">r = <span class="s2">Routine</span> { <span class="s2">arg</span> inval;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>loop {</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// thisThread se refiere a la rutina</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>postf(</span>"beats: % segundos: % tiempo: % \n"<span class="s3">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">thisThread</span>.beats, <span class="s2">thisThread</span>.seconds, <span class="s2">Main</span>.elapsedTime</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.7.yield;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>}</p>
+<p class="p4">}.play;</p>
+<p class="p4">)</p>
+<p class="p6"><br></p>
+<p class="p4">r.stop;</p>
+<p class="p4">r.beats;</p>
+<p class="p4">r.seconds;</p>
+<p class="p4">r.clock;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Ejemplo de Routine:</b></p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> r, outval;</p>
+<p class="p4">r = <span class="s2">Routine</span>.new({ <span class="s2">arg</span> inval;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>(<span class="s5">"-&gt;inval fue "</span> ++ inval).postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval = 1.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>(<span class="s5">"-&gt;inval fue "</span> ++ inval).postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval = 2.yield;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>(<span class="s5">"-&gt;inval fue "</span> ++ inval).postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>inval = 99.yield;</p>
+<p class="p4">});</p>
+<p class="p6"><br></p>
+<p class="p4">outval = r.next(<span class="s8">'a'</span>);</p>
+<p class="p4">(<span class="s5">"&lt;-outval fue "</span> ++ outval).postln;</p>
+<p class="p4">outval = r.next(<span class="s8">'b'</span>);</p>
+<p class="p4">(<span class="s5">"&lt;-outval fue "</span> ++ outval).postln;</p>
+<p class="p5"><span class="s3">r.reset; </span>"reset (reinicio)"<span class="s3">.postln;</span></p>
+<p class="p4">outval = r.next(<span class="s8">'c'</span>);</p>
+<p class="p4">(<span class="s5">"&lt;-outval fue "</span> ++ outval).postln;</p>
+<p class="p4">outval = r.next(<span class="s8">'d'</span>);</p>
+<p class="p4">(<span class="s5">"&lt;-outval fue "</span> ++ outval).postln;</p>
+<p class="p4">outval = r.next(<span class="s8">'e'</span>);</p>
+<p class="p4">(<span class="s5">"&lt;-outval fue "</span> ++ outval).postln;</p>
+<p class="p4">outval = r.next(<span class="s8">'f'</span>);</p>
+<p class="p4">(<span class="s5">"&lt;-outval fue "</span> ++ outval).postln;</p>
+<p class="p4">)</p>
+<p class="p6"><br></p>
+<p class="p7">// wait (espera)</p>
+<p class="p6"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> r;</p>
+<p class="p9"><span class="s3">r = </span>Routine<span class="s3"> {</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>10.do({ <span class="s2">arg</span> a;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a.postln;</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// A veces se usa el método wait para pausar una rutina</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// Esto hace que se espere por un segundo entre cada número</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.wait;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>});</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>// Se espera medio segundo antes de decir "hecho"</p>
+<p class="p4"><span class="Apple-tab-span">	</span>0.5.wait;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s5">"hecho"</span>.postln;</p>
+<p class="p4">}.play;</p>
+<p class="p4">)</p>
+<p class="p6"><br></p>
+<p class="p7">// waitUntil<span class="Apple-converted-space">  </span>(esperar hasta que)</p>
+<p class="p6"><br></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> r;</p>
+<p class="p9"><span class="s3">r = </span>Routine<span class="s3"> {</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>var veces = { rrand(1.0, 10.0) }.dup(10) + thisThread.beats;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>veces = veces.sort;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>veces.do({ <span class="s2">arg</span> a;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>waitUntil(a);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a.postln;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>});</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>// Se espera medio segundo antes de decir "hecho"</p>
+<p class="p4"><span class="Apple-tab-span">	</span>0.5.wait;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s5">"hecho"</span>.postln;</p>
+<p class="p4">}.play;</p>
+<p class="p4">)</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p7">// Usando Routine para definir los estados de un boton en marcha</p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> actualizacion, w, b;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>w = <span class="s2">SCWindow</span>.new(<span class="s5">"Ventana de estados"</span>, <span class="s2">Rect</span>(150,<span class="s2">SCWindow</span>.screenBounds.height-140,380,60));</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// una manera conveniente de definir la etiqueta del botón</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>actualizacion = {<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">|but, string|</span> but.states = [[string.asString, <span class="s2">Color</span>.black, <span class="s2">Color</span>.red]];<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>but.refresh;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>b = <span class="s2">SCButton</span>(w, <span class="s2">Rect</span>(10,10,360,40));</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>b.font_(<span class="s2">Font</span>(<span class="s5">"Impact"</span>, 24));</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>actualizacion.value(b, <span class="s5">"solo hay 1 estado"</span>);</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// si una acción debería de hacer algo diferente cada vez que es llamada, una rutina es la</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// la opción adecuada para usar. Esto es mejor que crear variables afuera y definirlas</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// desde la función action para mantener el estado de una acción a la siguiente</p>
+<p class="p6"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>b.action_(<span class="s2">Routine</span> { <span class="s2">|boton|</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>rrand(15, 45).do { <span class="s2">|i|</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>actualizacion.value(<span class="s2">boton</span>, <span class="s5">"%. aun hay solo 1 estado"</span>.format(i + 2));</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.yield; </span>// detenerse aqui</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>w.close;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p6"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>w.front;</p>
+<p class="p4"><span class="Apple-converted-space">   </span>)</p>
+<p class="p6"><br></p>
+<p class="p7">// dibujando dinámicamente en una ventana con <a href="../../GUI/Main-GUI/Pen.html"><span class="s9">Pen</span></a></p>
+<p class="p4">(</p>
+<p class="p4"><span class="s2">var</span> w, cuanto = 0.02, string;</p>
+<p class="p6"><br></p>
+<p class="p4">w = <span class="s2">Window</span>.new(<span class="s5">"mecer"</span>, <span class="s2">Rect</span>(100, 100, 300, 500)).front;</p>
+<p class="p4">w.view.background_(<span class="s2">Color</span>.new255(153, 255, 102).vary);</p>
+<p class="p6"><br></p>
+<p class="p4">string = <span class="s5">"mecer "</span>.dup(24).join;</p>
+<p class="p6"><br></p>
+<p class="p4">w.drawHook = <span class="s2">Routine</span> {<span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s2">var</span> i = 0;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s2">var</span> size = 40;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s2">var</span> func = { <span class="s2">|i, j|</span> sin(i * 0.07 + (j * 0.0023) + 1.5pi) * cuanto + 1 };</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s2">var</span> scale;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s2">Pen</span>.font = <span class="s2">Font</span>(<span class="s5">"Helvetica-Bold"</span>, 40);</p>
+<p class="p4"><span class="Apple-tab-span">	</span>loop {<span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i = i + 1;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>string.do {<span class="Apple-tab-span">	</span><span class="s2">|char, j|</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>scale = func.value(i, j).dup(6);</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Pen</span>.fillColor = <span class="s2">Color</span>.new255(0, 120, 120).vary;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Pen</span>.matrix = scale * #[1, 0, 0, 1, 1, 0];</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Pen</span>.stringAtPoint(char.asString,</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>((size * (j % 9)) - 10) @ (size * (j div: 9))</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.yield </span>// detenerse aqui, regresar algo sin importancia</p>
+<p class="p4"><span class="Apple-tab-span">	</span>}</p>
+<p class="p4">};</p>
+<p class="p6"><br></p>
+<p class="p4">fork { while { w.isClosed.not } { defer { w.refresh }; 0.04.wait; } };</p>
+<p class="p6"><br></p>
+<p class="p4">w.front;</p>
+<p class="p6"><br></p>
+<p class="p4">)</p>
+<p class="p10"><br></p>
+</body>
+</html>

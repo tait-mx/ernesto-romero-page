@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 29.0px; text-indent: -29.0px; font: 12.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 29.0px; font: 12.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 57.0px; font: 12.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 0.0px 86.0px; font: 12.0px Helvetica}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #901713}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #4a771a}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4}
+span.s1 {color: #001eca}
+span.s2 {color: #4a771a}
+span.s3 {color: #000000}
+span.s4 {font: 12.0px Helvetica; text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Conversiones de alturas y ritmos en el evento predeterminado</b></p>
+<p class="p2"><br></p>
+<p class="p3">Usando el prototipo predeterminado de eventos, las alturas y ritmos pueden ser especificados a distintos niveles en un Pbind dependiendo del requerimiento musical. El prototipo predeterminado de eventos incluye lógica para convertir de abstracciones de alto nivel a parámetros físicos útiles para la síntesis.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Las descripciones que siguen comienzan por el valor final que será usado, siguiendo con los demás valores que se usan en los cálculos: por ejemplo, \delta está basado en \dur y \stretch. Los cálculos pueden ser omitidos si se provee un valor en lugar del elemento a calcularse. Si el patrón especifica \delta directamente, \dur y \stretch son ignorados.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Nótese también que no hay ninguna obligación a usar estas construcciones. El prototipo predeterminado de eventos no está diseñado para ejercer un modelo de alturas o de ritmos que sea excluyente sobre otros posibles; simplemente provee estas opciones, las cuales pueden usarse si cumplen con su cometido o ignorarse u omitirse si la tarea pide algo diferente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Conversiones temporales</b></p>
+<p class="p2"><br></p>
+<p class="p3">El ritmo está basado en las llaves de evento \delta y \sustain. Ambas se pueden calcular a partir de las siguientes abstracciones de mayor nivel: \dur, \stretch y \legato.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>delta:</b> El número de pulsos hasta el siguiente evento. Uno puede proveer el patrón delta directamente o el prototipo predeterminado de evento lo puede calcular basado en otros valores:</p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>dur:</b> Duración de este evento.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>stretch (estirar):</b> Un multiplicador para la duración: <i>delta = dur * stretch</i>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>sustain:</b> Especifica cuántos pulsos se debe mantener la nota actual. Después de un número \sustain de pulsos, un mensaje de liberación será enviado al node del sinte, ajustando su control de 'gate' ('compuerta') a 0. El SynthDef debe usar 'gate' en un <a href="../../UGens/Synth control/Envelopes/EnvGen.html"><span class="s1">EnvGen</span></a> basado en un envolvente con sostenimiento (ver <a href="../../Control/Env.html"><span class="s1">Env</span></a>), y el EnvGen deberá tener una doneAction (acciónDeFinalización) que libera el sinte al final. Uno puede proveer el patrón de sustain directamente o el prototipo predeterminado de evento lo puede calcular basado en:</p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>legato:</b> Una fracción de la duración del evento para el cual el sinte se debe sostener. 1.0 significa que el actual sinte se liberará exactamente al comienzo del siguiente; 0.5 significa que se la segunda mitad de la duración será un silencio. Valores mayores a 1.0 producen notas que se traslapan: <i>sustain = dur * legato * stretch</i>.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Conversiones de alturas</b></p>
+<p class="p2"><br></p>
+<p class="p3">El manejo de alturas en el evento predeterminado es muy rico, con un número de opciones grande. Para usar eventos no es necesario entender todas estas opciones. Como han mostrado los ejemplos, un patrón que toca notas produce resultados sensibles especificando únicamente 'degree' ('grado'). Los otros parámetros permiten el control de cómo el evento llega de \degree hasta la frecuencia que es enviada al sinte. El prototipo predeterminado de evento incluye valores predeterminados razonables para todos estos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Para ir del nivel más alto de abstracción hacia abajo:</p>
+<p class="p2"><br></p>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>\degree</b> representa un grado de la escala. Grados de escala fraccionarios admiten accidentales: añadiendo 0.1 a un grado de escala entero sube la nota cromática correspondiente por un semitono y restando 0.1 baja el número cromático de la nota. 0.2 lo sube o baja dos y así sucesivamente.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>\note</b> es el índice de la nota cromática, calculado desde \degree basado en \scale (escala) y transposición modal (<b>\mtranspose</b>, grados de la escala a subir o bajar una nota). <b>\note</b> en unidades de temperamento igual de cualquier número de grados por octava (<b>\stepsPerOctave</b>).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>\midinote</b> es una conversión a 12ET (temperamento igual de 12 notas por octava) de <b>\note</b>, transpuesto a la <b>\octave </b>(octava) correcta y aplicando transposición de gama (<b>\gtranspose</b>, dada en unidades de gradosPorOctava). Si \stepsPerOctave es algo distinto a 12, las unidades de temperamento igual (en este caso distinto a 12 notas por octavas) serán interpolados a 12 \midinote (notas midi) por octava.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>\freq</b> es calculada a partir de \midinote por 'midicps'. Una transposición cromática en unidades de 12ET (temperamento igual de 12 notas). <b>\ctranspose</b> (transposición cromática) es añadido.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">La mayoría de los SynthDefs que tocan notas usan 'freq' como argumento. Si se desea, pueden usar 'midinote', 'note' o incluso 'degree'.</p>
+<p class="p2"><br></p>
+<p class="p3">Para simplificar, algunas reglas sencillas:</p>
+<p class="p2"><br></p>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Si el material está organizado alrededor de escalas o modos, usar <b>\degree</b>.</li>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Si la escala tiene distintos patrones de ascenso que de descenso, usar <b>\note</b> en el Pbind con el patrón de filtro <a href="../Patterns/Pavaroh.html"><span class="s1">Pavaroh</span></a>.</li>
+</ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Si el material está organizado alrededor de divisiones iguales de la octava (no necesariamente 12), usar <b>\note</b> (y <b>\stepsPerOctave</b> para temperamentos iguales distintos de 12 notas).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Si el material está organizado alrededor de notas MIDI (o de temperamento igual de 12 notas), <b>\midinote</b> también funcionará.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Si uno prefiere especificar las frecuencias directamente en Hz, usar <b>\freq</b>.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Lo que sigue es una descripción completa de los elementos del sistema de alturas. Uno debe tomarse la libertad de usar los que sean de interés e ignorar el resto.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>freq:</b> Frecuencia en Hz. Puede ser dada directamente o calculada a partir de lo siguiente. Las alturas pueden ser expresadas en cualquiera de los varios niveles. Solamente uno es necesario a la vez. Por ejemplo, si uno escribe alturas en términos de grados de escala, la nota, nota MIDI y la frecuencia se calcularán automáticamente.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><b>ctranspose:</b> Transposición cromática, en unidades 12ET. Se añade a midinote.</p>
+<p class="p6"><b>midinote:</b> Número de nota MIDI; 12 MIDI notes = una octava. Puede ser fraccional si es necesario. Se calcula basado en:</p>
+<p class="p7"><b>root:</b> La fundamental de la escala, dada en incrementos de nota MIDI de 12ET</p>
+<p class="p7"><b>octave:</b> El número de octava para 'note' = 0. El predeterminado es 5, que hace corresponder la nota 0 con la nota MIDI 60.</p>
+<p class="p7"><b>stepsPerOctave:</b> (gradosPorOctava). Cuántas unidades 'note' se asignan (interpolan) a una octava.<span class="Apple-converted-space">  </span>Admite temperamentos distintos a 12ET.</p>
+<p class="p7"><b>gtranspose:</b> Transposición para divisiones distintas a 12ET en unidades 'note'. Se añade a 'note'.</p>
+<p class="p7"><b>note:</b> El número de nota, en cualquier tipo de división de octava. 0 es la fundamental de la escala. Se calcula basada en:</p>
+<p class="p8"><b>degree:</b> Grado de la escala.</p>
+<p class="p8"><b>scale:</b> Hace corresponder grados de escala a semitonos. El modo mayor, por ejemplo es [0, 2, 4, 5, 7, 9, 11].</p>
+<p class="p8"><b>stepsPerOctave:</b> (igual que arriba)</p>
+<p class="p8"><b>mtranspose:</b> Transposición modal; se añade a grado.</p>
+<p class="p2"><br></p>
+<p class="p3">Ver también la clase <a href="../../Collections/Scale.html"><span class="s1">Scale</span></a> para un repositorio de configuraciones escalares y la posibilidad de afinaciones no temperadas.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p9">(</p>
+<p class="p10">// aproximar una escala mayor con una escala cromática de 19 tonos por octava</p>
+<p class="p9">p = <span class="s1">Pbind</span>(</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s2">\scale</span>, #[0, 3, 6, 8, 11, 14, 17],</p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span>\stepsPerOctave<span class="s3">, 19,</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwhite</span>(0, 7, <span class="s1">inf</span>),</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.125,</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s2">\legato</span>, <span class="s1">Pexprand</span>(0.2, 6.0, <span class="s1">inf</span>)</p>
+<p class="p9">).play;</p>
+<p class="p9">)</p>
+<p class="p12"><br></p>
+<p class="p9">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Conversiones de amplitud</b></p>
+<p class="p2"><br></p>
+<p class="p3">Finalmente, uno puede especificar la amplitud tanto como <b>\db </b>o como <b>\amp</b>. Si es dada como \db, la amplitud será calculada automáticamente usando .dbamp.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p13"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="../guía práctica para usar patrones/GP_06g_Compartiendo_Datos.html"><span class="s4">GP_06g_Compartiendo_Datos</span></a></span></p>
+<p class="p13"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="../guía práctica para usar patrones/GP_08_Tipos_de_Eventos_y_Parametros.html"><span class="s4">GP_08_Tipos_de_Eventos_y_Parametros</span></a></span></p>
+</body>
+</html>

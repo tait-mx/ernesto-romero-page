@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.35">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Helvetica; min-height: 11.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025b2}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #000000}
+span.s2 {color: #0025b2}
+span.s3 {color: #982316}
+span.s4 {color: #606060}
+span.s5 {color: #416d1f}
+span.s6 {font: 12.0px Helvetica}
+span.s7 {font: 12.0px Helvetica; color: #000000}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Mensajes binarios</b></p>
+<p class="p2"><br></p>
+<p class="p3">El patrón para un mensaje binario es</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>RECEPTOR OPERADOR OPERANDO</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Por ejemplo</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>2 * 3</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">es un receptor (el objecto al cual se le manda el mensaje), un operador binario, y un operando.</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Mezclar = sumar<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p3">Use la suma (una operación binaria) para mezclar dos o más ugens</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>// mezclar 2 ondas de sierra</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(500, 0.05)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">// receptor</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>+<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// operador</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(600, 0.06)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">// operando</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>}.scope;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">// mezclar 3 generadores de síntesis.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(500, 0.05)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">// receptor</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>+<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// operador</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(600, 0.06)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">// operando</span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// cuando se evalúa produce produce<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// un BinaryOpUGen (UGenDeOperadorBinario);</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// este BinaryOpUGen es entonces un receptor para</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>+<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// un operador adicional, que a su vez es</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s2">Saw</span><span class="s1">.ar(700, 0.07)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// seguido por un operando</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}.scope;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Reescribir el ejemplo previo con el ugen Mix.</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Mix</span>.ar(</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// los ugens que serán mezclados van dentro de un arreglo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(500, 0.05),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(600, 0.06),<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Saw</span>.ar(700, 0.06)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>]</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">O utilice Mix.arFill para crear el mismo resultado.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s2">Mix</span>.arFill(3, { <span class="s2">arg</span> i; <span class="s2">Saw</span>.ar(500 + (i * 100), 0.05) }) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">Cada vez que la función es evaluada, el argumento i es incrementado. Entonces, i vale 0 la primera vez que la función es evaluada, i vale 1 la segunda vez, i vale 3 la tercera vez y así en adelante.</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p5"><br></p>
+<p class="p1"><b>Escalar = multiplicación</b></p>
+<p class="p2"><br></p>
+<p class="p3">Aplicar una envoltura, en la forma de una onda senoidal de baja frecuencia, a un generador de ruido blanco.</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s2">WhiteNoise</span>.ar(0.1) * <span class="s2">SinOsc</span>.kr(1, 1) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>// escalar y mezclar</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>// ... imitando a un tren?</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(<span class="s2">WhiteNoise</span>.ar(0.1) * <span class="s2">SinOsc</span>.kr(1, 1))</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>+</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(<span class="s2">BrownNoise</span>.ar(0.1) * <span class="s2">SinOsc</span>.kr(2, 1))</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>}.scope;</p>
+<p class="p3">)</p>
+<p class="p6"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p6"><br></p>
+<p class="p1"><b>Envolturas</b></p>
+<p class="p2"><br></p>
+<p class="p3">Modular cualquier parámetro dinámicamente en un ugen (tal como frecuencia, fase o amplitud) con una envoltura.</p>
+<p class="p2"><br></p>
+<p class="p4">// modular amplitud</p>
+<p class="p3">{ <span class="s2">SinOsc</span>.ar(440, 0, 0.1) * <span class="s2">EnvGen</span>.kr(<span class="s2">Env</span>.sine(1), doneAction: 2) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">Ajustando el argumento doneAction (control) a 2 asegura que después de que la envoltura alcanza su punto final, SuperCollider liberará la memoria que utiliza para la instancia de el SinOsc y del EnvGen.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p6"><br></p>
+<p class="p1"><b>Argumentos con palabras clave</b></p>
+<p class="p2"><br></p>
+<p class="p3">Las palabras clave hacen que el código sea más fácil de leer y permiten que los argumentos se presenten en cualquier ordern. Aquí, los argumentos doneAction (la acción a ejecutar al terminar) y timeScale (la escala temporal) son expresados con el estilo de palabras clave.</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p7"><span class="s2">SynthDef</span><span class="s1">(</span>"escalaTemporal"<span class="s1">, { </span><span class="s2">arg</span><span class="s1"> ts = 1;</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">SinOsc</span>.ar(440, 0, 0.4)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">EnvGen</span>.kr(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Env</span>.sine(1),<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>doneAction: 2,<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>timeScale: ts<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// escalar (reproporcionar) la duración de la envoltura</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">Synth</span><span class="s1">(</span><span class="s4">"escalaTemporal"</span><span class="s1">, [</span><span class="s5">\ts</span><span class="s1">, 0.1]); </span>// el control timeScale controla la duración de la envoltura</p>
+<p class="p6"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p4">// escalar la duración de la envoltura para cada nuevo sinte</p>
+<p class="p3">(</p>
+<p class="p8"><span class="s1">r = </span>Routine<span class="s1">({</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>loop({</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Synth</span>(<span class="s4">"escalaTemporal"</span>, [<span class="s5">\ts</span>, 0.01.rrand(0.3)]);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>})</p>
+<p class="p3">});</p>
+<p class="p3">)</p>
+<p class="p3">r.play</p>
+<p class="p6"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Síntesis aditiva</b></p>
+<p class="p2"><br></p>
+<p class="p3">La síntesis aditiva es como su nombre lo indica. Los componentes son sumados (mezclados).</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4"><span class="s1">{<span class="Apple-tab-span">	</span></span>// avaluar la función 12 veces</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">var</span> n = 12;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Mix</span>.arFill(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>n,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">SinOsc</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[67.0.rrand(2000), 67.0.rrand(2000)],</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>n.reciprocal * 0.75</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>*</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">EnvGen</span>.kr(<span class="s2">Env</span>.perc(11, 6), doneAction: 2)</p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Evolturas</b></p>
+<p class="p2"><br></p>
+<p class="p3">La promesa de la síntesis aditiva es que uno puede añadir ondas senoidales para crear cualquier sonido imaginable.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">El problema de la síntesis aditiva es que cada onda senoidal y su envoltura tienen que ser especificadas explícitamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Crear texturas matizadas a partir de escalar ondas senoidales con envolturas y luego mezclar el resultado.<span class="Apple-converted-space"> </span></p>
+<p class="p3">(</p>
+<p class="p3">{<span class="Apple-tab-span">	</span><span class="s2">var</span> n = 12;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">Mix</span>.arFill(</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>n,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// generar n ondas senoidales</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s2">SinOsc</span><span class="s1">.ar(<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// cada una con una posible frecuencia entre</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[67.0.rrand(2000), 67.0.rrand(2000)],<span class="Apple-tab-span">	</span><span class="s3">// valores de punto flotante</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// bajo.rrand(alto)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>n.reciprocal<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// escalar la amplitid de cada senoidal</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// de acuerdo al valor de n</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s2">EnvGen</span><span class="s1">.kr(<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// poner una envoltura en cada senoidal</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Env</span>.sine(2.0.rrand(17)),<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>doneAction: 0 <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// desconsignar las envolturas sólo cuando</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el sonido se ha completado</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span>*<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// poner una envoltura a todo el conjunto</p>
+<p class="p8"><span class="s1"><span class="Apple-tab-span">	</span></span>EnvGen<span class="s1">.kr(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Env</span>.perc(11, 6),<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>doneAction: 2,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>levelScale: 0.75</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">(O usar el ugen <span class="s6"><b>Klang</b></span> para producir un efecto similar).</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Modulación de anillo</b></p>
+<p class="p2"><br></p>
+<p class="p3">Multiplicar dos UGens.</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s1">{ </span>SinOsc.ar(440, 0, 0.571)<span class="s1"> * </span>SinOsc<span class="s1">.kr(880) }.scope</span></p>
+<p class="p2"><br></p>
+<p class="p4">// usar un lfo (oscilador de baja frecuencia) para modular la amplitud del modulador</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span><span class="s2">SinOsc</span>.ar(440, 0, 0.571)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span>*<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s7"><span class="Apple-tab-span">	</span></span><span class="s1"><span class="Apple-tab-span">	</span>(</span><span class="s2">SinOsc</span><span class="s1">.kr(880)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envolver el modulador y el lfo en paréntesis</p>
+<p class="p4"><span class="s7"><span class="Apple-tab-span">	</span></span><span class="s1"><span class="Apple-tab-span">	</span>* <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// (¿porqué?)</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span><span class="s2">SinOsc</span>.kr([6.99, 8.01].reciprocal)</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span>}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Modulación de amplitud</b></p>
+<p class="p2"><br></p>
+<p class="p3">Multiplicar dos UGens y restringir el valor del modulador a valores positivos (usando el mensaje .abs para calcular el valor absoluto) para crear lo que Charles Dodge llama modulación de amplitud "clásica".</p>
+<p class="p2"><br></p>
+<p class="p4">// usar un lfo para modular la amplitud del modulador</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span><span class="s2">SinOsc</span>.ar(440, 0, 0.571)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span>*<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s7"><span class="Apple-tab-span">	</span></span><span class="s1"><span class="Apple-tab-span">	</span>(</span><span class="s2">SinOsc</span><span class="s1">.kr(880).abs<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// envolver el modulador y el lfo en paréntesis</p>
+<p class="p4"><span class="s7"><span class="Apple-tab-span">	</span></span><span class="s1"><span class="Apple-tab-span">	</span>* <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// (¿porqué?)</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span><span class="s2">SinOsc</span>.kr([6.99, 8.01].reciprocal)</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="s6"><span class="Apple-tab-span">	</span></span>}.scope</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Comparar la modulación de amplitud "clásica" y la modulación de anillo</p>
+<p class="p2"><br></p>
+<p class="p4">// "clásica"</p>
+<p class="p8"><span class="s1">{ </span>SinOsc.ar(440, 0, 0.571)<span class="s1"> * </span>SinOsc<span class="s1">.kr(880).abs }.scope</span></p>
+<p class="p2"><br></p>
+<p class="p4">// "anillo"</p>
+<p class="p4">// ... ¿cuál es la diferencia?</p>
+<p class="p8"><span class="s1">{ </span>SinOsc.ar(440, 0, 0.571)<span class="s1"> * </span>SinOsc<span class="s1">.kr(880) }.scope</span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p6"><br></p>
+<p class="p9">ir a<span class="Apple-converted-space">  </span><b>10_Síntesis_substractiva</b></p>
+</body>
+</html>

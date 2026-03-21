@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #7e2216}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0f32ae}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {text-decoration: underline ; color: #102cf7; text-shadow: 1.0px 1.0px 0.0px #aaaaaa}
+span.s2 {color: #0f32ae}
+span.s3 {color: #000000}
+span.s4 {color: #526a25}
+span.s5 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Composición de patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3">Una manera de usar patrones es escribiendo todo directamente en el patrón. Esto tiene la ventaja de claridad y facilidad de comprensión. Otra manera usarlos es modularizando el comportamiento, creando patrones más simples y pequeños que luego combinan sus resultados en un evento con llaves y valores para todos los patrones componentes.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Esto se relaciona con la idea en ciencias de la computación de "composición de funciones", en la cual in cálculo complejo se puede escribir no como una gran función individual sino como varias funciones más pequeñas que luego se encadenan en una sola función. Ya que las funciones son objetos en SuperCollider, es fácil hacerle una operación a una función que retorna una función compuesta (que luego puede ser usada como cualquier otra función). <span class="s1">http://es.wikipedia.org/wiki/Composición_de_funciones</span></p>
+<p class="p2"><br></p>
+<p class="p3">En matemáticas, el operador <b>·</b> representa la composición de funciones.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>f(x) = x + 1</p>
+<p class="p3"><span class="Apple-tab-span">	</span>g(x) = x * 2</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>g · f = g(f(x)) = (x + 1) * 2</p>
+<p class="p2"><br></p>
+<p class="p3">g · f significa evaluar f primero y luego pasar su resultado a g. El operador se escribe &lt;&gt; en SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p4">f = { <span class="s2">|x|</span> x + 1 };</p>
+<p class="p4">g = { <span class="s2">|x|</span> x * 2 };</p>
+<p class="p5"><br></p>
+<p class="p4">h = (g &lt;&gt; f);</p>
+<p class="p4">--&gt; a Function</p>
+<p class="p5"><br></p>
+<p class="p4">h.value(1);</p>
+<p class="p6"><span class="s3">--&gt; 4<span class="Apple-tab-span">	</span></span>// == (1+1) * 2</p>
+<p class="p5"><br></p>
+<p class="p4">(f &lt;&gt; g).value(1)</p>
+<p class="p6"><span class="s3">--&gt; 3<span class="Apple-tab-span">	</span></span>// == (1*2) + 1</p>
+<p class="p5"><br></p>
+<p class="p6">// g · f == g(f(x)) -- f se evalúa primero y su resultado es pasado a g</p>
+<p class="p4">g.value(f.value(1));</p>
+<p class="p4">--&gt; 4</p>
+<p class="p2"><br></p>
+<p class="p3">Los patrones de evento se pueden componer de manera similar.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pbindf(patrón, pares):</b> Añade nuevos pares de llave-valor a un patrón preexistente al estilo Pbind. Pbindf(Pbind(\a, patrónA), \b, patrónB, \c, patrónC) obtiene el mismo resultado que Pbind(\a, patrónA, \b, patrónB, \c, patrónC).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pchain(patrones):</b> Encadena patrones al estilo Pbind juntos, de tal manera que los pares llave-valor se incorporen a un mismo evento. Por ejemplo, si una parte del código crea una instancia Pbind a= Pbind(\a, patrónA) y otra parte crea b = Pbind(\b, patrónB, \c, patrónC), uno puede agregar \b y \c a el resultado \a usando Pchain(b, a). Los subpatrones evalúan en reversa, de la misma manera que en la notación de composición de funciones.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Para propósitos musicales, uno puede tener una parte del código para crear patrones rítmicos y otra para patrones de alturas que luego son combinados con <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pchain.html"><span class="s2">Pchain</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p4">~ritmo = <span class="s2">Pbind</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s2">Pwrand</span>(#[0.125, 0.25, 0.5], #[0.3, 0.5, 0.2], <span class="s2">inf</span>),</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\legato</span>, <span class="s2">Pwrand</span>(#[0.1, 0.6, 1.01], #[0.1, 0.3, 0.6], <span class="s2">inf</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p4">);</p>
+<p class="p4">~melodia = <span class="s2">Pbind</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s2">Pwhite</span>(-4, 11, <span class="s2">inf</span>)</p>
+<p class="p4">);</p>
+<p class="p5"><br></p>
+<p class="p4">p = <span class="s2">Pchain</span>(~melodia, ~ritmo).play;</p>
+<p class="p4">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Esto tiene buen potencial para la composición algorítmica. Añadiendo <a href="../../../../../../../SuperCollider3/build/Help/Libraries/JITLib/Patterns/EventPatternProxy.html"><span class="s2">EventPatternProxy</span></a> a la mezcla hace posible intercambiar distintos componentes melódicos y rítmicos en tiempo real, sin interrupción. Podemos incluso cambiar el tipo de patrón (Pbind, Pmono, PmonoArtic) sin sufrir un efecto adverso .<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s3">~ritmo = </span>EventPatternProxy<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s2">Pwrand</span>(#[0.125, 0.25, 0.5], #[0.3, 0.5, 0.2], <span class="s2">inf</span>),</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\legato</span>, <span class="s2">Pwrand</span>(#[0.1, 0.6, 1.01], #[0.1, 0.3, 0.6], <span class="s2">inf</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p4">));</p>
+<p class="p5"><br></p>
+<p class="p7"><span class="s3">~melodia = </span>EventPatternProxy<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s2">Pwhite</span>(-4, 11, <span class="s2">inf</span>)</p>
+<p class="p4">));</p>
+<p class="p5"><br></p>
+<p class="p4">p = <span class="s2">Pchain</span>(~melodia, ~ritmo).play;</p>
+<p class="p5"><br></p>
+<p class="p4">~melodia.source = <span class="s2">PmonoArtic</span>(<span class="s4">\default</span>, <span class="s4">\degree</span>, <span class="s2">Pseries</span>(4, <span class="s2">Prand</span>(#[-1, 1], <span class="s2">inf</span>), <span class="s2">inf</span>).fold(-4, 11));</p>
+<p class="p5"><br></p>
+<p class="p4">~melodia.source = <span class="s2">Pbind</span>(<span class="s4">\degree</span>, <span class="s2">Pseries</span>(4, <span class="s2">Pwrand</span>(#[-2, -1, 1, 2], #[0.3, 0.2, 0.2, 0.3], <span class="s2">inf</span>), <span class="s2">inf</span>).fold(-4, 11));</p>
+<p class="p5"><br></p>
+<p class="p4">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Pset y sus primos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Un grupo de clases de patrones permiten que las llaves individuales de un evento sean reescritas o que se les ejecute alguna adición o multiplicación. Pkey, en combinación los "patrones de composición"<span class="Apple-converted-space">  </span>Pchain o Pbindf pueden lograr lo mismo que lo que las siguientes clases hacen (aunque esta notación alterna puede llegar a ser más conveniente en algunos casos).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pset(nombre, valor, patrón):</b> Tomar un evento de 'patrón' y poner el siguiente valor del patrón 'valor' en la llave 'nombre'. Si el patrón fuente especifica un valor para el mismo nombre, el valor de la fuente será reemplazado por el nuevo.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><b>Padd(nombre, valor, patrón):</b> Después de obtener el siguiente evento, reemplaza el valor 'nombre' con su valor actual + el siguiente número de 'valor'.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><b>Pmul(nombre, valor, patrón:</b> Después de obtener el siguiente evento, reemplaza el valor 'nombre' con su valor actual * el siguiente número de 'valor'.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Estos patrones permanecen en la biblioteca de clases principalmente por razones de compatibilidad hacia atrás, ya que su comportamiento puede ser replicado fácilmente usando Pbindf.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pset</b>(nombre, valor, patrón) == <b>Pbindf</b>(patrón, <b>nombre, valor</b>)</p>
+<p class="p3"><b>Padd</b>(nombre, valor, patrón) == <b>Pbindf</b>(patrón, <b>nombre, Pkey(nombre) + valor</b>)</p>
+<p class="p3"><b>Pmul</b>(nombre, valor, patrón) == <b>Pbindf</b>(patrón, <b>nombre, Pkey(nombre) * valor</b>)</p>
+<p class="p2"><br></p>
+<p class="p3">Psetpre, Paddpre, y Pmulpre hacen la evaluación en reversa. Pchan puede duplicar su funcionalidad.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Psetpre(nombre, valor, patrón):</b> Tomar el siguiente 'valor'<span class="Apple-converted-space">  </span>y ponerlo en el prototipo de evento antes de evaluar 'patrón'.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Psetpre</b>(nombre, valor, patrón) == <b>Pchain</b>(patrón, <b>Pbind(nombre, valor)</b>);</p>
+<p class="p3"><b>Paddpre</b>(nombre, valor, patrón) == <b>Pchain</b>(patrón, <b>Pbind(nombre, Pkey(nombre) + valor)</b>);</p>
+<p class="p3">Similar a Pmulpre</p>
+<p class="p2"><br></p>
+<p class="p3">Un tercer grupo -- <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Psetp.html"><span class="s2">Psetp</span></a>, <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Paddp.html"><span class="s2">Paddp</span></a>, <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pmulp.html"><span class="s2">Pmulp</span></a> -- se comporta ligeramente diferente, anidando la evaluación de los patrones.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06b_Patrones basados en tiempo.html"><span class="s5">GP_06b_Patrones basados en tiempo</span></a></span></p>
+<p class="p9"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06d_Patrones Paralelos.html"><span class="s5">GP_06d_Patrones Paralelos</span></a></span></p>
+</body>
+</html>

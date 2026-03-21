@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.4  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20090725;1570800">
+	<META NAME="CocoaVersion" CONTENT="824.41">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in }
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 13pt }
+		P.p2 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p3 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Glosario</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>buffer </B>- Un
+encabezado y arreglo de valores de muestras de valores de punto
+flotante de 32 bits que residen en el servidor. Los buffers son
+usados como archivos de audio, líneas de delay, arreglos de
+controles globales, y arreglos de puntos de conexiones entre Synths.
+Son representados por la clase Buffer del lado del cliente. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>class</B> - <B>clase</B>
+- Una descripción del estado y comportamiento de un grupo de
+objetos. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>client</B> - <B>cliente</B>
+- SC está dividido en dos aplicaciones separadas: El cliente y el
+servidor. El cliente es donde el lenguaje de supercollider está
+implementado, y donde el usuario ejecuta código. El servidor realiza
+la síntesis del audio, contiene el árbol de nodos de síntesis y
+otros grupos y responde a mensajes Open Sound Control de parte del
+cliente. Ver <A HREF="ServerArchitecture/ClientVsServer.html">ClientVsServer</A>
+para más información. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>group </B>- <B>grupo</B>
+- Una &quot;linked list&quot; (lista enlazada) de nodos. Los grupos
+proporcionan maneras de controlar la ejecución de muchos nodos
+simultáneamente. Un grupo es una especie de nodo. Coloquialmente, se
+puede comprender un grupo como un agrupamiento ordenado de otros
+nodos, que puede incluir tanto Synths como otros grupos. Está
+representado por la clase <A HREF="ServerArchitecture/Group.html">Group</A>
+del lado del cliente. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>interface</B> -
+<B>interfase</B> - El grupo de mensajes a los cuales un objeto
+responde. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>instance - instancia -
+</B>Uno de los objetos descritos por una clase. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>instance variable -
+variable de instancia -</B> Una parte del estado interno de un
+objeto. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>message - mensaje - </B>Una
+solicitud a un objeto para que realice una operación. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>method - método - </B>Una
+descripción de las operaciones necesarias para implementar un
+mensaje para una clase en particular. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>MIDI -</B> Un protocolo
+para mandar datos de control musical entre sintetizadores. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>node - nodo - </B>Un
+punto en el árbol de nodos ejecutado en orden &quot;depth first
+traversal&quot;  (primero en profundidad: desde la raíz se lee cada
+&quot;rama&quot; hasta llegar al último nodo) por la maquinaria de
+síntesis. Hay dos tipos de nodos, síntesis y grupos. Éstos son
+representados por las clases del lado del servidor <A HREF="ServerArchitecture/Synth.html">Synth</A>
+y <A HREF="ServerArchitecture/Group.html">Group</A>, y su superclase
+abstracta <A HREF="ServerArchitecture/Node.html">Node</A>. El árbol
+de nodos define el orden de ejecución de los sintetizadores. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>objeto - </B>Algo que
+tiene datos representando el estado del objeto, y una serie de
+operaciones que pueden ser realizadas sobre él. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Open Sound Control - </B>un
+protocolo definido por CNMAT en UCBerkeley para controlar
+sintetizadores. Ver http://opensoundcontrol.org/. SuperCollider se
+comunica entre el cliente y el servidor utilizando mensajes OSC sobre
+una red UDP o TCP. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>OSC</B> - Ver Open
+Sound Control. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>polymorphism -
+polimorfismo - </B>La abilidad que tienen diferentes tipos de objetos
+de responder de maneras distintas al mismo mensaje. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>protocol - protocolo -
+</B>Un grupo de mensajes que implementan una clase específica de
+comportamiento. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>receiver - receptor -
+</B>El objeto al cual se le envía un mensaje. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>servidor - </B>SC está
+dividido en dos aplicaciones separadas: El cliente y el servidor. El
+cliente es donde el lenguaje de supercollider está implementado, y
+donde el usuario ejecuta código. El servidor realiza la síntesis
+del audio, contiene el árbol de nodos de síntesis y otros grupos y
+responde a mensajes Open Sound Control de parte del cliente. Ver
+<A HREF="ServerArchitecture/ClientVsServer.html">ClientVsServer</A>
+para más información. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>synth - sintetizador -
+</B>Un módulo de procesamiento de sonido, basado en una definición
+de sintetizador particular. Similar a &quot;voice&quot; (voz) en
+otros sístemas. Se hace referencia a los sintetizadores utilizando
+un número. Está representado por la clase <A HREF="ServerArchitecture/Synth.html">Synth</A>
+del lado del cliente. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>synth definition -
+definición de síntesis -</B> Una definición para crear nuevos
+sintetizadores. Las definiciones de síntesis son como un patrón o
+un diseño para sintetizadores. Similar a un &quot;instrumento&quot;
+en otros sistemas. Representado por la clase <A HREF="ServerArchitecture/SynthDef.html">SynthDef</A>
+del lado del cliente. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>TCP - </B>Un protocolo
+para transmitir datos a través de una red. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>UDP - </B>Un protocolo
+para enviar datagramas a través de una red. 
+</P>
+</BODY>
+</HTML>

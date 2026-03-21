@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.27">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; min-height: 22.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #c90000}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #0026f8}
+span.s3 {color: #000000}
+span.s4 {color: #0006bf}
+span.s5 {color: #606060}
+span.s6 {color: #00750c}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>OSCresponderNode<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>respondedor de red del lado del cliente</b></p>
+<p class="p2"><br></p>
+<p class="p3"><br></p>
+<p class="p4">Registra una función que será llamada al recibir un comando específico desde una dirección específica de OSC.</p>
+<p class="p4">Misma interface que <a href="http://OSCresponder.html/"><span class="s2">OSCresponder</span></a><b>, </b>pero permite <b><i>respondedores múltiples para el mismo comando.</i></b></p>
+<p class="p3"><br></p>
+<p class="p4">notar que OSCresponderNode evalúa su función en el proceso del sistema.</p>
+<p class="p4">para poder accesar a proceso de la aplicación (e.g. para accesar a GUI ) usar <b>{ ... }.defer</b>;</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4"><b>Definiendo un OSCresponder para escuchar a una aplicación remota</b></p>
+<p class="p3"><br></p>
+<p class="p5">// ejemplo: dos aplicaciones SuperCollider comunicandose</p>
+<p class="p6"><br></p>
+<p class="p5">// applicación 1:</p>
+<p class="p5"><span class="s3">n = </span><span class="s4">NetAddr</span><span class="s3">(</span><span class="s5">"127.0.0.1"</span><span class="s3">, 57120); </span>// el url debe de ser el de la computadora con la aplicación 2 (o nil)</p>
+<p class="p6"><br></p>
+<p class="p7">o = <span class="s4">OSCresponder</span>(n, <span class="s6">'/chat'</span>, { <span class="s4">|t, r, msg|</span> (<span class="s5">"tiempo:"</span> + t).postln; msg[1].postln }).add;</p>
+<p class="p6"><br></p>
+<p class="p5">// applicaciónn 2:</p>
+<p class="p5"><span class="s3">m = </span><span class="s4">NetAddr</span><span class="s3">(</span><span class="s5">"127.0.0.1"</span><span class="s3">, 57120); </span>// el url debe de ser el de la computadora con la aplicación 1</p>
+<p class="p8"><span class="s3">m.sendMsg(</span>"/chat"<span class="s3">, </span>"Hola aplicación 1"<span class="s3">);</span></p>
+<p class="p6"><br></p>
+<p class="p5">// enviando paquetes (incluyendo marcas de tiempo (timestamps))</p>
+<p class="p7">(</p>
+<p class="p8"><span class="s3">m.sendBundle(2.0, [</span>"/chat"<span class="s3">, </span>"Hola aplicación 1"<span class="s3">], [</span>"/chat"<span class="s3">, </span>"Hola mundo"<span class="s3">]);</span></p>
+<p class="p8"><span class="s3">m.sendBundle(0.0, [</span>"/chat"<span class="s3">, </span>"Hola aplicación 1"<span class="s3">], [</span>"/chat"<span class="s3">, </span>"Hola mundo"<span class="s3">]);</span></p>
+<p class="p7">)</p>
+<p class="p6"><br></p>
+<p class="p5">// finaliza applicaciónn 2:</p>
+<p class="p7">m.disconnect;</p>
+<p class="p6"><br></p>
+<p class="p5">// finaliza applicaciónn 1:</p>
+<p class="p7">n.disconnect; o.remove;</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4"><b>Enviando datos del servidor al cliente</b></p>
+<p class="p3"><br></p>
+<p class="p5">// ejemplo de SendTrig</p>
+<p class="p6"><br></p>
+<p class="p7">(</p>
+<p class="p7">s = <span class="s4">Server</span>.local;</p>
+<p class="p7">s.boot;</p>
+<p class="p7">s.notify;</p>
+<p class="p7">)</p>
+<p class="p6"><br></p>
+<p class="p7">(</p>
+<p class="p8"><span class="s4">SynthDef</span><span class="s3">(</span>"ayuda-SendTrig"<span class="s3">,{</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s4">SendTrig</span>.kr(<span class="s4">Dust</span>.kr(1.0), 0, 0.9);</p>
+<p class="p7">}).send(s);</p>
+<p class="p6"><br></p>
+<p class="p5">// registro para recibir este mensaje</p>
+<p class="p7">a = <span class="s4">OSCresponderNode</span>(s.addr, <span class="s6">'/tr'</span>, { <span class="s4">arg</span> time, responder, msg;</p>
+<p class="p7"><span class="Apple-tab-span">	</span>[time, responder, msg].postln;</p>
+<p class="p7">}).add;</p>
+<p class="p7">b = <span class="s4">OSCresponderNode</span>(s.addr, <span class="s6">'/tr'</span>, { <span class="s4">arg</span> time, responder, msg;</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span></span>"ests es otra llamada"<span class="s3">.postln;</span></p>
+<p class="p7">}).add;</p>
+<p class="p7">)</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p8"><span class="s3">x = </span><span class="s4">Synth</span><span class="s3">.new(</span>"ayuda-SendTrig"<span class="s3">);</span></p>
+<p class="p7">a.remove;</p>
+<p class="p7">b.remove;</p>
+<p class="p7">x.free;</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p4"><b>Mirando algo específico</b></p>
+<p class="p6"><br></p>
+<p class="p5">// extremo del mensaje de grupo</p>
+<p class="p6"><br></p>
+<p class="p7">s.boot;</p>
+<p class="p6"><br></p>
+<p class="p7">a = <span class="s4">OSCresponderNode</span>(s.addr,<span class="s6">'/n_end'</span>,{ <span class="s4">arg</span> time,responder,msg;</p>
+<p class="p7"><span class="Apple-tab-span">	</span>[time, responder, msg].postln;</p>
+<p class="p7"><span class="Apple-tab-span">	</span>if(msg[1] == g.nodeID,{</p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>"g esta muerto !"<span class="s3">.postln;</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// g = Group.new;</p>
+<p class="p7"><span class="Apple-tab-span">	</span>});</p>
+<p class="p7">}).add;</p>
+<p class="p6"><br></p>
+<p class="p7">g = <span class="s4">Group</span>.new;</p>
+<p class="p6"><br></p>
+<p class="p7">g.free;</p>
+<p class="p6"><br></p>
+<p class="p7">a.remove;</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p4"><b>Mirando errores</b></p>
+<p class="p6"><br></p>
+<p class="p5">// ejemplo de ServerErrorGui en crucial lib</p>
+<p class="p6"><br></p>
+<p class="p7">f = <span class="s4">OSCresponderNode</span>(s.addr, <span class="s6">'/fail'</span>, { <span class="s4">arg</span> time, responder, msg;</p>
+<p class="p7"><span class="Apple-tab-span">	</span>{</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">var</span> mins,secs;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mins = (time/60).round(1);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>secs = (time%60).round(0.1);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(secs&lt;10,{ secs = <span class="s5">"0"</span>++secs.asString; },{ secs=secs.asString;});</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// pon esto en una gui</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//errors.label = "% % (%:%)".format(msg[1], msg[2], mins, secs);</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//errors.stringColor = Color.white;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">"% % (%:%)"</span>.format(msg[1], msg[2], mins, secs).postln;</p>
+<p class="p7"><span class="Apple-tab-span">	</span>}.defer</p>
+<p class="p7">});</p>
+<p class="p7">f.add;</p>
+<p class="p6"><br></p>
+<p class="p5">// causa una falla</p>
+<p class="p8"><span class="s4">Synth</span><span class="s3">(</span>"gthhhhppppppp!"<span class="s3">);</span></p>
+<p class="p6"><br></p>
+<p class="p7">f.remove</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+</body>
+</html>

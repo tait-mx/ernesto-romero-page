@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="1038.11">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #b30000}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0000c4}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #d21910}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #b30000}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0000ee}
+li.li4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+li.li12 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Helvetica}
+span.s1 {color: #0000c4}
+span.s2 {color: #000000}
+span.s3 {color: #b30000}
+span.s4 {color: #b3140c}
+span.s5 {color: #606060}
+span.s6 {text-decoration: underline ; color: #002eee}
+span.s7 {color: #002eee}
+span.s8 {font: 9.0px Monaco}
+span.s9 {color: #0024c4}
+span.s10 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ol.ol1 {list-style-type: decimal}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Componentes internos de los patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Patrones como flujos</b></p>
+<p class="p2"><br></p>
+<p class="p4">Como ya se notó, los patrones en sí mismos no hacen mucho. Primero tienen que ser convertidos en flujos; entonces, los valores son requeridos del flujo, no del patrón.</p>
+<p class="p2"><br></p>
+<p class="p4">Para la mayoría de los patrones, el flujo es una instancia de <a href="../../Core/Kernel/Routine.html"><span class="s1">Routine</span></a>. Las rutinas (formalmente conocidas en la ciencia computacional como 'corutinas') son importantes ya que ceden el control de regreso a quien las llama pero todavía recuerdan exactamente dónde se habían quedado, de tal manera que pueden resumir en medio del la próxima llamada a un siguiente valor sin tener que empezar de nuevo.<span class="Apple-converted-space">  </span>Algunos patrones excepcionales usan FuncStream que es simplemente un envolvente alrededor de una función que permite a la función actuar como un flujo al responder a llamadas de 'siguiente' y a otros métodos de Flujo.</p>
+<p class="p2"><br></p>
+<p class="p4">Cada clase de patrón debe responder a 'asStream' ('comoFlujo'); sin embargo, la mayoría de los patrones no implementan asStream directamente. En su lugar, usan la implementación genérica de asStream de <a href="../Patterns/Pattern.html"><span class="s1">Pattern</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span>asStream { ^<span class="s1">Routine</span>({ <span class="s1">arg</span> inval; <span class="s1">this</span>.embedInStream(inval) }) }</p>
+<p class="p2"><br></p>
+<p class="p4">Esta línea crea una Rutina cuyo trabajo es simplemente incrustar el patrón en su flujo. "Incrustar" significa para el patrón que haga su trabajo asignado y retorne el control al nivel pariente cuando acabe. Cuando un patrón simple termina, su nivel pariente es la Rutina misma. Después de que 'embedInStream' retorna, no hay nada más que hacer para la Rutina, por lo que el flujo está terminado; a partir de entonces sólo puede ceder nil.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s2">p = </span><span class="s1">Pseries</span><span class="s2">(0, 1, 3).asStream;<span class="Apple-tab-span">	</span></span>// cederá exactamente 3 valores</p>
+<p class="p5">4.do { p.next.postln };<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">// el 4to es nulo (nil)</span></p>
+<p class="p2"><br></p>
+<p class="p4">Hemos visto que los patrones de lista pueden contener otros patrones y que los patrones internos son tratados como "subrutinas". Los patrones de lista hacen esto llamando embedInStream en los elementos de su lista. La mayoría de los objetos son incrustados en un flujo al ceder el objeto mismo:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// en Object</p>
+<p class="p5"><span class="Apple-tab-span">	</span>embedInStream { ^<span class="s1">this</span>.yield; }</p>
+<p class="p2"><br></p>
+<p class="p4">Pero si un elemento es un patón, el control entra al subpatrón y se mantiene allí hasta que el subpatrón termine. Entonces el control regresa al patrón de lista para obtener el siguiente elemento, que es incrustado, y así sucesivamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">p = <span class="s1">Pseq</span>([<span class="s1">Pseries</span>(0, 1, 3), <span class="s1">Pgeom</span>(10, 2, 3)], 1).asStream;</p>
+<p class="p7"><br></p>
+<p class="p6"><span class="s2">p.next;<span class="Apple-tab-span">	</span></span>// Pseq es incrustado; el primer elemento,<span class="s4"> Pseries(0...)</span> es también incrustado</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// El control está ahora en el Pseries</p>
+<p class="p6"><span class="s2">p.next;<span class="Apple-tab-span">	</span></span>// segundo elemento de Pseries</p>
+<p class="p6"><span class="s2">p.next;<span class="Apple-tab-span">	</span></span>// tercer elemento de Pseries</p>
+<p class="p6"><span class="s2">p.next;<span class="Apple-tab-span">	</span></span>// no hay más elementos en el Pseries; el control regresa a Pseq</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// Pseq obtiene el siguiente elemento (Pgeom) y lo incrusta, cediendo 10 elementos</p>
+<p class="p6"><span class="s2">p.next;<span class="Apple-tab-span">	</span></span>// segundo elemento de Pgeom</p>
+<p class="p6"><span class="s2">p.next;<span class="Apple-tab-span">	</span></span>// tercero de Pgeom</p>
+<p class="p6"><span class="s2">p.next;<span class="Apple-tab-span">	</span></span>// no más elementos de Pgeom; Pseq no tiene más elementos y retorna a la Rutina</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// La Rutina no tiene nada más que hacer por lo que el resultado es nil</p>
+<p class="p2"><br></p>
+<p class="p4">Entonces, para escribir una nueva clase de patrón, lo mínimo que se requiere es:</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li class="li4"><b>Variables de instancia</b> para los parámetros del patrón</li>
+<li class="li4">Un método <b>*new</b> para inicializar esas variables</li>
+<li class="li4">Un método <b>embedInStream</b> para realizar el trabajo del patrón</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p4">Una de las definiciones más simples en la librería principal es la de Prand:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8">Prand<span class="s2"> : </span>ListPattern<span class="s2"> {</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>embedInStream { <span class="s1">arg</span> inval;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> item;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>repeats.value.do({ <span class="s1">arg</span> i;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>item = list.at(list.size.rand);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>inval = item.embedInStream(inval);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>^inval;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">}</p>
+<p class="p2"><br></p>
+<p class="p4">Esta definición no muestra las variables de instancia o el método *new. ¿Donde están? Son heredadas de la superclase, ListPattern.</p>
+<p class="p2"><br></p>
+<p class="p8">ListPattern<span class="s2"> : </span>Pattern<span class="s2"> {</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span> &lt;&gt;list, &lt;&gt;repeats=1;</p>
+<p class="p7"><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>*new { <span class="s1">arg</span> list, repeats=1;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if (list.size &gt; 0) {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>^<span class="s1">super</span>.new.list_(list).repeats_(repeats)</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}{</p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">Error</span><span class="s2">(</span>"ListPattern ("<span class="s2"> ++ </span><span class="s1">this</span><span class="s2">.name ++ </span>") requires a non-empty collection; received "</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>++ list ++ <span class="s5">"."</span>).throw;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span></span>// algunos métodos misceláneos son omitidos en este documento</p>
+<p class="p5">}</p>
+<p class="p2"><br></p>
+<p class="p4">Debido a la herencia, Prand simplemente expresa su comportamiento como un bucle 'do', escogiendo 'repeats' (repeticiones) al azar a partir de la lista e incrustándolos en el flujo. Cuando el bucle termina, el método devuelve los valores de entrada (ver más abajo).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Valores de entrada de los flujos (inval, inevent)</b></p>
+<p class="p2"><br></p>
+<p class="p4">Antes de discutir los valores de entrada en patrones, tomemos un paso atrás para discutir cómo funciona en el caso de Rutinas.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">El método 'next' (siguiente) de <a href="../../Core/Kernel/Routine.html"><span class="s6">Routine</span></a><span class="s7"> </span>toma un argumento que es pasado al flujo (Rutina). El truco es que la rutina no comienza desde el principio -- si lo hiciera, perdería su única ventaja de acordarse de su posición y resumir cuando se le pide. Por lo tanto, no es suficiente recibir el argumento usando la variable de argumento en la función de la Rutina.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">En realidad, cuando una Rutina cede un valor, su ejecución es interrumpida después de llamar 'yield' ('ceder'), pero antes de que retorne 'yield'. Entonces, cuando se le pide a la Rutina su siguiente valor, la ejecución resume <i>devolviendo un valor a a través del método 'yield'</i>. (Este comportamiento no es visible en el código de la librería de clases de SuperCollider; 'yield' es una primitiva en la estructura de C++ sobre la cual está construido el lenguaje, por lo cual es posible que haga algo que de otra manera sería imposible dentro del lenguaje -- es decir, interrumpir su ejecución después de llamar a yield pero justo antes de que ésta retorne, por lo cual el argumento de entrada se ejecuta y se retorna, pero es hasta cuando regresa el control a la rutina, que termina de ejecutarse esa misma línea, su resultado siendo ahora <i>el nuevo argumento de entrada, </i>proveniente de la llamada a next que resume su ejecución. Es por esto que funciona la sintaxis <span class="s8">inval = yield(inval)</span><span class="Apple-converted-space">  </span>-- [N. del T.] ).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Como ejemplo rápido, consideremos una rutina que se supone debe multiplicar el valor de entrada por dos. Primero, de manera equivocada, asumimos que todo se hace a través del <i>argumento</i> de entrada 'inval' de la función. El primer valor de entrada en llegar es 1. Ya que e valor de inval permanece sin cambiarse dentro de la rutina, ésta<span class="Apple-converted-space">  </span>termina cediendo cada vez el mismo valor.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">r = </span>Routine<span class="s2">({ </span>|inval|</p>
+<p class="p5"><span class="Apple-tab-span">	</span>loop {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>yield(inval * 2)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">});</p>
+<p class="p7"><br></p>
+<p class="p5">(1..3).do { <span class="s1">|x|</span> r.next(x).postln };</p>
+<p class="p2"><br></p>
+<p class="p4">Si, por otro lado, la rutina guarda el resultado de 'yield' en la <i>variable</i> inval, la rutina estará al tanto de los valores de entrada sucesivos, retornando los resultados esperados.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2">r = </span>Routine<span class="s2">({ </span>|inval|</p>
+<p class="p5"><span class="Apple-tab-span">	</span>loop {</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// aquí es donde entran los <span class="s4">2dos, 3ros, 4tos etc, </span>valores de entrada<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>inval = yield(inval * 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">});</p>
+<p class="p7"><br></p>
+<p class="p5">(1..3).do { <span class="s1">|x|</span> r.next(x).postln };</p>
+<p class="p2"><br></p>
+<p class="p4">Esta convención -- recibir el primer valor de entrada como un argumento y los subsecuentes valores de entrada como resultados de una llamada al método -- también se mantiene para el método embedInStream ('incrustarEnFlujo') de los patrones. Las reglas son:<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li class="li4"></li>
+<li class="li4">embedInStream toma <b>un argumento</b>, que es el primer valor de entrada.</li>
+<li class="li4">Después de ceder un valor directamente, o incrustar un elemento en el flujo, un patrón recibe su siguiente valor de entrada como resultado de 'yield' o 'embedInStream': <b>inval = output.yield</b> o <b>output.embedInStream(inval)</b></li>
+<li class="li4">Cuando el patrón termina, debe retornar el último valor de entrada para que el patrón pariente obtenga el valor como resultado de su llamada a embedInStream: <b>^inval</b>.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p4">Siguiendo estas reglas, embedInStream se vuelve un método casi gemelo de yield. Ambos hacen esencialmente la misma cosa: escupen valores al usuario y regresan al siguiente valor de entrada. La única diferencia es que yield retorna un objeto al usuario que lo llama con 'next', mientras que embedInStream puede ceder varios en sucesión.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Tomémonos un momento para regresar y ver cómo funciona el método embedInStream de Prand.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>embedInStream vs. asStream + next</b></p>
+<p class="p2"><br></p>
+<p class="p4">Si una clase de patrón necesita usar valores de otro patrón, ¿deberá evaluar ese patrón usando embedInStream, o deberá hacer un flujo separado (asStream) y jalar los valores de ese flujo usando 'next'? Ambas aproximaciones son usadas en la librería de clases.</p>
+<p class="p2"><br></p>
+<p class="p4">embedInStream otorga el control completamente a su subpatrón. El patrón exterior es suspendido hasta que el subpatrón devuelva el control. Este es el comportamiento esperado en la mayoría de los patrones de lista. No hay oportunidad para que el pariente opere sobre el valor cedido.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Este patrón demuestra lo que significa ceder control al subpatrón. El primer patron en la lista Pseq es infinito; consecuentemente, el segundo subpatrón nunca ejecutará debido a que el primer patrón infinito jamás le devuelve el control al Pseq.</p>
+<p class="p2"><br></p>
+<p class="p5">p = <span class="s1">Pseq</span>([<span class="s1">Pwhite</span>(0, 9, <span class="s1">inf</span>), <span class="s1">Pwhite</span>(100, 109, <span class="s1">inf</span>)], 1).asStream;</p>
+<p class="p6"><span class="s2">p.nextN(20);<span class="Apple-tab-span">	</span></span>// no importa cuan largo lo haga uno, nunca será &gt; 9!</p>
+<p class="p2"><br></p>
+<p class="p4">asStream ('comoFlujo') deberá ser usado cuando el patrón pariente necesite realizar alguna operación al valor de yield antes de cederlo de nuevo a quien lo llama, o si necesita mantener un registro de múltiples flujos 'vástagos' al mismo tiempo. Por ejemplo, Pdiff toma la diferencia entre el valor actual y el valor previo. Ya que la substracción ocurre entre la evaluación del patrón vástago y el momento en que se cede la diferencia, el patrón vástago debe ser usado como un flujo.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8">Pdiff<span class="s2"> : </span>FilterPattern<span class="s2"> {</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>embedInStream { <span class="s1">arg</span> event;</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// ¡aquí está el flujo!</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> stream = pattern.asStream;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> next, prev = stream.next(event);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>while {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>next = stream.next(event);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>next.notNil;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}{</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// y aquí el valor de retorno</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>event = (next - prev).yield;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>prev = next;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>^event</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Escribiendo patrones: otros factores</b></p>
+<p class="p2"><br></p>
+<p class="p4">Supuestamente, los objetos de patrones no tiene un estado, lo cual significa que el objeto del patrón no deberá sufrir cambios basados en algún flujo que corra el patrón. (Hay algunas excepciones tales como <a href="../Patterns/Ppatmod.html"><span class="s9">Ppatmod</span></a>, que existe específicamente para realizar modificaciones al objeto del patrón. Pero incluso en este caso especial, se hace una copia separada del patrón a ser modificado en cada flujo; el patrón original está aislado del comportamiento de los flujos). <i>Hay que tener mucho cuidado si uno piensa romper esta regla</i>, y antes de hacerlo, pensar en otras maneras de lograr el objetivo sin romperla.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Debido a esta regla, <i>todas las variables que reflejan el estado de un flujo en particular deberán ser locales al método embedInStream</i>. Si uno mira a través de las clases de patrones existentes buscando ejemplos, uno verá prácticamente en cada caso que embedInStream no altera las variables de instancia definidas por la clase. Las usa como parámetros, pero no las cambia. Cualquier cosa que cambie mientras un flujo está siendo evaluado es una variable local del método.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Para inicializar los parámetros de los patrones (variables de instancia), la práctica típica usada en la librería es darles un método 'obtenedor' ('getter') y uno 'otorgador' ('setter') a todas las variables de instancia, usando los 'otorgadores' en el método *new (o usando ^super.NewCopyArgs(...)). No es muy popular que el método init pueble las variables de instancia. Por ejemplo,<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8">Pn<span class="s2"> : </span>FilterPattern<span class="s2"> {</span></p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// la sintaxis para darle 'obtenedor' y 'otorgador' a una variable es '&lt;' y '&gt;'<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span> &lt;&gt;repeats;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>*new { <span class="s1">arg</span> pattern, repeats=<span class="s1">inf</span>;</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el método que ajusta los parámetros ('otorgador') es usado aquí para repeats</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>^<span class="s1">super</span>.new(pattern).repeats_(repeats)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">...</p>
+<p class="p5">}</p>
+<p class="p2"><br></p>
+<p class="p4">Hay que considerar cuidadosamente si un parámetro puede cambiar en cada llamada a 'next'. Si tal es el caso, se hace un flujo para tal parámetro y se le llama con next(inval) en cada iteración. Los parámetros que no cambian, como en el caso del número de repeticiones, deberán llamar .value(inval) para que se pueda pasar una función como argumento. <a href="../Patterns/Pwhite.html"><span class="s9">Pwhite</span></a> demuestra ambas características.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Ejercicio para el lector:</b> ¿Porqué funciona Pwhite(0.0, 1.0, inf) con todo y las llamadas asStream y next?</p>
+<p class="p2"><br></p>
+<p class="p8">Pwhite<span class="s2"> : </span>Pattern<span class="s2"> {</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span> &lt;&gt;lo, &lt;&gt;hi, &lt;&gt;length;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>*new { <span class="s1">arg</span> lo=0.0, hi=1.0, length=<span class="s1">inf</span>;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>^<span class="s1">super</span>.newCopyArgs(lo, hi, length)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span>storeArgs { ^[lo,hi,length] }</p>
+<p class="p5"><span class="Apple-tab-span">	</span>embedInStream { <span class="s1">arg</span> inval;</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// flujos bajo y alto (hi y lo)</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> loStr = lo.asStream;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> hiStr = hi.asStream;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> hiVal, loVal;</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// length.value -- se permiten funciones para length (longitud)</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// por ejemplo, Pwhite podría dar un número aleatorio de valores<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// cada vez que es incrustado</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>length.value.do({</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>hiVal = hiStr.next(inval);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>loVal = loStr.next(inval);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(hiVal.isNil or: { loVal.isNil }) { ^inval };</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>inval = rrand(loVal, hiVal).yield;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>^inval;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">}</p>
+<p class="p7"><br></p>
+<p class="p6">// la gráfica aumenta ya que los valores lo y hi aumentan para cada valor de 'next'</p>
+<p class="p5"><span class="s1">Pwhite</span>(<span class="s1">Pseries</span>(0.0, 0.01, <span class="s1">inf</span>), <span class="s1">Pseries</span>(0.2, 0.01, <span class="s1">inf</span>), <span class="s1">inf</span>).asStream.nextN(200).plot;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Limpiando los recursos usados por patrones</b></p>
+<p class="p2"><br></p>
+<p class="p4">Algunos patrones de eventos crean objetos (ya sea en el servidor o sólo en el lenguaje) que necesitan ser removidos explícitamente cuando se detiene. Esto es manejado por el objeto <b>EventStreamCleanup</b> ('LimpiezaDeFlujoDeEvento'). Esta clase guarda un conjunto de funciones que siempre corren al final del patrón. También utiliza ciertas llaves especiales en el evento actual para comunicar funciones de limpieza 'río/flujo arriba' hacia los patrones parientes y ultimadamente hacia el ReproductorDeFlujosDeEventos (EventStreamPlayer) que ejecuta los eventos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Su uso básico involucra 4 etapas:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span>embedInStream { <span class="s1">|inval|</span></p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// evento de salida</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>outputEvent;</p>
+<p class="p7"><br></p>
+<p class="p11"><span class="s2"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>// #1 - hacer una instancia de EventStreamCleanup<span class="Apple-converted-space"> </span></b></p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>var<span class="s2"><span class="Apple-tab-span">	</span>cleanup = </span>EventStreamCleanup<span class="s2">.new;</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="s2"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>// #2 - hacer un recurso persistente y añadir la función de limpieza</b></p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// puede ser algún recurso distinto a un Sinte</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>synth = (... hacer un Sinte aquí...);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>cleanup.addFunction(inval, { <span class="s1">|flag|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(flag) {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>synth.release</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p7"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>loop {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>outputEvent = (... obtener el evento de salida ...);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="s2"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>// #4 - cleanup.exit (salir de la función de limpieza)</b></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(outputEvent.isNil) { ^cleanup.exit(inval) };</p>
+<p class="p7"><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="s2"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>// #3 - actualizar el EventStreamCleanup antes de ceder</b></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>cleanup.update(outputEvent);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>outputEvent.yield;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p2"><br></p>
+<ol class="ol1">
+<li class="li12">El método embedInStream deberá crear su propia instancia de EventStreamCleanup. (Alternativamente, puede recibir el objeto de limpieza como su segundo argumento, pero no deberá asumir que el objeto de limpieza sea suministrado. Deberá siempre checar si existe y crear la instancia si es necesario. Nótese que el patrón debe también reimplementar asStream como se muestra. En general,<span class="Apple-converted-space">  </span>es mucho más fácil que el patrón cree su propia instancia.)<span class="Apple-converted-space"> </span></li>
+<li class="li12">Cuando el patrón crea los objetos que deberán ser limpiados, deberá también usar el método <b>addFunction</b> en el EventStreamCleanup con una función que remueva los recursos. (El ejemplo de arriba está simplificado a propósito, en la práctica es importante que se preste atención al orden temporal de las acciones en el servidor. Varias clases de patrones dan buenos ejemplos de cómo hacer esto, por ejemplo Pmono y Pfx.)<span class="Apple-converted-space"> </span></li>
+<li class="li12">La señal (flag) deberá ser usada cuando se remuevan objetos de Synth o nodos de Grupo. Normalmente la señal es cierta, pero si el EventStreamPlayer del patrón es detenido por un cmd-., los nodos ya habrán sido eliminados del servidor. Cuando la función los trate de remover otra vez, el usuario verá mensajes de fallo (FAILURE) provenientes del servidor y se confundirá, pensando que hizo algo mal cuando en realidad el error es se puede prevenir desde la clase.<span class="Apple-converted-space"> </span></li>
+<li class="li12">Antes de llamar .yield con el evento de retorno, también llamar <b>cleanup.update(outputEvent)</b> (actualizando la función de limpieza con el evento de salida).</li>
+<li class="li4">Normalmente embedInStream devuelve e control al pariente con ^inval. Cuando un EventStreamCleanup está involucrado, deberá ser <b>^cleanup.exit(inval)</b>. Esto ejecuta las funciones de limpieza y también las remueve de los diversos EventStreamCleanup que existan en los<span class="Apple-converted-space">  </span>niveles parientes.</li>
+</ol>
+<p class="p2"><br></p>
+<p class="p4"><b>¿Cuándo necesita un patrón un EventStreamCleanup?</b></p>
+<p class="p2"><br></p>
+<p class="p4">Si el patrón crea algo en el servidor (canal, grupo, sinte, buffer, etc), deberá usar un EventStreamCleanup tal como se mostró, para que esos recursos sean apropiadamente recogidos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Por otro lado, si es probable que el patrón se detenga antes de que uno o más patrones vástagos hayan terminado por sí solos, EventStreamCleanup es importante para que el patrón esté al tanto de las acciones de limpieza de sus vástagos. Por ejemplo, en una construcción como <span class="s9">Pfindur</span>(10, <span class="s9">Pmono</span>(nombre, pares...)), Pmono podría continuar más allá de 10 pulsos, caso en el cual Pfindur lo detendrá de tajo. Se vuelve responsabilidad del patrón pariente limpiar después de sus vástagos. Como se ilustra arriba, EventStreamCleanup maneja esto con una mínima intrusión a la lógica normal de los patrones.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p13"><span class="s2">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="SC://GP_Recetario07_Variaciones_Ritmicas"><span class="s10">GP_Recetario07_Variaciones_Ritmicas</span></a></span></p>
+</body>
+</html>

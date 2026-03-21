@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #9d0000}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #9d0000; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1500d8}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #3b7d00}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px Helvetica}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #b10000}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #b80000}
+p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #197500}
+p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0900c4}
+p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #1500d8}
+span.s2 {color: #3b7d00}
+span.s3 {color: #9d0000}
+span.s4 {color: #000000}
+span.s5 {color: #1800ff}
+span.s6 {color: #606060}
+span.s7 {color: #0900c4}
+span.s8 {color: #197500}
+span.s9 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+table.t1 {border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #808080 #808080 #808080 #808080}
+td.td1 {width: 38.0px; background-color: #cccccc; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #808080 #808080 #808080 #808080; padding: 2.0px 5.0px 2.0px 5.0px}
+td.td2 {width: 115.0px; background-color: #cccccc; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #808080 #808080 #808080 #808080; padding: 2.0px 5.0px 2.0px 5.0px}
+td.td3 {width: 276.0px; background-color: #cccccc; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #808080 #808080 #808080 #808080; padding: 2.0px 5.0px 2.0px 5.0px}
+td.td4 {width: 38.0px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #808080 #808080 #808080 #808080; padding: 2.0px 5.0px 2.0px 5.0px}
+td.td5 {width: 115.0px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #808080 #808080 #808080 #808080; padding: 2.0px 5.0px 2.0px 5.0px}
+td.td6 {width: 276.0px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #808080 #808080 #808080 #808080; padding: 2.0px 5.0px 2.0px 5.0px}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Compartiendo datos entre patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3">Hasta ahora hemos visto patrones que son independientes entre sí. Cada Pbind trabaja sobre su propia información, que no es accesible a otros Pbinds. También, por ejemplo, el patrón 'degree' ('grado') en un Pbind no está al tanto de lo que el patrón 'dur' está haciendo. Hacer que estos datos sean accesibles añade a la inteligencia musical de los patrones.</p>
+<p class="p2"><br></p>
+<p class="p3">Hay varias maneras distintas de transmitir información de un patrón a otro. La primera técnica, más sencilla, es leer valores del evento que actualmente está siendo procesado. La segunda es pasar información de un patrón de eventos a otro. Ya que ambos son patrones de eventos, sus eventos resultantes son diferentes y por lo tanto la primera técnica no es aplicable. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Leyendo valores del evento actual</b></p>
+<p class="p2"><br></p>
+<p class="p3">Dentro de un Pbind los patrones de valores pueden leer otros valores que ya hayan sido colocados en el evento. El patrón <a href="../Patterns/Pkey.html"><span class="s1"><b>Pkey</b></span></a> busca la llave en el evento que actualmente está siendo procesado y retorna su valor. De ahí, uno puede realizar cualquier otra operación de patrones con ese valor:<span class="Apple-converted-space">  </span>patrones de filtro, operadores matemáticos, etc.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pkey(llave):</b> Lee la 'llave' en el evento de entrada. Retorna valores hasta que el evento de entrada deje de producir valores para esa llave (es decir, que la llave retorne nulo). No hay argumento 'repeticiones'. Si necesita limitar el número de valores, envuelva Pkey en un <a href="../Patterns/Pfin.html"><span class="s1">Pfin</span></a><span class="s1">.</span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p5">p = <span class="s1">Pkey</span>(<span class="s2">\a</span>).asStream;</p>
+<p class="p6"><br></p>
+<p class="p7">// El valor de entrada es un evento con a = 2, \b = 3; 'next' ('siguiente') resultado es 2</p>
+<p class="p5">p.next((a: 2, b: 3));</p>
+<p class="p6"><br></p>
+<p class="p7">// También podemos hacer cálculos con el evento de entrada</p>
+<p class="p5">p = (<span class="s1">Pkey</span>(<span class="s2">\a</span>) * <span class="s1">Pkey</span>(<span class="s2">\b</span>)).asStream;</p>
+<p class="p5">p.next((a: 2, b: 3));<span class="Apple-tab-span">	</span><span class="s3">// retorna 6 == 2 * 3</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">En este ejemplo, staccato vs. legato es calculado basado en el grado de la escala: las notas graves son más largas y las agudas son más cortas. ¡Esto apenas rasca en la superficie de esta técnica!</p>
+<p class="p2"><br></p>
+<p class="p3">Hay que tener en cuenta que Pkey sólo puede ver hacia atrás llaves que ya fueron declaradas anteriormente en la definición del Pbind. Pbind procesa las llaves en el orden dado. En el ejemplo, no funcionaría poner primero 'legato', ya que se refiriere a 'degree' que viene después, porque el valor para 'degree' todavía no se ha producido.<span class="Apple-converted-space"> </span></p>
+<p class="p8"><br></p>
+<p class="p7">// algo simple - mientras más alta la nota, más corta la articulación</p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pseq</span>([<span class="s1">Pseries</span>(-7, 1, 14), <span class="s1">Pseries</span>(7, -1, 14)], <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.25,</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// \degree se encuentra ANTES en el Pbind</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\legato</span>, <span class="s1">Pkey</span>(<span class="s2">\degree</span>).linexp(-7, 7, 2.0, 0.05)</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Otros patrones para guardar información</b></p>
+<p class="p2"><br></p>
+<p class="p3">Estos patrones representan tres estrategias diferentes para hacer que la información persista. Estos patrones representan tres distintas estrategias para persistir información de un patrón y hacerla accesible a otros.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Penvir(ambiente, patrón, independiente):</b> Los Flujos que evalúan patrones son usualmente Rutinas, y las Rutinas tienen la característica especial de acordarse del Ambiente (Environment) que estaba en vigor la última vez que cedió (yield). Las Rutinas se encargan de restaurar ese Ambiente la siguiente vez que se<span class="Apple-converted-space">  </span>despierta.<span class="Apple-converted-space">  </span><a href="../Patterns/Penvir.html"><span class="s1">Penvir</span></a><span class="s1"> </span>establece un ambiente dentro del cual 'patrón' correrá. El ambiente puede ser inicializado con valores o puede en un principio estar vacío y poblarse por elementos del patrón. El ambiente está separado del evento procesado (y de hecho, el patrón puede ser tanto de valores como de eventos). El acceso al ambiente se realiza a partir de patrones de funciones como Pfunc, Pfuncn, Proutine, .collect, .select, .reject y similares.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">La señal 'independiente' especifica si el ambiente se mantiene o no separado de cada flujo hecho a partir del Penvir. Si cierto (el predeterminado), cuando el Penvir sea incrustado en un flujo, un nuevo ambiente es creado que hereda los valores iniciales proveídos en 'ambiente'. Si es falso, el mismo ambiente es usado para cada flujo. En ese caso, el mismo ambiente podría también ser usado en distintos patrones Penvir, y las modificaciones del ambiente por un Penvir se reflejaría en todos los demás -- de ahí su utilidad para compartir datos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Pfset(función, patrón, funciónDeLimpieza):</b> Cuando es incrustado, <a href="../Patterns/Pfset.html"><span class="s1">Pfset</span></a> crea un ambiente y lo puebla usando asignaciones de variables de ambiente contenidas dentro de la 'función' que se provee. Para cada llamada al 'siguiente', los valores en el ambiente predeterminado son insertadas en el prototipo de evento antes de que el patrón vástago se evalúe. Esta es una manera de ajustar valores predeterminados para un patrón. Puede ser usado también para cargar objetos en el servidor, aunque esto toma algo de cuidado ya que esos objetos volverían a ser cargados cada vez que Pfset sea reproducido. Uno es responsable de liberar los objetos creados de esta manera mediante la funciónDeLimpieza. (Otra manera de hacerlo es con Pproto; ver <a href="GP_06f_Control_del_servidor.html"><span class="s5">GP_06f_Control_del_servidor</span></a>)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p9">SynthDef<span class="s4">(</span><span class="s2">\playbuf</span><span class="s4">, { </span>|bufnum, start, dur = 1, amp = 0.2, out|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>sig = <span class="s1">PlayBuf</span>.ar(1, bufnum, <span class="s1">BufRateScale</span>.ir(bufnum), 0, start);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>sig = sig * amp * <span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>.linen(0.01, dur, 0.01), doneAction: 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out, sig ! 2)</p>
+<p class="p5">}).memStore;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p5">p = <span class="s1">Pfset</span>({</p>
+<p class="p10"><span class="s4"><span class="Apple-tab-span">	</span>~buf = </span><span class="s1">Buffer</span><span class="s4">.read(s, </span>"sounds/a11wlk01.wav"<span class="s4">);</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>0.2.yield;<span class="Apple-tab-span">	</span></span>// sync parece ser incompatible con patrones</p>
+<p class="p5"><span class="Apple-tab-span">	</span>~bufFrames = ~buf.numFrames;</p>
+<p class="p9"><span class="s4">}, </span>Pbind<span class="s4">(</span></p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span></span>\instrument<span class="s4">, </span>\playbuf<span class="s4">,</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el acceso a los recursos del protoevento es mediante Pkey</p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span></span>\bufnum<span class="s4">, </span><span class="s1">Pkey</span><span class="s4">(</span>\buf<span class="s4">),</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, <span class="s1">Pwhite</span>(1, 4, <span class="s1">inf</span>) * 0.25,</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el límite supero del Pwhite está basado en la duración para<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// que start + (dur * samplerate) nunca llega más allá de la longitud del buffer</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\start</span>, <span class="s1">Pwhite</span>(0, <span class="s1">Pkey</span>(<span class="s2">\bufFrames</span>) - (<span class="s1">Pkey</span>(<span class="s2">\dur</span>) * 44100), <span class="s1">inf</span>)</p>
+<p class="p5">), { defer(inEnvir { <span class="s6">"liberando buffer"</span>.postln; ~buf.free }, 1.1) }).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p7">// muestra un número buffer asignado ('true' ContiguousBlock)</p>
+<p class="p5">s.bufferAllocator.debug;</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Plambda(patrón, ambienteDeEvento):</b> Mantiene un ambiente cuyo alcance es el evento actual mientras es procesado. Los valores pueden asignarse al evento usando Plet(llave, patrón, retorno) y leerse usando Pget(llave, predeterminado, repeticiones). Pget es similar a Pkey pero tiene el argumento 'repeticiones' controlando el número de valores retornados así como el argumento 'predeterminado' que se usará si la llave dada no es encontrada dentro del evento.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Una característica única de <a href="../Patterns/Plambda.html"><span class="s1">Plambda</span></a>/Plet/Pget es su capacidad de asignar un valor en su ambiente de evento y simultáneamente retornar otro valor en el ambiente principal. Plet asigna el valor de su 'patrón' dentro del alcance del ambiente de evento. El argumento 'retorno' es opcional; si se provee, le regresa el valor de retorno al Pbind.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Plambda remueve el ambienteDeEvento antes de retornar el evento final a quien lo llamó. Uno puede ver lo que ocurre dentro del alcance del ambiente mediante un .trace ('segur la huella/pista') en el patrón interno. <span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s4">p = </span>Plambda<span class="s4">(</span></p>
+<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span></span>Pbind<span class="s4">(</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">\a</span>, <span class="s1">Plet</span>(<span class="s2">\z</span>, <span class="s1">Pseries</span>(0, 1, <span class="s1">inf</span>), <span class="s1">Pseries</span>(100, -1, <span class="s1">inf</span>)),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">\b</span>, <span class="s1">Pget</span>(<span class="s2">\z</span>, 0, <span class="s1">inf</span>) * 2</p>
+<p class="p5"><span class="Apple-tab-span">	</span>).trace(key: <span class="s2">\eventScope</span>, prefix: <span class="s6">"\nscope: "</span>)</p>
+<p class="p5">).asStream;</p>
+<p class="p6"><br></p>
+<p class="p5">p.next(());</p>
+<p class="p2"><br></p>
+<p class="p3">Algo similar se puede hacer con Pkey, usando valores intermedios en el evento que no correspondan a<span class="Apple-converted-space">  </span>nombres de controles de un SynthDef. No hace ningún daño tener valores extra en un evento que el sinte no utilice; solo los que se requieren se envían al servidor. A menudo esto es más simple que Plambda, pero habrán casos donde la única manera de hacerlo sea con Plambda.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\z</span>, <span class="s1">Pseries</span>(0, 1, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\a</span>, <span class="s1">Pseries</span>(100, -1, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\b</span>, <span class="s1">Pkey</span>(<span class="s2">\z</span>) * 2</p>
+<p class="p5">).asStream;</p>
+<p class="p6"><br></p>
+<p class="p5">p.nextN(5, ()).do(<span class="s1">_</span>.postln);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Comunicando valores entre patrones de eventos separados</b></p>
+<p class="p2"><br></p>
+<p class="p3">Pasar valore de un Pbind a otro requiere varios pequeños trucos. Primero se guardan eventos completados en un lugar accesible. Ningún patrón ni el ReproductorDePatronesDeEvento (EventStreamPlayer) salvan los eventos terminados; sin embargo, llamando a 'collect' en un patrón adjunta una acción hecha a la medida a ejecutarse para cada evento resultante. Aquí salvamos el evento a una variable de ambiente, pero podría también ir a la librería global, una variable declarada o cualquier otra estructura de datos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Segundo, tenemos que asegurar que el patrón fuente sea evaluado antes de cualquier patrón cliente que dependa de los valores de la fuente. La única manera de hacer esto es planificando a la fuente ligeramente antes, ya que los elementos que se planifican al mismo tiempo en un reloj pueden llegar a ejecutarse en cualquier orden. (No hay un mecanismo de prioritización para hacer que un proceso corra antes que otro). No obstante, este mecanismo de planificación no deberá afectar la precisión temporal del audio.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">La solución consiste en un mecanismo de desplazamiento en la secuenciación de eventos que retrasa el sonido de un evento por un cierto número de pulsos. En el ejemplo, el patrón del bajo se planifica 0.1 pulsos antes de los pulsos que caen en números enteros (mientras que el patrón de acordes corre exactamente en pulsos enteros). El patrón del bajo opera con un desplazamiento temporal de 0.1, retrasando el sonido para que suceda en pulsos enteros. Ambos patrones suenan juntos en el servidor a pesar de que su secuenciación temporal es diferente en el cliente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<table cellspacing="0" cellpadding="0" class="t1">
+<tbody>
+<tr>
+<td valign="middle" class="td1">
+<p class="p12"><b>Pulso</b></p>
+</td>
+<td valign="middle" class="td2">
+<p class="p12"><b>Tiempo en el cliente<span class="Apple-converted-space"> </span></b></p>
+</td>
+<td valign="middle" class="td3">
+<p class="p12"><b>Tiempo en el servidor</b></p>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="td4">
+<p class="p12"><b>0.9</b></p>
+</td>
+<td valign="middle" class="td5">
+<p class="p3">Se calcula el evento del bajo</p>
+</td>
+<td valign="middle" class="td6">
+<p class="p3">(el evento del bajo es retrasado por 0.1, nada ocurre aquí)</p>
+</td>
+</tr>
+<tr>
+<td valign="middle" class="td4">
+<p class="p12"><b>1.0</b></p>
+</td>
+<td valign="middle" class="td5">
+<p class="p3">Se calcula el evento del acorde</p>
+</td>
+<td valign="middle" class="td6">
+<p class="p3">Tanto bajo como acorde producen un sonido</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p6"><br></p>
+<p class="p5">~bajo = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwhite</span>(0, 7, <span class="s1">inf</span>),</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span></span><span class="s2">\octave</span><span class="s4">, 3,<span class="Apple-tab-span">	</span></span>// dos octavas abajo</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, <span class="s1">Pwhite</span>(1, 4, <span class="s1">inf</span>),</p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span></span>\legato<span class="s4">, 1,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\amp</span>, 0.2</p>
+<p class="p5">).collect({ <span class="s1">|event|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>~ultimoEventoDelBajo = event;</p>
+<p class="p13"><span class="s4"><span class="Apple-tab-span">	</span></span>// aquí se determina el retraso de su reproducción en el servidor:</p>
+<p class="p5">}).play(quant: <span class="s1">Quant</span>(quant: 1, timingOffset: 0.1));</p>
+<p class="p6"><br></p>
+<p class="p7">// forma corta para el objeto Quant: #[1, 0, 0.1]</p>
+<p class="p6"><br></p>
+<p class="p5">~acordes = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\notaSuperior</span>, <span class="s1">Pseries</span>(7, <span class="s1">Prand</span>(#[-2, -1, 1, 2], <span class="s1">inf</span>), <span class="s1">inf</span>).fold(2, 14),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\notasTriadaDelBajo</span>, <span class="s1">Pfunc</span> { ~ultimoEventoDelBajo[<span class="s2">\degree</span>] } + #[0, 2, 4],</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// fusionar la triada hacia la notaSuperior</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// sube las notas de la triada a la octava siguiente a la notaSuperior</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// div: es división entera, por lo que x div: 7 * 7 significa el siguiente</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// múltiplo abajo del 7</p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span></span>\fusionar<span class="s4">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</span><span class="s1">Pkey</span><span class="s4">(</span>\notaSuperior<span class="s4">) - </span><span class="s1">Pkey</span><span class="s4">(</span>\notasTriadaDelBajo<span class="s4">)) div: 7 * 7 + </span><span class="s1">Pkey</span><span class="s4">(</span>\notasTriadaDelBajo<span class="s4">),</span></p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// añadir notaSuperor al arreglo, si no es que ya estaba ahí</p>
+<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span></span><span class="s2">\degree</span><span class="s4">, </span>Pfunc<span class="s4"> { </span>|ev|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(ev[<span class="s2">\fusionar</span>].detect({ <span class="s1">|item|</span> item == ev[<span class="s2">\notaSuperior</span>] }).isNil) {</p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ev[</span>\fusionar<span class="s4">] ++ ev[</span>\notaSuperior<span class="s4">]</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>} {</p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ev[</span>\fusionar<span class="s4">]</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span>},</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, <span class="s1">Pwrand</span>([<span class="s1">Pseq</span>([0.5, <span class="s1">Pwhite</span>(1, 3, 1), 0.5], 1), 1, 2, 3], #[1, 3, 2, 2].normalizeSum, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\amp</span>, 0.05</p>
+<p class="p5">).play(quant: 1);</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">~bajo.stop;</p>
+<p class="p5">~acordes.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">El patrón de acordes demuestra algunas maneras en las cuales se puede expresar una lógica de alto nivel mediante patrones. El objetivo es trasponer las notas de la triada en posición fundamental por encima de las notas del bajo, de manera en que todas las notas caigan dentro de la octava inferior a una nota superior (que se escoge mediante movimiento por grados). Pkey(\notaSuperior) - Pkey(\notasTriadaBajo) da el número de pasos de transposición necesarias para mover las notas de la triada hacia la nota superior; luego los pasos de transposición son truncados a la siguiente octava inferior (x div: 7 es división de enteros y produce un número de octava; multiplicando por 7 da el número de grados de la escala para esa octava).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s4">f = { </span>|notaSuperior, triada|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>x;</p>
+<p class="p10"><span class="s4"><span class="Apple-tab-span">	</span>x = (</span><span class="s1">notaSuperior</span><span class="s4"> - triada).debug(</span>"pasos de transposición inicial"<span class="s4">);</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>x = (x div: 7).debug(<span class="s6">"octavas a trasponer"</span>);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>x = (x * 7).debug(<span class="s6">"pasos a transponer"</span>);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>x + triada</p>
+<p class="p5">};</p>
+<p class="p6"><br></p>
+<p class="p5">f.value(7, #[0, 2, 4]);</p>
+<p class="p3">--&gt; [ 7, 2, 4 ] (triada en primera inversión)</p>
+<p class="p2"><br></p>
+<p class="p3">Entonces se verifica el arreglo transpuesto para ver si la nota superior está incluida en él. Si no lo está, es añadida para que la melodía siempre esté presente.</p>
+<p class="p2"><br></p>
+<p class="p3">Nótese que las operaciones perezosas en los patrones definen la mayor parte de este comportamiento; sólo la verificación condicional del arreglo tuvo que ser escrito como función.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">El anterior ejemplo rompe con uno de los principios del diseño de patrones. Idealmente, debería ser posible reproducir un solo objeto de patrón muchas veces simultáneamente sin que los distintos flujos interfirieran entre sí. El hecho de salvar la nota del bajo en una variable de ambiente significa que flujos concurrentes no trabajarían juntos ya que no pueden usar la misma variable de ambiente al mismo tiempo. La aproximación anterior, sin embargo, permite que los dos patrones se detengan y arranquen independientemente y en cualquier momento se puede añadir nuevos patrones que dependan del bajo. En algunas circunstancias musicales este tipo de flexibilidad es más importante que el respetar el ideal de diseño de patrones.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Es posible, usando <a href="../Patterns/Ptpar.html"><span class="s1">Ptpar</span></a> y <a href="../Patterns/Penvir.html"><span class="s1">Penvir</span></a><span class="s1"> </span>crear ambientes independientes para el almacenaje de eventos como parte del patrón mismo. De manera predeterminada, Penvir crea una nueva copia de su ambiente para cada flujo, garantizando su independencia. Mientras el patrón está corriendo, ~ultimoEventoDelBajo = event salva el evento en la copia del ambiente de almacenaje que pertenece al flujo y es accesible a ambos Pbinds porque los dos están bajo control del Penvir (indirectamente a través del Ptpar).</p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s7">Penvir</span>((), <span class="s7">Ptpar</span>([</p>
+<p class="p5"><span class="Apple-tab-span">	</span>0.0, <span class="s7">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\degree</span>, <span class="s7">Pwhite</span>(0, 7, <span class="s7">inf</span>),</p>
+<p class="p14"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s8">\octave</span><span class="s4">, 3,<span class="Apple-tab-span">	</span></span>// 2 octavas abajo</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\dur</span>, <span class="s7">Pwhite</span>(1, 4, <span class="s7">inf</span>),</p>
+<p class="p15"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\legato<span class="s4">, 1,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\amp</span>, 0.2,</p>
+<p class="p14"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// esta vez aquí se determina el retraso en su reproducción:</p>
+<p class="p15"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\timingOffset<span class="s4">, 0.1<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>).collect({ <span class="s7">|event|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~ultimoEventoDelBajo = event;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}),</p>
+<p class="p5"><span class="Apple-tab-span">	</span>0.1, <span class="s7">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\notaSuperior</span>, <span class="s7">Pseries</span>(7, <span class="s7">Prand</span>(#[-2, -1, 1, 2], <span class="s7">inf</span>), <span class="s7">inf</span>).fold(2, 14),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\notasTriadaDelBajo</span>, <span class="s7">Pfunc</span> { ~ultimoEventoDelBajo[<span class="s8">\degree</span>] } + #[0, 2, 4],</p>
+<p class="p15"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\fusionar<span class="s4">, (</span><span class="s7">Pkey</span><span class="s4">(</span>\notaSuperior<span class="s4">) - </span><span class="s7">Pkey</span><span class="s4">(</span>\notasTriadaDelBajo<span class="s4">))<span class="Apple-converted-space"> </span></span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>div: 7 * 7 + <span class="s7">Pkey</span>(<span class="s8">\notasTriadaDelBajo</span>),</p>
+<p class="p16"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s8">\degree</span><span class="s4">, </span>Pfunc<span class="s4"> { </span>|ev|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(ev[<span class="s8">\fusionar</span>].detect({ <span class="s7">|item|</span> item == ev[<span class="s8">\notaSuperior</span>] }).isNil) {</p>
+<p class="p15"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ev[</span>\fusionar<span class="s4">] ++ ev[</span>\notaSuperior<span class="s4">]</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>} {</p>
+<p class="p15"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ev[</span>\fusionar<span class="s4">]</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>},</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\dur</span>, <span class="s7">Pwrand</span>([<span class="s7">Pseq</span>([0.5, <span class="s7">Pwhite</span>(1, 3, 1), 0.5], 1), 1, 2, 3], #[1, 3, 2, 2].normalizeSum, <span class="s7">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s8">\amp</span>, 0.05</p>
+<p class="p5"><span class="Apple-tab-span">	</span>)</p>
+<p class="p5">])).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p17"><span class="s4">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06f_Control_del_servidor.html"><span class="s9">GP_06f_Control_del_servidor</span></a></span></p>
+<p class="p17"><span class="s4">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_07_Conversiones_de_Valor.html"><span class="s9">GP_07_Conversiones_de_Valor</span></a></span></p>
+</body>
+</html>

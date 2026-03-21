@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 20.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #74261a}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #56682a}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #74261a}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1237aa}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #1237aa}
+span.s2 {color: #74261a}
+span.s3 {color: #000000}
+span.s4 {color: #56682a}
+span.s5 {color: #0f32ae}
+span.s6 {text-decoration: line-through}
+span.s7 {font: 12.0px Helvetica}
+span.s8 {font: 12.0px Helvetica; text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+ul.ul2 {list-style-type: circle}
+</style>
+</head>
+<body>
+<p class="p1"><b>¿Qué es esa cosa llamada Pbind?</b></p>
+<p class="p2"><br></p>
+<p class="p3">En el sentido más general, <a href="../../../../Users/jslach/SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pbind.html"><span class="s1">Pbind</span></a> es una manera de darle nombres a valores que se obtienen de los diferentes tipos de patrones que ya hemos visto. Cuando se le pregunta a un flujo de por su siguiente (next) valor, el resultado es un objeto llamado Evento (<a href="../../../../Users/jslach/SuperCollider3/build/Help/Collections/Event.html"><span class="s1">Event</span></a>). Al igual que en un Diccionario (<a href="../../../../Users/jslach/SuperCollider3/build/Help/Collections/Dictionary.html"><span class="s1">Dictionary</span></a>, que es una superclase de Evento), un Evento es un conjunto de parejas de asociaciones entre claves (también llamadas 'llaves') y valores: cada valor es nombrado por una clave.</p>
+<p class="p2"><br></p>
+<p class="p4">e = (freq: 440, dur: 0.5);<span class="Apple-tab-span">	</span><span class="s2">// un Evento</span></p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3">e.at(</span><span class="s4">\freq</span><span class="s3">)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// tres maneras de accesar a un valor a partir de un nombre</p>
+<p class="p7"><span class="s3">e[</span>\freq<span class="s3">]</span></p>
+<p class="p6"><span class="s3">e.freq<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// ver la página de ayuda para IdentityDictionary para más sobre este tipo de uso</p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3">e.put(</span><span class="s4">\freq</span><span class="s3">, 880);<span class="Apple-tab-span">	</span></span>// tres maneras de cambiar un valor a partir de un nombre</p>
+<p class="p4">e[<span class="s4">\freq</span>] = 660;</p>
+<p class="p4">e.freq = 220;</p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3">e.put(</span><span class="s4">\amp</span><span class="s3">, 0.6);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// añadir un nuevo valor al evento</p>
+<p class="p6"><span class="s3">e.put(</span><span class="s4">\dur</span><span class="s3">, </span><span class="s1">nil</span><span class="s3">);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// remover un valor</p>
+<p class="p2"><br></p>
+<p class="p3">Un Pbind es definido por una lista de parejas: claves asociadas a patrones que suministrarán los valores para los eventos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Las cosas se ponen interesantes cuando los nombres asociados a los subpatrones de Pbind son también argumentos para definiciones de síntesis (<a href="../../../../Users/jslach/SuperCollider3/build/Help/ServerArchitecture/SynthDef.html"><span class="s1">SynthDef</span></a><span class="s1">).</span><span class="s5"> </span>Entonces se vuelve posible reproducir nuevos Sintes (Synth) con Pbind y alimentar sus entradas con diferentes valores en cada evento.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Construyendo un evento, una clave a la vez</b></p>
+<p class="p2"><br></p>
+<p class="p3">Se pueden ver los valores que retorna Pbind llamando .siguiente (next) a su flujo. Nota: no es necesario pasar un evento vacío al método .next de manera que Pbind tenga dónde poner los valores. Eso se hace automáticamente.<span class="Apple-converted-space"> </span></p>
+<p class="p4">(</p>
+<p class="p4">p = <span class="s1">Pbind</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pseq</span>(#[0, 0, 4, 4, 5, 5, 4], 1),</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, <span class="s1">Pseq</span>(#[0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1], 1)</p>
+<p class="p6"><span class="s3">).asStream;<span class="Apple-tab-span">	</span></span>// acordarse de hacer un flujo a partir del patrón antes de usarlo</p>
+<p class="p4">)</p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3">p.next(</span><span class="s1">Event</span><span class="s3">.new);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// equivalente: p.next(())</p>
+<p class="p5"><br></p>
+<p class="p6">// Salida:</p>
+<p class="p4">( 'degree': 0, 'dur': 0.5 )</p>
+<p class="p4">( 'degree': 0, 'dur': 0.5 )</p>
+<p class="p4">( 'degree': 4, 'dur': 0.5 )</p>
+<p class="p4">( 'degree': 4, 'dur': 0.5 )</p>
+<p class="p2"><br></p>
+<p class="p3">Los eventos retornados nos muestran lo que Pbind está haciendo. Cada vez que el siguiente valor es solicitado, se hace un recorrido por las parejas clave-patrón obteniendo de cada subpatrón el siguiente valor (en realidad el valor se obtiene de flujos creados internamente a partir de cada sub patrón). Cada valor se añade al evento, a partir de su clave asociada.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Para el primer evento, la primera clave es 'degree' (grado) y el valor es 0. Esto es añadido al evento antes de pasar a la siguiente pareja: el evento en transición contiene ('degree': 0). Entonces la siguiente clave suministra 0.5 para 'dur' (duración) y ya que no hay más parejas, el evento está completado: ( 'degree': 0, 'dur': 0.5 ).</p>
+<p class="p2"><br></p>
+<p class="p9">// El usuario hace:</p>
+<p class="p4">p.next(<span class="s1">Event</span>.new);</p>
+<p class="p2"><br></p>
+<p class="p9">// SuperCollider procesa:</p>
+<p class="p3">1. El flujo \degree<span class="Apple-converted-space">  </span>retorna 0</p>
+<p class="p3">2. Se añade al evento: ( 'degree': 0 )</p>
+<p class="p3">3. El flujo \dur<span class="Apple-converted-space">  </span>retorna 0.5</p>
+<p class="p3">4. Se añade al evento: ( 'degree': 0, 'dur': 0.5 )</p>
+<p class="p3">5. Se retorna el evento resultante.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Nota:</b> Los diccionarios en SuperCollider son colecciones <i>desordenadas</i>. Aunque Pbind procesa sus flujos descendientes en el orden dado, los resultados pueden presentar las claves y valores en cualquier orden. Esto no afecta el comportamiento cuando se reproducen eventos, como veremos en más adelante.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Evento .play (reproducir) y prototipos de eventos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Hasta ahora no hemos visto nada que produzca una nota, solamente procesamiento de datos: accediendo a valores a partir de patrones y adjuntándolos a eventos. Las notas se originan a partir de la diferencia que hay entre la clase Evento y Diccionario: los eventos pueden hacer cosas cuando uno los reproduce (.play).</p>
+<p class="p2"><br></p>
+<p class="p4">( 'degree': 0, 'dur': 0.5 ).play;</p>
+<p class="p2"><br></p>
+<p class="p3">La acción que el evento llevará a cabo está definida en un "prototipo de evento". El prototipo debe incluir una función para la clave 'play'; esta función es ejecutada cuando .play es convocado sobre el evento. Opcionalmente, el prototipo también contiene valores predeterminados para una amplia variedad de parámetros.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Pbind no hace gran cosa sin un prototipo de evento. Por fortuna, no es necesario que cada uno escriba su propio prototipo. Hay un evento predeterminado, accesado por Event.default, que incluye funciones para muchas tareas diferentes de mandar mensajes al servidor. Si ninguna acción específica es requerida, la acción normal es tocar un Sinte (Synth). Es por eso que tocar un Pbind, como en el tutorial anterior, con sólo patrones 'degree' y 'dur' produce notas: cada evento produce por lo menos un sinte por defecto, y el prototipo de evento predeterminado sabe cómo convertir grados de una escala ('degree') en frecuencias y duraciones ('dur') en longitudes de nota.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Cuando un patrón es tocado, un objeto llamado EventStreamPlayer ("ReproductorDeFlujoDeEvento") es creado. Este objeto lee los eventos uno a uno del flujo del patrón (basado en un prototipo de evento dado) y llama 'play' para cada uno. El valor 'delta' en el evento determina cuántos pulsos esperar para el siguiente evento. Play continua hasta que el patrón deje de producir eventos o uno puede llamar .stop en el EventStreamPlayer.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Para resumir: </b>Un flujo de Pbind genera Eventos. Cuando un Evento es reproducido (tocado), trabaja de manera que produce sonido en el servidor. Este trabajo está definido en el prototipo de evento. La clase Event provee un evento predeterminado que incluye opciones poderosas para crear y manipular objetos en el servidor.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Variante útil de Pbind: Pmono</b></p>
+<p class="p10"><br></p>
+<p class="p3">Pbind toca notas separadas de manera predeterminada. A veces uno requiere que un patrón actúe más como un sintetizador monofónico, donde sólo toca un nodo de Sinte y cambia sus valores con cada evento. Si Pbind normalmente corresponde a Synth.new o /s_new, Pmono corresponde a Synth.set o /n_set.</p>
+<p class="p2"><br></p>
+<p class="p3">Compare el sonido de estos patrones. Pbind produce un ataque en cada nota, mientras que Pmono se desliza de una altura a otra.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">p = <span class="s1">Pbind</span>(<span class="s4">\degree</span>, <span class="s1">Pwhite</span>(0, 7, <span class="s1">inf</span>), <span class="s4">\dur</span>, 0.25, <span class="s4">\legato</span>, 1).play;</p>
+<p class="p4">p.stop;</p>
+<p class="p5"><br></p>
+<p class="p4">p = <span class="s1">Pmono</span>(<span class="s4">\default</span>, <span class="s4">\degree</span>, <span class="s1">Pwhite</span>(0, 7, <span class="s1">inf</span>), <span class="s4">\dur</span>, 0.25).play;</p>
+<p class="p4">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Articular frases es posible con Pmono mediante el encadenamiento de varios patrones Pmono en hilera o usando PmonoArtic.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Conectando valores de Eventos a entradas de SynthDef</b></p>
+<p class="p2"><br></p>
+<p class="p3">La mayoría de los SynthDefs tienen entradas de Control, usualmente definidas por argumentos de la función UGen. Por ejemplo, el SynthDef predeterminado (que es declarado en Event.sc) define cinco entradas: out, freq, amp, pan y gate (salida, frecuencia, amplitud, paneo y compuerta):</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">SynthDef</span>(<span class="s4">\default</span>, { <span class="s1">arg</span> out=0, freq=440, amp=0.1, pan=0, gate=1;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">var</span> z;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>z = <span class="s1">LPF</span>.ar(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>.new(<span class="s1">VarSaw</span>.ar(freq + [0, <span class="s1">Rand</span>(-0.4,0.0), <span class="s1">Rand</span>(0.0,0.4)], 0, 0.3)),</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">XLine</span>.kr(<span class="s1">Rand</span>(4000,5000), <span class="s1">Rand</span>(2500,3200), 1)</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>) * <span class="s1">Linen</span>.kr(gate, 0.01, 0.7, 0.3, 2);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">OffsetOut</span>.ar(out, <span class="s1">Pan2</span>.ar(z, pan, amp));</p>
+<p class="p4">}, [<span class="s4">\ir</span>]);</p>
+<p class="p2"><br></p>
+<p class="p3">Cuando un evento toca un sinte, los valores guardados en el evento bajo el mismo nombre que las entradas del SynthDef serán pasadas al nuevo sinte. Compare lo siguiente:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// Similar a Synth(\default, [freq: 293.3333, amp: 0.2, pan: -0.7])</p>
+<p class="p4">(freq: 293.3333, amp: 0.2, pan: -0.7).play;</p>
+<p class="p5"><br></p>
+<p class="p6">// Similar a Synth(\default, [freq: 440, amp: 0.1, pan: 0.7])</p>
+<p class="p4">(freq: 440, amp: 0.1, pan: 0.7).play;</p>
+<p class="p2"><br></p>
+<p class="p3">Esto nos lleva a un punto clave: <b>Los nombres que uno use para patrones en un Pbind deben corresponder a los argumentos del SynthDef que está siendo reproducido. </b>Los nombres de los patrones del Pbind determinan los nombres para los valores en el Evento resultante; esos valores son enviados a las entradas de control del correspondiente Sinte.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">El SynthDef que se quiere tocar es nombrado por la clave 'instrument'. Para tocar un patrón con un Sinte distinto, hay que nombrarlo en el patrón.</p>
+<p class="p2"><br></p>
+<p class="p11">SynthDef<span class="s3">(</span><span class="s4">\harpsi</span><span class="s3">, { </span>|outbus = 0, freq = 440, amp = 0.1, gate = 1|</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">var</span> out;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>out = <span class="s1">EnvGen</span>.ar(<span class="s1">Env</span>.adsr, gate, doneAction: 2) * amp *</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pulse</span>.ar(freq, 0.25, 0.75);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(outbus, out ! 2);</p>
+<p class="p6"><span class="s3">}).memStore;<span class="Apple-tab-span">	</span></span>// ver más adelante para mayor información sobre .memStore</p>
+<p class="p5"><br></p>
+<p class="p4">p = <span class="s1">Pbind</span>(</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span>// Usar \harpsi, no \default</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\instrument<span class="s3">, </span>\harpsi<span class="s3">,</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pseries</span>(0, 1, 8),</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.25</p>
+<p class="p4">).play;</p>
+<p class="p2"><br></p>
+<p class="p3">Quizás sea una sobresimplificación decir que los nombres de un Pbind siempre deben corresponder a los argumentos de un SynthDef.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Un Pbind puede usar algunos valores en el evento para cálculos intermedios (ver GP_06_Compartiendo Datos)<span class="s1">. </span>Si estos valores intermedios no tienen nombres que correspondan a argumentos del SynthDef, no son enviados al servidor. No es un requerimiento que cada elemento en un evento corresponda a un control en un SynthDef.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">El prototipo de evento predeterminado ejecuta algunas conversiones automáticas. Se habrá notado que los ejemplos hasta ahora usan 'degree' para especificar alturas, pero que el SynthDef predeterminado no tiene un argumento 'degree'. Funciona porque el evento predeterminado convierte 'degree' a 'freq', la cual es un argumento. Las conversiones más importantes se dan para alturas y tiempo. Los cálculos temporales son sencillos, los de alturas son más elaborados. Ver GP_07_Conversión de Valores para una explicación de estos cálculos automáticos.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p10"><br></p>
+<p class="p8"><b>No mandar .send o .load a SynthDefs; usar .memStore o .store en su lugar</b></p>
+<p class="p2"><br></p>
+<p class="p3">Para mandar sólo los valores relevantes a un nuevo Sinte, el Evento necesita saber qué controles existen en un SynthDef. Esto se logra mediante una librería de descriptores para SynthDefs; el descriptor es un SynthDesc y la biblioteca es un SynthDescLib. Los métodos usuales -- .send(s), .load(s) -- para comunicar un SynthDef al servidor no lo añaden a la biblioteca. Como resultado, los SynthDefs que se envían de esta manera no funcionan bien con Pbind. En su lugar están los diferentes métodos que <i>guardan</i> (store) el SynthDef en la biblioteca.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// Salvar en la biblioteca, escribir un archivo .scsyndef y cargarlo en el servidor</p>
+<p class="p4"><span class="s1">SynthDef</span>(...).store;</p>
+<p class="p5"><br></p>
+<p class="p5"><br></p>
+<p class="p6">// Salvar en la biblioteca y cargarlo en el servidor (sin archivo .scsyndef)<span class="Apple-converted-space"> </span></p>
+<p class="p6">// Asegurarse de que el servidor esté andando antes de hacer esto</p>
+<p class="p4"><span class="s1">SynthDef</span>(...).memStore;</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s6">.load(s)</span><span class="Apple-tab-span">	</span>--&gt;<span class="Apple-tab-span">	</span>.store</p>
+<p class="p3"><span class="s6">.send(s)</span><span class="Apple-tab-span">	</span>--&gt;<span class="Apple-tab-span">	</span>.memStore</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Eventos de “silencio”<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p3">La convención para incluir silencios en medio de un patrón de eventos es mediante el ajuste de la llave \freq a un Símbolo. Comúnmente este es \rest (\silencio), pero una diagonal invertida por sí sola es suficiente para suprimir la nota en el servidor. La técnica de Ligeti en "Touches bloquées" puede ser escrita de esta manera (ver GP_06e_Control_del_lenguaje para una explicación de el condicional Pif):</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p6">// primero, alturas que ascienden por 1-3 semitonos hasta alcanzar 2 octavas</p>
+<p class="p4"><span class="s1">var</span><span class="Apple-tab-span">	</span>alturas = <span class="s1">Pseries</span>(0, <span class="s1">Pconst</span>(24, <span class="s1">Pwhite</span>(1, 3, <span class="s1">inf</span>)), <span class="s1">inf</span>).asStream.all,</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// bloquear al azar 1/3 de aquellas</p>
+<p class="p4"><span class="Apple-tab-span">	</span>mascara = alturas.scramble[0 .. alturas.size div: 3];</p>
+<p class="p5"><br></p>
+<p class="p4">p = <span class="s1">Pbind</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\arpeg</span>, <span class="s1">Pseq</span>(alturas[ .. alturas.size - 2] ++ alturas.reverse[ .. alturas.size - 2], <span class="s1">inf</span>),</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// si la nota es encontrada en el arreglo mascara, reemplazarlo con \rest</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// de tal manera que no suene esa nota</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\note</span>, <span class="s1">Pif</span>(<span class="s1">Pfunc</span> { <span class="s1">|event|</span> mascara.includes(event[<span class="s4">\arpeg</span>]) }, <span class="s4">\rest</span>, <span class="s1">Pkey</span>(<span class="s4">\arpeg</span>)),</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\octave<span class="s3">, 4,</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.125</p>
+<p class="p4">).play;</p>
+<p class="p4">)</p>
+<p class="p5"><br></p>
+<p class="p4">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Como se ha mostrado, llaves como \degree, \note y \midinote son convertidas automáticamente a frecuencias. Las operaciones matemáticas que realizan la conversión preservan los Símbolos intactos -- p. ej., \rest + 1 == \rest.<span class="Apple-converted-space">  </span>El valor \rest es pasado a través de toda la cadena de conversiones de tal manera que la llave \freq en el evento termina por recibir un \rest.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Nótese que no importa si el SynthDef tiene un argumento 'freq'. Es en el evento, en el lado del <i>cliente</i>, que se busca esta llave para determinar si la nota se toca o no. Si se trata de un silencio, el servidor no es involucrado.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><b>Escribiendo SynthDefs para patrones</b></p>
+<p class="p10"><br></p>
+<p class="p3">Los SynthDefs deben tener unas cuantas características específicas para trabajar bien con patrones.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Los Sintes se deben liberar por sí solos</b></p>
+<p class="p2"><br></p>
+<p class="p3">El prototipo de evento predeterminado se basa en el sinte para removerse a sí mismo del servidor. Esto se puede lograr de varias maneras:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">(La más típica). Un envolvente con compuerta que tiene una doneAction (acción de terminación) &gt;=2 en el generador de envolventes (ver UGen-doneActions para una lista completa). El sinte \harpsi arriba mencionado usa esta técnica. Una envoltura con compuerta especifica un nodo de liberación o usa uno de los tipos de envolturas sostenidas predefinidas: Env.asr, Env.adsr, Env.dadsr. La página de ayuda de Env ofrece más detalle sobre envolturas con compuerta.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Linen.kr, que es un atajo para EnvGen.kr(Env([0, nivelDeSostenimiento, 0], [tiempoDeAtaque, tiempoDeLiberación], \lin, releaseNode: 1), gate, doneAction: [2 o más]). El SynthDef predeterminado usa esto. La acción de terminación debe ser por lo menos 2 para liberar el nodo.<span class="Apple-converted-space"> </span></li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Nota: </b>Si la liberación es controlada por una compuerta, ésta debe ser representada por el argumento de sinte 'gate'; los prototipos normales de evento esperan controlar la liberación de la envoltura de un sinte usando este argumento. Hay que asegurarse también que el valor predeterminado de 'gate' sea mayor que 0. De otra manera, la envoltura nunca comenzará con la consecuencia de que no se escuchará nada y se apilarán los sintes en el servidor.<span class="Apple-converted-space"> </span></li>
+</ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Envolventes de duración fija (sin compuerta).<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Prefijos de nombres de argumentos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Otro sutil detalle acerca de los nombres de argumentos de un sinte: en una SynthDef los nombres de argumentos pueden tener el prefijo <b>t_</b> para indicar un "control de gatillo" o un prefijo <b>i_</b><i> </i>para un "control de rapidez inicial" (queriendo decir que mantiene el valor que se le pone al sinte cuando es tocado por primera vez). Esto se describe en la página de ayuda de SynthDef. Pbind y patrones relacionados deben dejar fuera los prefijos, por ejemplo:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p11">SynthDef<span class="s3">(</span><span class="s4">\trig_demo</span><span class="s3">, { </span>|freq, gate = 1, t_trig = 1|<span class="s3"><span class="Apple-tab-span">	</span></span><span class="s2">// aquí t_trig<span class="Apple-converted-space"> </span></span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>env = <span class="s1">Decay2</span>.kr(t_trig, 0.01, 0.1),</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sig = <span class="s1">SinOsc</span>.ar(freq, 0, env)</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>* <span class="s1">Linen</span>.kr(gate, 0.01, 0.1, 0.1, doneAction: 2);</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(0, sig ! 2)</p>
+<p class="p4">}).memStore;</p>
+<p class="p4">)</p>
+<p class="p5"><br></p>
+<p class="p4">(</p>
+<p class="p7"><span class="s3">p = </span><span class="s1">Pmono</span><span class="s3">(</span>\trig_demo<span class="s3">,</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\freq</span>, <span class="s1">Pexprand</span>(200, 800, <span class="s1">inf</span>),</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s4">\trig</span><span class="s3">, 1,<span class="Apple-tab-span">	</span></span>// nótese que esto NO es t_trig -- solamente \trig</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\delta</span>, 0.125</p>
+<p class="p4">).play;</p>
+<p class="p4">)</p>
+<p class="p5"><br></p>
+<p class="p4">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p12"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_02_Vocabulario_basico.html"><span class="s7">GP_02_Vocabulario_basico</span></a></span></p>
+<p class="p12"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_04_de Palabras a Frases.html"><span class="s8">GP_04_de Palabras a Frases</span></a></span></p>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Helvetica; min-height: 11.0px}
+</style>
+</head>
+<body>
+<p class="p1"><b>Operadores</b></p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider soporta sobrecarga de operadores. Por consiguiente, los operadores pueden aplicarse a una variedad de objetos; Numbers ("Números"), UGens ("Unidades Generadoras"), Collections ("Colecciones"), etc. Cuando los operadores son aplicados a UGens, resultan en BinaryOpUGens o UnaryOpUGens. Para más detalles, ver el archivo de ayuda <b>BinaryOpUGen.</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Operadores Unarios</b></p>
+<p class="p4"><br></p>
+<p class="p3">neg .. inversión</p>
+<p class="p3">reciprocal .. recíproco</p>
+<p class="p3">abs .. valor absoluto</p>
+<p class="p3">floor .. siguiente entero inferior</p>
+<p class="p3">ceil .. siguiente entero superior</p>
+<p class="p3">frac .. parte fraccional</p>
+<p class="p3">sign .. -1 cuando a &lt; 0, +1 cuando a &gt; 0, 0 cuando a es 0</p>
+<p class="p3">squared .. a*a</p>
+<p class="p3">cubed .. a*a*a</p>
+<p class="p3">sqrt .. raíz cuadrada</p>
+<p class="p3">exp .. exponencial</p>
+<p class="p3">midicps .. de número de nota MIDI a ciclos por segundo (hercios)</p>
+<p class="p3">cpsmidi .. de ciclos por segundo (hercios) a número de nota MIDI</p>
+<p class="p3">midiratio .. convierte un intervalo en número de notas MIDI a proporción de frecuencia</p>
+<p class="p3">ratiomidi .. convierte una proporción de frecuencia a un intervalo de notas MIDI</p>
+<p class="p3">dbamp .. de decibeles a amplitud lineal</p>
+<p class="p3">ampdb .. de amplitud lineal a decibeles</p>
+<p class="p3">octcps .. de octavas decimales a ciclos por segundo</p>
+<p class="p3">cpsoct .. de ciclos por segundo a octavas decimales</p>
+<p class="p3">log .. logaritmo natural</p>
+<p class="p3">log2 .. logaritmo base 2</p>
+<p class="p3">log10 .. logaritmo base 10</p>
+<p class="p3">sin .. seno</p>
+<p class="p3">cos .. coseno</p>
+<p class="p3">tan .. tangente</p>
+<p class="p3">asin .. arcoseno</p>
+<p class="p3">acos .. arcocoseno</p>
+<p class="p3">atan .. arcotangente</p>
+<p class="p3">sinh .. seno hiperbólico</p>
+<p class="p3">cosh .. coseno hiperbólico</p>
+<p class="p3">tanh .. tengente hiperbólica</p>
+<p class="p3">distort .. distorsión</p>
+<p class="p3">softclip .. distorsión</p>
+<p class="p3">isPositive .. 1 cuando a &gt;= 0, de lo contrario 0</p>
+<p class="p3">isNegative .. 1 cuando a &lt; 0, de lo contrario 0</p>
+<p class="p3">isStrictlyPositive .. 1 cuando a &gt; 0, de lo contrario 0</p>
+<p class="p3">(36)</p>
+<p class="p4"><br></p>
+<p class="p3"><b>Operadores Binarios</b></p>
+<p class="p4"><br></p>
+<p class="p3">+ .. adición</p>
+<p class="p3">- .. substracción</p>
+<p class="p3">* .. multiplicación</p>
+<p class="p3">/ .. división</p>
+<p class="p3">% .. modulo de punto flotante</p>
+<p class="p3">** .. exponenciación</p>
+<p class="p3">&lt;<span class="Apple-converted-space">  </span>.. menor que</p>
+<p class="p3">&lt;= .. menor que o igual</p>
+<p class="p3">&gt;<span class="Apple-converted-space">  </span>.. mayor que</p>
+<p class="p3">&gt;= .. mayor que o igual</p>
+<p class="p3">== .. igual</p>
+<p class="p3">!= .. no igual</p>
+<p class="p3">&lt;! .. devuelve el primer argumento</p>
+<p class="p3">min .. el menor de dos</p>
+<p class="p3">max .. el mayor de dos</p>
+<p class="p3">round .. cuantización por redondeo</p>
+<p class="p3">trunc .. cuantización por truncamiento</p>
+<p class="p3">atan2 .. arcotangente</p>
+<p class="p3">hypot .. hipotenusa <span class="Apple-converted-space">  </span>sqrt(a*a + b*b)</p>
+<p class="p3">hypotApx .. aproximación de hipotenusa</p>
+<p class="p3">ring1 .. a*b + a <span class="Apple-converted-space">  </span>o equivalentemente: <span class="Apple-converted-space">  </span>a*(b + 1)</p>
+<p class="p3">ring2 .. a*b + a + b</p>
+<p class="p3">ring3 .. a*a*b</p>
+<p class="p3">ring4 .. a*a*b - a*b*b</p>
+<p class="p3">sumsqr .. a*a + b*b</p>
+<p class="p3">difsqr .. a*a - b*b</p>
+<p class="p3">sqrsum .. (a + b)**2</p>
+<p class="p3">sqrdif .. (a - b)**2</p>
+<p class="p3">absdif .. fabs(a - b)</p>
+<p class="p3">thresh .. valor umbral <span class="Apple-converted-space">  </span>{ 0 cuando a &lt; b, a cuando a &gt;= b }</p>
+<p class="p3">amclip .. multiplicador de dos cuadrantes<span class="Apple-converted-space">  </span>{ 0 cuando b &lt;= 0, a*b cuando b &gt; 0 }</p>
+<p class="p3">scaleneg .. amplificación no lineal <span class="Apple-converted-space">  </span>{ a cuando a &gt;= 0, a*b cuando a &lt; 0 }</p>
+<p class="p3">clip2<span class="Apple-converted-space">  </span>..<span class="Apple-converted-space">  </span>recorte ("clipping") bilateral { b cuando a &gt; b, -b cuando a &lt; -b, de lo contrario a }</p>
+<p class="p3">wrap2<span class="Apple-converted-space">  </span>.. envolvimiento ("wrapping") bilateral</p>
+<p class="p3">fold2<span class="Apple-converted-space">  </span>.. doblamiento ("folding") bilateral</p>
+<p class="p3">excess .. residuo del recortador<span class="Apple-converted-space">  </span>a - clip2(a,b)</p>
+<p class="p3">(36)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

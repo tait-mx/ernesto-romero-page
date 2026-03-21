@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20091026;13003300">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p2 { margin-bottom: 0in; color: #0000bf; font-family: "Monaco"; font-size: 6pt }
+		P.p3 { margin-bottom: 0in; color: #0000bf; font-family: "Helvetica"; font-size: 9pt }
+		P.p4 { margin-left: 0.15in; text-indent: -0.15in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p5 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p6 { margin-bottom: 0in; color: #bf0000; font-family: "Monaco"; font-size: 6pt }
+		P.p7 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p8 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p9 { margin-bottom: 0in; color: #007300; font-family: "Monaco"; font-size: 6pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Out</B> <B>escribe una
+señal en un bus</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Hereda de: <A HREF="../../Core/Object.html">Object</A></B>
+<B>: <A HREF="../../Core/Kernel/AbstractFunction.html">AbstractFunction</A></B>
+<B>: <A HREF="../UGen.html">UGen</A></B> <B>: <A HREF="AbstractOut.html">AbstractOut</A></B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><FONT SIZE=2><B>*ar(bus,
+channelsArray)&nbsp; </B>- escribir una señal a un bus de audio.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><FONT SIZE=2><B>*kr(bus,
+channelsArray)&nbsp; </B>- escribir una señal a un bus de control.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><FONT SIZE=2><B>bus –</B>
+el índice del bus al cual escribir. Los números más bajos son
+escritos a la tarjeta</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2><B>channelsArray
+</B>- un Arreglo de canales o salida individual a los cuales
+escribir. Este parámetro no puede cambiarse una vez que la SynthDef
+ha sido creada.</FONT></FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>N.B. </B>Out está
+sujeto a cierta turbulencia en la velocidad de control. Cuando se
+requiere precisión a nivel de las muestras, utilizar OffsetOut.</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Nota que utilizar la clase
+Bus para alocar un bus multicanal simplemente reserva una serie de
+índices de buses adyacentes dentro de los alocadores de bus del
+objeto <B>Server</B>. UnBus.index Simplemente devuelve el primero de
+esos índices. Cuando se utiliza un Bus con un ugen <B>In</B> o <B>Out</B>
+<SPAN STYLE="font-weight: normal">no hay nada que te detenga de leer
+desde un rango más grande o escribir a él, o de escribir
+directamente en un bus que ha sido alocado. Eres responsible de
+asegurarte que el número de canales concuerde y que no haya
+conflictos.</SPAN></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Ver los archivos de ayuda
+<A HREF="../../ServerArchitecture/Server-Architecture.html">Server-Architecture</A>
+y <A HREF="../../ServerArchitecture/Bus.html">Bus</A> para más
+información sobre los buses y cómo son utilizados.</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">// mono</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">(</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">SynthDef(\help_out, { arg
+out=0, freq=440;</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">var source;</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">source = SinOsc.ar(freq,
+0, 0.1);</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">// escribir al bus,
+añadiendo a los contenidos anteriores</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">Out.ar(out, source);</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">}).send(s);</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">)</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">Synth(\help_out, [\freq,
+500]);</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">Synth(\help_out, [\freq,
+600]);</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">Synth(\help_out, [\freq,
+700]);</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">//stereo</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">(</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">SynthDef(\help_out2, { arg
+out=0, freq=440;</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">var source;</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">source = SinOsc.ar([freq,
+freq+1.0], 0, 0.1); // stereo</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">// escribir el arreglo de
+canales a los busses, comenzando a partir del 0, luego 1</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">Out.ar(out, source);</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">}).send(s);</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">) 
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">Synth(\help_out2, [\freq,
+500]);</P>
+</BODY>
+</HTML>

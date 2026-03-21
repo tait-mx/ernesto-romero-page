@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+</style>
+</head>
+<body>
+<p class="p1"><b>Comentarios</b></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Los comentarios son anotaciones descriptivas cuya intención es ser leidas por humanos pero ignoradas por los ordenadores. Los programadores utilizan los comentarios para anotar cómo funciona el código o qué es lo que hace. Para algunos son muy útiles los comentarios, utilizándolos en la construcción de programas, escribiendo los comentarios primero y luego llenando el código correspondiente.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Para escribir un comentario, puedes anteponer al texto lo siguiente:</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">//</p>
+<p class="p2"><br></p>
+<p class="p3">por ejemplo:</p>
+<p class="p2"><br></p>
+<p class="p3">// Todo lo que está después de esta línea es un comentario</p>
+<p class="p2"><br></p>
+<p class="p3">o colocar el texto en una o más líneas entre</p>
+<p class="p2"><br></p>
+<p class="p3">/* y */</p>
+<p class="p2"><br></p>
+<p class="p3">por ejemplo:</p>
+<p class="p2"><br></p>
+<p class="p3">/*<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Esto<span class="Apple-converted-space"> </span></p>
+<p class="p3">es</p>
+<p class="p3">un<span class="Apple-converted-space"> </span></p>
+<p class="p3">comentario</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-converted-space"> </span>*/</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-converted-space"> </span>Si es evaluado, un comentario nos dará el resultado 'nil', que es el valor que SuperCollider utiliza para datos no inicializados.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Utiliza Format-&gt;Syntax Colorize (o cmd-') para colorear los comentarios</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-converted-space"> </span>///////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">ir a <b>4_Ayuda</b></p>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8a1d13}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0d2ab3; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #0d2ab3}
+span.s2 {color: #8a1d13}
+span.s3 {color: #000000}
+span.s4 {color: #4b6c1f}
+span.s5 {font: 12.0px Helvetica; text-decoration: underline}
+span.s6 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Matemáticas en los patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3">Ocurre muy seguido que no hay un patrón que entregue el resultado deseado por sí solo. Sin embargo, se pueden aplicar otras operaciones a los patrones para manipular la salida de un patrón y cambiarla.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Algunas de estas operaciones se parecen a cosas que uno le haría a un arreglo, pero hay una diferencia crucial. Hacer operaciones matemáticas en un arreglo ejecuta la operación en cada elemento del arreglo simultáneamente. En contraste, los patrones son "perezosos" -- evalúan un valor a la vez, solo cuando se les solicita, y hacen tanto como sea necesario para entregar el siguiente valor. Una operación sobre un patrón produce otro patrón que se acuerda del trabajo que debe realizarse. Hacer flujos a partir del patrón compuesto crea la estructura para ejecutar la operación sobre pedido.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Por ejemplo, multiplicar un patrón por un número produce un "patrón de operador binario": <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pbinop.html"><span class="s1">Pbinop</span></a>. Observando las variables de Pbinop revela todo lo necesario para reconstruir la operación sobre pedido.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">p = <span class="s1">Pwhite</span>(1, 5, <span class="s1">inf</span>) * 2;<span class="Apple-tab-span">	</span><span class="s2">// un Pbinop</span></p>
+<p class="p5"><br></p>
+<p class="p4">p.operator<span class="Apple-tab-span">	</span><span class="s2">// == '*'</span></p>
+<p class="p6"><span class="s3">p.a<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// == un Pwhite</p>
+<p class="p6"><span class="s3">p.b<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// == 2</p>
+<p class="p2"><br></p>
+<p class="p3">En otras palabras, la multiplicación aquí produce no el resultado de una multiplicación singular, sino una plantilla para un flujo infinito de multiplicaciones por venir.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7"><b>Matemáticas en patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3">Los patrones no solo generan números, sino que también respaldan todas las operaciones matemáticas estándares: unarias (abs, recíproco, etc), binarias (+, -, *, /, **, min, max, etc) y n-arias (clip, wrap, fold, linlin, linexp, etc). Estos operadores son todos válidos con patrones.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">// Enteros al azar, 1-5</p>
+<p class="p4"><span class="s1">Pwhite</span>(1, 5, <span class="s1">inf</span>).asStream.nextN(10);</p>
+<p class="p5"><br></p>
+<p class="p6">// Enteros al azar 1-5, multiplicados por dos da enteros 2-10</p>
+<p class="p4">(<span class="s1">Pwhite</span>(1, 5, <span class="s1">inf</span>) * 2).asStream.nextN(10);</p>
+<p class="p5"><br></p>
+<p class="p6">// Enteros al azar 1-5, multiplicados por 1/4 da múltiplos de 1/4 entre 0.25 y 1.25</p>
+<p class="p4">(<span class="s1">Pwhite</span>(1, 5, <span class="s1">inf</span>) * 0.25).asStream.nextN(10);</p>
+<p class="p5"><br></p>
+<p class="p6">// Enteros al azar 1-5, con el signo (positivo o negativo) escogido al azar</p>
+<p class="p4">(<span class="s1">Pwhite</span>(1, 5, <span class="s1">inf</span>) * <span class="s1">Prand</span>(#[-1, 1], <span class="s1">inf</span>)).asStream.nextN(10);</p>
+<p class="p2"><br></p>
+<p class="p3">Si una operación binaria ocurre en dos patrones cada vez que un valor es solicitado del flujo resultante, se les solicita un valor a ambos de los flujos que lo componen y el operador se aplica a esos resultados. Si cualquiera de los flujos termina, el flujo de operador binario también termina.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// El flujo resultante tiene dos valores ya que el operando más corto tiene dos valores.</p>
+<p class="p4">(<span class="s1">Pseq</span>([10, 9, 8], 1) + <span class="s1">Pseq</span>([1, 2], 1)).do { |x| x.postln };</p>
+<p class="p2"><br></p>
+<p class="p3">El adverbio de operador binario '.x' es válido en patrones. (Ver <a href="../../../../../../../SuperCollider3/build/Help/Language/Adverbs.html"><span class="s1">Adverbs</span></a><span class="s1">). </span>Este adverbio es como un bucle anidado: en el flujoA +.x flujoB el primer valor del flujoA es añadido a cada valor del flujoB en sucesión, luego el segundo valor del fujoA es añadido a cada valor del flujoB y así sucesivamente. Esta es una manera fácil de trasponer un patrón a distintos niveles sucesivamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// Tocar un arpegio de 7a mayor, transpuesto a los distintos grados de la escala</p>
+<p class="p6">// Pwhite es el que traspone; Pseq es el acorde</p>
+<p class="p6">// El acorde es como un 'bucle interior'</p>
+<p class="p4">(</p>
+<p class="p4">p = <span class="s1">Pbind</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\midinote</span>, <span class="s1">Pwhite</span>(48, 72, <span class="s1">inf</span>) +.x <span class="s1">Pseq</span>(#[0, 4, 7, 11], 1),</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\dur</span>, 0.125</p>
+<p class="p4">).play;</p>
+<p class="p4">)</p>
+<p class="p5"><br></p>
+<p class="p4">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7"><b>Operaciones de Colección en patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3">Muchas cosas que se le pueden hacer a los arreglo también funcionan con patrones.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>collect(func):</b> Aplica la función a cada valor retornado por el patrón. Buena para transformaciones genéricas. <span class="Apple-converted-space"> </span></p>
+<p class="p3"><b>select(func):</b> Preserva valores de la salida del flujo que pasan la prueba booleana; el resto se descarta.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><b>reject(func):</b> Descartar valores del flujo de salida que pasan la prueba booleana; el resto se retorna.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// Operación arbitraria/a la medida: Convertir cada número en una cuerda hexadecimal de dos dígitos<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1">Pwhite</span>(0, 255, 20).collect({ <span class="s1">|x|</span> x.asHexString(2) }).do { |x| x.postln };</p>
+<p class="p5"><br></p>
+<p class="p6">// Mantener los números impares en el resultado (que ahora tiene menos de 20 elementos)</p>
+<p class="p4"><span class="s1">Pwhite</span>(0, 255, 20).select({ <span class="s1">|x|</span> x.odd }).do { |x| x.postln };</p>
+<p class="p5"><br></p>
+<p class="p6">// Tirar los números impares en el resultado</p>
+<p class="p4"><span class="s1">Pwhite</span>(0, 255, 20).reject({ <span class="s1">|x|</span> x.odd }).do { |x| x.postln };</p>
+<p class="p2"><br></p>
+<p class="p3"><b>clump(n):</b> Llamando .clump en un arreglo convierte un arreglo plano en un arreglo multinivel. Similarmente, .clump en un patrón toma <i>n</i> valores del patrón al mismo tiempo y los retorna como un arreglo. <i>n </i>puede ser un número o un patrón numérico.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><b>flatten(niveles):</b> La operación contraria: si un patrón retorna un arreglo, sus valores serán retornados uno por uno.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// Un flujo plano se vuelve un arreglo de arreglos de 4 elementos</p>
+<p class="p4"><span class="s1">Pwhite</span>(0, 255, 20).clump(4).do { |x| x.postln };</p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span>// un arreglo bidimensional<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1">Array</span>.fill(5, { <span class="s1">Array</span>.fill(4, { rrand(1, 5) }) });</p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span>// un patrón que lee el arreglo en secuencia</p>
+<p class="p4">p = <span class="s1">Pseq</span>(<span class="s1">Array</span>.fill(5, { <span class="s1">Array</span>.fill(4, { rrand(1, 5) }) }), 1);</p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span>// el patrón retorna varios arreglos</p>
+<p class="p4">p.do { |x| x.postln };</p>
+<p class="p5"><br></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span>// 'aplastando' (flattening) el patrón retorna un flujo unidimensional de números</p>
+<p class="p4">p.flatten.do { |x| x.postln };</p>
+<p class="p2"><br></p>
+<p class="p3"><b>drop(n):</b> Descartar los primeros n valores y retornar lo que sobre.<span class="Apple-converted-space"> </span></p>
+<p class="p8"><br></p>
+<p class="p4"><span class="s1">Pseries</span>(1, 1, 20).drop(5).do { |x| x.postln };</p>
+<p class="p2"><br></p>
+<p class="p3"><b>differentiate:</b> Retorna la diferencia entre los valores sucesivos: segundo - primero, tercero - segundo, y así sucesivamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">Array</span>.geom(20, 1, 1.01).differentiate;</p>
+<p class="p4"><span class="s1">Pgeom</span>(1, 1.01, 20).differentiate.do { <span class="s1">|x|</span> x.postln };</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7"><b>Patrones misceláneos para cálculos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Estos son otros cálculos numéricos que no se pueden clasificar como operadores matemáticos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pavaroh(patrón, aroh, avaroh, gradosPorOctava):</b> Convertir grados de una escala a números de nota, con patrones separados para escala ascendiente y descendiente. Escrito originalmente para ragas hindúes, también funciona bien para la escala occidental menor melódica.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>PdegreeToKey(patrón, escala, gradosPorOctava):</b> Dado un patrón que retorna grados de una escala, convierte los grados a números de nota de acuerdo a la escala suministrada y los grados por octava. Esto se hace automáticamente cuando uno usa la clave 'degree' del evento predeterminado, pero pueden haber casos donde uno quiera hacer operaciones extras a los números de nota y puede ser necesario hacer la conversión explícitamente.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pdiff(patrón):</b> Retorna la diferencia entre el último y el penúltimo valor del patrón. Entre otros usos esto puede servir para medir si el flujo asciende o desciende. Esta es la implementación subyacente del método 'differentiate' discutido previamente.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Prorate(proporción, patrón):</b> Divide un número proveniente del 'patrón' de acuerdo con la(s) proporción(es) dadas por el patrón 'proporción'. Es difícil de explicar brevemente; ver su página de ayuda para buenos ejemplos.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p6">// Notas con swing Prorate</p>
+<p class="p4">(</p>
+<p class="p4">p = <span class="s1">Pbind</span>(</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pseries</span>(4, <span class="s1">Pwhite</span>(-2, 2, <span class="s1">inf</span>).reject({ <span class="s1">|x|</span> x == 0 }), <span class="s1">inf</span>).fold(-7, 11),</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s4">\dur</span><span class="s3">, </span><span class="s1">Prorate</span><span class="s3">(0.6, 0.5)<span class="Apple-tab-span">	</span></span>// en realidad retorna 0.3, 0.2, 0.3, 0.2...</p>
+<p class="p4">).play;</p>
+<p class="p4">)</p>
+<p class="p5"><br></p>
+<p class="p4">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p9"><br></p>
+<p class="p7"><b>Cálculos basados en otros valores de eventos</b></p>
+<p class="p2"><br></p>
+<p class="p3">En un Pbind, normalmente los patrones para las varias claves se calculan independientemente. Sin embargo, es posible que uno o más patrones 'vástagos' dependan del resultado de otro patrón dentro del mismo Pbind. Esto se logra con <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pkey.html"><span class="s1">Pkey</span></a><span class="s1"><i>, </i></span>descrito en GP_06g_Compartiendo Datos.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p10"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_04_de Palabras a Frases.html"><span class="s5">GP_04_de Palabras a Frases</span></a></span></p>
+<p class="p10"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06_Patrones de filtro.html"><span class="s6">GP_06_Patrones de filtro</span></a></span></p>
+</body>
+</html>

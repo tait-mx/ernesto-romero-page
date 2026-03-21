@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 56.0px; text-indent: -56.0px; font: 12.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 85.0px; text-indent: -85.0px; font: 12.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 0.0px 85.0px; text-indent: -85.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 85.0px; text-indent: -85.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco}
+p.p11 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #763228}
+p.p12 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #0636a0}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p14 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p15 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica}
+p.p16 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #606060}
+p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p18 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #763228}
+p.p19 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p20 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #763228; min-height: 12.0px}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #0045d7}
+span.s3 {font: 9.0px Monaco}
+span.s4 {font: 9.0px Monaco; color: #5d6333}
+span.s5 {font: 9.0px Monaco; color: #566630}
+span.s6 {color: #5d6333}
+span.s7 {font: 12.0px Helvetica}
+span.s8 {color: #000000}
+span.s9 {color: #0636a0}
+span.s10 {color: #606060}
+span.s11 {color: #566630}
+span.s12 {color: #763228}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>Synth<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>reprsentación del lado del cliente (client-side) de un nodo de synth en el servidor</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>superclase: </b><a href="Node.html"><span class="s2"><b>Node</b></span></a></p>
+<p class="p2"><br></p>
+<p class="p1">Un Synth es la representación del lado del cliente (client-side) de un nodo de synth en el servidor. Un Synth representa a una sola unidad reproductora de<span class="Apple-converted-space">  </span>sonido. Lo que hace está representado en un SynthDef, el cual especifica que UGens son usados y como estos estan conectados entre si. También especifica que entradas y salidas tendrá el Synth. Un SynthDef es por lo tanto una especie de patrón fijo, a partir del cual se basan los Synths. (A pesar de esto, un SynthDef dado puede proveer una sorprendente cantidad de variacion). Para mas detalles sobre los Synthdefs, su construcción, y como mandarlos a un servidor, ver el archivo de ayuda de <a href="SynthDef.html"><span class="s2"><b>SynthDef</b></span></a> .</p>
+<p class="p2"><br></p>
+<p class="p1">Para saber mas del la importante disctinción entre objetos del cliente y nodos del servidor, ver <a href="ClientVsServer.html"><span class="s2"><b>ClientVsServer</b></span></a>. Para información sobre la creación de nodos sin usar objetos ver <a href="NodeMessaging.html"><span class="s2"><b>NodeMessaging</b></span></a>.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>N.B. </b>Synth es una subclase de <b>Node</b>, y por eso muchos de sus métodos mas útiles e importantes están documentados en el archivo de ayuda <a href="Node.html"><span class="s2"><b>Node</b></span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Orden de Ejecución</b></p>
+<p class="p2"><br></p>
+<p class="p1">El orden de ejecución es un tema crucial al crear Synths que interactúan entre si.</p>
+<p class="p2"><br></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>sonido -&gt;<span class="Apple-converted-space">  </span>filtro</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1">Si un sonido va a ser pasado por un filtro, el synth que hace el filtraje debe de estar despues en el orden de ejecución que el synth que es su entrada. La computadora debe calcular el valor de sonido de un buffer, y entonces la computadora pasa a calcular el valor de la versión filtrada de ese sonido del buffer.</p>
+<p class="p2"><br></p>
+<p class="p1">La interconección entre nodos de synth es realizada con buses (conductos). Ver <a href="Bus.html"><span class="s2"><b>Bus</b></span></a> y <a href="Server-Architecture.html"><span class="s2"><b>Server-Architecture</b></span></a> para mas detalles.</p>
+<p class="p2"><br></p>
+<p class="p1">Ver el archivo de ayuda <a href="Order-of-execution.html"><span class="s2"><b>Order-of-execution</b></span></a> para una discusión mas detallada de este tema.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Empaquetando (Bundling)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Algunos de los métodos de arriba tienen dos versiones: una regular que envía su mensaje correspondiente al servidor inmediatamente, y otra que devuelve el mensaje en un <a href="../Collections/Array.html"><span class="s2"><b>Array</b></span></a><span class="Apple-converted-space">  </span>de tal forma que puede ser agragadp a un paquete (bundle). También es posible capturar los mensajes generados por los métodos regulares usando las capacidades automáticas de empaquetamiento (bundling)<span class="Apple-converted-space">  </span>del Servidor. Ver <a href="Server.html"><span class="s2"><b>Server</b></span></a> and <a href="bundledCommands.html"><span class="s2"><b>bundledCommands</b></span></a> para más detalles.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Acceso a las Variables de Instancia</b></p>
+<p class="p4"><br></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span>defName </b>- Devuelve el nombre del SynthDef de este Synth.</p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p5">Para otras variables de instancia ver<span class="Apple-converted-space">  </span><a href="Node.html"><span class="s2"><b>Node</b></span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Creación con Instanciación Inmediata en el Servidor</b></p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p2"><br></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span>*new(defName, args: [ arg1, value1, ... argN, valueN<span class="Apple-converted-space">  </span>], target, addAction)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Crea y devuelve un objeto Synth nuevo, e inmediatamente inicia el nodo synth correspondiente en el servidor</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>defName </b>- Un <a href="../Collections/String.html"><span class="s2"><b>String</b></span></a> (cadena) or <a href="../Core/Symbol.html"><span class="s2"><b>Symbol</b></span></a> (símbolo) especificando el nombre del SynthDef a usar al crear el Synth.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>args </b>- (argumentos) Un array opcional especificando valores inicial para los argumentos (controles) del SynthDef. Esto son especificados por pares de nombre de control y valor. Si son usados nombres estos pueden ser especificados ya sea con Strings o con Symbols. e.g. <span class="s3">[</span><span class="s4">\frecuencia</span><span class="s3">, 440, </span><span class="s4">\amplitud</span><span class="s3">, 1, ...]</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Los valores que sean arrays serán enviados usando las etiquetas de tipo array de OSC ($[ y $]).<span class="Apple-converted-space">  </span>Estos valores serán asignados a controles subsecuentes.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><b>target </b>- Un blanco u objetivo para este Synth. Si target no es un <a href="Group.html"><span class="s2"><b>Group</b></span></a><span class="Apple-converted-space">  </span>o Synth, será convertido como sigue: Si es un <b>Server</b>, será convertido al <b>default_group </b>de ese servidor. Si es nil, al <b>default_group </b>del Server por defecto. Si es un entero, se crea en relación a un grupo con esa identificación (id).</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>addAction</b> - uno de los siguiente Synbols:<span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s5">\addToHead</span><span class="s3"> </span>- (el utilizado por defecto) agrega a la cabeza del grupo especificado por <b>target</b></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">\addToTail</span><span class="s3"> <span class="Apple-tab-span">	</span></span>- agrega a la cola del grupo especificado por <b>target</b></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">\addAfter</span> <span class="Apple-tab-span">	</span>- agrega inmediatamente después de <b>target </b>en su orden de nodos del servidor</p>
+<p class="p5"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>\addBefore</span><span class="s6"> <span class="Apple-tab-span">	</span></span>- agrega inmediatamente antes de <b>target </b>en su orden de nodos del servidor</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\addReplace</span> <span class="Apple-tab-span">	</span>- reemplaza a <b>target </b>y toma su lugar en su orden de nodos del servidor</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="s7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// crea un Synth a la cabeza del grupo por defecto del Server por defecto</p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// basado en el SynthDef "default"</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s9">Synth</span>.new(<span class="s10">"default"</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.queryAllNodes; </span>// notar el grupo por defecto (ID 1)</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p2"><br></p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// Usando un control con array</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p12"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = </span>SynthDef<span class="s8">(</span><span class="s10">"synth-ayuda"</span><span class="s8">, {</span>| frec = #[440, 450, 460], salida = 0 |</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s9">Out</span>.ar(salida, <span class="s9">Mix</span>(<span class="s9">SinOsc</span>.ar(frec, 0, 0.1)));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = x.play(s, [frec: [500,501,510] ]);</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(<span class="s11">\frec</span>, [1,2,3] * 400 + [1,2,3], <span class="s11">\salida</span>, 1); <span class="s12">// dos pares</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(<span class="s11">\frec</span>, [3] * 400 + [1,2,3], <span class="s11">\salida</span>, 1); <span class="s12">// dos pares</span></p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(0, [660, 680, 720], 1, 0); </span>// frec es el primer argumento, asi que su índice es 0. salida es índice 1.</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p2"><br></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>*newPaused(defName, args: [ arg1, value1,... argN, valueN<span class="Apple-converted-space">  </span>], target, addAction)</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Como <b>*new </b>arriba, pero crea un nodo que es puesto en pausa. Este puede ser iniciado usando el llamado run en él.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="s7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s9">Synth</span>.newPaused(<span class="s10">"default"</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.queryAllNodes; <span class="s12">// mira, aqui estoy</span></p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.run; </span>// true es el valor por defecto</p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.run(</span><span class="s9">false</span><span class="s8">); </span>// ponme en pausa otra vez</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>*grain(defName, args: [ arg1, value1, ... argN, valueN<span class="Apple-converted-space">  </span>], target, addAction)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Un método conveniente que crea un nodo synth con un node ID de -1. A un nodo como este no se le pueden enviar mensajes después de su creación. Como tal éste método no crea un objeto, y devuelve nil. Para detalles sobre sus argumentos ver <b>*new </b>arriba.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5">Los siguientes métodos de conveniencia corresponden a acciones de agregado (add actions) de <b>Synth.new</b>:</p>
+<p class="p14"><br></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span>*after(aNode, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Crea y devuelve un Synth y lo agrega inmediatamente después de <b>aNode.</b></p>
+<p class="p4"><br></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span>*before(aNode, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Crea y devuelve un Synth y lo agrega inmediatamente antes de <b>aNode.</b></p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span><b>*head(aGroup, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Crea y devuelve un Synth. Si <b>aGroup</b> es un <b>Group</b> lo agrega a la cabeza de ese grupo. Si es un <b>Server</b>, lo agrega a la cabeza del <b>default_group</b> de ese servidor. Si es nil, lo agrega a la cabeza del <b>default_group</b> del servidor por defecto. Si es un entero, se crea en relación a un grupo con esa identificación (id).</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span><b>*tail(aGroup, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Crea y devuelve un Synth. Si <b>aGroup</b> es un <b>Group</b> lo agrega a la cola de ese grupo. Si es un <b>Server</b>, lo agrega a la cola del <b>default_group</b> de ese servidor. Si es nil, lo agrega a la cola del <b>default_group</b> del servidor por defecto. Si es un entero, se crea en relación a un grupo con esa identificación (id).</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>*replace(nodeToReplace, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Crea y devuelve un Synth y lo usa para remplazar a <b>nodeToReplace</b>, tomando su lugar en el orden de nodos de su servidor.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><b>Creación sin instanciación en el Servidor</b></p>
+<p class="p2"><br></p>
+<p class="p1">Para usarse en paquetes de mensajes (message bundles) también es posible crear un objeto Synth en la aplicación del cliente sin crear inmediatamente un nodo synth en el servidor. Una vez hecho esto uno pede llamar métodos que crean mensajes para añadirse a un paquete (bundle), quien al ser enviado al servidor instanciará al synth.</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>*basicNew(defName, server, nodeID)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Crea y devuelve un objeto Synth sin crear un nodo synth en el servidor.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>defName </b>- Un <b>String</b> o <b>Symbol</b> especificando el nombre del SynthDef a usar al crear el Synth.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>server</b> - Una instancia opcional de <b>Server</b>. Si es nil tomará el valor<span class="Apple-converted-space">  </span>del <b>Server</b> por defecto.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>nodeID </b>- Un número de ID opcional. Si no se suministra será generado uno por el Server's NodeIDAllocator. Normalmente no se necesitará suministrar uno.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="s7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s9">Synth</span>.basicNew(<span class="s10">"default"</span>, s); <span class="s12">// Crea sin enviar</span></p>
+<p class="p11"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.sendBundle(</span><span class="s9">nil</span><span class="s8">, x.newMsg;); </span>// Ahora envía un mensaje; lo crea a la cabeza del grupo por defecto</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.queryAllNodes;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>newMsg(target, args, addAction</b>)</p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve un mensaje del tipo <b>s_new </b>que puede ser empaquetado. Cuando se envía al servidor éste mensaje instanciará este synth. Si<span class="Apple-converted-space">  </span>target es nil, tomará el valor del <b>default_group</b> del Server especificado en <b>*basicNew</b><span class="Apple-converted-space">  </span>cuando éste synth fue creado. El addAction por defecto es <span class="s4">\addToHead</span>. (Ver <b>*new </b>arriba para detalles sobre addActions y argumentos.)</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>addToHeadMsg(aGroup, args)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Devuelve un mensaje del tipo <b>s_new </b>que puede ser empaquetado. Cuando se envía al servidor éste mensaje instanciará este synth. Si <b>aGroup</b> es un <b>Group</b> éste será agregado a la cabeza de ese grupo. Si es nil, será agregado a la cabeza del <b>default_group</b> del servidor de éste Synth (como se especificó cuando *<b>basicNew</b> fue llamado). Ver <b>*new</b> arriba para detalles sobre <b>args</b>.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>addToTailMsg(aGroup, args)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Devuelve un mensaje del tipo <b>s_new </b>que puede ser empaquetado. Cuando se envía al servidor éste mensaje instanciará este synth. Si <b>aGroup</b> es un <b>Group</b> éste será agregado a la cola de ese grupo. Si es nil, será agregado a la cola del <b>default_group</b> del servidor de éste Synth (como se especificó cuando *<b>basicNew</b> fue llamado). Ver <b>*new</b> arriba para detalles sobre <b>args</b>.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>addBeforeMsg(aNode, args</b>)</p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve un mensaje del tipo <b>s_new </b>que puede ser empaquetado. Cuando se envía al servidor éste mensaje instanciará este synth, inmediatamente antes de <b>aNode</b>. Ver <b>*new</b> arriba para detalles sobre <b>args</b>.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>addAfterMsg(aNode, args</b>)</p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve un mensaje del tipo <b>s_new </b>que puede ser empaquetado. Cuando se envía al servidor éste mensaje instanciará este synth, inmediatamente después de <b>aNode</b>. Ver <b>*new</b> arriba para detalles sobre <b>args</b>.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>addReplaceMsg(nodeToReplace, args</b>)</p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve un mensaje del tipo <b>s_new </b>que puede ser empaquetado. Cuando se envía al servidor éste mensaje instanciará este synth, remplazando <b>nodeToReplace</b> en el orden de nodos del servidor. Ver <b>*new</b> arriba para detalles sobre <b>args</b>.</p>
+<p class="p4"><br></p>
+<p class="p15"><b>Control</b></p>
+<p class="p4"><br></p>
+<p class="p5">Para más métodos para controlar Synths (set, map, etc), ver el archivo de ayuda<span class="Apple-converted-space">  </span><a href="Node.html"><span class="s2"><b>Node</b></span></a>.</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>get(index, action)</b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span>getMsg(index)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>interroga al servidor sobre el valor actual de un <b>Control</b> (argumento).<span class="Apple-converted-space">  </span><b>index</b> es un nombre de control o un índice, <b>action</b> es una <a href="../Core/Kernel/Function.html"><span class="s2"><b>Function</b></span></a> que será evaluada con el valor pasado como un argumento cuando la respuesta sea recibida.</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="s7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s9">SynthDef</span>(<span class="s10">"ayuda-Synth-get"</span>, { <span class="s9">arg</span> frec = 440;<span class="Apple-converted-space"> </span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s9">Out</span>.ar(0, <span class="s9">SinOsc</span>.ar(frec, 0, 0.1));</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}).send(s);</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p16"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = </span><span class="s9">Synth</span><span class="s8">(</span>"ayuda-Synth-get"<span class="s8">);</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(<span class="s11">\frec</span>, 220 + 440.rand);</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.get(<span class="s11">\frec</span>, { <span class="s9">arg</span> value; (<span class="s10">"ahora frec es:"</span> + value + <span class="s10">"Hz"</span>).postln; });</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><b>getn(index, count, action)</b></p>
+<p class="p5"><b><span class="Apple-tab-span">	</span>getnMsg(index, count)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Interroga al servidor sobre los valores actuales de un rango en secuencia de Controles (argumentos). <b>index</b> es un nombre de control o un índice. <b>count</b> es el<span class="Apple-converted-space">  </span>número de controles en secuencia a interrogar, empezando en <b>index</b>. <b>action</b> es una <a href="../Core/Kernel/Function.html"><span class="s2"><b>Function</b></span></a> que será evaluada con un<span class="Apple-converted-space">  </span><b>Array</b> que contiene los valores pasados como un argumento cuando la respuesta sea recibida.</p>
+<p class="p4"><br></p>
+<p class="p2"><br></p>
+<p class="p15"><b>Examples</b></p>
+<p class="p2"><br></p>
+<p class="p17"><br></p>
+<p class="p18">// inicia el servidor por defecto</p>
+<p class="p18"><span class="s8">s = </span><span class="s9">Server</span><span class="s8">.default; </span>// solo para estar seguro</p>
+<p class="p13">s.boot;</p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p13">(</p>
+<p class="p18">// envía un synth def al servidor</p>
+<p class="p13"><span class="s9">SynthDef</span>(<span class="s10">"tpulse"</span>, { <span class="s9">arg</span> salida = 0,frec = 700, frecSierra = 440.0;<span class="Apple-converted-space"> </span></p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">Out</span>.ar(salida, <span class="s9">SyncSaw</span>.ar(frec, frecSierra, 0.1));</p>
+<p class="p13">}).send(s);</p>
+<p class="p13">)</p>
+<p class="p17"><br></p>
+<p class="p18">// Aqui los valores por defecto de *new resultarán en un Synth a la cabeza del grupo por defecto</p>
+<p class="p18">// del Server por defecto. Este utilizará los argumentos por defecto del SynthDef;</p>
+<p class="p13">y = <span class="s9">Synth</span>.new(<span class="s10">"tpulse"</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p13">y.free;</p>
+<p class="p17"><br></p>
+<p class="p18">// Lo mismo hecho explícitamente</p>
+<p class="p13">y = <span class="s9">Synth</span>.new(<span class="s10">"tpulse"</span>, <span class="s9">nil</span>, s, <span class="s11">\addToHead</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p13">y.free;</p>
+<p class="p17"><br></p>
+<p class="p18">// Con algunos argumentos</p>
+<p class="p13">y = <span class="s9">Synth</span>.new(<span class="s10">"tpulse"</span>, [<span class="s11">\frec</span>, 350, <span class="s11">\frecSierra</span>, 220]);</p>
+<p class="p13">y.free;</p>
+<p class="p17"><br></p>
+<p class="p18">// hace un nuevo synth</p>
+<p class="p19"><span class="s8">y = </span><span class="s9">Synth</span><span class="s8">(</span>"tpulse"<span class="s8">);</span></p>
+<p class="p17"><br></p>
+<p class="p18">// pausa</p>
+<p class="p13">y.run(<span class="s9">false</span>);</p>
+<p class="p17"><br></p>
+<p class="p13">y.run(<span class="s9">true</span>);</p>
+<p class="p17"><br></p>
+<p class="p18">// cambia el valor de un control mediaante el nombre del argumento</p>
+<p class="p13">y.set(<span class="s10">"frec"</span>, 200);</p>
+<p class="p17"><br></p>
+<p class="p18">// or by index</p>
+<p class="p13">y.set(2, 100.0);</p>
+<p class="p17"><br></p>
+<p class="p18">// modula salida al nímero de bus 1 (la bocina derecha)</p>
+<p class="p13">y.set(0, 1);</p>
+<p class="p17"><br></p>
+<p class="p18">//<span class="Apple-converted-space">  </span>un juego de comandos múltiples en un mensaje</p>
+<p class="p13">y.set(<span class="s10">"salida"</span>, 0, <span class="s10">"frec"</span>,300);</p>
+<p class="p17"><br></p>
+<p class="p18">// libera al synth del servidor</p>
+<p class="p13">y.free;</p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p18">//////////// Filtrando</p>
+<p class="p17"><br></p>
+<p class="p13">(</p>
+<p class="p18">// primero junta algunas cosas para tocar</p>
+<p class="p13"><span class="s9">SynthDef</span>(<span class="s10">"moto-rev"</span>, { <span class="s9">arg</span> out=0;</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">var</span> x;</p>
+<p class="p13"><span class="Apple-tab-span">	</span>x = <span class="s9">RLPF</span>.ar(<span class="s9">LFPulse</span>.ar(<span class="s9">SinOsc</span>.kr(0.2, 0, 10, 21), [0,0.1], 0.1),<span class="Apple-converted-space"> </span></p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>100, 0.1).clip2(0.4);</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">Out</span>.ar(out, x);</p>
+<p class="p13">}).send(s);</p>
+<p class="p17"><br></p>
+<p class="p13"><span class="s9">SynthDef</span>(<span class="s10">"bubbles"</span>, { <span class="s9">arg</span> out=0;</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">var</span> f, zout;</p>
+<p class="p13"><span class="Apple-tab-span">	</span>f = <span class="s9">LFSaw</span>.kr(0.4, 0, 24, <span class="s9">LFSaw</span>.kr([8,7.23], 0, 3, 80)).midicps;<span class="Apple-converted-space"> </span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>zout = <span class="s9">CombN</span>.ar(<span class="s9">SinOsc</span>.ar(f, 0, 0.04), 0.2, 0.2, 4); <span class="s12">// onda sinoida con eco</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">Out</span>.ar(out, zout);</p>
+<p class="p13">}).send(s);</p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p13"><span class="s9">SynthDef</span>(<span class="s10">"rlpf"</span>,{ <span class="s9">arg</span> out=0,ffreq=600,rq=0.1;</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">ReplaceOut</span>.ar( out, <span class="s9">RLPF</span>.ar( <span class="s9">In</span>.ar(out), ffreq,rq) )</p>
+<p class="p13">}).send(s);</p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p13"><span class="s9">SynthDef</span>(<span class="s10">"wah"</span>, { <span class="s9">arg</span> out, rate = 1.5, cfreq = 1400, mfreq = 1200, rq=0.1;</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">var</span> zin, zout;</p>
+<p class="p17"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>zin = <span class="s9">In</span>.ar(out, 2);</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cfreq = <span class="s9">Lag3</span>.kr(cfreq, 0.1);</p>
+<p class="p13"><span class="Apple-tab-span">	</span>mfreq = <span class="s9">Lag3</span>.kr(mfreq, 0.1);</p>
+<p class="p13"><span class="Apple-tab-span">	</span>rq <span class="Apple-converted-space">  </span>= <span class="s9">Ramp</span>.kr(rq, 0.1);</p>
+<p class="p13"><span class="Apple-tab-span">	</span>zout = <span class="s9">RLPF</span>.ar(zin, <span class="s9">LFNoise1</span>.kr(rate, mfreq, cfreq), rq, 10).distort<span class="Apple-converted-space"> </span></p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>* 0.15;</p>
+<p class="p17"><br></p>
+<p class="p18"><span class="s8"><span class="Apple-tab-span">	</span></span>// remplaza el bus entrante con la versión con efecto.</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">ReplaceOut</span>.ar( out , zout );<span class="Apple-converted-space"> </span></p>
+<p class="p17"><span class="Apple-tab-span">	</span></p>
+<p class="p13">}).send(s);</p>
+<p class="p17"><br></p>
+<p class="p13"><span class="s9">SynthDef</span>(<span class="s10">"modulate"</span>,{ <span class="s9">arg</span> out = 0, freq = 1, center = 440, plusMinus = 110;</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s9">Out</span>.kr(out, <span class="s9">SinOsc</span>.kr(freq, 0, plusMinus, center));</p>
+<p class="p13">}).send(s);</p>
+<p class="p13">)</p>
+<p class="p17"><br></p>
+<p class="p18">// ejecutar estos uno por uno</p>
+<p class="p17"><br></p>
+<p class="p18">// esta sonando en el bus 0</p>
+<p class="p19"><span class="s8">y = </span><span class="s9">Synth</span><span class="s8">(</span>"moto-rev"<span class="s8">,[</span>"out"<span class="s8">,0]);</span></p>
+<p class="p17"><br></p>
+<p class="p18">// z está leyendo del bus 0 y remplazando eso. Esto debe de ser *después* de y</p>
+<p class="p13">z = <span class="s9">Synth</span>.after(y,<span class="s10">"wah"</span>,[<span class="s10">"out"</span>,0]);</p>
+<p class="p17"><br></p>
+<p class="p18">// detiene el wha</p>
+<p class="p13">z.run(<span class="s9">false</span>);</p>
+<p class="p17"><br></p>
+<p class="p18">// continúa con el wha</p>
+<p class="p13">z.run(<span class="s9">true</span>);</p>
+<p class="p17"><br></p>
+<p class="p18">// agrega un rlpf (filtro resonador pasa bajas) después de eso, leyendo y escribiendo en el mismo bus</p>
+<p class="p13">x = <span class="s9">Synth</span>.after(z,<span class="s10">"rlpf"</span>,[<span class="s10">"out"</span>,0]);</p>
+<p class="p17"><br></p>
+<p class="p18">// crea otro rlpf después de x</p>
+<p class="p13">t = <span class="s9">Synth</span>.after(x,<span class="s10">"rlpf"</span>,[<span class="s10">"out"</span>,0]);</p>
+<p class="p17"><br></p>
+<p class="p13">x.set(<span class="s10">"ffreq"</span>, 400);</p>
+<p class="p17"><br></p>
+<p class="p18"><span class="s8">x.set(</span><span class="s11">\ffreq</span><span class="s8">, 800); </span>// Los Symbols funcionan también para nombres de control</p>
+<p class="p17"><br></p>
+<p class="p18">// Ahora hay que modular el argumento ffreq de x</p>
+<p class="p18">// Primero consigue un bus de control</p>
+<p class="p13">b = <span class="s9">Bus</span>.control(s, 1);</p>
+<p class="p17"><br></p>
+<p class="p18">// ahora el modulador, *antes* de x</p>
+<p class="p13">m = <span class="s9">Synth</span>.before(x, <span class="s10">"modulate"</span>, [<span class="s11">\out</span>, b]);</p>
+<p class="p17"><br></p>
+<p class="p18">// ahora mapea ffreq de x a b</p>
+<p class="p13">x.map(<span class="s10">"ffreq"</span>, b);</p>
+<p class="p17"><br></p>
+<p class="p13">m.set(<span class="s10">"freq"</span>, 4, <span class="s10">"plusMinus"</span>, 20);</p>
+<p class="p17"><br></p>
+<p class="p13">x.free;</p>
+<p class="p13">z.free;</p>
+<p class="p13">m.free;</p>
+<p class="p17"><br></p>
+<p class="p18">// ahora pon otro synth después de y, en el mismo bus</p>
+<p class="p18">// ambos escriben al bus, sumando sus salidas</p>
+<p class="p20"><br></p>
+<p class="p13">r = <span class="s9">Synth</span>.after(y,<span class="s10">"bubbles"</span>,[<span class="s10">"out"</span>,0]);</p>
+<p class="p17"><br></p>
+<p class="p13">y.free;</p>
+<p class="p17"><br></p>
+<p class="p13">r.free;</p>
+<p class="p17"><br></p>
+<p class="p18">// mira la ventana del servidor</p>
+<p class="p18">// ¿aún ves 4 UGens y 1 synth?</p>
+<p class="p18">// no me oyes, pero no te olvides de liberarme</p>
+<p class="p13">t.free;</p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.35">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #0025b2}
+</style>
+</head>
+<body>
+<p class="p1"><b>Mensajes unarios</b></p>
+<p class="p2"><br></p>
+<p class="p3">Algunos procesos de síntesis pueden ser iniciado con un mensaje unario (es decir, un mensaje sin argumentos).</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Por ejemplo, compare</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s1">SinOsc</span>.ar(500, 0, 0.5) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">a</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s1">SinOsc</span>.ar(500, 0, 0.5).distort }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">El mensaje .distort modula el SinOsc para generar más armónicos.</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Pregunta: ¿De donde viene el mensaje .distort?</p>
+<p class="p2"><br></p>
+<p class="p3">Respuesta: Está definido en la clase AbstractFunction. La clase UGen es una subclase de la clase AbstractFunction ('FunciónAbstracta'). La idea es que todas las clases hereden métodos definidos en sus superclases; por lo tanto, todos los ugens heredan de AbstractFunction.</p>
+<p class="p2"><br></p>
+<p class="p3">Campare</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s1">SinOsc</span>.ar(500, 0, 0.5) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">a</p>
+<p class="p2"><br></p>
+<p class="p4">// .cubed es una operación unaria<span class="Apple-converted-space"> </span></p>
+<p class="p3">{ <span class="s1">SinOsc</span>.ar(500, 0, 0.5).cubed }.scope;</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Ver los archivos en el folder de UnaryOps en el sistema de ayuda de SuperCollider<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p5"><br></p>
+<p class="p6">ir a<span class="Apple-converted-space">  </span><b>9_Síntesis_de_Operaciones_Binarias</b></p>
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.4  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20090725;19373100">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in }
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p2 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 10pt }
+		P.p6 { margin-left: 0.59in; text-indent: -0.59in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p7 { margin-left: 0.59in; text-indent: -0.59in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p8 { margin-left: 0.89in; text-indent: -0.89in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p10 { margin-left: 0.59in; text-indent: -0.59in; margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p11 { margin-left: 0.59in; text-indent: -0.59in; margin-bottom: 0in; color: #6c3725; font-family: "Monaco"; font-size: 6pt }
+		P.p12 { margin-left: 0.59in; text-indent: -0.59in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 10pt }
+		P.p13 { margin-left: 0.59in; text-indent: -0.59in; margin-bottom: 0in; color: #96291a; font-family: "Helvetica"; font-size: 9pt }
+		P.p14 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p15 { margin-bottom: 0in; color: #6c3725; font-family: "Monaco"; font-size: 6pt }
+		P.p16 { margin-bottom: 0in; color: #606060; font-family: "Monaco"; font-size: 6pt }
+		P.p17 { margin-bottom: 0in; color: #083ba2; font-family: "Monaco"; font-size: 6pt }
+		P.p18 { margin-bottom: 0in; color: #85301f; font-family: "Monaco"; font-size: 6pt }
+		P.p19 { margin-bottom: 0in; color: #96291a; font-family: "Monaco"; font-size: 6pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Group representación
+de un nodo de grupo en el servidor del lado del cliente</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>superclass: Node</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Un grupo es la
+representación de un nodo de grupo en el servidor del lado del
+cliente, que es una colección de otros nodos organizados como una
+lista enlazada (linked list). Los Nodos dentro de un Grupo pueden ser
+controlados juntos, y pueden ser tanto Sintetizadores como otros
+Grupos. Los Grupos son por lo tanto útiles para controlar un número
+de nodos a la vez, y cuando son utilizados como destino pueden ser
+muy útiles para controlar el orden de ejecución. (Ver
+<B>Orden-de-ejecución (Order-of-execution)</B> para más detalles
+sobre este tema).</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Para más acerca de la
+crucial distinción entre objetos del cliente y del servidor, ver
+<B>ClientVsServer</B>. Para información para crear nodos sin usar
+objetos, ver <B>NodeMessaging</B>.</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>N.B. </B><SPAN STYLE="font-weight: medium">Group
+es una subclase de </SPAN><B>Node</B><SPAN STYLE="font-weight: medium">,
+y por lo tanto, muchos de sus métodos más útiles e importantes
+están documentados en el archivo de ayuda </SPAN><B>Node</B><SPAN STYLE="font-weight: medium">.
+Por favor referirse a él para más información.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>RootNode (nodo raíz) y
+el grupo default (por defecto)</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Cuando un <B>Servidor</B>
+es iniciado hay un groupo en el nivel inicial con una ID de cero que
+define la raíz del árbol. Éste es representado por una subclase de
+Group: <B>RootNode</B>. Si el Servidor fue iniciado dentro de SCLang
+(en oposición a haberlo hecho desde la terminal) entonces el
+<B>default_group</B> con una ID de 1 será automáticamente creado.
+Este grupo es el grupo que por defecto encasilla a todos los Nodos,
+es decir, es el grupo que se obtiene si no se especifica. En general,
+deberás crear Nodos nuevos dentro del grupo por defecto de un
+Servidor en vez de hacerlo dentro de su RootNode. Ver <B>Server</B>,
+<B>default_group</B> y <B>RootNode</B> para más detalles.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>Bundling
+(Empaquetamiento)</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Algunos de los métodos
+abajo tienen dos versiones: una regular que envía su mensaje
+correspondiente al servidor inmediatamente, y una que entrega el
+mensaje en un <B>Array</B> para que pueda ser añadido a un paquete.
+Es también posible capturar los mensajes generados por lo métodos
+regulares utilizando las capacidades de empaquetamiento automático
+del Servidor. Ver <B>Server</B> y <B>bundledCommands</B> para más
+detalles.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>Creación con una
+Instanciación Inmediata dentro del Servidor</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>*new(target,addAction)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Crear y entregar un Grupo.</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><B>target - destino</B><SPAN STYLE="font-weight: medium">
+- Un destino para este Grupo. Si el destino no es un Grupo o un
+</SPAN><B>Synth</B><SPAN STYLE="font-weight: medium">, será
+convertido de la manera siguiente: Si es un </SPAN><B>servidor</B><SPAN STYLE="font-weight: medium">,
+será convertido al </SPAN><B>default_group</B><SPAN STYLE="font-weight: medium">
+dentro de ese servidor. Si es un nil, al </SPAN><B>default_group</B><SPAN STYLE="font-weight: medium">
+del </SPAN><B>Servidor</B><SPAN STYLE="font-weight: medium"> por
+defecto. </SPAN><B>Nota</B><SPAN STYLE="font-weight: medium">: Un
+Synth no es un destino válido para \addToHead ni \addToTail.</SPAN></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><B>addAction -
+acciónDeAgregado </B>- uno de los siguientes símbolos 
+</P>
+<P CLASS="p8" STYLE="margin-left: 0in; text-indent: 0in; margin-bottom: 0.2in">
+\addToHead - (por defecto) añadir a la cabeza del grupo especificado
+por &quot;<B>target</B>&quot; 
+</P>
+<P CLASS="p8" STYLE="margin-left: 0in; text-indent: 0in; margin-bottom: 0.2in">
+\addToTail - añadir a la cola del grupo especificado por &quot;<B>target</B>&quot;
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">\addAfter - añadir
+inmediatamente después del <B>target</B> en el orden de nodos de su
+servidor. 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">\addBefore - añadir
+inmediatamente antes del <B>target</B> en el orden de nodos de su
+servidor. 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">\addReplace - reemplazar
+el <B>target</B> y tomar su lugar en el orden de nodos del servidor.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.boot;</FONT></FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g
+= Group.new; // añade un Grupo a la cabeza del default_group del
+servidor elegido por defecto</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">h
+= Group.new(g, \addAfter);</FONT></FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.queryAllNodes;
+// nota que el Grupo está dentro el grupo por defecto (ID 1)</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.free;
+h.free;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><FONT SIZE=1 STYLE="font-size: 8pt">Los
+siguientes mét</FONT>odos convenientes corresponden a las acciones
+de agregado descritas antes: :</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>*after</B>(<B>aNode</B>)
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Crear y entregar un Grupo
+y añadirlo inmediatamente después de <B>aNode</B>.</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>*before(aNode) </B>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Crear y entregar un Grupo
+y añadirlo inmediatamente antes de <B>aNode</B>.</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><B>*head(aGroup)</B> 
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">Crear y entregar un Grupo.
+Si <B>aGroup</B> es un Grupo, añadirlo a la cabeza de aquél. Si es
+un <B>Servidor</B>, añadirlo a la cabeza del <B>default_group</B> de
+aquél servidor. Si es un nil, añadirlo a la cabeza del
+<B>default_group</B> del <B>Servidor</B> default.</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in; font-weight: medium">*tail(<B>aGroup</B>)
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">Crear
+y entregar un Grupo. Si </SPAN></SPAN><SPAN STYLE="font-weight: medium"><B>aGroup</B></SPAN><SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">
+es un </SPAN></SPAN><SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">Grupo</SPAN></SPAN><SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">,
+añadirlo a la cola de aquél. Si es un </SPAN></SPAN><B>Servidor</B><SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">,
+añadirlo a la cola del </SPAN></SPAN><B>default_group</B> <SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">de
+aquél servidor. Si es un nil, añadirlo a la cola del </SPAN></SPAN><B>default_group</B>
+<SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">del
+</SPAN></SPAN><B>Servidor</B> <SPAN STYLE="font-weight: medium"><SPAN STYLE="font-weight: medium">default.</SPAN></SPAN></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in; font-weight: medium"><B>*replace(nodeToReplace)</B>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><SPAN STYLE="font-weight: medium">Crear
+y entregar un Grupo y utilizarlo para reemplazar al <B>nodeToReplace</B>,
+tomando su lugar en el orden de nodos del servidor.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>Creación sin
+Instanciar en el Servidor</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Para el uso en paquetes de
+mensajes, es también posible crear un objeto Group en la aplicación
+del cliente sin crear inmediatamente un nodo de grupo en el servidor.
+Una vez terminado, se podrán llamar métodos que creen mensajes para
+ser añadidos al paquete, que después, al ser enviado al servidor,
+instanciará el grupo o realizará otras operaciones. (Ver <A HREF="../UGens/Synth%20control/Control.html">Control</A>,
+debajo.)</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>*basicNew(server,
+nodeID)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Crear y entregar un objeto
+Grupo sin crear un nodo de grupo en el servidor. (Este método es
+heredado de <B>Node</B> y está documentado aquí únicamente por
+conveniencia).</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>server</B> - Una
+instancia opcional de Server. Si es nil, corresponderá al <B>Servidor</B>
+por defecto.</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><B>nodeID </B>- Un número
+opcional de ID del nodo. Si no se especifica uno, será generado por
+el NodeIDAllocator del Servidor. Normalmente no necesitarás
+especificar una ID.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.boot;</FONT></FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g
+= Group.basicNew(s); // Crear sin enviar</FONT></FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.sendBundle(nil,
+g.newMsg;); // Ahora enviar un mensaje, crear en la cabeza del
+default group del servidor &quot;s&quot;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.queryAllNodes;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.free;</FONT></FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>newMsg(target,
+addAction</B>)</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Entrega un mensaje del
+tipo <B>g_new</B> que puede ser empaquetado. Al ser enviado al
+servidor, este mensaje instanciará este grupo. Si el destino es nil,
+se instanciará en el <B>default_group</B> del Servidor especificado
+en <B>*basicNew</B> cuando este Grupo fue creado. La acción de
+agregado por defecto es \addToHead. (Ver <B>*new </B>arriba para los
+detalles sobre las acciones de agregado).</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>addToHeadMsg(aGroup)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in; font-weight: medium">Entrega
+un mensaje del tipo <B>g_new </B>que puede ser empaquetado. Al ser
+enviado al servidor, este mensaje instanciará este grupo. Si <B>aGroup</B>
+es un Grupo, se añadirá a la cabeza de dicho Grupo. Si es nil, se
+instanciará en la cabeza del <B>default_group</B> del Servidor de
+este Grupo (como haya sido especificado cuando <B>*basicNew</B> fue
+llamado).</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>addToTailMsg(target)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Entrega un mensaje del
+tipo <B>g_new</B> que puede ser empaquetado. Al ser enviado al
+servidor, este mensaje instanciará este grupo. Si <B>aGroup</B> es
+un Grupo, se añadirá a la cola de dicho Grupo. Si es nil, se
+instanciará en la cola del <B>default_group</B> del Servidor de este
+Grupo (como haya sido especificado cuando <B>*basicNew</B> fue
+llamado).</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>addBeforeMsg(aNode</B>)</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Entrega un mensaje del
+tipo <B>g_new</B> que puede ser empaquetado. Al ser enviado al
+servidor, este mensaje instanciará este grupo, inmediatamente antes
+de <B>aNode</B>.</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>addAfterMsg(aNode</B>)</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Entrega un mensaje del
+tipo <B>g_new</B> que puede ser empaquetado. Al ser enviado al
+servidor, este mensaje instanciará este grupo, inmediatamente
+después de <B>aNode</B>.</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>addReplaceMsg(nodeToReplace</B>)</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Entrega un mensaje del
+tipo <B>g_new</B> que puede ser empaquetado. Al ser enviado al
+servidor, este mensaje instanciará este grupo, reemplazando el
+<B>nodeToReplace</B> en el orden de nodos del servidor. 
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><B>Control e
+Introspección</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Para más métodos de
+control de Grupos (set, map, etc. ), ver el archivo de ayuda de <B>Node</B>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>moveNodeToHead(aNode)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>moveNodeToHeadMsg(aNode)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Mover <B>aNode</B> a la
+cabeza de este grupo. 
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>moveNodeToTail(aNode)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>moveNodeToTailMsg(aNode)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Mover <B>aNode</B> a la
+cola de este grupo. 
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>freeAll</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>freeAllMsg</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Liberar todos los nodos en
+este grupo, pero no liberar el grupo en sí.</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>deepFree</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>deepFreeMsg</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Liberar todos los Synths
+en el grupo, y todos los Synths en cualquier grupo que contenga, pero
+no liberar este grupo ni ninguno de los grupos que contenga.</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>dumpTree(postControls)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Muestra una representación
+del subárbol de nodos de este grupo. (Envía un mensaje del tipo
+<B>g_dumpTree</B>.) Si <B>postControls</B> es &quot;true&quot;
+(verdadero), entonces los valores de <A HREF="../UGens/Synth%20control/Control.html">Control</A>
+actuales (arg) para cualquiera de los sintetizadores contenidos en
+este grupo serán mostrados también. Por defecto, es “false”
+(falso). 
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in">// no funciona todavía: 
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><B>queryTree(action)</B></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Solicita al servidor un
+mensaje describiendo el subárbol de nodos de este grupo. (Envía un
+mensaje del tipo g_queryTree.) Esta respuesta es pasada a la función
+de acción como un argumento. Ver <B>g_queryTree</B> en
+<A HREF="Server-Command-Reference.html">Server-Command-Reference</A>
+(referencia de comandos del servidor) o el ejemplo debajo para
+información de cómo está estructurada la respuesta.</P>
+<P CLASS="p6" STYLE="margin-left: 0in; text-indent: 0in; margin-bottom: 0.2in">
+<BR><BR>
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><B>Ejemplos</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s
+= Server.default; // sólo para asegurarnos</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.boot;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(&quot;help-Group-moto-rev&quot;,
+{ arg out=0,freq=100,ffreq=120;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">var
+x;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= RLPF.ar(LFPulse.ar(SinOsc.kr(0.2, 0, 10, freq), [0,0.1], 0.1),&nbsp;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">ffreq,
+0.1).clip2(0.4);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Out.ar(out,
+x);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}).send(s);</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(&quot;help-Group-wah&quot;,
+{ arg out, rate = 1.5, cfreq = 1400, mfreq = 1200, rq=0.1;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">var
+zin, zout, q;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">zin
+= In.ar(out, 2);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">cfreq
+= Lag3.kr(cfreq, 0.1);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">mfreq
+= Lag3.kr(mfreq, 0.1);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">q
+&nbsp; = Ramp.kr(rq, 0.1);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">zout
+= RLPF.ar(zin, LFNoise1.kr(rate, mfreq, cfreq), q, 10).distort&nbsp;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">*
+0.15;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+reemplazar el bus de entrada por la versión con efecto</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">ReplaceOut.ar(
+out , zout );&nbsp;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}).send(s);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g
+= Group.new;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">l
+= Array.fill(3,{</FONT></FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+una frecuencia aleatoria para cada sintetizador, añadido a g en la
+cabeza</FONT></FONT></P>
+<P CLASS="p16" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Synth(&quot;help-Group-moto-rev&quot;,[&quot;out&quot;,0,&quot;freq&quot;,rrand(10,120)],g,\addToHead);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">});</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+asignar valores todos los controles que correspondan a &quot;ffreq&quot;
+en todos los nodos</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.set(&quot;ffreq&quot;,300);</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.set(&quot;freq&quot;,80);</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ya que asignamos los Synths en un Array, también podemos
+controlarlos individualmente.</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p17" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">r
+= Routine({</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">inf.do({</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">l.do({
+arg node;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">node.set(&quot;freq&quot;,rrand(10,120));</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">1.0.wait;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">});</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">})</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">});</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">r.play;</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+g es también un grupo. Ya que no lo especificamos, es el grupo por
+defecto (ID 1) del Servidor por defecto.</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.group.inspect;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Solicitar a &quot;wah&quot;  colocarse después de g en el orden de
+ejecución, en el mismo grupo que g </FONT></FONT>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth.after(g,&quot;help-Group-wah&quot;,[&quot;out&quot;,0]);&nbsp;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahora mostrar mi árbol para confirmar</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.dumpTree;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.free;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+liberar todos los nodos en g, pero no g en sí </FONT></FONT>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.freeAll;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+no olvides que la rutina sigue corriendo...</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">r.stop;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+y asignar &quot;nil&quot; a l para que los Synths y el Arreglo puedan
+ser limpiados de memoria  (recolección de basura)</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">l
+= nil;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+sigo en el servidor, sólo fueron mis hijos los que fueron liberados</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.query;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+no necesito los objetos sintetizadores individuales en este momento</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">3.do({</FONT></FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+frecuencia aleatoria para cada sintetizador, añadida a g en la
+cabeza</FONT></FONT></P>
+<P CLASS="p16" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Synth(&quot;help-Group-moto-rev&quot;,[&quot;out&quot;,0,&quot;freq&quot;,rrand(10,1200)],g,\addToHead);</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">});</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahora solicitar mi árbol y mostrar una gráfica de él (duplica
+dumpTree)</FONT></FONT></P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+el formato del mensaje es ['/g_querytree.reply', node1-ID,
+numChildren, defName, child1-ID, numChildren, ...]</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//(</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//g.queryTree({|msg|&nbsp;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+var i = 1, tabs = 0, dumpFunc;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+(&quot;NODE TREE Group&quot; + msg[1]).postln;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+if(msg[2] &gt; 0, {</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+dumpFunc = {|numChildren|</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+tabs = tabs + 1;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+numChildren.do({</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+i = i + 3;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+tabs.do({ &quot; &nbsp; &quot;.post });</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+msg[i].post;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+(&quot; &quot; ++ msg[i + 2]).postln;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+if(msg[i + 1] &gt; 0, { dumpFunc.value(msg[i + 1]) }); </FONT></FONT>
+</P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+});</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+tabs = tabs - 1;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+};</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+dumpFunc.value(msg[2]);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+});</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//});</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//)</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+libérame y a mis hijos</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.free;</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ya no existo</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">g.query;</FONT></FONT></P>
+</BODY>
+</HTML>

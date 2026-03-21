@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 20.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; min-height: 22.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0024f4}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #132eb2}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #6d1810}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #661e14}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0024f3; min-height: 14.0px}
+p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+span.s1 {text-decoration: underline ; color: #0024f4}
+span.s2 {color: #0024f4}
+span.s3 {color: #001eca}
+span.s4 {text-decoration: underline ; color: #0022e4}
+span.s5 {color: #132eb2}
+span.s6 {color: #000000}
+span.s7 {font: 12.0px Helvetica; text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Guía práctica para usar patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Introducción</b></p>
+<p class="p2"><br></p>
+<p class="p4">Los patrones son uno de los elementos más poderosos del lenguaje de SuperCollider, pero puede ser difícil<span class="Apple-converted-space">  </span>aproximarse a ellos usando sólo las páginas de ayuda de cada clase. Estos documentos buscan cubrir ese hueco, explicando los antecedentes conceptuales detrás de ellos, describiendo el uso de clases de patrones específicos y procediendo con ejemplos de tares musicales prácticas escritas con patrones.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Contenidos</b></p>
+<p class="p6"><br></p>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_01_Guia_practica_para_usar_patrones.html"><span class="s1">GP_01_Guía práctica para usar patrones</span></a>: Conceptos fundamentales de patrones y flujos</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_02_Vocabulario_basico.html"><span class="s1">GP_02_Vocabulario_básico</span></a>: Patrones comunes para generar flujos de valores unitarios</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_03_Que_es_Pbind.html"><span class="s1">GP_03_Qué es Pbind</span></a>: Secuenciación musical basada en patrones con Pbind y sus primos</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_04_de_Palabras_a_Frases.html"><span class="s1">GP_04_de Palabras a Frases</span></a>: Anidando patrones, arreglando música en términos de frases</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_05_Matematicas_en_patrones.html"><span class="s1">GP_05_Matemáticas en patrones</span></a>: Realizando operaciones matemáticas y de colecciones en patrones</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06_Patrones_de_filtro.html"><span class="s1">GP_06_Patrones de filtro</span></a>: Revista de patrones que modifican el comportamiento de otros patrones<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06a_Patrones_de_repeticion_y_restriccion.html"><span class="s1">GP_06a_Patrones de repetición y restricción</span></a>: Patrones que repiten o detienen a otros patrones</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06b_Patrones_basados_en_tiempo.html"><span class="s1">GP_06b_Patrones basados en tiempo</span></a>: Patrones que usan tiempo como base para su evaluación</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06c_Composicion_de_Patrones.html"><span class="s1">GP_06c_Composición de Patrones</span></a>: Haciendo que múltiples patrones de eventos actúen como uno</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06d_Patrones_Paralelos.html"><span class="s1">GP_06d_Patrones Paralelos</span></a>: Corriendo múltiples patrones de evento simultáneamente</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06e_Control_de_Lenguaje.html"><span class="s1">GP_06e_Control_de_Lenguaje</span></a>: Patrones que imitan algunas estructuras de control del lenguaje</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06f_Control_del_servidor.html"><span class="s1">GP_06f_Control_del_servidor</span></a>: Patrones que administran recursos en el servidor</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_06g_Compartiendo_Datos.html"><span class="s1">GP_06g_Compartiendo_Datos</span></a>: Cómo escribir patrones para que usen información de otros patrones</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_07_Conversiones_de_Valor.html"><span class="s2">GP_07_Conversiones_de_Valor</span></a>: Describe las conversiones que realiza el evento predeterminado para alturas, ritmo y amplitud</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"> <a href="GP_08_Tipos_de_Eventos_y_Parametros.html"><span class="s2">GP_08_Tipos_de_Eventos_y_Parámetros</span></a>: Describe los tipos de eventos definidos en el evento predeterminado y los parámetros que reciben</li>
+</ul>
+<p class="p6"><br></p>
+<p class="p4">El <b>recetario de patrones</b> es un conjunto de ejemplos con explicaciones.</p>
+<p class="p6"><br></p>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0024f4"><span class="s3"><b> </b><a href="GP_Recetario01_Secuenciacion_basica.html"><span class="s2"><b>GP_Recetario01_Secuenciación_básica</b></span></a></span></li>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Reproduciendo una secuencia de notas predefinida.<span class="Apple-converted-space"> </span></b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Expansión “multicanal”<span class="Apple-converted-space"> </span></b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Usando SynthDef hechos a la medida (incluyendo SynthDefs sin altura definida).</b></li>
+</ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4"><span class="s3"><b> </b><a href="GP_Recetario02_Manipulando_Patrones.html"><span class="s4"><b>GP Recetario02 Manipulando Patrones</b></span></a></span></li>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Fusionando (intercalando) flujos independientes</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Leyendo un arreglo hacia atrás y adelante arbitrariamente</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Cambiando el valor de patrones Pbind 'en vivo'</b></li>
+</ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4"><span class="s3"><b> </b><a href="GP_Recetario03_Control_externo.html"><span class="s4"><b>GP Recetario03 Control Externo</b></span></a></span></li>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Controlar parámetros MIDI o HID</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Disparando patrones por control externo</b></li>
+</ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b></b><a href="GP_Recetario04_Mandando_MIDI.html"><span class="s4"><b>GP Recetario04 Mandando MIDI</b></span></a><b>: Mandando notas en un patrón a aparatos MIDI</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4"><span class="s3"><b></b><a href="GP_Recetario05_Usando_Muestras.html"><span class="s4"><b>GP Recetario05 Usando Muestras</b></span></a></span></li>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Tocando un patrón junto con muestras en bucle</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Usando muestras de audio para tocar material con alturas definidas</b></li>
+</ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4"><span class="s3"><b></b><a href="GP_Recetario06_Redes_de_frases.html"><span class="s4"><b>GP Recetario06 Redes de Frases</b></span></a></span></li>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Construyendo una melodía más complicada usando patrones de frase más cortos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>También ilustra PmonoArtic para portamento con articulación</b></li>
+</ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><span class="s3"><b></b><a href="GP_Recetario07_Variaciones_Ritmicas.html"><span class="s4"><b>GP Recetario07 Variaciones Rítmicas</b></span></a></span><b>: Un ritmo percusivo en constante variación</b></li>
+</ul>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p4"><b>Material de referencia</b></p>
+<p class="p6"><br></p>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b></b><a href="GP_Ref01_Componentes_de_los_Patrones.html"><span class="s4"><b>GP Ref01 Componentes de los Patrones</b></span></a><b>: Detalles de la implementación de patrones, con una guía de cómo escribir nuevas clases de patrones</b></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>¿Porqué patrones?</b></p>
+<p class="p2"><br></p>
+<p class="p4">Los patrones describen cálculos sin declarar explícitamente cada paso. Son una representación de alto nivel de una tarea computacional. Mientras que los patrones no son idealmente convenientes para todo tipo de cálculos, cuando son apropiados, liberan al usuario de preocupaciones sobre cada detalle del proceso. Al usar patrones, uno escribe <i>qué</i> es lo que debe suceder en lugar de <i>cómo</i> se debe lograr.</p>
+<p class="p6"><br></p>
+<p class="p4">En SuperCollider, los patrones son útiles para tareas que necesitan producir secuencias o flujos de información. Muy seguido éstos son números, pero no necesariamente tienen que serlo -- los patrones pueden generar cualquier tipo de objeto.</p>
+<p class="p6"><br></p>
+<p class="p4">Un ejemplo sencillo, contemos hacia arriba empezando desde 0. No sabemos qué tan alto necesitaremos contar, sólo sabemos que cada vez que preguntemos por valores, obtendremos una serie en aumento.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p4">Escribir completo todo se ve así. Una rutina (<a href="../../../../Users/jslach/SuperCollider3/build/Help/Core/Kernel/Routine.html"><span class="s5">Routine</span></a><span class="s5">) </span>es usada debido a que es una estructura de control que puede interrumpir lo que hace y acordarse dónde se había quedado, de tal manera que puede retomar el cálculo exactamente en ese punto. Se pueden obtener números de ella y llamarla de nuevo y seguirá contando a partir del último número que retornó. (Esto es un ejemplo de un flujo -- <a href="../../../../Users/jslach/SuperCollider3/build/Help/Streams-Patterns-Events/Stream.html"><span class="s5">Stream</span></a><span class="s5">).</span></p>
+<p class="p6"><br></p>
+<p class="p9"><span class="s6">a = </span>Routine<span class="s6"> {</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="s5">var</span><span class="Apple-tab-span">	</span>i = 0;</p>
+<p class="p11"><span class="s6"><span class="Apple-tab-span">	</span>loop {<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// bucle indefinido</p>
+<p class="p11"><span class="s6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i.yield;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// cede (yield) el valor (lo retorna)</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i = i + 1;</p>
+<p class="p10"><span class="Apple-tab-span">	</span>};</p>
+<p class="p10">};</p>
+<p class="p12"><br></p>
+<p class="p10">a.nextN(10);</p>
+<p class="p6"><br></p>
+<p class="p4">Las estructuras de control de SuperCollider permiten algunas simplificaciones.</p>
+<p class="p6"><br></p>
+<p class="p9"><span class="s6">a = </span>Routine<span class="s6"> {</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span>(0..).do { <span class="s5">|i|</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i.yield;</p>
+<p class="p10"><span class="Apple-tab-span">	</span>};</p>
+<p class="p10">};</p>
+<p class="p12"><br></p>
+<p class="p10">a.nextN(10);</p>
+<p class="p6"><br></p>
+<p class="p4">Sería interesante enunciar, "Dame una serie infinita de números empezando en cero y aumentanto en 1". Con <a href="../../../../Users/jslach/SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pseries.html"><span class="s5">Pseries</span></a> se puede. (Para mayor claridad, se dan los argumentos mediante sus palabras clave, pero 'start', 'step' y 'length' se pueden omitir).</p>
+<p class="p6"><br></p>
+<p class="p10">a = <span class="s5">Pseries</span>(start: 0, step: 1, length: <span class="s5">inf</span>).asStream;</p>
+<p class="p12"><br></p>
+<p class="p10">a.nextN(10);</p>
+<p class="p6"><br></p>
+<p class="p4">¿Cuáles son las ventajas de la representación en patrones?</p>
+<p class="p6"><br></p>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">es más conciso.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">está probado y funciona. No es necesario depurar Pseries (mientras que al escribir una rutina se puede cometer un error y tener que encontrarlo)</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Con la rutina -- sobre todo si es complicada -- se tendrá que descifrar cuándo se retorna un valor y cuándo se retoma el cálculo. El patrón establece el propósito directamente en el código.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p6"><br></p>
+<p class="p4">¿Cuáles son las desventajas?</p>
+<p class="p6"><br></p>
+<ul>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Los patrones representan un nuevo vocabulario que aprender. Hasta que se llega a una masa crítica con ellos, pueden ser difíciles de usar.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Si no existe un patrón que haga lo que uno quiere, entonces puede requerir bastante astucia combinar patrones en diseños nuevos. (Sin embargo, comportamientos hechos a la medida siempre se pueden escribir usando Proutine o Pfunc)</li>
+</ul>
+<p class="p6"><br></p>
+<p class="p4">Pareciera que usar patrones para secuenciar es un uso avanzado, pero para muchos usos son más sencillos que el código equivalente escrito paso a paso. Pueden servir como un puente para representar una concepción musical más directamente.</p>
+<p class="p6"><br></p>
+<p class="p4">El primer paso en aprender un nuevo lenguaje es el vocabulario, del cual tratará el siguiente capítulo.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p3"><b>Patrones contra flujos</b></p>
+<p class="p6"><br></p>
+<p class="p4">Es importante tener en cuenta la diferencia entre patrones y flujos. En términos generales:</p>
+<p class="p6"><br></p>
+<p class="p4"><i>Los patrones definen un comportamiento, los flujos lo ejecutan.</i></p>
+<p class="p6"><br></p>
+<p class="p4">Un patrón es como el plano de un edificio, mostrando cómo las partes encajan entre sí. El edificio no existe hasta que los constructores van y hacen lo que está especificado en el plano. Cuando un flujo se hace a partir de un patrón, sigue los planes dispuestos en el 'plano' arquitectónico del patrón. llevar a cabo los planes no altera el plano de ninguna manera, pero para obtener el resultado, el flujo tiene que atravesar distintos estados.</p>
+<p class="p6"><br></p>
+<p class="p4">Un patrón debe describir un comportamiento y, en general, evaluar un patrón (por medio de un flujo) no deberá cambiar nada en el objeto del patrón mismo. En términos de ciencia computacional, los patrones no tienen estado, es decir, su definición no cambia en el tiempo. El flujo es el que mantiene la cuenta de dónde nos encontramos con respecto a la evaluación de un patrón.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p4">Esto explica una confusión común con patrones: olvidarse de convertir el patrón en un flujo no produce el resultado esperado. Ya que un patrón no tiene un concepto de su propio estado, no tiene sentido pedirle 'next' (siguiente), de tal manera que 'next' hará lo que hace para la mayoría de los objetos: el receptor se retornará a sí mismo. El método 'asStream' (comoFlujo) crea un flujo que se conforma a la especificación del patrón, y pedirle 'next' al flujo lo avanzará al siguiente estado y retornará un nuevo valor.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p10">p = <span class="s5">Pseries</span>(0, 1, 10);</p>
+<p class="p13"><span class="s6">p.next;<span class="Apple-tab-span">	</span></span>// siempre retorna el Pseries, no los números que buscamos</p>
+<p class="p12"><br></p>
+<p class="p10">q = p.asStream;</p>
+<p class="p13"><span class="s6">q.next;<span class="Apple-tab-span">	</span></span>// evaluando esto repetidamente se obtienen los números ascendentes que buscamos</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p4">Hay un beneficio concreto en esta división estricta de labores. Debido a que el flujo no modifica el patrón original, cualquier número de flujos pueden ser hechos a partir del mismo 'plano maestro'. Todos esos flujos mantienen su propio estado independiente y pueden operar concurrentemente sin interferir unos con otros.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p10">r = p.asStream;</p>
+<p class="p13"><span class="s6">r.next;<span class="Apple-tab-span">	</span></span>// comienza desde cero, aunque q ya dio de sí algunos números</p>
+<p class="p12"><br></p>
+<p class="p13"><span class="s6">q.next;<span class="Apple-tab-span">	</span></span>// resume donde se había quedado q, sin ningún efecto por obtener valores de r</p>
+<p class="p12"><br></p>
+<p class="p13"><span class="s6">[q.next, r.next]<span class="Apple-tab-span">	</span></span>// y así sucesivamente...</p>
+<p class="p6"><br></p>
+<p class="p4">Es importante tener en cuenta estos puntos a la vez que nos movemos hacia el siguiente tema: obtener tipos básicos de datos (tanto determinísticos como aleatorios) a partir de patrones.</p>
+<p class="p6"><br></p>
+<p class="p8"><span class="s6">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_02_Vocabulario_basico.html"><span class="s7">GP_02_Vocabulario_básico</span></a></span></p>
+<p class="p14"><br></p>
+<p class="p14"><br></p>
+<p class="p15"><b>Licencia de la documentación</b></p>
+<p class="p6"><br></p>
+<p class="p4">Escrito por H. James Harkins de diciembre a febrero de 2009. Traducido por Juan S. Lach, Junio-Agosto 2009. Forma parte del paquete de SuperCollider, publicado con licencia Creative Commons CC-BY-SA. La obra podrá ser redistribuida sin cargo <i>con atribución correcta</i>:</p>
+<p class="p6"><br></p>
+<p class="p4">Harkins, Henry James. "Una guía práctica para usar patrones.", traducción, Lach, Juan S., Documentación de <i>SuperCollider 3.3</i>, 2009.</p>
+</body>
+</html>

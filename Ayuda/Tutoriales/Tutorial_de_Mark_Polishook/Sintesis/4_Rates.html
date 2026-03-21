@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #002da8}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #002da8}
+span.s2 {color: #000000}
+span.s3 {color: #842d22}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Audio rate</b></p>
+<p class="p2"><br></p>
+<p class="p3">Los 'Ugens' para los que se utiliza el mensaje '.ar' corren a una frecuencia de muestreo de audio, es decir, a 44,100 muestras por segundo. Utiliza el mensaje '.ar' a los 'Ugens' cuando sean parte de<span class="Apple-converted-space">  </span>la cadena de audio que va a ser escuchada.</p>
+<p class="p2"><br></p>
+<p class="p3">SinOsc.ar(440, 0, 1);</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Control rate</b></p>
+<p class="p2"><br></p>
+<p class="p3">Los 'Ugens' para los que se utiliza el mensaje '.kr' corren a una frecuencia de muestreo de control</p>
+<p class="p2"><br></p>
+<p class="p3">SinOsc.kr(440, 0, 1);</p>
+<p class="p2"><br></p>
+<p class="p3">Por defecto, los 'Ugens' que utilizan una frecuencia de muestreo de control generan un valor por cada sesenta y cuatro muestras generadas por un 'Ugen' de audio. Los 'Ugens' de Control Rate utilizan, por lo tanto, mucho menos recursos de la computadora que los 'Ugens' de audio.</p>
+<p class="p2"><br></p>
+<p class="p3">Utiliza los 'Ugens' de Control Rate como moduladores, es decir, como señales que controlan una señal de audio.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Aquí, un SinOsc de Control Rate modula la frecuencia de una onda 'Pulse' que corre en Audio Rate:</p>
+<p class="p2"><br></p>
+<p class="p4">(</p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s2">(</span>"anExample"<span class="s2">, {</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Pulse</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[220, 221.5] + <span class="s1">SinOsc</span>.kr([7, 8], 0, 7), <span class="s3">// </span>la Control Rate utiliza pocos ciclos de CPU</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.35,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.02</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">Synth("anExample")</p>
+<p class="p2"><br></p>
+<p class="p3">Presiona cmd-. para detener la síntesis.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p6">ir a <b>5_Canales</b></p>
+</body>
+</html>

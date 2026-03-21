@@ -1,0 +1,475 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #780000}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #558000}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1300d3}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #357b00}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #a30000}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #4b8300}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1b00d8}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #1b00d8}
+span.s2 {color: #1d00ff}
+span.s3 {color: #000000}
+span.s4 {color: #780000}
+span.s5 {color: #558000}
+span.s6 {color: #357b00}
+span.s7 {color: #1300d3}
+span.s8 {color: #1b00e7}
+span.s9 {color: #4b8300}
+span.s10 {color: #606060}
+span.s11 {color: #1a00ff}
+span.s12 {color: #1b00ff}
+span.s13 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+ul.ul2 {list-style-type: circle}
+</style>
+</head>
+<body>
+<p class="p1"><b>Tipos de evento</b></p>
+<p class="p2"><br></p>
+<p class="p3">Una pregunta frecuente es ¿Qué parámetros tienen un significado especial en Pbind? La respuesta sorprendente es que ¡ninguno de ellos lo tiene! Esto es debido a que Pbind simplemente puebla de datos el evento resultante; no le importa cuáles son esos datos.</p>
+<p class="p2"><br></p>
+<p class="p3">El prototipo de evento usado cuando se reproduce un patrón define las acciones que tomará y es aquí donde se definen los parámetros. La mayoría de los patrones tocarán usando el prototipo de eventos predefinido (Event.default), así que esta es la fuente de los parámetros que se usarán en los casos más típicos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">El prototipo predeterminado de eventos define un número de "tipos de evento", cada uno de los cuales ejecuta una tarea diferente. La llave \type ('tipo') determina la acción a tomar y los parámetros significativos dependerán del tipo de evento.</p>
+<p class="p2"><br></p>
+<p class="p3">Hay muchos tipos de eventos. Sin embargo, solo unos cuántos son de uso común. El evento tipo <b>\note</b> es por mucho el más típico. Los otros son auxiliares, útiles cuando se escriben patrones para generar partituras (<a href="../../Control/Score.html"><span class="s1">Score</span></a>) adecuados para síntesis fuera de tiempo-real.</p>
+<p class="p2"><br></p>
+<p class="p3">Antes de ver los tipos de evento, repasemos los parámetros estándar usados a través de muchos de ellos. (No todos los parámetros comunes son usados por cada tipo de evento, pero aparecen en muchos lugares).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Parámetros comunes</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Control de temporalización</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>\delta:</b> Número de <b>pulsos</b> hasta el siguiente evento. Calculado a partir de<span class="Apple-converted-space">  </span>~dur * ~stretch, si \delta no es dado explícitamente.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><b>\lag:</b> Número de <b>segundos</b> para retrasar los mensajes que el evento manda al servidor.</p>
+<p class="p3"><b>\timingOffset:</b> Número de <b>pulsos</b> para retrasar los mensajes que el evento manda al servidor. En conjunción con Quant, esto permite control sobre el orden de preparación de eventos entre distintos patrones en el cliente, sin que se desincronicen los eventos sónicos que deban sonar al mismo tiempo. En <a href="GP_06g_Compartiendo_Datos.html"><span class="s2">GP_06g_Compartiendo_Datos</span></a><span class="Apple-converted-space">  </span>hay un ejemplo de su uso para pasar información de un patrón de bajo a uno de acordes.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>\sustain:</b> Número de pulso para esperar antes de liberar un nodo de sinte en el servidor.<span class="Apple-converted-space">  </span>El SynthDef debe tener un argumento de compuerta (llamado 'gate') para que la la liberación sea enviada explícitamente; de otra manera, el patrón asume que las notas se liberarán a sí mismas usando un envolvente temporizado. <b>\sustain</b> es calculado a partir de<span class="Apple-converted-space">  </span>~dur * ~legato * ~stretch si no es dado directamente.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Control de Nodos</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>\addAction:</b> Cómo añadir un nodo de sinte o de grupo relativo al \group dado en el evento. Ver <a href="../../ServerArchitecture/Synth.html"><span class="s1">Synth</span></a>.</p>
+<p class="p3"><b>\amp:</b> Aunque no está definido formalmente como un parámetro especial, se usa típicamente para controlar la amplitud de los sintes. El SynthDef debe tener un argumento 'amp' y usarlo para controlar su volumen. \amp es opcionalmente calculado a partir de \db.</p>
+<p class="p3"><b>\id:</b> Los identificadores (id) para la creación de nuevos Nodos en el evento. Normalmente esto en nulo, en cuyo caso los IDs serán obtenidos automáticamente de server.nextNodeID.</p>
+<p class="p3"><b>\instrument:</b> El nombre del SynthDef para el cual los nodos serán creados. Solo un nombre debe ser dado a la vez (a diferencia de otros argumentos que se expanden en multicanales para crear nodos múltiples).</p>
+<p class="p3"><b>\group:</b> El nodo que es el objetivo relativo al cual nuevos nodos serán creados. Similar a 'target' (objetivo) en Synth(nombreDeDefinición, argumentos, objetivo, acciónDeAñadir).</p>
+<p class="p3"><b>\out:</b> Generalmente usado para la salida de un Sinte. Cuando se usa Pbus o Pfxb un canal de audio es asignado para aislar la señal del patrón. Todos los eventos del patrón reciben el nuevo número de canal en la llave <b>\out </b>y los SynthDefs que son tocados deben tener un argumento 'out' como objetivo de los UGens de salida, por ejemplo Out.ar(out, ... ).</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Tipos de Evento</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Control de Nodos</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>rest:</b> (silencio, "descanso"). Como uno esperaría, un \rest no hace nada excepto esperar el tiempo requerido hasta el siguiente evento.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>note:</b> Este es el tipo predeterminado de evento, usado cuando <b>\type</b> no se especifica. Toca uno o más nodos de síntesis en el servidor, con liberación automática después de \sustain número de pulsos si el SynthDef tiene un argumento 'gate' (compuerta).</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>sendGate ("mandarCompuerta"):</b> Sobrepasar el comportamiento del SynthDef para el argumento para el argumento 'gate'. Si el SynthDef tiene 'gate', ajustando sendGate = false previene que el mensaje de liberación sea enviado. Raramente usado.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>strum ("rasgueo"):</b> Si se producen múltiples notas (usualmente acordes, producidos al proveer un arreglo como uno de los parámetros de alturas), \strum es el número de pulsos a retrasar cada comienzo sucesivo de las notas. Cuando se usa \strum, otra llave se vuelve activa, <b>\strumEndsTogether</b> ("terminan juntos el rasgueo"). Si es falso (predeterminado), cada nodo con rasgueo (arpegiado) tocará durante su duración completa y las liberaciones estarán apiladas. Si es cierto, las liberaciones ocurrirán al mismo tiempo.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el arreglo se expande en multicanales hacia un sinte para cada elemento</p>
+<p class="p5"><span class="s4"><span class="Apple-tab-span">	</span></span><span class="s5">\degree</span>, #[2, 5, 8, 11, 13, 16],</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\octave<span class="s3">, 3,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s5">\dur</span>, 2,</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\sustain<span class="s3">, 3,</span></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// strum distinto a cero apila las entradas</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s5">\strum</span>, 0.12</p>
+<p class="p5">).play(quant: 2);</p>
+<p class="p8"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3"><b>on (encender):</b><span class="Apple-converted-space">  </span>un nodo (o nodos) de Sinte sin liberación. Los ID(s) de los nodos están la variable ~id del evento. Esos ID's pueden ser usados con eventos tipo off (apagado), set (ajustar) o kill (matar).</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>callback ('llamada de regreso'):</b> Una función que será ejecutada después de crear los nodos. Usarla para contabilizar, para mantener la pista de los IDs de nodo para uso posterior. La función recibe el evento finalizado como su argumento.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">(los parámetros sendGate y strum no son usados)</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>off (apagar):</b> Liberar los nodos en el servidor de buena manera, si es posible. Si el SynthDef tiene un argumento de compuerta 'gate', la compuerta se ajustará a 0 o un valor especificado por el usuario. Do otro modo, los nodos serán brutalmente asesinados con n_free.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>hasGate (tieneCompuerta):</b> Cierto o falso, diciéndole al evento si el SynthDef tiene o no argumento de compuerta 'gate'. El predeterminado se asume cierto.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>id:</b> Los IDs de nodo deberán ser dados explícitamente.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>gate (compuerta):</b> Predeterminado en 0. Valores negativos disparan una "liberación forzada" en EnvGen. Ver página de ayuda de <a href="../../UGens/Synth control/Envelopes/EnvGen.html"><span class="s1">EnvGen</span></a> para detalles.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>kill (matar):</b> Remover nodos inmediatamente usando n_free.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>id:</b> Los IDs de nodo deberán ser dados explícitamente.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>set:</b> Mandar nuevos valores a las entradas de control de nodos existentes.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>id:</b> Los IDs de nodo deberán ser dados explícitamente.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Hay dos maneras de especificar los nombres de argumentos: por <i>instrumento </i>y por <i>arreglos de argumentos. </i><span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><i>Por instrumento:</i></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>instrument:</b> El nombre del SynthDef debe ser dado otra vez, de manera que el evento sepa qué llaves-valores del evento son relevantes para los nodos.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>args:</b> Predeterminado, la llave \args contiene los nombres de control para el synthdef predeterminado(\default). Para tomar nombres de argumentos a partir del nombre de instrumento, uno debe reemplazar este predeterminado con un arreglo vacío (o cualquier objeto que no sea una colección).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p9">SynthDef<span class="s3">(</span><span class="s6">\event_set</span><span class="s3">, { </span>|freq = 440, gate = 1, amp = 0.1, lagTime = 0.1,</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ffreq = 2000, detune = 1.005, out = 0|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s7">var</span><span class="Apple-tab-span">	</span>sig = <span class="s7">SyncSaw</span>.ar(<span class="s7">Lag</span>.kr(freq, lagTime) * [1, detune], ffreq).sum * amp</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>* <span class="s7">EnvGen</span>.kr(<span class="s7">Env</span>.adsr, gate, doneAction: 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s7">Out</span>.ar(out, sig ! 2);</p>
+<p class="p5">}).memStore;</p>
+<p class="p5">)</p>
+<p class="p8"><br></p>
+<p class="p10"><span class="s3">a = </span><span class="s7">Synth</span><span class="s3">(</span>\event_set<span class="s3">);</span></p>
+<p class="p8"><br></p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s7">Pbind</span>(</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span></span>\type<span class="s3">, </span>\set<span class="s3">,</span></p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span></span>\instrument<span class="s3">, </span>\event_set<span class="s3">,</span></p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span>// Si no se reemplaza \args, el parámetro de \ffreq del sinte no sería ajustado.</p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span>// Probar la diferencia con y sin la siguiente línea:</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s6">\args</span>, #[],</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s6">\freq</span>, <span class="s7">Pexprand</span>(200, 600, <span class="s7">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s6">\ffreq</span>, <span class="s7">Pkey</span>(<span class="s6">\freq</span>) * <span class="s7">Prand</span>([2,3,5,7], <span class="s7">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s6">\dur</span>, <span class="s7">Pwhite</span>(1, 5, <span class="s7">inf</span>) * 0.125</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p8"><br></p>
+<p class="p8"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p5">a.free;</p>
+<p class="p2"><br></p>
+<p class="p3"><i>Por nombres de argumentos:<span class="Apple-converted-space"> </span></i></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>args:</b> Proveer una lista de nombres de los argumentos de un Sinte, por ejemplo [\freq, \amp, \pan]. De esta manera no es necesario proveer el nombre del instrumento.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p12"><span class="s3">a = </span><span class="s8">Synth</span><span class="s3">(</span>\event_set<span class="s3">);</span></p>
+<p class="p8"><br></p>
+<p class="p5">(</p>
+<p class="p5">p = <span class="s8">Pbind</span>(</p>
+<p class="p12"><span class="s3"><span class="Apple-tab-span">	</span></span>\type<span class="s3">, </span>\set<span class="s3">,</span></p>
+<p class="p12"><span class="s3"><span class="Apple-tab-span">	</span></span>\args<span class="s3">, #[</span>\lagTime, \freq<span class="s3">],</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s6">\lagTime</span>, <span class="s7">Pwhite</span>(0.01, 1.5),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s9">\freq</span>, <span class="s8">Pexprand</span>(200, 600, <span class="s8">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s9">\dur</span>, <span class="s8">Pwhite</span>(1, 5, <span class="s8">inf</span>) * 0.125</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p8"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p5">a.free;</p>
+<p class="p2"><br></p>
+<p class="p3"><b>monoNote</b></p>
+<p class="p3"><b>monoOff</b></p>
+<p class="p3"><b>monoSet:</b> Estos tipos de evento son usados internamente por Pmono y PmonoArtic. No deben ser usados directamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Control del servidor</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>group:</b> Crear un nuevo grupo (o grupos).</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+</ul>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>id:</b> (opcional) IDs para los nuevos grupos. Si no se especifican, el nuevo ID (para un sólo grupo) puede ser encontrado en el evento después de .play. Para crear grupos múltiples se debe proveer un arreglo de IDs.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>bus:</b> Ajustar el valor de un canal de control o de canales contiguos. Se asume que uno ya tiene los índices de los canales.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>array:</b> El/los valor(es) para mandar al/los canal(es). No tiene que ser un arreglo si es nada más un valor.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>out:</b> El primer índice de canal a ajustar. Se puede usar un objeto Bus.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Control de Buffers</b></p>
+<p class="p2"><br></p>
+<p class="p3">Todos estos tipo de evento esperan que se provea un número de buffer. No tomarán automáticamente los números de buffer del asignador de buffers del servidor. Se permite un objeto Buffer -- uno podría crear el Buffer con Buffer.alloc o Buffer.new y luego usar este objeto en los eventos de control. Ver también la sección "Tipos de evento con limpieza" más abajo para otras maneras más amigables para el usuario con las cuales controlar opciones de los Buffers.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>alloc(asignar):</b> Asignar memoria para un buffer en el servidor. Solamente un buffer puede ser asignado por evento.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufnum, numchannels, numframes:</b> Ver la página de ayuda de <a href="../../ServerArchitecture/Buffer.html"><span class="s1">Buffer</span></a>.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>free:</b> cancelar la memoria del buffer en el servidor.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">bufnum: El número de buffer a liberar (solamente uno).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>gen:</b> Generar datos para tablas de onda en un buffer, usando los plug-ins b_gen del servidor. La página de ayuda de Buffer tiene más detalles sobre los plug-ins.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufnum</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>gencmd:</b> El nombre del plug-in generador: \sine1, \sine2, \sine3, \cheby.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>genflags:</b> Tres<span class="Apple-converted-space">  </span>señales asociadas a números: normalizar = 1, comoTablaDeOnda = 2, limpiarPrimero = 4. Añadir los números para las señales deseadas. Normalmente todas son ciertas, sumando hasta 7.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>genarray:</b> Parámetros de datos para el plug-in. Ver la página de ayuda <a href="../../ServerArchitecture/Server-Command-Reference.html"><span class="s1">Server-Command-Reference</span></a> para detalles en los formatos de cada plugin.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>load:</b> Asignar memoria de buffer en el servidor y cargarle un archivo de sonido usando b_allocRead.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufnum</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>filename:</b> Ruta al archivo en el disco.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>frame:</b> Primer cuadro a leer (predeterminado 0).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numframes:</b> Número de cuadros a leer (predeterminado 0, que carga el archivo completo).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>read:</b> Leer una archivo de sonido en un buffer que ya ha sido asignado en el servidor. Este tipo de evento es buen para preparar un archivo de sonido para su uso con DiskIn.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufnum</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>filename:</b> Ruta al archivo en el disco.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>frame:</b> Primer cuadro a leer del archivo (predeterminado 0).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numframes:</b> Número de cuadros a leer (predeterminado 0, que carga el archivo completo).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufpos:</b> Cuadro de comienzo en el buffer (predeterminado 0).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>leaveOpen(dejar abierto):</b> 1 = dejar el archivo abierto (para uso con DiskIn). 0 = cerrar el archivo después de leerse. Predeterminador = 0.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Tipos de evento con limpieza</b></p>
+<p class="p2"><br></p>
+<p class="p3">Estos tipos de eventos son únicos en el sentido de que tienen funciones de limpieza automática asociados a ellos. Reproducir uno de estos tipos de evento asigna recursos en el servidor. Después, los recursos pueden ser liberados al cambiar el tipo de evento a su correspondiente tipo de limpieza y reproduciéndolo otra vez. Mientras los recursos están activos, el evento puede ser utilizado como referencia a los recursos en otros evento o para mandar mensajes a Synth.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p6">// crear un buffer</p>
+<p class="p5">b = (type: <span class="s5">\allocRead</span>, path: <span class="s10">"sounds/a11wlk01.wav"</span>).play;</p>
+<p class="p8"><br></p>
+<p class="p5">a = { <span class="s1">PlayBuf</span>.ar(1, b, doneAction: 2) }.play;</p>
+<p class="p8"><br></p>
+<p class="p6">// remover buffer</p>
+<p class="p13">EventTypesWithCleanup<span class="s3">.cleanup(b);</span></p>
+<p class="p2"><br></p>
+<p class="p3">El ejemplo de Pproto en <a href="../guía práctica para usar patrones/GP_06f_Control_del_servidor.html"><span class="s11">GP_06f_Control_del_servidor</span></a>, muestra como éstos se pueden usar para limpiar los objetos en el servidor al final de un patrón.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>audioBus:</b> Asignar un índice de canal de audio en el servidor.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>channels:</b> Número de canales a asignar.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>controlBus:</b> Asignar un índice de canal de control en el servidor.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>channels:</b> Número de canales a asignar.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>buffer:</b> Si no se especifican, asigna un número de buffer y reserva la memoria en el servidor.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufNum:</b> (Opcional) Número de buffer. Si no es dado, un número libre será obtenido del servidor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numBufs:</b> Número de números contiguos de buffer a reservar (predeterminado = 1).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numFrames:</b> Número de cuadros.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numChannels:</b> Número de canales.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>allocRead:</b> Leer un archvo de disco a la memoria del servidor. El archivo es cerrado cuando acaba.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufNum:</b> (Opcional) Número de buffer. Si no es dado, un número libre será obtenido del servidor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>path:</b> Ruta al archivo en el disco.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>firstFileFrame:</b> Dónde empieza a leer el archivo.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numFrames:</b> Número de cuadros. So no es dado, el archivo completo es leído.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>cue:</b> Adelantar la carga de un archivo de sonido (para usarse con DiskIn).</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufNum:</b> (Opcional) Número de buffer. Si no es dado, un número libre será obtenido del servidor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>path:</b> Ruta al archivo en el disco.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>firstFileFrame:</b> Dónde empieza a leer el archivo.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numFrames:</b> Número de cuadros. So no es dado, el archivo completo es leído.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>firstBufferFrame:</b> En qué cuadro empezar a leer los datos del archivo.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>leaveOpen:</b> 1 = dejar el archivo abierto (para uso con DiskIn). 0 = cerrar el archivo después de leerse. Por defecto es<span class="Apple-converted-space">  </span>0.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>table:</b> Llenar un<span class="Apple-converted-space">  </span>buffer con datos preestablecidos. Esto usa<span class="Apple-converted-space">  </span>/b_setn para transferir los datos, de manera en que todos los datos quepan en un datagrama. Tomará algo de experimentación encontrar el límite superior.<span class="Apple-converted-space">  </span><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>bufNum:</b> (Opcional) Número de buffer. Si no es dado, un número libre será obtenido del servidor.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>amps:</b> Los valores a poner en el buffer. Deben de ser Floats (número de punto flotante).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>cheby:</b> Genera una función de transferencia Chebyshev para moldeado de onda (waveshaping).</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufNum:</b> (Opcional) Número de buffer. Si no es dado, un número libre será obtenido del servidor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numFrames:</b> Número de cuadros, deberá ser una potencia de 2.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numChannels:</b> Número de canales.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>genflags:</b> Tres señales, asociadas con números: normalizar = 1, comoTablaDeOnda = 2, limpiarPrimero = 4. Sumar los número para la señal deseada. Normalmente todas las señales son ciertas, sumando 7.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>amps:</b> La amplitud de cada parcial (es decir el coeficiente polinomial).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>sine1:</b> Imita el método sine1 para Buffer, generando una tabla de onda con espectro armónico de múltiples enteros usando las amplitudes de parciales dados.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bufNum:</b> (Opcional) Número de buffer. Si no es dado, un número libre será obtenido del servidor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numFrames:</b> Número de cuadros, deberá ser una potencia de 2.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>numChannels:</b> Número de canales.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>genflags:</b> Ver arriba.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>amps:</b> Arreglo de amplitudes para cada parcial.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>sine2:</b> Igual que sine1, pero la proporción de frecuencias para cada parcial también es dada.<span class="Apple-converted-space"> </span></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Mismo<span class="Apple-converted-space">  </span>argumentos que con sine1, más:</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>freqs:</b> Arreglo de frecuencias para cada parcial. 1.0 es la frecuencia fundamental; su sinusoide ocupa la duración entera del buffer.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>sine3:</b> Igual que sine2, pero la fase de cada parcial también puede ser suministrada.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Mismos argumentos que con sine1, más:</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>phases:</b> Arreglo de fases para cada parcial, dados en radianes (0.0 - 2pi).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Salida MIDI</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>midi:</b> Manda uno de varios tipos de mensajes MIDI a un objeto MIDIOut.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos estándares para el control de Temporalización y de Nodos</b> (excepto timingOffset, que no es usado)</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>midicmd:</b> El tipo de mensaje MIDI a mandar. Esto también determina otros argumentos que deben estar presentes en el evento.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>midiout:</b> El objeto MIDIOut, que conecta con uno de los aparatos MIDI enlistados en MIDIClient.destinations.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> El número de canal MIDI (0-15) en el aparato que debe recibir el mensaje. Esto aplica a todos los comandos midi (midicmd) excepto los globales (smpte, songPtr, sysex).</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><b>Comandos midi disponibles</b></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>noteOn:</b> Comienza una nota y opcionalmente la detiene. Si se dan múltiples frecuencias, un par noteOn/noteOff es mandado para cada una y \strum es también admitido.<span class="Apple-converted-space"> </span></li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI<span class="Apple-converted-space">  </span>(0-15).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>midinote:</b> Número de nota a disparar. Esto se puede calcular a partir de la jerarquía de alturas descrita en <a href="GP_07_Conversiones_de_Valor.html"><span class="s12">GP_07_Conversiones_de_Valor</span></a> (con la excepción de que sólo se admite temperamento igual de 12 notas por octava).<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>amp:</b> Velocidad MIDI = amp / 12.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>sustain:</b> Cuántos pulsos esperar antes de enviar el correspondiente mensaje de noteOff. Si no es dado directamente, es calculado como ~sustain = ~dur * ~legato * ~stretch (al igual que en el evento tipo \note).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>hasGate:</b> Normalmente cierto. Si es falso, el mensaje de noteOff no será enviado.</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>noteOff:</b> Mandar un mensaje de noteOff explícito (útil si hasGate es falso en el evento noteOn).</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI (0-15).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>midinote:</b> Número de nota.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>amp:</b> Velocidad de liberación (admitido por algunos sintetizadores).<span class="Apple-converted-space"> </span></li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>allNotesOff:</b> Mensaje de "Pánico", mata todas las notas en un canal.<span class="Apple-converted-space"> </span></li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI (0-15).</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>control:</b> Mensaje de controlador continuo (continuous controller).</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI (0-15).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>ctlNum:</b> Número de controlador para recibir el nuevo valor.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>control:</b> Nuevo valor (0-127).</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>bend:</b> Mensaje de pitch bend ('doblar' altura).</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI (0-15).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>val:</b> Nuevo valor (0-16383). 8191 es en el centro.</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>touch:</b> Mensaje de aftertouch ('toque posterior').</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI (0-15).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>val:</b> Nuevo valor (0-127).</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>polyTouch:</b> Mensaje de aftertouch polifónico (no admitido por todos los sintetizadores).</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI (0-15).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>midinote:</b> Número de nota que obtendrá el nuevo valor de toque. Como en noteOn, puede ser calculado a partir de la jerarquía estándar de alturas.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>polyTouch:</b> Nuevo valor (0-127).</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>program:</b> Mensaje de cambio de programa.</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>chan:</b> Canal MIDI (0-15).</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>progNum:</b> Número de programa (0-127).</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>smpte:</b> Mandar mensajes de MIDI Time Code (Código de Tiempo MIDI).</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Argumentos:</b> cuadros, segundos, minutos, horas, velocidad de cuadros.<span class="Apple-converted-space"> </span></li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>songPtr:</b> Mensaje de indicador de canción (song pointer).</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>songPtr:</b> Valor del indicador (0-16383).</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>sysex:</b> Mensajes de sistema exclusivo.</li>
+<ul class="ul2">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>array:</b> Un arreglo tipo Int8Array con los bytes de sysex bytes en orden. <b>Muy importante:</b> Normalmente los arreglos se expanden en multicanales en los patrones. Se debe envolver el arreglo Int8Array dentro de otro arreglo para prevenir esto. Escribir<span class="Apple-converted-space">  </span><span class="s5">[Int8Array[...]]</span>, no solamente Int8Array[...].</li>
+</ul>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Misceláneos</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>phrase:</b> Ver <a href="../../Libraries/JITLib/tutorials/recursive_phrasing.html"><span class="s1">recursive_phrasing</span></a> (JITLib, fraseo recursivo).</p>
+<p class="p2"><br></p>
+<p class="p3"><b>setProperties:</b> Ajustar variables que pertenecen a un Objeto dado. Un posible uso es controlar un GUI (Interface Gráfico de Usuario) usando un patrón.</p>
+<p class="p3">receiver: El objeto a ser modificado.</p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>args:</b> La lista de nombres de variables a ajustar en el receptor. El receptor deberá contar con métodos de ajustar -- nombreDeVariable_ -- para cada uno de estos. Nuevos valores serán buscados en el evento.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p6">// Visualizar movimiento Browniano</p>
+<p class="p5">w = <span class="s1">Window</span>(<span class="s10">"Movimiento Browniano"</span>, <span class="s1">Rect</span>(10, 100, 500, 50));</p>
+<p class="p5">x = <span class="s1">Slider</span>(w, <span class="s1">Rect</span>(10, 15, 480, 20));</p>
+<p class="p5">w.front;</p>
+<p class="p8"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\type<span class="s3">, </span>\setProperties<span class="s3">,</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\receiver<span class="s3">, x,</span></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// esto significa llamar x.value_() en cada evento</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span></span>\args<span class="s3">, [</span>\value<span class="s3">],</span></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// y buscar el valor bajo la llave \value</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s5">\value</span>, <span class="s1">Pbrown</span>(0, 1, 0.1, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s5">\delta</span>, 0.1</p>
+<p class="p5">).play;</p>
+<p class="p8"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p14"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_07_Conversiones_de_Valor.html"><span class="s13">GP_07_Conversiones_de_Valor</span></a></span></p>
+<p class="p14"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="../guía práctica para usar patrones/GP_Recetario01_Secuenciacion_basica.html"><span class="s13">GP_Recetario01_Secuenciacion_basica</span></a></span></p>
+</body>
+</html>

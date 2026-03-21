@@ -1,0 +1,288 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20091022;4115100">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<META NAME="Info 2" CONTENT="">
+	<META NAME="Info 3" CONTENT="">
+	<META NAME="Info 4" CONTENT="">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p2 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p3 { margin-bottom: 0in; color: #0000bf; font-family: "Helvetica"; font-size: 7pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p5 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p6 { margin-left: 0.47in; text-indent: -0.47in; margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p7 { margin-left: 0.47in; text-indent: -0.47in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p8 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p9 { margin-bottom: 0in; color: #bf0000; font-family: "Monaco"; font-size: 5pt }
+		P.p10 { margin-bottom: 0in; color: #0000bf; font-family: "Monaco"; font-size: 5pt }
+		P.p11 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 5pt }
+		P.p12 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 8pt }
+		P.p13 { margin-bottom: 0in; color: #007300; font-family: "Monaco"; font-size: 5pt }
+		P.p14 { margin-bottom: 0in; color: #0000bf; font-family: "Monaco"; font-size: 5pt }
+		P.p15 { margin-bottom: 0in; color: #bf0000; font-family: "Monaco"; font-size: 5pt }
+		P.p16 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 5pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>EnvGen</B>
+<B>generador de envolventes</B></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Hereda de:
+<A HREF="../../../Core/Object.html">Object</A></B></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><B>: <A HREF="../../../Core/Kernel/AbstractFunction.html">AbstractFunction</A></B></FONT><FONT SIZE=1>
+</FONT><FONT SIZE=1><B>: <A HREF="../../UGen.html">UGen</A></B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Reproduce
+envolventes con puntos de quiebre. Los envolventes son instancias de
+la clase Env. Para más información, ve el archivo de ayuda de <A HREF="../../../Control/Env.html">Env</A>.
+Los argumentos para </FONT><FONT SIZE=1><B>levelScale</B></FONT><FONT SIZE=1>,
+</FONT><FONT SIZE=1><B>levelBias</B></FONT><FONT SIZE=1>, y </FONT><FONT SIZE=1><B>timeScale</B></FONT><FONT SIZE=1>
+son solicitados cuando el EnvGen es disparado y permanecen constantes
+por la duración del envolvente.</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>*ar(envelope,
+gate, levelScale, levelBias, timeScale, doneAction)</B></FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>*kr(envelope,
+gate, levelScale, levelBias, timeScale, doneAction)</B></FONT></P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>envelope</B></FONT><FONT SIZE=1>
+– una instancia de </FONT><FONT SIZE=1><B>Env</B></FONT><FONT SIZE=1><SPAN STYLE="font-weight: normal">,
+o un Arreglo de Controles. (Ver </SPAN></FONT><FONT SIZE=1><A HREF="../Control.html">Control</A>
+y el ejemplo debajo para ver cómo usar esto.)</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>gate –</B>
+Esto dispara el envolvente y lo mantiene abierto mientras sea mayor a
+0. Si la longitud del envolvente es fija (p. ej. Env.linen, Env.perc)
+el argumento gate es usado como un gatillo simple. Si es un
+envolvente de sostenimiento, (p. ej. Env.adsr, Env.asr), el
+envolvente se mantiene abierto hasta que gate sea 0, momento en el
+cual es liberado.</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>levelScale</B>
+– escala de los niveles de los puntos de quiebre.</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>levelBias</B>
+– desface de los niveles de los puntos de quiebre.</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>timeScale</B>
+– escala de la duración de los segmentos.</FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>doneAction</B></FONT><FONT SIZE=1>
+– un entero representando una acción a ser ejecutada cuando el env
+ha terminado su reproducción. Esto puede ser útil para liberar al
+synth que lo engloba, etc. Para más detalles, ver <A HREF="UGen-doneActions.html">UGen-doneActions</A>.</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>{
+EnvGen.kr(Env.perc, 1.0, doneAction: 2) * SinOsc.ar(440, 0, 0.1)
+}.play;</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// ejemplo</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(\env_help,
+{ | out, gate = 0 |&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var z;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>z =
+EnvGen.kr(Env.adsr, gate) * SinOsc.ar(440, 0, 0.1);</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(out,
+z)</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>a =
+Synth(\env_help);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// encender</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>a.set(\gate,
+1);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// apagar</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>a.set(\gate,
+0);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// el valor
+de gate no importa, mientras sea mayor a 0</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>a.set(\gate,
+2);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>a.free;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Cambiar
+un Env a media reproducción</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(\env,
+{ arg i_outbus=0;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var env,
+envctl;</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// crear un
+envolvente de 8 segmentos de prueba</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>env =
+Env.newClear(8);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// crear un
+arreglo de argumentos de control</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>envctl =
+Control.names([\env]).kr( env.asArray );</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>ReplaceOut.kr(i_outbus,
+EnvGen.kr(envctl, doneAction: 2));</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(\sine,
+{</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(0,
+SinOsc.ar(In.kr(0), 0, 0.2));</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.sendMsg(\c_set,
+0, 800);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.sendMsg(\s_new,
+\sine, 1001, 1, 0);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>e = Env([700,
+900, 900, 800], [1, 1, 1]*0.4, \exp).asArray;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.sendBundle(nil,
+[\s_new, \env, 1002, 2, 1001], [\n_setn, 1002, \env, e.size] ++ e);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>f =
+Env([1000, 1000, 800, 1000, 900, 1000], [1, 1, 1, 1, 1]*0.3,
+\step).asArray;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.sendBundle(nil,
+[\s_new, \env, 1003, 2, 1001], [\n_setn, 1003, \env, f.size] ++ f);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.sendMsg(\n_free,
+1001);</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Liberación
+forzada del EnvGen</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Si el gate
+del EnvGen es -1 o menos, entonces el envolvente se cerrará
+inmediatamente. El tiempo para realizar el corte es la diferencia
+entre el valor y -1, con -1 siendo lo más rápido posible, -1.5 un
+corte en 0.5 segundos, etc. La forma del corte es lineal.</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(\stealMe,
+{ arg gate = 1;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(0,
+{BrownNoise.ar}.dup * EnvGen.kr(Env.asr, gate, doneAction:2))</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.sendMsg(\s_new,
+\stealMe, 1001, 1, 0);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>s.sendMsg(\n_set,
+1001, \gate, -1.1); // corte en 0.1 segundos</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Si el
+synthDef tiene un argumento llamado “gate”, el método de
+conveniencia de <A HREF="../../../ServerArchitecture/Node.html">Node</A>
+puede ser usado:</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Node-release(releaseTime)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>d = { arg
+gate=1; {BrownNoise.ar}.dup * EnvGen.kr(Env.asr, gate, doneAction:2)
+}.play;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>d.release(3);</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Pruebas de
+disparo rápido</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>{</FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>EnvGen.kr(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Env.new([
+0.001, 1, 0.5, 0 ], [ 0.01, 0.3, 1 ], -4, 2, nil),&nbsp;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Impulse.kr(10)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>) *
+SinOsc.ar(440, 0, 0.1) </FONT>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}.play;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>{&nbsp;</FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>EnvGen.kr(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Env.perc(
+0.1, 0.0, 0.5, 1, \welch ),&nbsp;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Impulse.kr(100),&nbsp;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>timeScale:
+0.1</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>) *
+SinOsc.ar(440, 0, 0.3)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}.play;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Modular
+levelScale</B></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// no, no
+recibe un ugen</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>{&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>EnvGen.kr(</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Env.asr(
+0.1, 1.0, 0.5, \welch ),&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>1.0,&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>FSinOsc.ar(1.0).range(0.0,
+1.0),&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>timeScale:
+0.1</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>) *
+SinOsc.ar(440, 0, 0.3)</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}.play;</FONT></P>
+<P CLASS="p16" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// una
+entrada .ir, un valor de punto flotante o un ugen de velocidad .ir
+como <A HREF="../../Random/Rand.html">Rand</A> funcionarían</FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT COLOR="#000000"><FONT SIZE=1>(</FONT></FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>{&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>EnvGen.kr(</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Env.asr(
+0.1, 1.0, 0.5, \welch ),&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>1.0,&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Rand(0.1,
+1.0),&nbsp;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>timeScale:
+0.1</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>) *
+SinOsc.ar(440, 0, 0.3)</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}.play;</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+</BODY>
+</HTML>

@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="1038.11">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #9c0000}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0100d0}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0000ca}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #3c7900}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #317700}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0000ee}
+span.s1 {color: #0100d0}
+span.s2 {color: #000000}
+span.s3 {color: #3c7900}
+span.s4 {color: #317700}
+span.s5 {color: #0000ca}
+span.s6 {text-decoration: underline ; color: #0100d0}
+span.s7 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Usando muestras</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Tocando un patrón a tiempo con un bucle muestreado</b></p>
+<p class="p2"><br></p>
+<p class="p4">Un requerimiento engañosamente complejo...aquí repetiremos la muestra a11wlk01.wav entre los 0.404561 y los 3.185917 segundos (escogidos por su ritmo sorpresivamente exacto) con un revestimiento de campanas sintetizadas que enfatizan la métrica.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Es tentador hacer un bucle con <a href="../../UGens/Playback and Recording/PlayBuf.html"><span class="s1">PlayBuf</span></a> para que corra automáticamente en el servidor, pero puede salirse de de sincronía con el cliente (por pequeñas desviaciones en la velocidad de muestreo). En su lugar, el ejemplo define un SynthDef que toca exactamente una repetición del bucle y repetidamente lo repite una vez por compás.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">El patrón de campanas acentúa los tiempos fuertes y sigue con un ritmo generado aleatoriamente. El problema es que no tenemos seguridad de que el patrón <a href="../Patterns/Pwrand.html"><span class="s1">Pwrand</span></a><span class="s1"> </span>de<span class="s1"> </span>\dur sumará exactamente 4 pulsos. El patrón <a href="../Patterns/Pfindur.html"><span class="s1">Pfindur</span></a><span class="s1"> </span>("duración finita") cortará el Pbind interno después de 4 pulsos. Esto detendría el patrón si no es porque <a href="../Patterns/Pn.html"><span class="s1">Pn</span></a> repite el Pfindur infinitamente, colocando el acento correctamente cada vez.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">En realidad el bucle empieza con una anacruza de medio pulso, por lo que <a href="../Patterns/Ptpar.html"><span class="s1">Ptpar</span></a> retraza los patrones de campanas por 0.5 pulsos.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p6"><span class="s2">b = </span><span class="s1">Buffer</span><span class="s2">.read(s, </span>"sounds/a11wlk01.wav"<span class="s2">);</span></p>
+<p class="p7"><br></p>
+<p class="p8">// un segmento de bucle</p>
+<p class="p9">SynthDef<span class="s2">(</span><span class="s3">\unBucle</span><span class="s2">, { </span>|out, bufnum, start, time, amp|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>sig = <span class="s1">PlayBuf</span>.ar(1, bufnum, startPos: start, loop: 0),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>env = <span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>.linen(0.01, time, 0.05, level: amp), doneAction: 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out, (sig * env) ! 2)</p>
+<p class="p5">}).memStore;</p>
+<p class="p7"><br></p>
+<p class="p10">SynthDef<span class="s2">(</span><span class="s4">\campana</span><span class="s2">, { </span>|out, acento = 0, amp = 0.1, escalaDecaimiento = 1|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s5">var</span><span class="Apple-tab-span">	</span>exc = <span class="s5">PinkNoise</span>.ar(amp)</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>* <span class="s5">Decay2</span>.kr(<span class="s5">Impulse</span>.kr(0), 0.01, 0.05),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sig = <span class="s5">Klank</span>.ar(`[</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{ <span class="s5">ExpRand</span>(400, 1600) } ! 4,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1 ! 4,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{ <span class="s5">ExpRand</span>(0.1, 0.4) } ! 4</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>], exc, freqscale: acento + 1, decayscale: escalaDecaimiento);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s5">DetectSilence</span>.ar(sig, doneAction: 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s5">Out</span>.ar(out, sig ! 2)</p>
+<p class="p5">}).memStore;</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">TempoClock</span>.default.tempo = 0.35953685899971 * 4;</p>
+<p class="p7"><br></p>
+<p class="p5">p = <span class="s1">Ptpar</span>([</p>
+<p class="p5"><span class="Apple-tab-span">	</span>0, <span class="s1">Pbind</span>(</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\unBucle<span class="s2">,</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\bufnum<span class="s2">, b,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, 0.4,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\start</span>, 17841,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\time</span>, 0.35953685899971.reciprocal,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, 4</p>
+<p class="p5"><span class="Apple-tab-span">	</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span>0.5, <span class="s1">Pn</span>(</p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pfindur<span class="s2">(4,</span></p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s2">(</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\campana<span class="s2">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\acento</span>, <span class="s1">Pseq</span>([2, <span class="s1">Pn</span>(0, <span class="s1">inf</span>)], 1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, <span class="s1">Pseq</span>([0.3, <span class="s1">Pn</span>(0.1, <span class="s1">inf</span>)], 1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\escalaDecaimiento</span>, <span class="s1">Pseq</span>([6, <span class="s1">Pn</span>(1, <span class="s1">inf</span>)], 1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, <span class="s1">Pwrand</span>(#[0.25, 0.5, 0.75, 1], #[2, 3, 1, 1].normalizeSum, <span class="s1">inf</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>),<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span>0.5, <span class="s1">Pbind</span>(</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\campana<span class="s2">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\acento</span>, -0.6,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, 0.2,</p>
+<p class="p12"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s3">\</span>escalaDecaimiento<span class="s2">, 0.1,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, 1</p>
+<p class="p5"><span class="Apple-tab-span">	</span>)</p>
+<p class="p5">], 1).play;</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p4">El uso de Ptpar en el ejemplo anterior significa que uno puede detener o comenzar toda la bola de patrones de una sola vez, sin control sobre los tres estratos. No es más difícil tocar las capas en reproductores de flujos de evento independientes, ya que se usa el argumento 'quant' para asegurar su sincronización. Ver la página de ayuda de <a href="../../Scheduling/Quant.html"><span class="s1">Quant</span></a> para detalles que especifiquen el tempo de comeinzo de un patrón.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">TempoClock</span>.default.tempo = 0.35953685899971 * 4;</p>
+<p class="p7"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\unBucle<span class="s2">,</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span></span>\bufnum<span class="s2">, b,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, 0.4,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\start</span>, 17841,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\time</span>, 0.35953685899971.reciprocal,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, 4</p>
+<p class="p5">).play(quant: [4, 3.5]);</p>
+<p class="p7"><br></p>
+<p class="p5">q = <span class="s1">Pn</span>(</p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span></span>Pfindur<span class="s2">(4,</span></p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s2">(</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\campana<span class="s2">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\acento</span>, <span class="s1">Pseq</span>([2, <span class="s1">Pn</span>(0, <span class="s1">inf</span>)], 1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, <span class="s1">Pseq</span>([0.3, <span class="s1">Pn</span>(0.1, <span class="s1">inf</span>)], 1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\</span><span class="s4">escalaDecaimiento</span>, <span class="s1">Pseq</span>([6, <span class="s1">Pn</span>(1, <span class="s1">inf</span>)], 1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, <span class="s1">Pwrand</span>(#[0.25, 0.5, 0.75, 1], #[2, 3, 1, 1].normalizeSum, <span class="s1">inf</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>),<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s1">inf</span>).play(quant: [4, 4]);</p>
+<p class="p7"><br></p>
+<p class="p5">r = <span class="s1">Pbind</span>(</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\campana<span class="s2">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\acento</span>, -0.6,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, 0.2,</p>
+<p class="p12"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s3">\</span>escalaDecaimiento<span class="s2">, 0.1,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, 1</p>
+<p class="p5">).play(quant: [4, 4]);</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">[p, q, r].do(<span class="s1">_</span>.stop);</p>
+<p class="p7"><br></p>
+<p class="p5">b.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Usando muestras de audio para tocar material con alturas definidas</b></p>
+<p class="p2"><br></p>
+<p class="p4">Para usar muestras de un instrumento en un patrón se necesita un SynthDef que toque la muestra a cierta velocidad. Usaremos <a href="../../UGens/Playback and Recording/PlayBuf.html"><span class="s1">PlayBuf</span></a>, que no permite hacer bucles sobre una región específca. Para eso, <a href="../../UGens/Triggers/Phasor.html"><span class="s1">Phasor</span></a> y <a href="../../UGens/Oscillators/BufRd.html"><span class="s1">BufRd</span></a> son probablemente la mejor elección. (LoopBuf de Lance Putnam es una alternativa - hacer click para descargar [osx]: <a href="http://www.uweb.ucsb.edu/~ljputnam/files/sc3/LoopBuf.zip"><span class="s6">http://www.uweb.ucsb.edu/~ljputnam/files/sc3/LoopBuf.zip</span></a>.)</p>
+<p class="p2"><br></p>
+<p class="p4">La frecuencia se controla con el parámetro \rate ('rapidez', 'velocidad'). La muestrta toca a cierta frecuencia a la velocidad normal, por lo que para tocar una frecuencia específica, <b>frecuencia / frecuenciaBase</b> nos da la velocidad requerida.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">El primer ejemplo hace un protoEvento a la medida que calcula la velocidad, como \freq, basado en la frecuencia de base. Usa una muestra, por lo que sería adecuada para patrones que tocan en un rango angosto. Ya que la distribución de SuperCollider no incluye muestras de instrumentos, grabaremos a un buffer una muestra basada en frecuencia modulada antes the ejecutar el patrón.</p>
+<p class="p2"><br></p>
+<p class="p8">// hacer una muestra de sonido</p>
+<p class="p5">(</p>
+<p class="p5">var<span class="Apple-tab-span">	</span>grabadora;</p>
+<p class="p5">fork {</p>
+<p class="p5"><span class="Apple-tab-span">	</span>b = <span class="s1">Buffer</span>.alloc(s, 44100 * 2, 1);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>s.sync;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>grabadora = { <span class="s1">|freq = 440|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>initPulse = <span class="s1">Impulse</span>.kr(0),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mod = <span class="s1">SinOsc</span>.ar(freq) * <span class="s1">Decay2</span>.kr(initPulse, 0.01, 3) * 5,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>car = <span class="s1">SinOsc</span>.ar(freq + (mod*freq)) * <span class="s1">Decay2</span>.kr(initPulse, 0.01, 2.0);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">RecordBuf</span>.ar(car, b, loop: 0, doneAction: 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>car ! 2</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}.play;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">OSCpathResponder</span>(s.addr, [<span class="s3">'/n_end'</span>, grabadora.nodeID], { <span class="s1">|time, resp, msg|</span></p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>"grabacion completa"<span class="s2">.postln;</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>resp.remove;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}).add;<span class="Apple-tab-span">	</span></p>
+<p class="p5">};</p>
+<p class="p9">SynthDef<span class="s2">(</span><span class="s3">\muestreador</span><span class="s2">, { </span>|out, bufnum, freq = 1, amp = 1|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>sig = <span class="s1">PlayBuf</span>.ar(1, bufnum, rate: freq, doneAction: 2) * amp;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out, sig ! 2)</p>
+<p class="p5">}).memStore;</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">(</p>
+<p class="p8">// ESPERAR al mensaje "grabacion completa" antes de ejecutar lo siguiente</p>
+<p class="p5"><span class="s1">var</span><span class="Apple-tab-span">	</span>eventoMuestras = <span class="s1">Event</span>.default.put(<span class="s3">\freq</span>, { ~midinote.midicps / ~baseFrecMuestra });</p>
+<p class="p7"><br></p>
+<p class="p5"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\degree</span>, <span class="s1">Pwhite</span>(0, 12, <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, <span class="s1">Pwrand</span>([0.25, <span class="s1">Pn</span>(0.125, 2)], #[0.8, 0.2], <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, <span class="s1">Pexprand</span>(0.1, 0.5, <span class="s1">inf</span>),</p>
+<p class="p12"><span class="s2"><span class="Apple-tab-span">	</span></span>\baseFrecMuestra<span class="s2">, 440,</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\muestreador<span class="s2">,</span></p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span></span>\bufnum<span class="s2">, b</span></p>
+<p class="p5">).play(protoEvent: eventoMuestras);</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p5">b.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Instrumentos multi muestreados</b></p>
+<p class="p2"><br></p>
+<p class="p4">Para extender el rango de un muestreador usando múltiples muestra y asegurando transiciones suaves entre los rangos de frecuencias, el SynthDef deberá hacer desvancimientos cruzados entre buffers adyacentes. Una aproximación híbrida es usada aquí, donde Pbind calcula el número del buffer de abajo y el SynthDef calcula la intensidad del desvanecimiento cruzado. (Los cálculos pueden ser estructurados de manera diferente, ya sea poniendo más de ellos en el SynthDef para conveniencia en el patrón, o cargandolos en el patrón y dejando el SynthDef tan limpio como sea posible.)</p>
+<p class="p2"><br></p>
+<p class="p4">Números de nota MIDI son usados para los cálculos ya que es una escala de frecuencias lineal y la interpolación lineal es más fácil que la interpolación exponencial que se requeriría si usamos Hz. Asumiendo un arreglo ordenado, indexInBetweem ('índiceEntre') da el índice fraccional usando interpolación lineal. Si uno necesita usar frecuencia en Hz, puede usar la siguiente función en lugar de indexInBetween.</p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span>f = { </span>|val, array|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> a, b, div;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span> i = array.indexOfGreaterThan(val);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(i.isNil) { array.size - 1 } {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(i == 0) { i } {</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a = array[i-1]; b = array[i];</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>div = b / a;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(div == 1) { i } {</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// log() / log() == log(val/a) en la base (b/a)</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// que es el inverso de la interpolación exponencial</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>log(val / a) / log(div) + i - 1</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>};</p>
+<p class="p5"><span class="Apple-tab-span">	</span>};</p>
+<p class="p2"><br></p>
+<p class="p4">Pero la función no es necesaria para este ejemplo:<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">var</span><span class="Apple-tab-span">	</span>cuentaDeBufs;</p>
+<p class="p5">~notasmidi = (39, 46 .. 88);</p>
+<p class="p5">cuentaDeBufs = ~notasmidi.size;</p>
+<p class="p7"><br></p>
+<p class="p5">fork {</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// grabar los samples a diferentes frecuencias</p>
+<p class="p5"><span class="Apple-tab-span">	</span>b = <span class="s1">Buffer</span>.allocConsecutive(~notasmidi.size, s, 44100 * 2, 1);</p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span></span>SynthDef<span class="s2">(</span><span class="s3">\fuenteDeMuestras</span><span class="s2">, { </span>|freq = 440, bufnum|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>initPulse = <span class="s1">Impulse</span>.kr(0),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mod = <span class="s1">SinOsc</span>.ar(freq) * <span class="s1">Decay2</span>.kr(initPulse, 0.01, 3) * 5,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>car = <span class="s1">SinOsc</span>.ar(freq + (mod*freq)) * <span class="s1">Decay2</span>.kr(initPulse, 0.01, 2.0);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">RecordBuf</span>.ar(car, bufnum, loop: 0, doneAction: 2);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}).send(s);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>s.sync;</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// grabar los 8 buffers concurrentemente</p>
+<p class="p5"><span class="Apple-tab-span">	</span>b.do({ <span class="s1">|buf, i|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Synth</span>(<span class="s3">\fuenteDeMuestras</span>, [freq: ~notasmidi[i].midicps, bufnum: buf]);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>});</p>
+<p class="p5">};</p>
+<p class="p9">OSCresponderNode<span class="s2">(s.addr, </span><span class="s3">'/n_end'</span><span class="s2">, { </span>|t, r, m|</p>
+<p class="p5"><span class="Apple-tab-span">	</span>cuentaDeBufs = cuentaDeBufs - 1;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>if(cuentaDeBufs == 0) {</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>"grabacion completa"<span class="s2">.postln;</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>r.remove;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>};</p>
+<p class="p5">}).add;</p>
+<p class="p7"><br></p>
+<p class="p9">SynthDef<span class="s2">(</span><span class="s3">\multiMuestreador</span><span class="s2">, { </span>|out, bufnum, bufBase, baseFreqBuf, freq = 440, amp = 1|</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>buf1 = bufnum.floor,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>buf2 = buf1 + 1,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>xfade = (bufnum - buf1).madd(2, -1),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>basefreqs = <span class="s1">Index</span>.kr(baseFreqBuf, [buf1, buf2]),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>playbufs = <span class="s1">PlayBuf</span>.ar(1, bufBase + [buf1, buf2], freq / basefreqs, loop: 0, doneAction: 2),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sig = <span class="s1">XFade2</span>.ar(playbufs[0], playbufs[1], xfade, amp);</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out, sig ! 2)</p>
+<p class="p5">}).memStore;</p>
+<p class="p7"><br></p>
+<p class="p5">~bufBase = <span class="s1">Buffer</span>.alloc(s, ~notasmidi.size, 1, { <span class="s1">|buf|</span> buf.setnMsg(0, ~notasmidi.midicps) });</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span></span>\instrument<span class="s2">, </span>\multiMuestreador<span class="s2">,</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\bufBase</span>, b.first,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\baseFreqBuf</span>, ~bufBase,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\degree</span>, <span class="s1">Pseries</span>(0, <span class="s1">Prand</span>(#[-2, -1, 1, 2], <span class="s1">inf</span>), <span class="s1">inf</span>).fold(-11, 11),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, <span class="s1">Pwrand</span>([0.25, <span class="s1">Pn</span>(0.125, 2)], #[0.8, 0.2], <span class="s1">inf</span>),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, <span class="s1">Pexprand</span>(0.1, 0.5, <span class="s1">inf</span>),</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// algunas conversiones importantes</p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// identificar los números de buffer a leer</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\freq</span>, <span class="s1">Pfunc</span> { <span class="s1">|ev|</span> ev.use(ev[<span class="s3">\freq</span>]) },</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">\bufnum</span>, <span class="s1">Pfunc</span>({ <span class="s1">|ev|</span> ~notasmidi.indexInBetween(ev[<span class="s3">\freq</span>].cpsmidi) })</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>.clip(0, ~notasmidi.size - 1.001)</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p5">b.do(<span class="s1">_</span>.free); ~bufBase.free;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p13"><span class="s2">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Recetario04_Mandando_MIDI.html"><span class="s7">GP_Recetario04_Mandando_MIDI</span></a></span></p>
+<p class="p13"><span class="s2">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Recetario06_Redes_de_frases.html"><span class="s7">GP_Recetario06_Redes_de_frases</span></a></span></p>
+</body>
+</html>

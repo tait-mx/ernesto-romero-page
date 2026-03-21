@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025af}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {font: 12.0px Helvetica}
+span.s2 {color: #000000}
+span.s3 {color: #606060}
+span.s4 {color: #94271c}
+span.s5 {color: #0025af}
+span.s6 {font: 9.0px Monaco}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>SynthDefs<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p3">Utiliza la clase Synthdef para construir sintetizadores que van a ser ejecutados en el servidor. Los sintetizadores, que pueden ser guardados en el disco y reusados, son parecidos a los 'presets' en los sintetizadores de hardware y software comerciales .</p>
+<p class="p2"><br></p>
+<p class="p3">Al ser escritos como código en los programas del cliente, los sintetizadores tienen dos partes clave: un nombre y una función. En el lenguaje técnico de SuperCollider, la función tiene el nombre de ugenGraphFunc.</p>
+<p class="p2"><br></p>
+<p class="p3">El término ugenGraphFunc se deriva de la noción de gráfica, que es una estructura de datos que SuperCollider utiliza para organizar los generadores de unidades. SuperCollider construye la gráfica para ti a partir del código que encuentra en tu función, lo que implica que no tienes que saber cómo es que una gráfica funciona, ni que existe siquiera.</p>
+<p class="p2"><br></p>
+<p class="p3">Si quieres saber más de gráficas, visita la Wikipedia en:a at<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">http://en.wikipedia.org/wiki/Graph_(data_structure).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">O, ve a</p>
+<p class="p2"><br></p>
+<p class="p3">http://www.nist.gov/dads/HTML/graph.html</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1"><b>Template</b></span> (plantilla)</p>
+<p class="p2"><br></p>
+<p class="p3">Aquí hay un 'template' (plantilla) para un synthdef mostrando que consiste de un nombre y de una función ugenGraphFunc</p>
+<p class="p2"><br></p>
+<p class="p4">SynthDef<span class="s2">(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">"aSynthDef"</span>,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">// </span>el 1er argumento es el nombre</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{ .... i am a ugenGraphFunc ... }<span class="Apple-tab-span">	</span><span class="s4">// </span>el 2o argumento es la función ugenGraphFunc</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">Para hacer que la plantilla sea funcional</p>
+<p class="p2"><br></p>
+<p class="p3">1. escribir código dentro de la función ugenGraphFunc</p>
+<p class="p3">2. mandar un mensaje '.load' al synthdef</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">SynthDef<span class="s2">(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s3">"aSynthDef"</span>, <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">// </span>el nombre del synthdef</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{ <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">// </span>la función ugenGraphFunc con el código</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">arg</span> freq;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">SinOsc</span>.ar(freq, 0, 0.1)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>}</p>
+<p class="p3">).load(s);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>El mensaje '.load' y la variable 's'</b></p>
+<p class="p2"><br></p>
+<p class="p3">El mensaje '.load' escribe los synthdefs en el disco duro y además los manda al servidor default. El servidor default está definido por SuperCollider al inicio (como el servidor localhost). En el<span class="Apple-converted-space">  </span>momento de ser iniciado también le es asignada la variable 's'.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>El mensaje '.send' y el servidor remoto</b></p>
+<p class="p2"><br></p>
+<p class="p3">El mensaje '.send', por otro lado,</p>
+<p class="p2"><br></p>
+<p class="p3">SynthDef( .... ).send(s);</p>
+<p class="p2"><br></p>
+<p class="p3">en vez del mensaje '.load'</p>
+<p class="p2"><br></p>
+<p class="p3">SynthDef( .... ).load(s);</p>
+<p class="p2"><br></p>
+<p class="p3">es otra manera de mandar un synthdef al servidor. El mensaje '.send', a diferencia del mensaje '.load', no escribe primero el synthdef al disco; sino que sólo lo transmite directamente al servidor. Este es, por lo tanto, el mensaje a utilizar para definir un synthdef en una computadora y mandarlo a otra.</p>
+<p class="p3">(</p>
+<p class="p3"><span class="s5">var</span> aServer;</p>
+<p class="p3">aServer =<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>Server<span class="s2">(</span></p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>"aRemoteServerOnAnotherMachine"<span class="s2">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">NetAddr</span>(<span class="s3">"... an ip # ..."</span>, 57110)<span class="Apple-tab-span">	</span><span class="s4">// </span>un servidor en otra máquina</p>
+<p class="p3"><span class="Apple-tab-span">	</span>);</p>
+<p class="p3"><span class="s5">SynthDef</span>( .... ).send(aServer);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Navegador de SynthDef</b></p>
+<p class="p2"><br></p>
+<p class="p3">Utiliza el navegador de synthdefs para examinar los synthdefs que han sido escritos en el disco-</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">// un navegador de synthdefs:</p>
+<p class="p3">SynthDescLib.global.read;</p>
+<p class="p3">SynthDescLib.global.browse;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">La caja del centro (en la fila superior) muestra los nombres de los synthdefs. Cada nombre, al ser seleccionado, causa que las otras cajas muestren los 'Ugens', controles y entradas y salidas para un synthdef en particular.</p>
+<p class="p2"><br></p>
+<p class="p3">La caja titulada 'SynthDef controls' es útil ya que muestra los argumentos que pueden ser enviados a un synthdef en particular.</p>
+<p class="p2"><br></p>
+<p class="p3">El navegador muestra que el synthdef definido antes - "aSynthDef" - está compuesto por cuatro 'Ugens', un control, sin entradas, y una salida. Los cuatro 'Ugens' incluyen instancias de las clases 'Control', 'SinOsc', 'BinaryOpUgen' y 'Out'.</p>
+<p class="p2"><br></p>
+<p class="p3">El único control es "freq". Un control es un argumento que un sintetizador puede utilizar al ser creado o en cualquier momento mientras existe en el servidor. El navegador también muestra que "aSynth" no tiene entradas (lo que significa que no utiliza datos de audio o buses de control) y que manda un canal de audio a la salida a un Bus de audio.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Para ampliar el contexto, ve los archivos de ayuda para <span class="s1"><b>SynthDef</b></span>, <span class="s1"><b>In</b></span>, <span class="s1"><b>Out</b></span>, <span class="s1"><b>SinOsc</b></span>, <span class="s1"><b>Control</b></span>, <span class="s1"><b>BinaryOpUGen</b></span> en el sistema de ayuda de SuperCollider</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">ir a <b>4_Rates</b><span class="s6"><span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+</body>
+</html>

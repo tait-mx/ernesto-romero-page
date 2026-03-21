@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #a81b16}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #326f17}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {font: 9.0px Monaco}
+span.s3 {font: 12.0px Helvetica}
+span.s4 {color: #000000}
+span.s5 {color: #001bb7}
+span.s6 {color: #606060}
+span.s7 {color: #326f17}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>NetAddr</b></span><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><b>dirección de red</b></p>
+<p class="p2"><br></p>
+<p class="p1">superclase: Object</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>*new(hostname, port)</b><span class="Apple-tab-span">	</span>crea una nueva dirección de red.</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Hostname es un string o cadena de caracteres, puede ser un número de ip (e.g. <i>"192.168.34.56"</i>)</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Port es un número de puerto, como <i>57110.</i></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Nota: para mandar mensajes internamente, se usa el ip ¨<i>127.0.0.1</i>¨ que devuelve los mensajes a la <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>misma computadora</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>*fromIP(ip, port)</b><span class="Apple-tab-span">	</span>crea una nueva dirección de red usando un número de ip entero.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>*langPort</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Obtiene el puerto por el que esta escuchando actualmente el sclang (puede cambiar después de una</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>recompilación)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>*localAddr</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Obtiene<span class="Apple-converted-space">  </span>una NetAddr que corresponde con el localhost y el puerto por el que el sclang esta escuchando.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>sendMsg(args...)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>envía un mensaje sin marca de tiempo (timestamp) a la dirección.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>sendBundle(timestamp, args...)</b><span class="Apple-tab-span">	</span>envía un paquete de datos con marca de tiempo.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>sendRaw(rawArray)</b><span class="Apple-tab-span">	</span>envía un mensaje en bruto, o sin procesar, sin marca de tiempo a la dirección.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>connect(disconnectHandler)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>abre una conección TCP. <b>disconnectHandler</b> es llamado cuando <span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>se cierra la conexión (ya sea por el servidor o por el cliente)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>disconnect</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>cierra la conexión TCP</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>ip </b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>devuelve el número de ip (como cadena de caracteres o string)</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ejemplo:<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>n = NetAddr("localhost", 57110);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>n.ip;</p>
+<p class="p4"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>*disconnectAll<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>cierra todas las conexiónes de TCP</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>*broadcastFlag<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>checa la bandera de transmisión (broadcast flag)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>*broadcastFlag_( flag )<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Define la bandera de transmisión (sin importar si se puede mandar un mensaje broadcast o no)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>*useDoubles_( flag )<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5">// ejemplo</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s4">n = </span><span class="s5">NetAddr</span><span class="s4">(</span><span class="s6">"127.0.0.1"</span><span class="s4">, 57120); </span>// 57120 es el puerto del sclang por defecto</p>
+<p class="p3">r = <span class="s5">OSCresponder</span>(n, <span class="s7">'/buenas/noticias'</span>, { <span class="s5">arg</span> time, resp, msg; [time, msg].postln }).add;</p>
+<p class="p4"><br></p>
+<p class="p6"><span class="s4">n.sendMsg(</span><span class="s6">"</span>/buenas/noticias<span class="s6">"</span><span class="s4">, </span><span class="s6">"tu"</span><span class="s4">, </span><span class="s6">"tu no"</span><span class="s4">);</span></p>
+<p class="p3">n.sendMsg(<span class="s6">"</span><span class="s7">/buenas/noticias</span><span class="s6">"</span>, 1, 1.3, 77);</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">n.sendBundle(0.2, [<span class="s6">"</span><span class="s7">/buenas/noticias</span><span class="s6">"</span>, 1, 1.3, 77]);</p>
+<p class="p4"><br></p>
+<p class="p3">r.remove;</p>
+<p class="p3">n.disconnect;</p>
+<p class="p4"><br></p>
+<p class="p5">// notar que objetos NetAddr diferentes con el mismo puerto e ip son independientes</p>
+<p class="p4"><br></p>
+<p class="p3">r = <span class="s5">OSCresponder</span>(<span class="s5">nil</span>, <span class="s7">'/x'</span>, { <span class="s6">"mensaje recibido"</span>.postln }).add;</p>
+<p class="p4"><br></p>
+<p class="p3">n = <span class="s5">NetAddr</span>(<span class="s6">"127.0.0.1"</span>, 57120);</p>
+<p class="p3">n.sendMsg(<span class="s6">"/x"</span>)</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p3">u = <span class="s5">NetAddr</span>(<span class="s6">"127.0.0.1"</span>, 57120);</p>
+<p class="p3">u.sendMsg(<span class="s6">"/x"</span>);</p>
+<p class="p4"><br></p>
+<p class="p3">n.disconnect</p>
+<p class="p4"><br></p>
+<p class="p3">u.sendMsg(<span class="s6">"/x"</span>);</p>
+<p class="p4"><br></p>
+<p class="p3">r.remove;</p>
+<p class="p3">u.disconnect;</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+</body>
+</html>

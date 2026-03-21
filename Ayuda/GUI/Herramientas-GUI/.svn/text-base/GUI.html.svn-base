@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #5e6d99; min-height: 14.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0021e7}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Monaco; color: #000000}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #000000; min-height: 14.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Monaco; color: #bf0000}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Monaco; color: #6e2a1e; min-height: 14.0px}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Monaco; min-height: 14.0px}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000; min-height: 12.0px}
+p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0000bf}
+p.p16 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica}
+p.p17 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p18 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica}
+p.p19 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p20 {margin: 0.0px 0.0px 0.0px 85.0px; text-indent: -85.0px; font: 12.0px Helvetica}
+p.p21 {margin: 0.0px 0.0px 0.0px 85.0px; text-indent: -85.0px; font: 12.0px Helvetica; min-height: 14.0px}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #5e6d99}
+span.s3 {color: #000000}
+span.s4 {text-decoration: underline}
+span.s5 {text-decoration: underline ; color: #2b5dc5}
+span.s6 {color: #225acb}
+span.s7 {color: #0000bf}
+span.s8 {color: #4164b6}
+span.s9 {font: 10.0px Monaco}
+span.s10 {color: #bf0000}
+span.s11 {font: 10.0px Monaco; color: #545866}
+span.s12 {color: #007300}
+span.s13 {font: 10.0px Monaco; color: #545762}
+span.s14 {color: #606060}
+span.s15 {color: #5c6d9c}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>GUI<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>Fábrica abstracta para todas las clases centrales relacionadas con la interfaz gráfica de usuario (GUI)</b><span class="s1"><b><span class="Apple-tab-span">	</span></b></span></p>
+<p class="p2"><br></p>
+<p class="p1"><b>Hereda de: </b><a href="../../Core/Object.html"><span class="s2"><b>Object</b></span></a></p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s3"><b>Ver también:</b> <a href="../GUI-Classes.html"><span class="s4">GUI-Classes</span></a>, <a href="../GUI-Overview.html"><span class="s4">GUI-Overview</span></a>, <a href="ViewRedirect.html"><span class="s5">ViewRedirect</span></a></span></p>
+<p class="p5"><br></p>
+<p class="p1">La clase GUI provee un medio para escribir código GUI (interfaz gráfica de usuario) multiplataforma. Esta clase provee una fábrica abstracta para todas las clases centrales relacionadas con el GUI. Cada kit GUI es descrito por un esquema GUI que relaciona los nombres de clases con las clases reales. Estos esquemas son, a su vez, usados por <a href="ViewRedirect.html"><span class="s6">ViewRedirect</span></a><span class="s6"> </span>para proveer una sintaxis GUI multiplataforma y simple. La clase GUI<span class="Apple-converted-space">  </span>también provee herramientas para conmutar kits y otras tareas multiplataforma. Puedes obtener tus esquemas disponibles (dependiendo de lo que hayas instalado) con:</p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s7">GUI</span>.schemes;</p>
+<p class="p2"><br></p>
+<p class="p1">Para una lista completa de clases GUI y de redirecciones, ver <a href="../Clases_GUI.html"><span class="s8">Clases-GUI</span></a>.</p>
+<p class="p5"><br></p>
+<p class="p7"><b>Conmutando y Remitiendo a Kits GUI</b></p>
+<p class="p8"><br></p>
+<p class="p1">En el momento de escribir este archivo, dos kits GUI se encuentran disponibles a través de la clase GUI: CocoaGUI (Mac OS X native) y SwingGUI (Java) . Toma en cuenta que SwingOSC no forma parte de todas las distribuciones de SuperCollider, por lo que puedes tener que instalarlo por separado.</p>
+<p class="p2"><br></p>
+<p class="p1">Puedes conmutar el kit GUI al llamar a uno de los siguientes métodos de clase:</p>
+<p class="p9"><br></p>
+<p class="p10"><span class="s7">GUI</span><span class="s3">.cocoa;<span class="Apple-tab-span">	</span></span>// utiliza Cocoa en los subsecuentes procedimientos de creación de GUI</p>
+<p class="p10"><span class="s7">GUI</span><span class="s3">.swing;<span class="Apple-tab-span">	</span></span>// utiliza Swing en los subsecuentes procedimientos de creación de GUI</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// NOTA: si no tienes SwingOSC instalado, sólo obtendrás</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// una advertencia, y no conmutarás; por lo que no puedes accidentalmente</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// desactivar tu sistema GUI (Mac).</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1">Estos métodos devuelven a la implementación de kit GUI nueva. La implementación actual puede ser consultada al llamar</p>
+<p class="p2"><br></p>
+<p class="p10"><span class="s7">GUI</span><span class="s3">.current;<span class="Apple-tab-span">	</span></span>// devuelve la implementación de kit GUI actual</p>
+<p class="p2"><br></p>
+<p class="p1">Si quieres cambiar a un kit GUI específico (e.g. en una clase), debes utilizar el siguiente método, ya que la clase CocoaGUI sólo se encuentra en la ruta de la librería de clases de los sistemas Mac OS X, y no es posible verificar una clase indefinida:</p>
+<p class="p2"><br></p>
+<p class="p10"><span class="s7">GUI</span><span class="s3">.id;<span class="Apple-tab-span">	</span></span>// devuelve el identificador del kit GUI actual; de momento o \cocoa o \swing</p>
+<p class="p2"><br></p>
+<p class="p1">Para persistencia, puedes guardar el identificador de la implementación del kit y llamar al kit a través del método de clase <span class="s9">fromID</span>:</p>
+<p class="p2"><br></p>
+<p class="p6">x = <span class="s7">GUI</span>.cocoa;</p>
+<p class="p10"><span class="s3">y = x.id;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// guarda el identificador de la implementación de un kit</p>
+<p class="p10"><span class="s3">y.postln;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el identificador puede ser guardado, por ejemplo, en un archivo de preferencias</p>
+<p class="p6"><span class="s7">GUI</span>.swing;</p>
+<p class="p10">// ahora cambia de regreso a la implementación del kit con el identificador y</p>
+<p class="p6"><span class="s7">GUI</span>.fromID( y );</p>
+<p class="p6"><span class="s7">GUI</span>.current.id.postln;<span class="Apple-tab-span">	</span><span class="s10">// --&gt; cocoa</span></p>
+<p class="p2"><br></p>
+<p class="p1">Los métodos <span class="s11">*use</span> y <span class="s11">*useID</span> te permiten cambiar temporalmente de kit, para utilizarlo sólo en un bloque de instrucciones específico:</p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s7">GUI</span>.cocoa;</p>
+<p class="p6"><span class="s7">GUI</span>.useID( <span class="s12">\swing</span>, {<span class="s7">Array</span>.rand( 1000, 0.0, 1.0 ).plot });</p>
+<p class="p6"><span class="s7">GUI</span>.current.id.postln;<span class="Apple-tab-span">	</span><span class="s10">// --&gt; todavía cocoa</span></p>
+<p class="p12"><br></p>
+<p class="p1">Puedes obtener un kit particular usando el método <span class="s11">*get</span>. Puedes cambiar a un kit particular usando el método <span class="s11">*set</span>:</p>
+<p class="p2"><br></p>
+<p class="p10"><span class="s3">x = </span><span class="s7">GUI</span><span class="s3">.get( </span><span class="s12">\swing</span><span class="s3"> );<span class="Apple-tab-span">	</span></span>// nota: a diferencia de *swing y *cocoa, ¡esto no _cambia_ el kit actual!</p>
+<p class="p10"><span class="s7">GUI</span><span class="s3">.current.id.postln;<span class="Apple-tab-span">	</span></span>// --&gt; todavíaill cocoa</p>
+<p class="p10"><span class="s7">GUI</span><span class="s3">.set( x );<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// ahora, hacemos que SwingOSC sea el kit actual</p>
+<p class="p6"><span class="s7">GUI</span>.window.viewPalette;</p>
+<p class="p8"><br></p>
+<p class="p7"><b>Extendiendo Kits GUI</b></p>
+<p class="p8"><br></p>
+<p class="p1">Los kits GUI pueden ser ampliados con clases personalizadas utilizando sus respectivos métodos <span class="s13">.put</span>:</p>
+<p class="p9"><br></p>
+<p class="p13"><span class="s7">GUI</span>.get( <span class="s12">\cocoa</span> ).put( <span class="s12">\myText</span>, <span class="s7">SCStaticText</span> );</p>
+<p class="p13"><span class="s7">GUI</span>.get( <span class="s12">\swing</span> ).put( <span class="s12">\myText</span>, <span class="s7">JSCStaticText</span> );</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="s7">GUI</span>.cocoa;</p>
+<p class="p13"><span class="s7">GUI</span>.swing;</p>
+<p class="p13">(</p>
+<p class="p13"><span class="Apple-tab-span">	</span>w = <span class="s7">GUI</span>.window.new;</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="s7">GUI</span>.myText.new( w, w.view.bounds.insetBy( 20, 20 )).string_( <span class="s14">"schoko"</span> ).background_( <span class="s7">Color</span>.red );</p>
+<p class="p13"><span class="Apple-tab-span">	</span>w.front;</p>
+<p class="p13">)</p>
+<p class="p5"><br></p>
+<p class="p1">Si tienes planeado añadir extensiones desde dentro de tus propias clases durante el tiempo de inicialización de la librería de clases, se prefiere hacerlo en el proceso de arranque ("startup"):</p>
+<p class="p5"><br></p>
+<p class="p15">MyGUIExtension<span class="s3"> {</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>*initClass {</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">StartUp</span>.add({</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">var</span> scheme;</p>
+<p class="p14"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>scheme = <span class="s7">GUI</span>.get( <span class="s12">\cocoa</span> );</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if( scheme.notNil, {scheme.put( <span class="s12">\myText</span>, <span class="s7">SCStaticText</span> )});</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>scheme = <span class="s7">GUI</span>.get( <span class="s12">\swing</span> );</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if( scheme.notNil, {scheme.put( <span class="s12">\myText</span>, <span class="s7">JSCStaticText</span> )});</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p13"><span class="Apple-tab-span">	</span>}</p>
+<p class="p13">}</p>
+<p class="p8"><br></p>
+<p class="p16"><b>Métodos y Variables para GUI</b></p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*new (key)</b></p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*makeGUI (key, args, properties)</b></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*initClass</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Durante la compilación, define el <b>skin</b> (tema) a los valores por defecto.<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>fontSpecs</b>: <span class="Apple-tab-span">	</span>["Helvetica", 10],</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>fontColor</b>: <span class="Apple-tab-span">	</span>Color.black,</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>background</b>: <span class="Apple-tab-span">	</span>Color(0.8, 0.85, 0.7, 0.5),</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>foreground</b>:<span class="Apple-tab-span">	</span>Color.grey(0.95),</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>onColor</b>:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Color(0.5, 1, 0.5),</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>offColor</b>:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Color.clear,</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>gap</b>:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0 @ 0,</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>margin</b>: <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2@2,</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>buttonHeight</b>:<span class="Apple-tab-span">	</span>16</p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*cocoa</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Hace que Cocoa sea el esquema actual y lo devuelve. Las subsecuentes llamadas a objetos GUI son delegadas a Cocoa. Devuelve el esquema actual (cocoa).</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*swing</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Hace que Swing (Java GUI) sea el esquema actual y lo devuelve. Las subsecuentes llamadas a objetos GUI son delegadas a Swing. Devuelve el esquema actual (swing).</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*fromID (id)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Cambia el esquema actual y devuelve el nuevo esquema.</p>
+<p class="p20"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>id </b>- (Símbolo) el identificador del esquema a utilizar</p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*current</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve el esquema actual. Esto es útil para objetos que, después de ser instanciados, deseen guardar el esquema actual existente en ese momento, para poder usar el mismo esquema de forma consistente en llamadas de método futuras.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Nota: el que llame no debe hacer ninguna presunción acerca de la naturaleza (la clase) del objeto devuelto, para permitir que la implementación actual (un Event) pueda cambiar en un futuro.</p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*get (id)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Devuelve el esquema de un identificador determinado. No cambia el esquema actual.</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>id </b>- (Símbolo) el identificador del esquema que recuperar, como el que es devuelto al llamar unEsquema.id</p>
+<p class="p21"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*set (aScheme)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Cambia el esquema actual.</p>
+<p class="p20"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>aScheme </b>- Una instancia de Símbolo. El esquema a usar como esquema actual.</p>
+<p class="p21"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*use (aScheme, func)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Ejecuta una función, temporalmente definiendo el esquema GUI actual. Esto es útil dentro de las funciones de las acciones de las vistas ("views"), para hacer que esta función utilice el esquema GUI que fue originalmente usado para la vista de la acción, a pesar de que el esquema haya sido cambiado<b>.</b></p>
+<p class="p20"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>aScheme </b>- El esquema a usar durante la ejecución de la función.</p>
+<p class="p20"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>func </b>- Una instancia de Function ("función").</p>
+<p class="p17"><br></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*useID (id, func)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Igual que 'use' pero usando el id de un esquema como primer argumento.</p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>id </b>- El id del esquema a utilizar durante la ejecución de una función.</p>
+<p class="p20"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>func </b>- Una función que ejecutar.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*add (aScheme)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Registra un nuevo esquema. Típicamente, este método es<span class="Apple-converted-space">  </span>llamado por librerías externas durante el procedimiento de arranque. Si un esquema con el mismo identificador (scheme.id) existe, será sobreescrito.</p>
+<p class="p20"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>aScheme </b>- The scheme to add.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*doesNotUnderstand (selector, args)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Todas las llamadas de método son relacionadas al esquema actual, para que, por ejemplo, GUI.button pueda ser usado y es delegado a la asociación de butón del esquema actual.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*setSkin (skinName)</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p19"><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*scheme</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una variable de clase. Devuelve el esquema actual.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*schemes</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una variable de clase. Devuelve un <a href="../../Collections/IdentityDictionary.html"><span class="s15">IdentityDictionary</span></a> de los esquemas registrados.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*skin</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una variable de clase. Devuelve el "skin" actual.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b><span class="Apple-tab-span">	</span>*skins</b></p>
+<p class="p19"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p18"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Una variable de clase. Devuelve un <a href="../../Collections/IdentityDictionary.html"><span class="s15">IdentityDictionary</span></a> de los "skins" registrados.</p>
+<p class="p19"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+</body>
+</html>

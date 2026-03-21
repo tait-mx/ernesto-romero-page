@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #9d2119}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #0038ee}
+span.s3 {color: #0033ee}
+span.s4 {color: #000000}
+span.s5 {color: #002bb6}
+span.s6 {color: #003dee}
+span.s7 {font: 9.0px Monaco}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>OSCresponder<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>respondedor de red del lado del cliente</b></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Registra una función que será llamada al recibir un comando específico desde una dirección OSC específica.</p>
+<p class="p2"><br></p>
+<p class="p3">Otras aplicaciones que mandan mensajes de OSC a SuperCollider deben distinguir entre mandar mensajes al srvidor o al lenguaje. Los mensajes del servidor están documentados en el documento <a href="../ServerArchitecture/Server-Command-Reference.html"><span class="s2">Server-Command-Reference</span></a> y deben ser enviados al puerto del servidor<span class="Apple-converted-space">  </span>- <b>s.addr.port</b> - que es 57110 por defecto. Los mensajes enviados al servidor no serán procesados por ningún OSCresponder.</p>
+<p class="p2"><br></p>
+<p class="p3">Mensajes de clientes externos que deban ser procesados por OSCresponders deben ser enviados al puerto del lenguaje, <b>57120</b> por defecto. Usa <b>NetAddr.langPort </b>para confirmar por que puerto está escuchando el lenguaje de SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p3">Ver <a href="OSC_communication.html"><span class="s3">OSC_communication</span></a> para mas detalles.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Importante:</b> Es altamente recomendable usar <a href="OSCresponderNode.html"><span class="s2">OSCresponderNode</span></a> o <a href="OSCpathResponder.html"><span class="s2">OSCpathResponder</span></a> en vez de OSCresponder directamente. Los OSCresponders pueden sobreescribirse entre ellos, pero OSCresponderNodes con la misma dirección y nombre de comando (command name) pueden coexistir pacíficamente.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s4"><b><i>Ejemplos: ver </i></b><a href="OSCresponderNode.html"><b><i>OSCresponderNode</i></b></a></span></p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*new(addr, cmdName, action);</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>addr</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>la dirección <b>desde la cual recibe</b> el responder (una instancia de NetAddr, e.g. Server.default.addr)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>una dirección <b>nil</b> hara que responda a mensajes de cualquier lado.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>una dirección con un puerto <b>nil</b> responderá a mensajes<span class="Apple-converted-space">  </span>de cualquier puerto de esa IP en específico.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>cmdName</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un comando OSC eg. '/hecho'</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>action</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>una función que será evaluada cuando un comando con ese nombre sea recibido desde la dirección.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>argumentos</b>: <b>time, theResponder, message, addr (tiempo, elRespondedor, mensaje, dirección)</b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>notar que OSCresponder evalúa su función en el proceso del sistema.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Para poder acceder al proceso de la aplicación (e.g. para acceder a GUI) usar<span class="Apple-converted-space">  </span><b>{ ... }.defer</b>;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>dentro de la acción de la función, e.g., { <span class="s5">|time, resp, msg|</span> { gui.value_(msg[3]) }.defer }</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><b>Note:</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Un único OScresponder puede ser definido para cada combinación de<span class="Apple-converted-space">  </span>addr y cmdName.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>Registros subsecuentes reescribirán a los anteriores. Ver <a href="OSCresponderNode.html"><span class="s6">OSCresponderNode</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Siempre que un mensaje OSC es enviado a la aplicación SuperCollider (el lenguaje, no el servidor), se llama a Main-recvOSCmessage o a Main-recvOSCbundle. Ahi, los mensajes son reenviados a la clase OSCresponder usando el método de clase OSCresponder-respond.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>add</b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>agrega esta instancia de respondedor a la lista de respondedores activos.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>El OSCresponder no está activo hasta que se haga esto.</p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>remove</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>remueve y desactiva al OSCresponder</p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>removeWhenDone</b></p>
+<p class="p3"><span class="s7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>remueve y desactiva al OSCresponder cuando la acción haya sido realizada.</p>
+<p class="p5"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="s4"><span class="Apple-tab-span">	</span></span>//sintaxis:<span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s5">OSCresponder</span>(addr,cmdName,action).add.removeWhenDone;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*add(oscResponder)</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> agrega la instancia del respondedor</p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*remove(oscResponder)</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>remueve la instancia del respondedor</p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*removeAddr(addr)</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>remueve todos los OSCresponders de esa addr. (dirección)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

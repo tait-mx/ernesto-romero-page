@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+</style>
+</head>
+<body>
+<p class="p1"><b>Mi código no funciona!</b></p>
+<p class="p2"><br></p>
+<p class="p3">Los códigos no siempre curren como uno esperaría que lo hicieran. En esos casos, SuperCollider a veces te dice por que y a veces no. Cuando SuperCollider da información, es usualmente para describir ya sea un error de sintaxis o un error durante la ejecución.</p>
+<p class="p2"><br></p>
+<p class="p3">Cuando SuperCollider no da información, a menudo ocurre por que el código funciona pero no como se esperaba. Un ejemplo de esto son los synths (nodos) que se ejecutan en un orden erróneo (una fuente colocada después, en vez de antes, de un efecto) y sumar en vez de multiplicar (sesgando la amplitud en vez de escalarla)</p>
+<p class="p2"><br></p>
+<p class="p3">Como contexto, aqui hay algunas ligas que describen la depuración (arreglar errores en el código) en otros lenguajes diferentes del SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p3">http://www.elanus.net/book/debugging.html</p>
+<p class="p3">http://www.javaworld.com/javaworld/jw-07-1996/jw-07-javascript.html</p>
+<p class="p3">http://heather.cs.ucdavis.edu/~matloff/UnixAndC/CLanguage/Debug.html</p>
+<p class="p2"><br></p>
+<p class="p4">ir a <b>2_Errores_de_sintáxis</b></p>
+</body>
+</html>

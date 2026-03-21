@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #002cb3}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #90251f}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #476b1d}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #002cb3}
+span.s3 {color: #000000}
+span.s4 {color: #476b1d}
+span.s5 {color: #606060}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>Bus<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>representación de un bus en el servidor</b></p>
+<p class="p2"><br></p>
+<p class="p1">La representación del lado del cliente de un bus de audio o de control en un servidor. Encapsula todos los mensajes OSC que un bus puede recibir. Maneja la asignación y la liberación de los índices de los canales, para que no tengas que preocuparte por conflictos. El número de buses de control, de audio, de entrada y de salida es fijo y no puede ser cambiado después de que el servidor haya sido arrancado. Para más información ver <a href="ClientVsServer.html"><span class="s2">ClientVsServer</span></a> y <a href="Server-Architecture.html"><span class="s2">Server-Architecture</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p1">Toma en cuenta que al usar la clase <b>Bus </b>para asignar un bus multicanal no se "crea" un bus multicanal, sino que simplemente se reserva una serie de índices de bus adyacentes mediante los asignadores de bus del objecto <a href="Server.html"><span class="s2">Server</span></a><span class="s2">.</span> unBus.index simplemente devuelve el primero de esos índices. Al usar un Bus con un UGen <a href="../UGens/InOut/In.html"><span class="s2">In</span></a> o <a href="../UGens/InOut/Out.html"><span class="s2">Out</span></a>, no hay nada que te impida leer o escribir un rango más grande, o<span class="Apple-converted-space">  </span>codificar "en duro" a un bus que ha sido asignado. Eres responsable de asegurarte de que el número de canales corresponda y de que no haya conflictos.</p>
+<p class="p3"><br></p>
+<p class="p1">Los objetos Bus no deben ser creados o modificados dentro de un <a href="SynthDef.html"><span class="s2">SynthDef</span></a>.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>Nota:</b> Los <i>n</i> índices de bus inferiores estás reservados para salidas y entradas de hardware, donde<span class="Apple-converted-space">  </span><i>n</i> = server.options.numOutputBusChannels + server.options.numInputBusChannels.</p>
+<p class="p3"><br></p>
+<p class="p1">Buses de salida de hardware: 0 .. (numOutputBusChannels - 1)</p>
+<p class="p1">Buses de entrada de hardware: numOutputBusChannels .. (numOutputBusChannels + numInputBusChannels - 1)</p>
+<p class="p1">Indice del primer bus privado: numOutputBusChannels + numInputBusChannels</p>
+<p class="p3"><br></p>
+<p class="p1">No intentes utilizar los buses de entrada y de salida de hardware como buses privados.</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4"><b>Métodos de Clase</b></p>
+<p class="p3"><br></p>
+<p class="p1"><b>Bus.control(server, numChannels);</b></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Asigna un bus de control en el servidor.<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Valores por defecto: servidor por defecto, 1 canal.</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>Bus.audio(server, numChannels);</b></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Asigna un bus de audio en el servidor.<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Valores por defecto: servidor por defecto, 1 canal.</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>Bus.alloc(rate, server, numChannels);</b></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Asigna un bus de cualquiera de las dos velocidades según sea especificado por los símbolos:</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>\control or \audio</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>Bus.new(rate, index, numChannels);</b></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Este método no asigna un índice de bus, pero asume que tú ya</p>
+<p class="p1"><span class="Apple-tab-span">	</span>has asignado el índice de bus apropoiado y que puedes proporcionarlo.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>Bus.newFrom(bus, offset, numChannels=1);</b></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Este método crea un nuevo Bus que es un subconjunto del bus. El bus estará a la misma velocidad</p>
+<p class="p1"><span class="Apple-tab-span">	</span>que el bus de entrada.</p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>offset</b> es el índice dentro del bus dado.<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><b>numChannels</b> es el número deseado de canales.</p>
+<p class="p1"><span class="Apple-tab-span">	</span>Si la combinación de offset y de numChannels está fuera del "rango" del bus de entrada, aparecerá<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>un mensaje de error.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p5"><br></p>
+<p class="p4"><b>Métodos de Instancia</b></p>
+<p class="p3"><br></p>
+<p class="p1"><b>index </b>-<b> </b>Obtiene el índice del bus. Normalmente no necesitarías hacer esto, ya que las instancias de Bus pueden ser enviadas directamente como entradas para UGens o argumentos para sintetizadores<b>.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>free</b> - Devuelve los índices del bus al asignador de buses del servidor, para que puedan ser reasignados.</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>rate</b> - Obtiene la velocidad del Bus. Esto es un símbolo, ya sea \control o \audio.</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>numChannels </b>- Obtiene el número de canales del Bus.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>server</b> - Obtiene el objeto Server del Bus.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>asMap</b> - Devuelve un símbolo que consiste de la letra 'c' o 'a' (para control o audio) seguida del índice del bus. Esto puede ser usando al asignar las entradas de control (argumentos) de un nodo sintetizador al bus. Ver el archivo de ayuda de <a href="Node.html"><span class="s2">Node</span></a> para más información acerca de la asignación controles a buses.</p>
+<p class="p3"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p6">(</p>
+<p class="p6">a = <span class="s2">Bus</span>.control(s, 1).set(440);</p>
+<p class="p6">b = <span class="s2">Bus</span>.control(s, 1).set(0.01);</p>
+<p class="p6">)</p>
+<p class="p6">(</p>
+<p class="p7">SynthDef<span class="s3">(</span><span class="s4">\rlpf</span><span class="s3">, { </span>|ffreq, rq|</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s2">Out</span>.ar(0, <span class="s2">RLPF</span>.ar(<span class="s2">WhiteNoise</span>.ar(0.2), ffreq, rq))</p>
+<p class="p6">}).play(s, [<span class="s4">\ffreq</span>, a.asMap, <span class="s4">\rq</span>, b.asMap]);</p>
+<p class="p6">)</p>
+<p class="p3"><br></p>
+<p class="p1"><b>subBus(offset,numChannels) </b>-<b> </b>Obtén un nuevo Bus que es un subgrupo de este bus (ver<span class="Apple-converted-space">  </span><b>*newFrom</b>).</p>
+<p class="p3"><br></p>
+<p class="p4"><b>Métodos Asíncronos de los Buses de Control</b></p>
+<p class="p3"><br></p>
+<p class="p1">Los siguientes comandos sólo aplican a los buses de control y son asíncronos. Para buses de control con acceso sincrónico, uno debe utilizar los buses control compartido del servidor interno y <a href="../UGens/InOut/SharedIn.html"><span class="s2">SharedIn</span></a> / <a href="../UGens/InOut/SharedOut.html"><span class="s2">SharedOut</span></a>.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>value_(aFloat) </b>-<b> </b>Asigna todos los canales a este valor de punto flotate. Este comando es asíncrono.</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>set(...values) </b>- Una lista de valores para cada canal del bus de control. La lista de valores proporcionada no debe ser más grande que el número de canales. Este comando es asíncrono</p>
+<p class="p3"><br></p>
+<p class="p1"><b>setn(values) </b>- Como <b>set</b> pero recibe un arreglo como argumento.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>get(action)</b> - Obtén el valor actual de este bus de control. Este comando es asíncrono. <b>action </b>es una función que será evaluada cuando el servidor responda, el valor actual del bus será enviado a la función como argumento. Para buses multicanal utilizar getN.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>getn(count, action)</b> - Obtén los valores actuales de este bus de control. Este comando es asíncrono. <b>count </b>es el número de canales a leer, empezando por el primer canal de este bus. <b>action </b>es una función que será evaluada cuando el servidor responda, los valores actuales del bus serán enviados como argumento.</p>
+<p class="p3"><br></p>
+<p class="p4"><b>Métodos de Paquetes OSC</b></p>
+<p class="p3"><br></p>
+<p class="p1"><b>getMsg</b> - Devuelve un mensaje del tipo<span class="Apple-converted-space">  </span>/c_get para utilizar en paquetes OSC.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>getnMsg(count)</b> - Devuelve un mensaje del tipo<span class="Apple-converted-space">  </span>/c_getn para utilizar en paquetes OSC. <b>count </b>es el número de canales a leer, empezando por el primer canal de este bus. El valor por defecto es el número de canales de este bus.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>setMsg(... values)</b> -<span class="Apple-converted-space">  </span>Devuelve un mensaje del tipo<span class="Apple-converted-space">  </span>/c_set para utilizar en paquetes OSC.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>setnMsg(values)</b> -<span class="Apple-converted-space">  </span>Devuelve un mensaje del tipo<span class="Apple-converted-space">  </span>/c_setn para utilizar en paquetes OSC. <b>values </b>es un arreglo de valores a los que los canales adyacentes deben ser asignados, empezando por el primer canal de este bus.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>fillMsg(value)</b> -<span class="Apple-converted-space">  </span>Devuelve un mensaje del tipo<span class="Apple-converted-space">  </span>/c_setn para utilizar en paquetes OSC. <b>value </b>es el valor al que deben ser asignados los canales de este bus.</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p6">s = <span class="s2">Server</span>.local;</p>
+<p class="p6">s.boot;</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p6">(</p>
+<p class="p8">// algo con que jugar</p>
+<p class="p6"><span class="s2">SynthDef</span>(<span class="s4">\help_Bus</span>, { <span class="s2">arg</span> out=0,ffreq=100;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s2">var</span> x;</p>
+<p class="p6"><span class="Apple-tab-span">	</span>x = <span class="s2">RLPF</span>.ar(<span class="s2">LFPulse</span>.ar(<span class="s2">SinOsc</span>.kr(0.2, 0, 10, 21), [0,0.1], 0.1),</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>ffreq, 0.1)</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>.clip2(0.4);</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s2">Out</span>.ar(out, x);</p>
+<p class="p6">}).send(s);</p>
+<p class="p2"><br></p>
+<p class="p6">)</p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s3">x = </span><span class="s2">Synth</span><span class="s3">(</span>\help_Bus<span class="s3">);</span></p>
+<p class="p2"><br></p>
+<p class="p8">// obtén un bus</p>
+<p class="p6">b = <span class="s2">Bus</span>.control(s);</p>
+<p class="p2"><br></p>
+<p class="p8">// asigna la segunda entrada (ffreq) del sintetizador para que<span class="Apple-converted-space"> </span></p>
+<p class="p8">// lea de la salida del índice del bus</p>
+<p class="p6">x.map(1, b);</p>
+<p class="p2"><br></p>
+<p class="p8">// Al asignar el valor del bus mandas un mensaje /c_fill a cada canal</p>
+<p class="p8">// del bus, asignado a éste al valor de punto flotante proporcionado</p>
+<p class="p6">b.value = 100;</p>
+<p class="p6">b.value = 1000;</p>
+<p class="p6">b.value = 30;</p>
+<p class="p2"><br></p>
+<p class="p8">// Ya que éste es un bus de un solo canal, esto tiene el mismo efecto</p>
+<p class="p6">b.set(300);</p>
+<p class="p6">b.numChannels.postln;</p>
+<p class="p2"><br></p>
+<p class="p8">// multi-canal:<span class="Apple-converted-space">  </span>b.set(300,350);</p>
+<p class="p8">// Obtén el valor actual. Esto es asíncrono, por lo que no puedes contar con que suceda</p>
+<p class="p8">// inmediatamente</p>
+<p class="p6">(</p>
+<p class="p10"><span class="s3">a = </span>"esperando"<span class="s3">;</span></p>
+<p class="p10"><span class="s3">b.get({</span><span class="s2">arg</span><span class="s3"> value; a = value; (</span>"despues de que el servidor responda, a es asignada a:"<span class="s3"> + a).postln;});</span></p>
+<p class="p6">(<span class="s5">"a es ahora:"</span> + a).postln;</p>
+<p class="p6">)</p>
+<p class="p2"><br></p>
+<p class="p6">x.free;</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s3">b.free; </span>// libéralo para que pueda ser reasignado!</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="1038.11">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; min-height: 22.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #a70000}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #317700}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0000ee}
+span.s1 {color: #0000ca}
+span.s2 {color: #227500}
+span.s3 {color: #317700}
+span.s4 {color: #000000}
+span.s5 {color: #606060}
+span.s6 {font: 12.0px Helvetica; text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Mandando MIDI con patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3">El trabajo de mandar MIDI le corresponde a la clase<span class="Apple-converted-space">  </span><a href="../../Control/MIDIOut.html"><span class="s1">MIDIOut</span></a><span class="s1"> </span>y al tipo de evento \midi<span class="s2">. </span>Un MIDIOut es creado para comunicarse con el dispositivo de hardware; el canal MIDI es proveído cuando el evento es reproducido. Es fácil identificar el dispositivo de hardware usando el método de MIDIOut 'newByName'.</p>
+<p class="p4"><br></p>
+<p class="p3">El tipo de evento \midi admite los siguientes comandos, seleccionados en el evento mediante la llave \midicmd: <span class="s3">\allNotesOff</span>, <span class="s3">\bend</span>, <span class="s3">\control</span>, <span class="s3">\noteOff</span>, <span class="s3">\noteOn</span>, <span class="s3">\polyTouch</span>, <span class="s3">\program</span>, <span class="s3">\smpte</span>, <span class="s3">\songPtr</span>, <span class="s3">\sysex</span>, <span class="s3">\touch.</span> El predeterminado es \noteOn. Cuando se toca una nota (noteOn), por defecto se enviará el correspondiente mensaje de noteOff después de el tiempo de sostenimiento de la nota.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p3">Si uno quiere sincronizar eventos tocados por un dispositivo MIDI y eventos tocados por SuperCollider, la latencia del objeto MIDIOut tiene que ser la misma que la latencia del servidor. Uno puede ajustar esta latencia en cualquier momento para afectar eventos futuros.</p>
+<p class="p4"><br></p>
+<p class="p5"><span class="s1">MIDIClient</span><span class="s4">.init;<span class="Apple-tab-span">	</span></span>// si no se ha hecho todavía</p>
+<p class="p6"><br></p>
+<p class="p7">(</p>
+<p class="p5"><span class="s4"><span class="Apple-tab-span">	</span></span>// sustituir por el dispositivo que se use</p>
+<p class="p7"><span class="s1">var</span><span class="Apple-tab-span">	</span>mOut = <span class="s1">MIDIOut</span>.newByName(<span class="s5">"FastLane USB"</span>, <span class="s5">"Port A"</span>).latency_(<span class="s1">Server</span>.default.latency);</p>
+<p class="p6"><br></p>
+<p class="p7">p = <span class="s1">Pbind</span>(</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span></span>\type<span class="s4">, </span>\midi<span class="s4">,</span></p>
+<p class="p5"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// esta línea es opcional ya que noteOn es el predeterminado</p>
+<p class="p5"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// sólo se está haciendo explícito aquí</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span></span>\midicmd<span class="s4">, </span>\noteOn<span class="s4">,</span></p>
+<p class="p5"><span class="s4"><span class="Apple-tab-span">	</span></span><span class="s3">\midiout</span><span class="s4">, mOut,<span class="Apple-tab-span">	</span></span>// se debe proveer el destino MIDI aquí</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">\chan</span>, 0,</p>
+<p class="p5"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el grado no sólo se convierte en frecuencia sino también en nota midi</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">\degree</span>, <span class="s1">Pwhite</span>(-7, 12, <span class="s1">inf</span>),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">\dur</span>, <span class="s1">Pwrand</span>([0.25, <span class="s1">Pn</span>(0.125, 2)], #[0.8, 0.2], <span class="s1">inf</span>),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">\legato</span>, sin(<span class="s1">Ptime</span>(<span class="s1">inf</span>) * 0.5).linexp(-1, 1, 1/3, 3),</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="s3">\amp</span>, <span class="s1">Pexprand</span>(0.5, 1.0, <span class="s1">inf</span>)</p>
+<p class="p7">).play(quant: 1);</p>
+<p class="p7">)</p>
+<p class="p6"><br></p>
+<p class="p7">p.stop;</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p9"><span class="s4">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Recetario03_Control_externo.html"><span class="s6">GP_Recetario03_Control_externo</span></a></span></p>
+<p class="p9"><span class="s4">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Recetario05_Usando_Muestras.html"><span class="s6">GP_Recetario05_Usando_Muestras</span></a></span></p>
+</body>
+</html>

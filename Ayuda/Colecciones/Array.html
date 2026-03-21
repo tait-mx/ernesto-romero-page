@@ -1,0 +1,527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.4  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20090725;19553900">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in }
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 13pt }
+		P.p2 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p3 { margin-bottom: 0in; color: #0021e7; font-family: "Helvetica"; font-size: 9pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p5 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p7 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 10pt }
+		P.p8 { margin-left: 0.44in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p9 { margin-left: 0.44in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p10 { margin-left: 0.44in; margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p11 { margin-left: 0.44in; margin-bottom: 0in; font-family: "Monaco"; font-size: 9pt }
+		P.p12 { margin-left: 0.44in; margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p13 { margin-left: 0.44in; margin-bottom: 0in; color: #ad140d; font-family: "Monaco"; font-size: 6pt }
+		P.p14 { margin-left: 0.44in; margin-bottom: 0in; color: #2c7014; font-family: "Monaco"; font-size: 6pt }
+		P.p15 { margin-left: 0.44in; margin-bottom: 0in; color: #0021e7; font-family: "Helvetica"; font-size: 9pt }
+		P.p17 { margin-left: 0.44in; margin-bottom: 0in; color: #001bb9; font-family: "Monaco"; font-size: 6pt }
+		P.p18 { margin-left: 0.44in; margin-bottom: 0in; color: #606060; font-family: "Monaco"; font-size: 6pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Array</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Hereda de: <A HREF="../Core/Object.html">Object</A></B>
+<B>: <A HREF="Collection.html">Collection</A></B> <B>:</B>
+<A HREF="SequenceableCollection.html"><B>SequenceableCollection</B></A>
+<B>: <A HREF="ArrayedCollection.html">ArrayedCollection</A></B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Los Arrays (arreglos) son
+ArrayedCollections cuyos espacios pueden contener cualquier objeto.
+Los arreglos tienen un tamaño máximo fijo más allá del cual no
+pueden crecer. Para arreglos expandibles, utiliza la clase <A HREF="List.html">List</A>
+.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Un arreglo puede ser
+creado con una capacidad máxima:</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= Array.new(size);</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Lo cual Devuelverá un
+arreglo de tamaño 0, pero la capacidad de añadirle hasta 32
+objetos. 
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= z.add(obj);</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">z ahora tiene un tamaño
+de 1.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Para los arreglos,
+utilizar el método &quot;add&quot; podrá o no Devuelver el mismo
+objeto Array. Añadirá el argumento al receptor si hay espacio; de
+otro modo, Devuelverá un nuevo objeto Array con el argumento
+añadido. De este modo, el utilizamiento apropiado de 'add' con un
+arreglo es siempre asignar el resultado de la manera siguiente: 
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= z.add(obj);</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Esto permite una
+utilización inteligente de los recursos, sólo aumentando un arreglo
+cuando necesita hacerlo. La clase <A HREF="List.html">List</A> se
+encarga de manejar el arreglo por ti, y, en muchos casos, es más
+adecuada.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Un arreglo puede ser
+creado con todos sus espacios ocupados por 'nils': 
+</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= Array.newClear(size);</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Se pueden colocar
+elementos en un espacio existente:</P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a.put(2,obj);</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">y accesarlos:</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a.at(2);
+// ambos son equivalentes</FONT></FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a[2];</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Ve <A HREF="ArrayedCollection.html">ArrayedCollection</A>
+para los métodos principales:</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">at</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">put</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">clipAt, wrapAt etc.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Se pueden crear Literal
+Arrays (arreglos literales) en el momento de compilación, y son muy
+eficientes. Ve <A HREF="../Language/Literals.html">Literals</A> para
+más información. 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><B>Métodos de la clase</B></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>*with(... args)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">crear un arreglo nuevo
+cuyos espacios están ocupados con los argumentos dados. 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Éste es el mismo que el
+método en <A HREF="ArrayedCollection.html">ArrayedCollection</A>,
+pero es reimplementado aquí para ser más eficiente.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Array.with(7,
+'eight',&nbsp; 9).postln;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><B>Métodos de instancia</B></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>reverse</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un arreglo nuevo
+cuyos elementos están invertidos. El receptor permanece sin cambios.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3].reverse.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= [1, 2, 3];</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= x.reverse;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>scramble</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un arreglo nuevo
+cuyos elementos han sido reacomodados. El receptor permanece sin
+cambios.</P>
+<P CLASS="p10" STYLE="margin-left: 0in; margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6].scramble.postln;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>mirror</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un arreglo nuevo
+que es el receptor convertido en un palíndrome: 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">El receptor permanece sin
+cambios.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].mirror.postln;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>mirror1</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un nuevo arreglo
+que es el receptor convertido en un palíndrome con el último
+elemento removido. 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Es útil si la lista será
+repetida cíclicamente, así el primer elemento no aparecerá dos
+veces. 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">El receptor permanece sin
+cambios. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].mirror1.postln;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>mirror2</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un arreglo nuevo
+que es el receptor concatenado con una inversión de si mismo. El
+elemento central es duplicado. 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">El receptor permanece sin
+cambios. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].mirror2.postln;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>stutter(n)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un nuevo arreglo
+cuyos elementos son repetidos n veces. El receptor permanece sin
+cambios.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3].stutter(2).postln;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>rotate(n)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un nuevo arreglo
+cuyos elementos están en un orden rotado. Los valores n negativos
+rotan hacia la izquierda, los positivos hacia la derecha. El receptor
+permanece sin cambios.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5].rotate(1).postln;</FONT></FONT></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5].rotate(-1).postln;</FONT></FONT></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5].rotate(3).postln;</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>pyramid</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un Array nuevo
+cuyos elementos han sido reordenados a través de uno de 10
+algoritmos de recuento. Los algoritmos están numerados del 1 al 10.
+Corre los ejemplos para ver los algoritmos.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].pyramid(1).postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">10.do({
+arg i;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].pyramid(i + 1).postcs;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">});</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>pyramidg</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Como <B>pyramid</B>, pero
+los valores resultantes están agrupados en subarreglos.</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in">// compara:</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].pyramid(1).postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].pyramidg(1).postln;</FONT></FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">10.do({
+arg i;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].pyramid(i + 1).postcs;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].pyramidg(i + 1).postcs;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">});</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>sputter(probability,
+maxlen)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un arreglo nuevo
+de una longitud &quot;maxlen&quot; con todos los elementos repetidos
+en parte (elección aleatoria de probabilidad dada). 
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+comparar:</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6, 7, 8, 9, 10].sputter(0.5, 16).postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6, 7, 8, 9, 10].sputter(0.8, 8).postln;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>lace(length)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un nuevo arreglo
+cuyos elementos son secuencias entrelazadas de las subcolecciones del
+receptor, hasta el límite dado por el argumento &quot;length&quot;. 
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">El receptor permanece sin
+cambios.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= [ [1, 2, 3], 6, List[&quot;foo&quot;, 'bar']];</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y
+= x.lace(12);</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>permute(nthPermutation)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un nuevo arreglo
+cuyos elementos son la enésima permutación de los elementos del
+receptor. El receptor permanece sin cambios. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= [ 1, 2, 3];</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">6.do({|i|
+x.permute(i).postln;});</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>allTuples(maxTuples)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un nuevo arreglo
+cuyos elementos contienen todas las combinaciones posibles de las
+subcolecciones del receptor. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[[1,
+2, 3, 4, 5], [10, 20, 30]].allTuples;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[[1,
+2, 3, 4, 5], [10, 20, 30], [5, 6]].allTuples;</FONT></FONT></P>
+<P CLASS="p12" STYLE="margin-left: 0in; margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>wrapExtend(length)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un nuevo arreglo
+cuyos elementos son secuencias repetidas del receptor, hasta el
+límite dado por length. El receptor permanece sin cambios.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= [ 1, 2, 3, &quot;foo&quot;, 'bar' ];</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y
+= x.wrapExtend(9);</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>foldExtend(length)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Igual que <B>wrapExtend</B>,
+pero la secuencia de los elementos se invierte después de cada
+repetición.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= [ 1, 2, &quot;foo&quot;];</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y
+= x.foldExtend(9);</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>clipExtend(length)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Igual que <B>wrapExtend</B>,
+pero la secuencia se limita (clip) (Devuelve el último elemento) en
+vez de volver a comenzar (wrap).</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= [ 1, 2, &quot;foo&quot;];</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y
+= x.clipExtend(9);</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>slide(windowLength,
+stepSize)</B></P>
+<P CLASS="p8" STYLE="margin-left: 0in; margin-bottom: 0.2in">Devuelve
+un arreglo nuevo cuyos elementos son subsecuencias repetidas del
+receptor. Más fácil demostrarlo que explicarlo: 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6].slide(3, 1).postcs;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6].slide(3, 2).postcs;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6].slide(4, 1).postcs;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>shift(n)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Recorre los elementos del
+arreglo n pasos hacia la derecha (si n es positivo) o hacia la
+izquierda (si n es negativo), ignorando los excesos y llenando el
+espacio vacío con cero. 
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6].shift(3).postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4, 5, 6].shift(-3).postln;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>containsSeqColl</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve &quot;true&quot;
+si el arreglo receptor contiene cualquier instancia de
+<A HREF="SequenceableCollection.html">SequenceableCollection</A><A HREF="SequenceableCollection.html">.</A></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3, 4].containsSeqColl.postln</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, [3], 4].containsSeqColl.postln</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>powerset</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve todas las
+combinaciones posibles de los elementos de un arreglo. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3].powerset.postln</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3].powerset.sort({ |a, b| a.size &gt; b.size }); // sort by size,
+big first</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[1,
+2, 3].powerset.sort({ |a, b| a.size &gt; b.size }).reverse; // by
+size, small first</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">powerset también está
+implementado en <A HREF="Collection.html">Collection</A>:</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Set[1,
+2, 3].powerset;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">List[1,
+2, 3].powerset</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(a:
+1, b: 2, c: 3).powerset;</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>envirPairs</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Dado un arreglo de
+símbolos, esto Devuelve un arreglo de pares de (símbolo, valor) del
+ambiente (environment) actual. Esto puede ser utilizado como
+argumentos para un <A HREF="../ServerArchitecture/Synth.html">Synth</A>,
+o en un mensaje OSC. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">e
+= (freq: 340, amp: 0.001, strangeness: 0.85);</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">e.use
+{</FONT></FONT></P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[\amp,
+\taste, \strangeness].envirPairs;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">);</FONT></FONT></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>flop</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Invierte las filas y
+columnas en un arreglo bidimensional (voltearlo).</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in">Ver además: <A HREF="../Core/Kernel/Function.html">Function</A>,
+<A HREF="SequenceableCollection.html">SequenceableCollection</A>.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[[1,
+2, 3], [4, 5, 6]].flop;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[[1,
+2, 3], [4, 5, 6], [7, 8]].flop; // envolturas más cortas</FONT></FONT></P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[].flop;
+// result is always 2-d.</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>multiChannelExpand</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Usado por los UGens para
+realizar expansión multicanal. Igual que flop.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>source</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Algunos UGens Devuelven
+Arreglos de <A HREF="../UGens/Multichannel/OutputProxy.html">OutputProxy</A>
+al ser iniciados. Este método te permite llegar al UGen origen. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= Pan2.ar;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.source.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>fork(join, clock,
+quant, stackSize)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Usado dentro de <A HREF="../Core/Kernel/Routine.html">Routine</A>s
+y asume un arreglo de funciones, a partir de las cuales se crean
+subrutinas. Las subrutinas son tocadas mientras que la Rutina
+exterior continúe. El parámetro &quot;join&quot; expresa después
+de cuántas veces que las subrutinas se completen la Rutina externa
+continuará. Por defecto esto sucederá hasta que todas las
+subrutinas sean completadas. 
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+un arreglo de funciones de rutinas:</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a
+= [</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">{
+1.wait; \termino_la_primera.postln },</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">{
+0.5.wait; \termino_la_segunda.postln },</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">{
+0.2.wait; \termino_la_tercera.postln }</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">];</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+&quot;join&quot; después de 0</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p17" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Routine
+{&nbsp;</FONT></FONT></P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">&quot;join
+= 0.&quot;.postcln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a.fork(0);
+\terminaronTodas.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}.play;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+join después de 1</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p17" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Routine
+{&nbsp;</FONT></FONT></P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">&quot;join
+= 1.&quot;.postcln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a.fork(1);
+\terminaronTodas.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}.play;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+join después de todas</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p17" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Routine
+{&nbsp;</FONT></FONT></P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">&quot;join
+= a.size (default).&quot;.postcln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a.fork;
+\doneAll.postln;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}.play;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>poll(trig, label,
+trigid)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">aplica un arreglo de
+unidades de <A HREF="../UGens/Triggers/Poll.html">Poll</A> a un
+arreglo de <A HREF="../UGens/UGen.html">UGen</A>s (ver esos archivos
+de ayuda para más detalles). 
+</P>
+<P CLASS="p10" STYLE="margin-left: 0in; margin-bottom: 0.2in">	<FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.boot;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= {</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SinOsc.ar([0.1,
+0.2], 0).poll * 0.1</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}.play;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.trace;
+// Al aplicar &quot;trace&quot; a un Synth puedes ver las dos
+unidades Poll que creamos</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.free</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>dpoll(trig, label,
+trigid)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Aplica un arreglo de
+unidades de <A HREF="../UGens/Synth%20control/Demand%20Rate/Dpoll.html">Dpoll</A>
+a un arreglo de <A HREF="../UGens/UGen.html">UGen</A>s (ver esos
+archivos de ayuda para más detalles). 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>atIdentityHash(argKey)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Este método es usado por
+IdentitySet para buscar una clave entre sus miembros. 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>atIdentityHashInPairs(argKey)</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Este método es usado por
+IdentityDictionary para buscar una clave entre sus miembros.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>asShortString</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve una short string
+representando el arreglo que sólo muestra cuántos elementos
+contiene 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>asString</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve una string
+(cadena de caracteres) representando el arreglo. Tal vez no sea
+compatible debido a la elición (...) de argumentos excesivos. 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>asCompileString</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve una string
+(cadena de caracteres)  que compilará para Devuelver un arreglo
+igual al receptor. 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>isValidUGenInput</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve &quot;true&quot;.
+Los arreglos son entradas válidas para los UGens.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>asRawOSC</B></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">Devuelve un mensaje OSC
+como un Int8Array. El receptor debe ser un bundle (paquete).</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[0.1,
+[\s_new, \default, -1, 1, 1, \freq, 1961]].asRawOSC;</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+</BODY>
+</HTML>

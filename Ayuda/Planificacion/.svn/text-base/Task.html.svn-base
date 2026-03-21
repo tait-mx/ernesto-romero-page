@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8f2116}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #003eea}
+span.s3 {color: #002eaf}
+span.s4 {color: #606060}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>Task<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>un proceso que se puede pausar</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>superclase: PauseStream<span class="Apple-converted-space"> </span></b></p>
+<p class="p3"><br></p>
+<p class="p1">Una Task (Tarea) es un proceso que se puede pausar. Es implementada al envolver una Routine (Rutina) con un PauseStream. La mayoría de sus métodos (start, stop, reset) son heredados de PauseStream.</p>
+<p class="p3"><br></p>
+<p class="p1">Las Tasks no son 100% intercambiables con las Routines.</p>
+<p class="p3"><br></p>
+<p class="p1">- la clase Condition no funciona correctamente dentro de una Task</p>
+<p class="p1">- detener una Task y reiniciarla rápidamente puede producir resultados sorpresivos (ver el ejemplo más abajo), pero esto es necesario para prevenir que las Tasks sean inestables si son iniciadas y/o detenidas en rápida sucesión.</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1"><b>Task.new(func, clock)</b></p>
+<p class="p1"><b>func </b>- Una <b>Function</b> (Función) a evaluar.<span class="Apple-converted-space"> </span></p>
+<p class="p1"><b>clock </b>- Un Clock (Reloj) en el cual tocar la <b>Routine</b>. Si no provees un Clock, el valor por defecto es una instancia de TempoClock.</p>
+<p class="p1">Recuerda que los métodos que llamen primitivos de Cocoa (i.e. funciones de interfaces gráficas) deben ser tocados en un AppClock.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>play(argClock, doReset, quant)</b></p>
+<p class="p1"><b>argClock</b> - (opcional) Reemplaza el Clock asignado en Task.new</p>
+<p class="p1"><b>doReset</b> - Si es true (cierto), la Task reiniciará desde el principio. El valor por defecto es false (falso) (la Task reanudará desde donde fue detenida por última vez)</p>
+<p class="p1"><b>quant</b> - ver el archivo de ayuda de <a href="Quant.html"><span class="s2">Quant</span></a></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4"><b>Otros métodos de control</b></p>
+<p class="p3"><br></p>
+<p class="p1"><b>start(argClock, quant)</b> - Reinicia la Task desde el principio.</p>
+<p class="p1"><b>resume(argClock, quant)</b> - Reanuda la Task desde donde se detuvo.</p>
+<p class="p1"><b>pause</b> - Deja de tocar ahora.</p>
+<p class="p1"><b>stop</b> - Deja de tocar ahora. (Pause y stop tienen la misma implementación.)</p>
+<p class="p1"><b>reset</b> - Hace que el flujo reinicie desde el principio, la siguiente vez que la Task sea tocada.</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p4"><b>Notificaciones</b></p>
+<p class="p3"><br></p>
+<p class="p1">Otros objetos pueden necesitar estar al tanto de los cambios en el estado de una Task. Las siguientes notificaciones son transmitidas a los dependientes registrados con el objeto Task.</p>
+<p class="p3"><br></p>
+<p class="p1"><b>\userPlayed</b> - Enviada cuando el usuario llama utiliza los métodos play, start o resume.</p>
+<p class="p1"><b>\playing</b> - Enviada cuando la Task empieza a tocar en el Clock (correspondiendo con quant).</p>
+<p class="p1"><b>\userStopped</b> - Enviada cuando el usuario utiliza los métodos pause o stop.</p>
+<p class="p1"><b>\stopped</b> - Enviada cuando la Task es finalmente quitada del Clock (éste es el momento en el que el siguiente evento hubiera ocurrido si la tarea no hubiera terminado). Si la función de la Task terminase por si sola, esta notificación sería enviada sin que la notificación 'userStopped' hubiera sido enviada previamente.</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1"><b>¿Qué sucede si detienes e inicias la Task demasiado rápidamente?</b></p>
+<p class="p3"><br></p>
+<p class="p2"><br></p>
+<p class="p5">t = <span class="s3">Task</span>({<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>50.do({ <span class="s3">arg</span> i;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i.squared.postln;<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5.wait<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>});</p>
+<p class="p2"><br></p>
+<p class="p5">t.start;</p>
+<p class="p5">t.pause;</p>
+<p class="p5">t.resume;</p>
+<p class="p5">t.reset;</p>
+<p class="p5">t.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">// aquí hay un comportamiento imprevisto</p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5">t = <span class="s3">Task</span>({</p>
+<p class="p5"><span class="Apple-tab-span">	</span>[<span class="s4">"ve"</span>, <span class="s3">thisThread</span>.clock.beats].postln;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s3">inf</span>.do({ <span class="s3">arg</span> i;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2.wait;</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[ <span class="s4">"despierta"</span>, i ].postln<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span>})</p>
+<p class="p5">});</p>
+<p class="p2"><br></p>
+<p class="p5">fork {</p>
+<p class="p5"><span class="Apple-tab-span">	</span>t.start;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>0.1.wait;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>t.stop;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>0.1.wait;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>t.start;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>6.wait;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>t.stop;</p>
+<p class="p5">};</p>
+<p class="p5">)</p>
+<p class="p2"><br></p>
+<p class="p5">[ go, 1702.114411906 ]</p>
+<p class="p5">[ go, 1704.114411906 ]</p>
+<p class="p2"><br></p>
+<p class="p1">A partir del subproceso ramificado (fork), esperarías que la segunda línea "ve" ocurriera 0.2 segundos después que la primera, pero sucede dos segundos después (la misma cantidad de tiempo la Task espera entre iteraciones). Esto es porque la Task no debe planificarse ("schedule")<span class="Apple-converted-space">  </span>a sí misma en el Clock más de una vez. Cuando la Task es detenida, permanece planificada hasta que despierta otra vez (a partir de su tiempo de espera). Si, durante este intervalo, la Task fuera reiniciada, habría dos referencias a la Task en la cola del planificador ("scheduler") -- una situación que está irrecuperablemente cerca de detener todo con las teclas Command-punto.</p>
+<p class="p3"><br></p>
+<p class="p1">Como consecuencia, Task debe ser utilizada en procesos que necesiten iniciarse y detenerse con poca frecuencia, y que requieran una máxima estabilidad. Si necesitas un control de grano fino sobre cómo y cuándo los procesos se detienen y se reanudan (como es el caso, por ejempl,o con la clase Condition), se prefiere Routine.</p>
+</body>
+</html>

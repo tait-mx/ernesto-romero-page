@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8b0800}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1410c0}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #487300}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #1410c0}
+span.s2 {text-decoration: underline ; color: #1410c0}
+span.s3 {color: #000000}
+span.s4 {color: #487300}
+span.s5 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Paralelizando patrones de eventos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Hay varias maneras diferentes para que varios patrones reproduzcan al mismo tiempo. La más obvia es tocarlos separadamente. Los eventos de los patrones son planificados independientemente en sus relojes y corren concurrentemente. Ninguno de estos patrones necesita tener conocimiento de los demás. Una ventaja de esta aproximación es que los patrones pueden ser detenidos y recomenzados independientemente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Otra manera es combinarlos a un flujo paralelo. El resultado es un objeto de patrón único que puede ser reproducido o detenido sólo como una unidad. Cierto grado de control interactivo es perdido, pero hay veces cuando el fusión de varios patrones es necesaria -- por ejemplo, convertir un patrón a un objeto Score ('partitura') para hacerse en Tiempo-No-Real (NRT por sus siglas en inglés).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ppar(lista, repeticiones):</b> Comenzar cada uno de los patrones de evento en la 'lista' al mismo tiempo. Cuando el último termina, el Ppar también lo hace. Si repeticiones &gt; 1, todos los subpatrones comienzan de nuevo desde el principio.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Ptpar(lista, repeticiones):</b> Aquí la lista consiste en [desplazamientoTemporal0, patrón0, ... desplazamientoTemporalN, patrónN]. Cada patrón empieza después del número de pulsos dado como su desplazamiento temporal. Los patrones comienzan a distintos tiempos relativos entre ellos.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgpar(lista, repeticiones):</b> Como Ppar pero crea un grupo separado para cada subpatrón.</li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgtpar(lista, repeticiones):</b> Como Ptpar con grupos separados para los subpatrones.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Un excelente ejemplo de<span class="Apple-converted-space">  </span><a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Ppar.html"><span class="s1">Ppar</span></a> y <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pseq.html"><span class="s1">Pseq</span></a> usados en conjunto para estructurar una pieza completa ("Spacelab" de Kraftwerk) puede encontrarse en <a href="../../../../../../../SuperCollider3/build/examples/pieces/spacelab.scd"><span class="s2">examples/pieces/spacelab.scd</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Paralelización dinámica</b></p>
+<p class="p2"><br></p>
+<p class="p3">Ppar y sus primos son buenos para un conjunto fijo de patrones paralelo -- es decir, se necesita saber de antemano cuántos patrones van a ser paralelizados. Una vez que los patrones paralelos comienzan, no hay manera de añadirles más flujos. Para seguir añadiendo flujos, usar <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pspawner.html"><span class="s1">Pspawner</span></a> y<span class="Apple-converted-space">  </span><a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pspawn.html"><span class="s1">Pspawn</span></a>. Para el propósito de esta revisión, algunas características básicas serán ilustradas en algunos ejemplos sencillos. Estas clases tienen más capacidades; referirse a sus páginas de ayuda para más información.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pspawner(funciónDeRutina):</b> La función se corre dentro de una Routine (Rutina). Un objeto Spawner ('Brotante') se le pasa a la rutina y este objeto es usado para añadir o remover flujos desde/hacia el flujo paralelo. Nuevos patrones pueden ser añadidos en secuencia o en paralelo.<span class="Apple-converted-space"> </span></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pspawn(patrón, spawnProtoEvent):</b> Admite la mayoría de las característica de Pspawner, pero usa un patrón para controlar el objeto Spawner en lugar de una función de rutina.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Este ejemplo usa <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pspawner.html"><span class="s1">Pspawner</span></a> para disparar segmentos de escala que se traslapan a distintas velocidades. A diferencia de Ppar, que puede manejar un número fijo antes de parar, Pspawner puede seguir indefinidamente.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p6"><span class="s3">p = </span><span class="s1">Pspawner</span><span class="s3">({ </span><span class="s1">|sp|</span><span class="s3"><span class="Apple-tab-span">	</span></span>// sp = el objeto Spawner</p>
+<p class="p5"><span class="Apple-tab-span">	</span>loop {</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// correr un nuevo patrón en paralelo</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el patrón es finito</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// después de algunos eventos, se detiene y el Pspawner se olvida de él</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sp.par(<span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pseries</span>(rrand(-5, 7), #[-1, 1].choose, rrand(4, 7)),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\pan</span>, rrand(-1.0, 1.0),</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">\dur</span><span class="s3">, rrand(0.1, 0.3)<span class="Apple-tab-span">	</span></span>// la duración se escoge una vez para cada patrón</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>));</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// decirle al Spawner que espere un poco antes de que el siguiente patrón arranque</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// NO USAR numBeats.wait para esto!</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// Todo debe ir a través del Spawner</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sp.wait(rrand(1, 4) * 0.25);</p>
+<p class="p5"><span class="Apple-tab-span">	</span>}</p>
+<p class="p5">}).play;</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p3">Lo mismo, escrito usando <a href="../../../../../../../SuperCollider3/build/Help/Streams-Patterns-Events/Patterns/Pspawn.html"><span class="s1">Pspawn</span></a>:</p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p8"><span class="s3">p = </span>Pspawn<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s4">\method</span><span class="s3">, </span><span class="s4">\par</span><span class="s3">,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// incrustar patrones en paralelo</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// generar el subpatrón en una Pfunc (para que haya un nuevo patrón cada vez)</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// Pfunc retorna el patrón sin hacer el flujo</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// -- importante para Pspawn</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// Ver la página de ayuda de Pspawn para otras maneras de incrustar patrones</p>
+<p class="p9"><span class="s3"><span class="Apple-tab-span">	</span></span>\pattern<span class="s3">, </span><span class="s1">Pfunc</span><span class="s3"> {</span></p>
+<p class="p8"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Pbind<span class="s3">(</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\degree</span>, <span class="s1">Pseries</span>(rrand(-5, 7), #[-1, 1].choose, rrand(4, 7)),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">\pan</span>, rrand(-1.0, 1.0),</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s4">\dur</span><span class="s3">, rrand(0.1, 0.3)<span class="Apple-tab-span">	</span></span>// la duración se escoge una vez para cada patrón</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>},</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// La llave \delta es usada automáticamente para la llamada a spawner.wait()<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s4">\delta</span>, <span class="s1">Pwhite</span>(1, 4, <span class="s1">inf</span>) * 0.25</p>
+<p class="p5">)).play;</p>
+<p class="p5">)</p>
+<p class="p7"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p10"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06c_Composicion de Patrones.html"><span class="s5">GP_06c_Composicion de Patrones</span></a></span></p>
+<p class="p10"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06e_Control_de_Lenguaje.html"><span class="s5">GP_06e_Control_de_Lenguaje</span></a></span></p>
+</body>
+</html>

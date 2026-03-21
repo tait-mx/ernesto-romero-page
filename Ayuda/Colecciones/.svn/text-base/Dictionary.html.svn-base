@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0021e7}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #bf0000}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #000000; min-height: 14.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8f2116}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #002eaf}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #486b24}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #000000}
+span.s3 {color: #054ae4}
+span.s4 {text-decoration: underline}
+span.s5 {color: #007300}
+span.s6 {color: #486b24}
+span.s7 {color: #606060}
+span.s8 {color: #002eaf}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>Dictionary</b></span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>colección asociativa que relaciona claves con valores</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2"><b>Hereda de: </b><a href="../Core/Object.html"><b>Object</b></a><b> : </b><a href="Collection.html"><b>Collection</b></a><b> : </b><a href="Set.html"><b>Set</b></a></span></p>
+<p class="p2"><br></p>
+<p class="p1">Un Dictionary (Diccionario) es una colección asociativa que relaciona claves con valores.</p>
+<p class="p1">Dos claves corresponden si son <b>iguales</b>. (i.e. == devuelve true (cierto))</p>
+<p class="p2"><br></p>
+<p class="p1">El contenido de un Dictionary no está ordenado. No puedes contar con el orden de los elementos en un Dictionary. Sólo puedes depender de la igualdad para las claves.</p>
+<p class="p1">Para correspondencia de identidad ver: <a href="IdentityDictionary.html"><span class="s3">IdentityDictionary</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2">Ver también: <a href="Environment.html"><span class="s4">Environment</span></a>, <a href="Event.html"><span class="s4">Event</span></a></span></p>
+<p class="p2"><br></p>
+<p class="p1">Frecuentemente, la subclase Event es usada como un IdentityDictionary, debido a que hay un acceso rápido sintáctico:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">a = (); // devuelve un nuevo Event.</p>
+<p class="p5">a.put(<span class="s5">\foo</span>, 2.718);</p>
+<p class="p5">a.at(<span class="s5">\foo</span>);</p>
+<p class="p6"><br></p>
+<p class="p2"><br></p>
+<p class="p7"><b>Creación:</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>*new(n)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Crea un Dictionary con una capacidad inicial de n asociaciones clave/valor</p>
+<p class="p2"><br></p>
+<p class="p7"><b>Añadiendo y Quitando:</b></p>
+<p class="p8"><br></p>
+<p class="p1"><b>add(anAssociation)</b></p>
+<p class="p8"><br></p>
+<p class="p1">Añade una asociación al Dictionary.</p>
+<p class="p1">Si la pareja clave/valor ya existe en el Dictionary, el valor de la clave será reemplazado.</p>
+<p class="p9"><br></p>
+<p class="p10">(</p>
+<p class="p10">d = Dictionary.new;</p>
+<p class="p10">d.add(<span class="s6">'mono'</span> -&gt; 0).postln;</p>
+<p class="p11">// Añade 'robot' como una clave con un valor de 1</p>
+<p class="p10">d.add(<span class="s6">'robot'</span> -&gt; 1).postln;</p>
+<p class="p11">// Reemplaza el valor para la clave 'mono' con 2</p>
+<p class="p10">d.add(<span class="s6">'mono'</span> -&gt; 2).postln;</p>
+<p class="p10">)</p>
+<p class="p9"><br></p>
+<p class="p1"><b>put(key, obj)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Asocia dos objetos y añádelos al Dictionary.</p>
+<p class="p1"><b>key </b>- clave a asociar con un objeto</p>
+<p class="p1"><b>obj<span class="Apple-converted-space"> </span></b> - un objeto</p>
+<p class="p2"><br></p>
+<p class="p10">d.put(<span class="s7">"abc"</span>, 10).postln;</p>
+<p class="p9"><br></p>
+<p class="p1"><b>removeAt(key)</b></p>
+<p class="p9"><br></p>
+<p class="p1">Quita del Dictionary la clave y su valor asociado.</p>
+<p class="p9"><br></p>
+<p class="p10">d.removeAt(<span class="s6">'mono'</span>).postln;</p>
+<p class="p9"><br></p>
+<p class="p7"><b>Accesando:</b></p>
+<p class="p9"><br></p>
+<p class="p1"><b>at(key)</b></p>
+<p class="p9"><br></p>
+<p class="p1">Accesa el valor asociado con la clave.</p>
+<p class="p9"><br></p>
+<p class="p11">// Obtén el valor asociado con la clave</p>
+<p class="p10">d.at(<span class="s6">'robot'</span>);</p>
+<p class="p11">// la clave no existe</p>
+<p class="p10">d.at(<span class="s6">'mono'</span>);</p>
+<p class="p9"><br></p>
+<p class="p1"><b>matchAt(item)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Las claves del Dictionary son usadas como condiciones contra las cuales se busca la correspondencia con el elemento arbitrario.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2"><b>ver: </b><a href="../interfaces/matchItem.html"><b>matchItem</b></a><b><span class="Apple-converted-space"> </span></b></span></p>
+<p class="p2"><br></p>
+<p class="p1">Nota: si un elemento coresponde con varios criterios, el valor devuelto es arbitrario. Esto es debido a que un Dictionary es una colección no ordenada. Es responsabilidad del usuario el asegurarse de que los criterios sean mutuamente exclusivos.</p>
+<p class="p2"><br></p>
+<p class="p1">Si la clave es un objeto, el elemento será comparado por identidad (si clave === elemento, el valor será devuelto).</p>
+<p class="p1">Si la clave es una colección, el elemento corresponderá si está contenido en la colección.</p>
+<p class="p1">Si la clave es una función, la función es evaluada con el elemento como argumento y el elemento corresponderá si la función devuelve true (cierto).</p>
+<p class="p2"><br></p>
+<p class="p12"><span class="s2">d = </span>Dictionary<span class="s2">[</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span>0 -&gt; <span class="s6">'cero'</span>,</p>
+<p class="p13"><span class="s2"><span class="Apple-tab-span">	</span></span>'abc'<span class="s2"> -&gt; </span>'alfa'<span class="s2">,</span></p>
+<p class="p10"><span class="Apple-tab-span">	</span>[1, 2, 3, 5, 8, 13, 21] -&gt; <span class="s6">'fibonacci'</span>,</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// == true es necesario debido a que puede que no sea un número lo que se envíe</p>
+<p class="p10"><span class="Apple-tab-span">	</span>{ <span class="s8">|x|</span> x.tryPerform(<span class="s6">\even</span>) == <span class="s8">true</span> } -&gt; <span class="s6">'par'</span></p>
+<p class="p10">];</p>
+<p class="p14"><br></p>
+<p class="p10">d.matchAt(0)</p>
+<p class="p10">d.matchAt(1)</p>
+<p class="p11"><span class="s2">d.matchAt(2)<span class="Apple-converted-space">  </span></span>// corresponde con ambas claves 'fibonacci' e 'par', cualquiera puede ser devuelta</p>
+<p class="p10">d.matchAt(4)</p>
+<p class="p10">d.matchAt(<span class="s6">'abc'</span>)</p>
+</body>
+</html>

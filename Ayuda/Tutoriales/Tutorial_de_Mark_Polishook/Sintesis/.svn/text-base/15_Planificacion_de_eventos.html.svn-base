@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #94271c}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025af}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #773127}
+span.s1 {color: #0025af}
+span.s2 {color: #000000}
+span.s3 {color: #606060}
+span.s4 {color: #94271c}
+span.s5 {color: #446c21}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Rutinas y relojes</b></p>
+<p class="p2"><br></p>
+<p class="p3">Usa relojes para crear programaciónes de eventos automatizadas y algorítmicas. Dentro de las cosas que los relojes ejecutan (play) estan las rutinas (routines), tareas (tasks) y patrones (patterns).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Para ver cómo un reloj ejecuta una rutina, primero examina cómo trabaja una función en una rutina.</p>
+<p class="p2"><br></p>
+<p class="p3">El primer argumento (y usualmente el único argumento) para una rutina es una función.</p>
+<p class="p2"><br></p>
+<p class="p4">// modelo para una rutina</p>
+<p class="p5"><span class="s1">Routine</span><span class="s2">({ </span>".... un código dentro de llaves es una función .... "<span class="s2">});</span></p>
+<p class="p2"><br></p>
+<p class="p3">Un mensaje .yield para una expresión dentro de una función (en una rutina) regresa un valor.</p>
+<p class="p2"><br></p>
+<p class="p3">r = <span class="s1">Routine</span>({ <span class="s3">"hola, mundo"</span>.yield.postln });</p>
+<p class="p2"><br></p>
+<p class="p4">// para evaluar una rutina, envía un mensaje .next</p>
+<p class="p4">// entregará el valor de la expersión a la que el mensaje .yield fue añadido<span class="Apple-converted-space"> </span></p>
+<p class="p3">r.next;</p>
+<p class="p2"><br></p>
+<p class="p3">Evalúa (otra vez)</p>
+<p class="p2"><br></p>
+<p class="p3">r.next;</p>
+<p class="p2"><br></p>
+<p class="p3">La rutina de arriba regresa nil cuando es evaluada una segunda vez. Esto es por que una vez que una rutina hace "yield" y si no hay código adicional después del mensaje .yield, la rutina está terminada, acabada, hecha - a menos que reciba un mensaje de restauración (reset). Entonces puede comenzar desde el principio otra vez.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">r.next;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// regresa nil</p>
+<p class="p4"><span class="s2">r.reset;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// restaura la rutina</p>
+<p class="p4"><span class="s2">r.next;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// funciona!</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">r = <span class="s1">Routine</span>({<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span></span>"hola, mundo"<span class="s2">.yield;</span></p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span></span>"que mundo"<span class="s2">.yield;</span></p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span></span>"soy un mundo"<span class="s2">.yield;</span></p>
+<p class="p3">});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">The first three .next messages return a string. The fourth .next message returns nil.</p>
+<p class="p3">Los primeros tres mensajes .next regresan<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">r.next;<span class="Apple-tab-span">	</span></span>// regresa una cadena (string)</p>
+<p class="p4"><span class="s2">r.next;<span class="Apple-tab-span">	</span></span>// regresa una cadena</p>
+<p class="p4"><span class="s2">r.next;<span class="Apple-tab-span">	</span></span>// regresa una cadena</p>
+<p class="p4"><span class="s2">r.next;<span class="Apple-tab-span">	</span></span>// regresa nil</p>
+<p class="p2"><br></p>
+<p class="p3">Restaura la rutina.</p>
+<p class="p2"><br></p>
+<p class="p3">r.reset;</p>
+<p class="p2"><br></p>
+<p class="p3">r.next;</p>
+<p class="p3">r.next;</p>
+<p class="p3">r.next;</p>
+<p class="p3">r.next;</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Usa un mensaje .do en una rutina para hacer un bucle (loop).</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">r = <span class="s1">Routine</span>({<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>// código de preparación</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> array;</p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span>array = [ </span>"hola, mundo"<span class="s2">, </span>"que mundo"<span class="s2">, </span>"soy un mundo"<span class="s2"> ];</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>// el bucle (loop)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>3.do({ array.choose.yield })</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">Evalúa la rutina una vez más de lo que el bucle en la rutina permite.</p>
+<p class="p2"><br></p>
+<p class="p3">4.do({ r.next.postln });</p>
+<p class="p2"><br></p>
+<p class="p3">La rutina regresa tres cadenas seguidas de un nil.</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Programando rutinas</b></p>
+<p class="p2"><br></p>
+<p class="p3">Reescribe la rutina de modo que incluya un mensaje .wait.</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p3">r = <span class="s1">Routine</span>({<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> array;</p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span>array = [ </span>"hola, mundo"<span class="s2">, </span>"que mundo"<span class="s2">, </span>"soy un mundo"<span class="s2"> ];</span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>3.do({<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.wait; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// pausa de un segundo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>array.choose.postln;<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>})</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">Después ejecuta la rutina, eg, mándale un mensaje .play.</p>
+<p class="p2"><br></p>
+<p class="p3">r.play</p>
+<p class="p2"><br></p>
+<p class="p3">Añade un mensaje .reset a la rutina para que pueda empezar de nuevo.</p>
+<p class="p2"><br></p>
+<p class="p3">r.reset.play;</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Relojes y la conveniencia del .play</b></p>
+<p class="p2"><br></p>
+<p class="p3">Cuando una rutina recibe un mensaje .play, el control (de la rutina) es redireccionado a un reloj. El reloj usa al receptor del mensaje .wait como una unidad de tiempo para programar ("play") la rutina.</p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider tiene tres relojes, cada uno de ellos tiene un archivo de ayuda.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1">SystemClock</span><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el más preciso</p>
+<p class="p4"><span class="s1">AppClock</span><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// para usar con GUIs</p>
+<p class="p4"><span class="s1">TempoClock</span><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// para programar en beats</p>
+<p class="p2"><br></p>
+<p class="p3">El mensaje .play es una conveniencia que le permite a uno escribir</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2">r.reset.play;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// restaura la rutina antes de ejecutarla</p>
+<p class="p2"><br></p>
+<p class="p3">en vez de</p>
+<p class="p2"><br></p>
+<p class="p6">SystemClock<span class="s2">.play(r)<span class="Apple-tab-span">	</span></span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Programando synths con rutinas</b></p>
+<p class="p7"><br></p>
+<p class="p3">Encierra synths dentro de rutinas. Se da seguido el caso de que el synthdef usado por el synth en las rutinas debiera tener una envolvente con un parametro doneAction puesto en 2 (desasignar la memoria que necesita el synth después de que su envolvente ha terminado de tocar)</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">// DEFINE UN SYNTHDEF</p>
+<p class="p6">SynthDef<span class="s2">(</span><span class="s3">"fm2"</span><span class="s2">, {<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">arg</span> bus = 0, freq = 440, carPartial = 1, modPartial = 1, index = 3, mul = 0.2, ts = 1;</p>
+<p class="p2"><br></p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="s4">// </span>los valores del índice (index) usualmente están entre 0 y 24</p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>// carPartial :: modPartial =&gt; car/mod ratio</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> mod;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">var</span> car;</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>mod = <span class="s1">SinOsc</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>freq * modPartial,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>freq * index * <span class="s1">LFNoise1</span>.kr(5.reciprocal).abs</p>
+<p class="p3"><span class="Apple-tab-span">	</span>);</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>car = <span class="s1">SinOsc</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(freq * carPartial) + mod,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mul</p>
+<p class="p3"><span class="Apple-tab-span">	</span>);</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>bus,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>car * <span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>.sine(1), doneAction: 2, timeScale: ts)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">// DEFINE UNA RUTINA</p>
+<p class="p6"><span class="s2">r = </span>Routine<span class="s2">({</span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>12.do({</p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>Synth<span class="s2">(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">"fm2"</span>,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>\bus, 2.rand, <span class="s5">\freq</span>, 400.0.rrand(1200),<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\carPartial</span>, 0.5.rrand(2), <span class="s5">\ts</span>, 0.5.rrand(11)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>]</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.queryAllNodes;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>"".postln.postln.postln.postln.postln;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>})</p>
+<p class="p3">});</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">// EJECUTA LA RUTINA</p>
+<p class="p3">r.reset.play;</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Procesa synths producidos en una rutina con efectos que corren fuera de la rutina.</p>
+<p class="p2"><br></p>
+<p class="p3">(</p>
+<p class="p4">// DEFINE UN SYNTHDEF</p>
+<p class="p5"><span class="s1">SynthDef</span><span class="s2">(</span>"echoplex"<span class="s2">, {</span></p>
+<p class="p6"><span class="s2"><span class="Apple-tab-span">	</span></span>ReplaceOut<span class="s2">.ar(</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">CombN</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">In</span>.ar(0, 1),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.35,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[<span class="s1">Rand</span>(0.05, 0.3), <span class="s1">Rand</span>(0.05, 0.3)],<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// genera valores aleatorios cada vez que un synth es creado</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>7,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.5</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p2"><br></p>
+<p class="p4">// DEFINE GRUPOS PARA CONTROLAR EL ORDEN-DE-EJECUCION</p>
+<p class="p4">// agrega un grupo ~source (fuente) a la cabeza del rootnode (nodo raíz) y</p>
+<p class="p4">// un grupo ~effects (efectos) en la cola del rootnode.</p>
+<p class="p3">~source = <span class="s1">Group</span>.head(s);</p>
+<p class="p3">~effect = <span class="s1">Group</span>.tail(s);</p>
+<p class="p2"><br></p>
+<p class="p4">// DEFINE UNA ROUTINA</p>
+<p class="p6"><span class="s2">r = </span>Routine<span class="s2">({</span></p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span></span>// loop es lo mismo que inf.do, eg, crea un bucle infinito que regresa por siempre</p>
+<p class="p3"><span class="Apple-tab-span">	</span>loop({</p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">Synth</span><span class="s2">.head(<span class="Apple-tab-span">	</span></span>// agrega el synth a la cabeza del grupo ~source</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~source,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">"fm2"</span>,<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\outbus</span>, 0, <span class="s5">\freq</span>, 400.0.rrand(1200), <span class="s5">\modPartial</span>, 0.3.rrand(2.0),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">\carPartial</span>, 0.5.rrand(11), <span class="s5">\ts</span>, 0.1.rrand(0.2)]</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.queryAllNodes;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span>})</p>
+<p class="p3">});</p>
+<p class="p2"><br></p>
+<p class="p4">// PRENDE LOS EFECTOS</p>
+<p class="p3"><span class="s1">Synth</span>.head(~effect, <span class="s3">"echoplex"</span>);</p>
+<p class="p3"><span class="s1">Synth</span>.tail(~effect, <span class="s3">"echoplex"</span>);</p>
+<p class="p3">)</p>
+<p class="p4">// EJECUTA LA RUTINA</p>
+<p class="p3">r.reset.play;</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+</body>
+</html>

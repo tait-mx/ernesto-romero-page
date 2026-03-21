@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #ad140d}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+span.s1 {color: #000000}
+span.s2 {color: #001bb9}
+span.s3 {color: #114ecf}
+span.s4 {color: #606060}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Arquitectura Cliente contra Servidor y Operaciones</b></p>
+<p class="p2"><br></p>
+<p class="p3">El nombre "SuperCollider" es, de hecho, usado para indicar cinco cosas diferentes (Ilustración 1):</p>
+<p class="p3"><span class="Apple-tab-span">	</span>1. un servidor de audio<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>2. un lenguaje de programación de audio</p>
+<p class="p3"><span class="Apple-tab-span">	</span>3. un intérprete del lenguaje, i.e. un programa capaz de interpretarlo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>4. el programa intérprete como un cliente para el servidor</p>
+<p class="p3"><span class="Apple-tab-span">	</span>5. la aplicación que incluye los dos programas y que provee las funcionalidades mencionadas</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><img src="attachments/ClienteVsServidor/structureEn.png" alt="attachments/ClienteVsServidor/structureEn.png"></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>Ilustración 1. Estructura de la aplicación SuperCollider</b></p>
+<p class="p2"><br></p>
+<p class="p3">La aplicación SuperCollider está, por consiguiente, constituida por dos componentes distintos y autónomos, un <i>servidor</i> y un <i>cliente. </i>El primero es llamado <i>scsynth</i> (SC-sintetizador), el segundo <i>sclang</i> (SC-lenguaje).</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Descripción</b></p>
+<p class="p5"><br></p>
+<p class="p3">La aplicación SuperCollider hace uso de la arquitectura cliente/servidor, la cual separa dos funciones, respectivamente, una que requiere los servicios y otra que los provee. El cliente y el servidor se comunican a través de una red ("network").<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><img src="attachments/ClienteVsServidor/s8kfFC-clientServerEn.png" alt="attachments/ClienteVsServidor/s8kfFC-clientServerEn.png"></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Ilustración 2. Arquitectura Cliente/Servidor</b></p>
+<p class="p2"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></p>
+<p class="p2"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></p>
+<p class="p3">En la ilustración 2 está representada una arquitectura de red genérica: un número de clientes comunicándose con un servidor mediante el intercambio de mensajes a través de una red. En SuperCollider, el cliente y el servidor hacen uso de un subconjunto específico del protocolo Open Sound Control (OSC) de CNMAT para poder comunicarse (a través de TCP o UDP). Como consecuencia, verás muchas referencias a "mensajes OSC" en los archivos de ayuda.</p>
+<p class="p2"><br></p>
+<p class="p3">Para evitar cualquier posible confusión: la red está definida a un nivel abstracto. Esto quiere decir que los clientes y los servidores pueden ser ejecutados en la misma computadora. Esto es lo que normalmente sucede cuando usas la aplicación SuperCollider: dos programas correrán en tu computadora, <i>scsynth</i> y <i>sclang.</i></p>
+<p class="p2"><br></p>
+<p class="p3">La aplicación servidor, <i>scsynth,<span class="Apple-converted-space"> </span></i> es un programa de línea de comandos ligero y eficiente, dedicado a la síntesis y al procesamiento de audio. No sabe nada acerca de código de SuperCollider, de Programación Orientada a Objetos ni de ninguna otra cosa que tenga que ver con el lenguaje SuperCollider.</p>
+<p class="p2"><br></p>
+<p class="p3">El cliente de este servidor es <i>sclang. </i>SClang lleva a cabo dos tareas diferentes:</p>
+<p class="p3"><b>1.</b> es el <i>cliente </i>del servidor, i.e. manda mensajes OSC al servidor.</p>
+<p class="p3">Para poder escribir una carta al servidor, necesitas una hoja de papel y algo que envíe la carta: <i>sclang</i> es ambas cosas.</p>
+<p class="p3"><b>2. </b>es el <i>intérprete </i>del lenguaje de programación SuperCollider, i.e. permite al usuario escibir código en el lenguaje de programación antes mencionado y ejecutar los comandos resultantes de forma interactiva, e.g. controlar un servidor de audio. En particular, los mensajes OSC pueden ser incómodos de escribir, ya<span class="Apple-converted-space">  </span>que comparten con el servidor su perspectiva de bajo nivel. El lenguaje SuperCollider es un lenguaje orientado a objetos de alto nivel y muy completo; permite al usuario beneficiarse de un poder mucho más expresivo que los mensajes OSC. Típicamente, el intérprete traduce el código en el lenguaje SuperCollider a mensajes OSC para el servidor. El usuario escribe poesía (es un decir) en el lenguaje SuperCollider, la cual es luego parafraseada en prosa OSC por el intérprete <i>sclang,</i> para ser mandada al servidor.</p>
+<p class="p2"><br></p>
+<p class="p3">Desde dentro de <i>sclang</i><b><i>, </i></b>iniciar una aplicación servidor se puede lograr al:</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s1">s = </span><span class="s2">Server</span><span class="s1">.default; <span class="Apple-tab-span">	</span></span>// crear un nuevo objeto Servidor y asignarlo a la variable s</p>
+<p class="p7"><span class="s1">s.boot; <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// arrancar la aplicación servidor, i.e. decir al servidor que esté listo para trabajar</p>
+<p class="p2"><br></p>
+<p class="p3">El intérprete de <i>sclang</i> puede mandar mensajes OSC a <i>scsynth</i> de dos formas:</p>
+<p class="p2"><br></p>
+<p class="p3"><b>- directamente</b>: en este caso, <i>sclang</i><b><i> </i></b>ofrece una delgada capa de sintaxis que permite tratar con mensajes OSC en bruto. Toda la funcionalidad del servidor está, en este caso, disponible "a mano" utilizando el método .sendMsg de <a href="Server.html"><span class="s3">Server</span></a>, y otros mensajes similares.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s1">n = s.nextNodeID;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// obtener del servidor un nodeID disponible y asignarlo a n</p>
+<p class="p7"><span class="s1">s.sendMsg(</span><span class="s4">"/s_new"</span><span class="s1">, </span><span class="s4">"default"</span><span class="s1">, n); <span class="Apple-tab-span">	</span></span>// utilizar el SynthDef "default" para crear un sintetizador con el ID n</p>
+<p class="p7"><span class="s1">s.sendMsg(</span><span class="s4">"/n_free"</span><span class="s1">, n);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// liberar el synth n</p>
+<p class="p2"><br></p>
+<p class="p3"><b>- indirectamente</b>: la aplicación lenguaje te provee de una conveniente funcionalidad de Programación Orientada a Objetos (POO) para dar seguimiento y manipular a los elementos en el servidor. La sintaxis de alto nivel es traducida a mensajes OSC de bajo nivel por <i>sclang</i> y mandada al servidor (<i>envolvimiento de lenguaje</i>).</p>
+<p class="p2"><br></p>
+<p class="p7"><span class="s1">x = </span><span class="s2">Synth</span><span class="s1">(</span><span class="s4">"default"</span><span class="s1">);<span class="Apple-tab-span">	</span></span>// crear un sintetizador en el servidor por defecto (s) y asignarle un ID</p>
+<p class="p7"><span class="s1">x.free;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// liberar el sintetizador, su ID y sus recursos</p>
+<p class="p6"><br></p>
+<p class="p3">Al trabajar de esta forma has ganado cierta funcionalidad. Te provee de un nodeID automáticamente, permite controlar el sintetizador en formas sintácticamente elegantes y eficientes (ver los archivos de ayuda de <a href="Synth.html"><span class="s3">Synth</span></a> y de <a href="Node.html"><span class="s3">Node</span></a>) y, al hacer esto, accesar todas las ventajas de la programación orientada a objetos.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><img src="attachments/ClienteVsServidor/scEn.png" alt="attachments/ClienteVsServidor/scEn.png"></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>Ilustración 3. <i>Sclang</i> como cliente de alto nivel.</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p3">El envolvimiento de lenguaje permite al usuario obtener acceso a comportamientos complejos con muy poco código. La Ilustración3 (ignora de momento que <i>sclang</i> esté representado como un cliente dentro de muchos clientes <span class="Apple-tab-span">	</span>posibles, ver después) representa esquemáticamente lo que sucede cuando evalúas una función de audio como:</p>
+<p class="p2"><br></p>
+<p class="p7">// asumiento que el servidor ya haya sido arrancado</p>
+<p class="p8">{<span class="s2">SinOsc</span>.ar}.play ;</p>
+<p class="p2"><br></p>
+<p class="p3">En este caso, muchas operaciones del servidor están ocultas. Para entender el código involucrado en la evaluación de este código ve<span class="Apple-converted-space">  </span><a href="../Tutorials/Getting-Started/Functions and Other Functionality.html"><span class="s3">Functions and Other Functionality</span></a><b> </b>y <a href="../Tutorials/Getting-Started/SynthDefs and Synths.html"><span class="s3">SynthDefs and Synths</span></a><span class="s3"> </span>(parte del tutorial de Scott Wilson).</p>
+<p class="p2"><br></p>
+<p class="p3">El estilo POO también tiene una pequeña cantidad de coste. Requiere de ciclos de procesador y de memoria del lado del cliente para crear y manipular un objeto. Normalmente, este coste no es significativo, pero puede haber ocasiones en las que prefieras utilizar el primer método, el cual es menos elegante y expresivo, por ejemplo: al crear grandes cantidades de granos que simplemente sonarán y luego se liberarán por si mismos.</p>
+<p class="p2"><br></p>
+<p class="p3">Por lo tanto, es posible crear nodos sintetizadores en el servidor sin tener que crear objetos Synth, con tal de que estés dispuesto a llevar a cabo todo el mantenimiento por tu cuenta. Lo mismo es cierto para grupos de nodos, buffers y buses. Una discusión más detallada de estos conceptos puede ser encontrada en el archivo de ayuda <a href="NodeMessaging.html"><span class="s3">NodeMessaging</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3">En conclusión, lo crucial es recordar la distinción entre elementos como nodos, buses, buffers y servidores, y los objetos que los representan en la aplicación lenguaje (i.e. instancias de las clases <a href="Node.html"><span class="s3">Node</span></a>, <a href="Bus.html"><span class="s3">Bus</span></a>, <a href="Buffer.html"><span class="s3">Buffer</span></a>, y <a href="Server.html"><span class="s3">Server</span></a>; éstas son llamadas 'Objetos de Abstracción del Servidor'). Mantener a estos dos tipos de elementos conceptualmente diferenciados ayudará a evitar mucha confusión.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Pros/Contras</b></p>
+<p class="p2"><br></p>
+<p class="p3">La arquitectura cliente/servidor provee tres ventajas principales:</p>
+<p class="p2"><br></p>
+<p class="p3"><b>estabilidad</b>: si el cliente se "crashea", el servidor sigue funcionando, i.e. el audio no se detiene. Esto es intuitivamente relevante en una situación en vivo. Viceversa, si el servidor se "crashea", puedes seguir controlando la situación desde el cliente.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>modularidad</b>: síntesis es una cosa, control otra. Separar ambos aspectos le permite a uno (por ejemplo) controlar <i>scsynth</i> desde otras aplicaciones aparte de <i>sclang.</i> Lo único importante es que sean capaces de mandar los mensajes OSC adecuados al servidor.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>control remoto:</b> la red cliente/servidor puede ser externa a tu computadora, e.g. a través de internet. Esto permite a uno controlar un servidor de audio en Alaska desde un cliente (<i>sclang</i> u otro) en la India, por ejemplo.</p>
+<p class="p2"><br></p>
+<p class="p3">Hay dos notables desventajas:</p>
+<p class="p2"><br></p>
+<p class="p3"><b>latencia: </b>El proceso de envío de mensajes introduce una pequeña cantidad de latencia. Esto no debe de ser confundido con latencia de audio, la cual puede ser bastante baja. Sólo significa que hay un pequeño, usualmente insignificante, retraso entre el lado que manda un mensaje y en el que lo recibe y actúa en consecuencia. (Esto puede ser minimizado utilizando el servidor interno ("internal"). Ve <a href="Server.html"><span class="s3">Server</span></a> para más detalles)</p>
+<p class="p2"><br></p>
+<p class="p3"><b>ejecución asincrónica:</b> En algunos casos, el cliente puede necesitar saber que una tarea en el servidor (por ejemplo, el procesamiento de un archivo de audio grande) ha sido completada antes de continuar con otra tarea. Debido a que algunas tareas toman una duración de tiempo arbitrario para ser completadas, un mecanismo de respuesta es necesario. Esto puede añadir cierta complejidad a tu código pero, en principio, no es un problema. (Ve <a href="../Control/OSCresponder.html"><span class="s3">OSCresponder</span></a> y <a href="../Control/OSCresponderNode.html"><span class="s3">OSCresponderNode</span></a>.) Algunos objetos de abstracción del servidor, como <a href="Buffer.html"><span class="s3">Buffer</span></a><span class="s3">,</span> automáticamente proveen este mecanismo a través de sus funciones de acción ("action") y esperan a que su tarea sea completada antes de ejecutar estas funciones.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Una observación final para el lector avanzado</b></p>
+<p class="p2"><br></p>
+<p class="p3">Además de <i>sclang, </i>es posible controlar a <i>scsynth</i> desde cualquier otro cliente que cuente con mensajes OSC (e.g. de Java, Python, Max/MSP, etc.). Para trabajar en red, ver <a href="Server-Architecture.html"><span class="s3">Server-Architecture</span></a>, <a href="../Control/NetAddr.html"><span class="s3">NetAddr</span></a>, <a href="../Control/OSCresponder.html"><span class="s3">OSCresponder</span></a>, <a href="../Control/OSCresponderNode.html"><span class="s3">OSCresponderNode</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p3">En general, no obstante, <i>sclang</i> es la manera preferible de comunicarse con <i>scsynth,</i> por tres razones:</p>
+<p class="p3">- otorga el poder expresivo del lenguaje SuperCollider;</p>
+<p class="p3">- el lenguaje está explícitamente ajustado a los requisitos de <i>scsynth</i> (y, lo que es más importante, a los de los músicos)</p>
+<p class="p3">- permite a uno crear y cargar SynthDefs en <i>scsynth</i> (ver <a href="SynthDef.html"><span class="s3">SynthDef</span></a>), lo cual no es una tarea fácil de lograr en otra aplicación cliente</p>
+<p class="p2"><br></p>
+</body>
+</html>

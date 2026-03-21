@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #0025af}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><br></p>
+<p class="p2"><b>Sintetizando sonido</b></p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Para ejecutar (evaluar) una línea de código, como la siguiente:</p>
+<p class="p1"><br></p>
+<p class="p3">{ SinOsc.ar([400, 401], 0, 0.1) * Saw.ar([11, 33], 1) * EnvGen.kr(Env.sine(10)) }.play</p>
+<p class="p1"><br></p>
+<p class="p3">primero asegúrate que el servidor localhost ha sido iniciado. Después coloca el cursor en cualquier lugar de la línea (mostrada arriba) y presiona &lt;enter&gt;. El servidor sintetizará el sonido y un mensaje parecido a:</p>
+<p class="p1"><br></p>
+<p class="p3">Synth("-613784702" : 1000)</p>
+<p class="p1"><br></p>
+<p class="p3">aparecerá en la ventana de "post".</p>
+<p class="p1"><br></p>
+<p class="p3">Presiona command-punto (cmd-.) para detener la síntesis.</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p1"><br></p>
+<p class="p3">Para ejecutar más de una línea de código, selecciona todas las líneas y presiona &lt;enter&gt;.</p>
+<p class="p1"><br></p>
+<p class="p3">Para ayudar con el proceso de selección, los ejemplos con más de una línea de código son colocados dentro de paréntesis. En dichos casos, selecciona el texto haciendo clic inmediatamente a la derecha del paréntesis superior, o a la izquierda del paréntesis inferior. O, con el cursor a la derecha del paréntesis superior o a la izquierda del paréntesis inferior, presiona cmd-shift-b.</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">Después, presiona &lt;enter&gt; (para ejecutar el ejemplo).</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">(</p>
+<p class="p3">{</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">RLPF</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>in: <span class="s1">Saw</span>.ar([100, 102], 0.15),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>freq: <span class="s1">Lag</span>.kr(<span class="s1">LFNoise0</span>.kr(4, 700, 1100), 0.1),</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>rq: 0.05</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}.play</p>
+<p class="p3">)</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">El servidor sintetizará el audio y un texto parecido a:</p>
+<p class="p1"><br></p>
+<p class="p3">Synth("-393573063" : 1000)</p>
+<p class="p1"><br></p>
+<p class="p3">aparecerá en la "post window".</p>
+<p class="p1"><br></p>
+<p class="p3">Presiona cmd-. para detener la síntesis.</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p2"><b>Graficando sonudo</b></p>
+<p class="p1"><br></p>
+<p class="p3">Para observar una representación gráfica de lo que sea que estés sintetizando (una representación gráfica de la forma de onda):</p>
+<p class="p1"><br></p>
+<p class="p3">1. asegúrate de que el servidor interno (internal server) esté corriendo (presiona el botón de "boot").</p>
+<p class="p3">2. presiona el botón "default" dentro de la ventana del servidor interno.</p>
+<p class="p3">3. evalúa el código como está descrito arriba.</p>
+<p class="p1"><br></p>
+<p class="p3">Por ejemplo, ejecuta:</p>
+<p class="p1"><br></p>
+<p class="p3">{ SinOsc.ar([400, 401], 0, 0.5) * Saw.ar([11, 33], 0.5) }.play</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">4. luego evalúa:</p>
+<p class="p1"><br></p>
+<p class="p3">s.scope(2)</p>
+<p class="p1"><br></p>
+<p class="p3">con lo cual aparecerá una ventana con el título "stethoscope" (estetoscopio).</p>
+<p class="p1"><br></p>
+<p class="p3">Como un atajo para los pasos entre 2 y 4, manda el mensaje de "scope" directamente al ejemplo:<span class="Apple-converted-space"> </span></p>
+<p class="p1"><br></p>
+<p class="p3">{ SinOsc.ar([400, 401], 0, 0.5) * Saw.ar([11, 33], 0.5) }.scope(2)</p>
+<p class="p1"><br></p>
+<p class="p3">Presiona cmd-. para detener la síntesis.</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p2"><b>Grabando sonido</b></p>
+<p class="p1"><br></p>
+<p class="p3">Los servidores localhost e interno tienen botones, en la parte derecha, para activar la grabación. Para grabar, selecciona el servidor default. El botón en el servidor default de tu elección inicialmente dirá "prepare rec" (preparar grabación). Presiónalo una vez y dirá "record &gt;" (grabar). Presiónalo de nuevo para iniciar la grabación.</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p4">ir a <b>3_Comentarios</b></p>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.35">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025b2}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316; min-height: 12.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #0025b2}
+span.s2 {color: #000000}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Funciones y mensajes .scope</b></p>
+<p class="p2"><br></p>
+<p class="p3">Una manera fácil de audicionar procesosz de síntesis es probarlos dentro de una función. Para hacer esto, agregue un mensaje de .scope o .play a la función. El mensaje .scope, que funciona únicamente con el sevidor interno, muestra una representación visual de la onda sonora (a la manera de un osciloscopio).<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">Encender el servidor interno</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Server</span>.internal.boot;</p>
+<p class="p2"><br></p>
+<p class="p3">Correr este ejemplo y ver la ventana del scope.</p>
+<p class="p2"><br></p>
+<p class="p4">// probar un proceso de síntesis en una función</p>
+<p class="p3">(</p>
+<p class="p3"><span class="Apple-tab-span">	</span>{<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1"><span class="Apple-tab-span">	</span>SinOsc</span>.ar([440.067, 441.013], 0, 1)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([111, 109], 0, 0.2)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>}.scope;</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">El código puede ser transferido de una función de prueba hacia un synthdef. En el siguiente ejemplo, el código de la función (arriba) es el segundo argumento al ugen Out.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p6"><span class="s1">SynthDef</span><span class="s2">(</span>"modDeAnillo"<span class="s2">, {<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([440.067, 441.013], 0, 1)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([111, 109], 0, 0.2)<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">}).load(s);</p>
+<p class="p3">)</p>
+<p class="p2"><br></p>
+<p class="p6"><span class="s1">Synth</span><span class="s2">(</span>"modDeAnillo"<span class="s2">)</span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Expansión multicanal</b></p>
+<p class="p2"><br></p>
+<p class="p3">Expander un ugen a dos canales con un arreglo en cualquiera de los de los espacios de argumentos (controles).</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s1">Saw</span>.ar([500, 933], 0.1) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">Otra manera (más larga) de escribir la misma cosa es</p>
+<p class="p2"><br></p>
+<p class="p3">{ [ <span class="s1">Saw</span>.ar(500, 0.1), <span class="s1">Saw</span>.ar(933, 0.1)] }.scope;</p>
+<p class="p2"><br></p>
+<p class="p3">Expandir un ugen a tres canales añadiendo values al arreglo.</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s1">Saw</span>.ar([500, 933, 2033], 0.1) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p4">// 4 canales</p>
+<p class="p2"><br></p>
+<p class="p3">{ <span class="s1">Saw</span>.ar([500, 933, 2033, 895], 0.1) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p7"><br></p>
+<p class="p8">ir a<span class="Apple-converted-space">  </span><b>8_síntesis_de_Operaciones_Unarias</b></p>
+</body>
+</html>

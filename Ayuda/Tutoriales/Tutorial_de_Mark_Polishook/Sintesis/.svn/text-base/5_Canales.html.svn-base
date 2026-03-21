@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.35">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #982316; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025b2}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Helvetica; min-height: 11.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #0025b2}
+span.s2 {color: #000000}
+span.s3 {color: #606060}
+span.s4 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1">De manera predeterminada, SuperCollider tiene 128 canales para señales de audio y 4096 para señales de control. Los canales, que son artículos en un arreglo, son lo que SuperCollider usa para representar datos de audio y de velocidad de control.</p>
+<p class="p2"><br></p>
+<p class="p3"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p5"><br></p>
+<p class="p4">// el arreglo de canales de audio</p>
+<p class="p1">[ canal0, canal1, canal2, canal3, canal4, ... , ..., ..., etc., ... canal127 ]</p>
+<p class="p3"><br></p>
+<p class="p4">// el arreglo de canales de control</p>
+<p class="p1">[ canal0, canal1, canal2, canal3, canal4, ... , ..., ..., etc., ... canal4095 ]</p>
+<p class="p3"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><b></b><br></p>
+<p class="p6"><b>Colocando audio en un canal</b></p>
+<p class="p3"><br></p>
+<p class="p1">Use un ugen Out en velocidad de audio para poner datos en un canal de audio.</p>
+<p class="p3"><br></p>
+<p class="p7">(</p>
+<p class="p8"><span class="s1">SynthDef</span><span class="s2">(</span>"datosParaCanal"<span class="s2">, {</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// escribe 1 canal de audio en el canal 0</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Saw</span>.ar(100, 0.1)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p8"><span class="s1">Synth</span><span class="s2">(</span>"datosParaCanal"<span class="s2">);</span></p>
+<p class="p3"><br></p>
+<p class="p1">Un navegador de SynthDef</p>
+<p class="p3"><br></p>
+<p class="p1">(</p>
+<p class="p1"><span class="s1">SynthDescLib</span>.global.read;</p>
+<p class="p1"><span class="s1">SynthDescLib</span>.global.browse;</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p1">muestra 1 canal de salida en el canal 0.</p>
+<p class="p3"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><b></b><br></p>
+<p class="p6"><b>Tomando audio de un canal</b></p>
+<p class="p3"><br></p>
+<p class="p1">Mandar un mensaje .ar a un ugen In para obtener datos de un canal.</p>
+<p class="p9"><br></p>
+<p class="p1">(</p>
+<p class="p8"><span class="s1">SynthDef</span><span class="s2">(</span>"datosDeUnCanal"<span class="s2">, {</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[<span class="Apple-tab-span">	</span></span>// el canal izquierdo toma su entrada de un canal de audio</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">In</span>.ar(0, 1),<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar(440, 0.2),<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>]<span class="Apple-tab-span">	</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p7">(</p>
+<p class="p4"><span class="s1">Synth</span><span class="s2">(</span><span class="s3">"datosParaCanal"</span><span class="s2">);<span class="Apple-tab-span">	</span></span>// sintetiza una onda de sierra en el canal 0</p>
+<p class="p4"><span class="s1">Synth</span><span class="s2">(</span><span class="s3">"datosDeUnCanal"</span><span class="s2">);<span class="Apple-tab-span">	</span></span>// emparejarla con una onda senoidal en el canal 1</p>
+<p class="p1">)</p>
+<p class="p3"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><b></b><br></p>
+<p class="p6"><b>Canales de velocidad de control</b></p>
+<p class="p2"><br></p>
+<p class="p1">Usar In.kr y Out.kr para leer o escribir datos a los canales de control.<span class="Apple-converted-space"> </span></p>
+<p class="p9"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p9"><br></p>
+<p class="p1">Para información adicional, ver los archivos para <span class="s4"><b>Out</b></span>, <span class="s4"><b>In, </b></span>y<span class="Apple-converted-space"> </span><span class="s4"><b> Bus</b></span><span class="Apple-converted-space">  </span>en el sistema de ayuda de<span class="Apple-converted-space">  </span>SuperCollider.</p>
+<p class="p9"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p5"><br></p>
+<p class="p10">ir a <b>6_Controls</b></p>
+</body>
+</html>

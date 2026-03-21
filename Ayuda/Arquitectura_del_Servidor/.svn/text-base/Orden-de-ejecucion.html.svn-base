@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 20.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0021e7}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #8f2116}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #9d1c12}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0026b4}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #ad140d}
+p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #294988; min-height: 12.0px}
+span.s1 {color: #000000}
+span.s2 {text-decoration: underline}
+span.s3 {font: 12.0px Helvetica}
+span.s4 {color: #3062c3}
+span.s5 {color: #002eaf}
+span.s6 {color: #2c7014}
+span.s7 {font: 9.0px Monaco; color: #2c7014}
+span.s8 {color: #606060}
+span.s9 {color: #0026b4}
+span.s10 {color: #3d6d1d}
+span.s11 {color: #486b24}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Orden de ejecución</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1"><b>Ver también: </b><a href="Server.html"><span class="s2">Server</span></a>, <a href="Node.html"><span class="s2">Node</span></a>, <a href="Group.html"><span class="s2">Group</span></a>, <a href="default_group.html"><span class="s2">default_group</span></a>, <a href="Bus.html"><span class="s2">Bus</span></a>, <a href="../UGens/InOut/Out.html"><span class="s2">Out</span></a>, <a href="../UGens/InOut/ReplaceOut.html"><span class="s2">ReplaceOut</span></a>, <a href="../UGens/InOut/XOut.html"><span class="s2">XOut</span></a>, <a href="../UGens/InOut/OffsetOut.html"><span class="s2">OffsetOut</span></a>, <a href="../UGens/InOut/In.html"><span class="s2">In</span></a>, <a href="../UGens/InOut/InFeedback.html"><span class="s2">InFeedback</span></a>, <a href="../UGens/InOut/LocalIn.html"><span class="s2">LocalIn</span></a>, <a href="../UGens/InOut/LocalOut.html"><span class="s2">LocalOut</span></a>, <a href="../UGens/InOut/SharedIn.html"><span class="s2">SharedIn</span></a>, <a href="../UGens/InOut/SharedOut.html"><span class="s2">SharedOut</span></a></span></p>
+<p class="p2"><br></p>
+<p class="p4">El orden de ejecución es uno de los aspectos más críticos y aparentemente difíciles al utilizar SuperCollider pero, en realidad, hacer que funcione sólo toma un poco de reflexión durante las primeras etapas de planeación.</p>
+<p class="p2"><br></p>
+<p class="p4">Orden de ejecución en este contexto no significa el orden en el que las instrucciones son ejecutadas en el lenguaje (el cliente). Se refiere al orden de los nodos sintetizadores en el servidor, el cual corresponde al orden en el que la señal de salida de los nodos sintetizadores es calculada durante cada ciclo de control ("blockSize"). Especifiques o no el orden de ejecución, cada sintetizador y cada grupo va en un lugar específico en la cadena de ejecución.</p>
+<p class="p2"><br></p>
+<p class="p4">Si tienes en el servidor:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>sintetizador 1 ---&gt; sintetizador 2<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">... durante cada ciclo de control, todas las unidades generadoras del sintetizador 1 se ejecutarán antes que las del sintetizador 2.</p>
+<p class="p2"><br></p>
+<p class="p4">Si no tienes ningún sintetizador que utilice In.ar, no tienes que preocuparte por el orden de ejecución. Sólo importa cuando un sintetizador está leyendo la señal de salida de otro sintetizador.</p>
+<p class="p2"><br></p>
+<p class="p4">La regla es sencilla: si tienes un sintetizador en el servidor (i.e. un "efecto") que depedende de la salida<span class="Apple-converted-space">  </span>de otro sintetizador (la "fuente"), el efecto debe aparecer después que la fuente en la cadena de nodos en el servidor.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>fuente ---&gt; efecto</p>
+<p class="p2"><br></p>
+<p class="p4">Si tienes:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>efecto ---&gt; fuente</p>
+<p class="p2"><br></p>
+<p class="p4">El sintetizador efecto no va a escuchar al sintetizador fuente y no obtendrás los resultados que quieres.</p>
+<p class="p2"><br></p>
+<p class="p4">Abajo se muestra el diagrama de una típica configuración de servidor:</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3"><img src="attachments/Orden-de-ejecucion/server.png" alt="attachments/Orden-de-ejecucion/server.png"></span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4">En el servidor, señales de audio externas pueden ser recibidas por los sintetizadores mediante los canales de entrada de audio "públicos" (uno en el caso representado), al mismo tiempo, los diferentes sintetizadores deben ser conectados a los canales de salida de audio "públicos" (dos en el caso representado) para enviar una señal de salida a la tarjeta de sonido (ver <a href="Bus.html"><span class="s4">Bus</span></a>). Los demás canales (tanto de audio como de control) son internos. En general, los canales pueden ser considerados semejantes a los envíos, canales o grupos de mezcla en una mesa de mezclas; o como tuberías que permiten a uno encauzar señales que "fluyen". Si un sintetizador está conectado a un canal en un punto específico ("fluyendo" a él), un sintetizador que tome la señal del mismo canal en un punto posterior tomará como señal de entrada a la señal que "fluye" (junto con cualquier otra señal previamente enviada a este canal), de la misma manera como ocurriría con una tubería de agua.</p>
+<p class="p2"><br></p>
+<p class="p6"><b>Algunas Notas sobre Servidores y Objetivos ("Targets")</b></p>
+<p class="p7"><br></p>
+<p class="p4">Siempre hay un servidor (<a href="Server.html"><span class="s4">Server</span></a>) por defecto, el cual puede ser accesado o establecido a través del método de clase Server.default. Al arrancar, el servidor local es establecido como el servidor por defecto, y también es asignado a la variable s del intérprete.</p>
+<p class="p2"><br></p>
+<p class="p8">// ejecuta lo siguiente y observa la ventana "post"</p>
+<p class="p9">s === <span class="s5">Server</span>.default;</p>
+<p class="p9">s === <span class="s5">Server</span>.local;</p>
+<p class="p9"><span class="s5">Server</span>.default = <span class="s5">Server</span>.internal; s === <span class="s5">Server</span>.default;</p>
+<p class="p8"><span class="s5">Server</span><span class="s1">.default = </span><span class="s5">Server</span><span class="s1">.local; </span>// regrésalo al servidor local</p>
+<p class="p2"><br></p>
+<p class="p4">Cuando un servidor es arrancado, existe un grupo de nivel superior, con un ID de 0, el cual define la raíz del árbol de nodos. Este grupo está representado por la subclase <a href="RootNode.html"><span class="s4">RootNode</span></a> de la clase <a href="Group.html"><span class="s4">Group</span></a><span class="s4">. </span>También hay un grupo por defecto (<a href="default_group.html"><span class="s4">default_group</span></a>), con un ID de 1. Este grupo es el grupo por defecto de todos los nodos. Este es el grupo que obtendrás si proporcionas un servidor como objetivo ("target"). Si no especificas un objetivo o envías nil, obtendrás el grupo por defecto del servidor por defecto.</p>
+<p class="p2"><br></p>
+<p class="p4">El grupo por defecto cumple una importante función: provee un árbol de nodos básico y predecible para que métodos como Server:scope y Server:record no tengan problemas de orden de ejecución. En general, uno debe crear nodos dentro del grupo por defecto (<a href="default_group.html"><span class="s4">default_group</span></a>) en vez de en el nodo raíz (<a href="RootNode.html"><span class="s4">RootNode</span></a>). Ver <a href="default_group.html"><span class="s4">default_group</span></a> y <a href="RootNode.html"><span class="s4">RootNode</span></a><b> </b>para más detalles.</p>
+<p class="p7"><br></p>
+<p class="p6"><b>Controlando el orden de ejecución</b></p>
+<p class="p2"><br></p>
+<p class="p4">Hay tres maneras de controlar el orden de ejecución: utilizando el argumento "addAction" en tus mensajes de creación de sintetizadores, moviendo los nodos, y colocando tus sintetizadores en grupos. Utilizar grupos es opcional, pero es la forma más eficaz de organizar el orden de ejecución.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Acciones de agregado:</b></p>
+<p class="p2"><br></p>
+<p class="p4">Al especificar un argumento addAction (acción de agregado) para <b>Synth.new </b>(o SynthDef.play, Function.play, etc.) uno puede especificar la posición del nodo en relación con el objetivo ("target"). El objetivo puede ser un nodo grupo, otro nodo sintetizador o un servidor.</p>
+<p class="p2"><br></p>
+<p class="p4">Como se dijo anteriormente, el objetivo por defecto es el grupo por defecto (<a href="default_group.html"><span class="s4">default_group</span></a>, el grupo con el <b>nodeID 1</b>) del servidor por defecto.</p>
+<p class="p2"><br></p>
+<p class="p4">Los siguientes símbolos son acciones de agregado válidas para Synth.new: <span class="s6">\addToHead</span> (añadir en la cabeza), <span class="s6">\addToTail</span> (añadir en la cola), <span class="s6">\addBefore</span> (añadir antes), <span class="s6">\addAfter</span> (añadir después), <span class="s6">\addReplace</span> (añadir remplazar).</p>
+<p class="p2"><br></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>Synth.new(defName, args, target, addAction)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>si el objetivo es un servidor, resolverá al grupo por defecto de ese servidor</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>si el objetivo es nil, resolverá al grupo por defecto del servidor por defecto</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>Nota: </b>un sintetizador no es un objetivo válido para las acciones de agregado <span class="s7">\addToHead</span> y <span class="s7">\addToTail</span>.</p>
+<p class="p2"><br></p>
+<p class="p4">La clase <a href="Synth.html"><span class="s4">Synth</span></a> también cuenta con métodos de conveniencia para cada acción de agregado:</p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>Synth.head(aGroup, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>agrega el nuevo sintetizador en la cabeza del grupo especificado por aGroup</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>si aGroup es un servidor, resolverá al grupo por defecto de ese servidor</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>si aGroup es nil, resolverá al grupo por defecto del servidor por defecto</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>Nota: </b>un sintetizador no es un objetivo válido para el argumento aGroup</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>Synth.tail(aGroup, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>agrega el nuevo sintetizador en la cola del grupo especificado por aGroup</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>si aGroup es un servidor, resolverá al grupo por defecto de ese servidor</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>si aGroup es nil, resolverá al grupo por defecto del servidor por defecto</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>Nota: </b>un sintetizador no es un objetivo válido para el argumento aGroup</p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>Synth.before(aNode, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>agrega el nuevo nodo justo antes del nodo especificado por aNode.</p>
+<p class="p2"><br></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>Synth.after(aNode, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>agrega el nuevo nodo justo después del nodo especificado por aNode.</p>
+<p class="p2"><br></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>Synth.replace(synthToReplace, defName, args)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>el nuevo nodo remplaza al nodo especificado por synthToReplace. El nodo del objetivo es liberado.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4">Utilzar Synth.new sin una acción de agregado resultará en la acción de agregado por defecto. (Puedes revisar los valores por defecto de los argumentos de cualquier método al ver el código fuente de sus clases. Ver <a href="../Other Topics/Internal-Snooping.html"><span class="s4">Internal-Snooping</span></a> para más detalles.) Cuando el orden de ejecución importa, es importante que especifiques una acción de agregado o que utilices uno de los métodos de conveniencia mencionandos arriba.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Moviendo nodos:</b></p>
+<p class="p2"><br></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>.moveBefore </b>- mueve antes</p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>.moveAfter </b>- mueve después</p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>.moveToHead </b>- mueve a la cabeza</p>
+<p class="p4"><b><span class="Apple-tab-span">	</span>.moveToTail </b>- mueve a la cola</p>
+<p class="p2"><br></p>
+<p class="p4">Si necesitas cambiar el orden de ejecución después de que los sintetizadores y los grupos hayan sido creados, puedes hacerlo utilizando los mensajes de movimiento.</p>
+<p class="p2"><br></p>
+<p class="p9"><span class="Apple-tab-span">	</span>~efecto = <span class="s5">Synth</span>.tail(s, <span class="s8">"efecto"</span>);</p>
+<p class="p8"><span class="s1"><span class="Apple-tab-span">	</span>~fuente = </span><span class="s5">Synth</span><span class="s1">.tail(s, </span><span class="s8">"fuente"</span><span class="s1">);<span class="Apple-tab-span">	</span></span>// el efecto no será escuchado porque está antes</p>
+<p class="p8"><span class="s1"><span class="Apple-tab-span">	</span>~fuente.moveBefore(~efecto); <span class="Apple-converted-space">  <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></span>// coloca la fuente antes que el efecto</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Grupos<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p4">Los grupos pueden ser cambiados de posición de la misma forma que los sintetizadores. Cuandos mueves un grupo, todos los sintetizadores en este grupo se mueven con él. Es por esto que los grupos son una herramienta importante para controlar el orden de ejecución. (Ver el archivo de ayuda de <a href="Group.html"><span class="s4">Group</span></a><span class="s4"> </span>para más detalles acerca de este y otros aspectos convenientes de los grupos.)</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Grupo 1 ---&gt; Grupo 2</p>
+<p class="p2"><br></p>
+<p class="p4">En la configuración anterior, todos los sintetizadores en el Grupo 1 van a ser ejecutados antes que todos los sintetizadores en el Grupo 2. Esta es una forma muy fácil de hacer que el orden de ejecución suceda de la manera que quieres.</p>
+<p class="p2"><br></p>
+<p class="p4">Determina tu arquitectura, luego crea grupos que sostengan la arquitectura.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Usando el orden de ejecución en tu favor</b></p>
+<p class="p2"><br></p>
+<p class="p4">Antes de que empieces a programar, planea lo que quieres hacer y decide dónde necesitan ir los sintetizadores.</p>
+<p class="p2"><br></p>
+<p class="p4">Una configuración común es tener a una rutina tocando nodos, los cuales necesitan ser procesados por un solo efecto. Además, quieres que este efecto esté separado de otras cosas que estén corriendo al mismo tiempo. Para estar seguro, debes colocar la cadena sintetizador -&gt; efecto en un canal de audio privado y después transferirla a la salida principal.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>[ Muchos sintetizadores ] ----&gt; efecto ----&gt; transferencia</p>
+<p class="p2"><br></p>
+<p class="p4">Este es un lugar perfecto para utilizar un grupo:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>Grupo ([ Muchos sintetizadores ]) ----&gt; efecto ----&gt; transferencia</p>
+<p class="p2"><br></p>
+<p class="p4">Para hacer la estructura más clara en el código, uno puede también crear un grupo para el efecto (incluso si sólo hay un sintetizador en él):</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Grupo ( [ Muchos sintetizadores] ) ----&gt; Grupo ([ efecto ] ) ----&gt; transferencia<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Voy a complicar el ejemplo al modular un parámetro (duración de nota) utilizando un sintetizador a velocidad de control.</p>
+<p class="p2"><br></p>
+<p class="p4">Entonces, al principio de tu programa:</p>
+<p class="p2"><br></p>
+<p class="p9">s.boot;</p>
+<p class="p10"><br></p>
+<p class="p9">(</p>
+<p class="p11"><span class="s1">l = </span><span class="s9">Bus</span><span class="s1">.control(s, 1);<span class="Apple-tab-span">	</span></span>// obtén un canal de control para el oscilador a baja frecuencia (LFO)</p>
+<p class="p11"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// --no es relevante para el orden de ejecución--</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="s1">b = </span><span class="s9">Bus</span><span class="s1">.audio(s, 2);<span class="Apple-tab-span">	</span></span>// asumiendo estéreo--esto es para mantener la cadena fuente-&gt;efecto</p>
+<p class="p11"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// separada de otras cadenas similares</p>
+<p class="p10"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p9">~grupoSintetizador = <span class="s9">Group</span>.tail(s);</p>
+<p class="p9">~grupoEfecto = <span class="s9">Group</span>.tail(s);</p>
+<p class="p10"><br></p>
+<p class="p11">// ahora tienes grupoSintetizador --&gt; grupoEfecto dentro del grupo por defecto de s</p>
+<p class="p10"><br></p>
+<p class="p11">// crea algunos SynthDefs<span class="Apple-converted-space"> </span></p>
+<p class="p12"><span class="s9">SynthDef</span><span class="s1">(</span>"orden-de-ejecucion-distorsion"<span class="s1">, { </span><span class="s9">arg</span><span class="s1"> bus, preGain, postGain;</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s9">var</span> sig;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>sig = <span class="s9">In</span>.ar(bus, 2);</p>
+<p class="p9"><span class="Apple-tab-span">	</span>sig = (sig * preGain).distort;</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s9">ReplaceOut</span>.ar(bus, sig * postGain);</p>
+<p class="p9">}).send(s);</p>
+<p class="p10"><br></p>
+<p class="p9"><span class="s9">SynthDef</span>(<span class="s8">"orden-de-ejecucion-cuadrada"</span>, { <span class="s9">arg</span> freq, bus, ffreq, pan, lfobus;</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s9">var</span> sig, noteLen;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>noteLen = <span class="s9">In</span>.kr(lfobus, 1);</p>
+<p class="p9"><span class="Apple-tab-span">	</span>sig = <span class="s9">RLPF</span>.ar(<span class="s9">Pulse</span>.ar(freq, 0.2, 0.5), ffreq, 0.3);</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s9">Out</span>.ar(bus, <span class="s9">Pan2</span>.ar(sig, pan)</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>* <span class="s9">EnvGen</span>.kr(<span class="s9">Env</span>.perc(0.1, 1), timeScale: noteLen, doneAction: 2));</p>
+<p class="p9">}).send(s);</p>
+<p class="p10"><br></p>
+<p class="p9"><span class="s9">SynthDef</span>(<span class="s8">"LFNoise1"</span>, { <span class="s9">arg</span> freq, mul, add, bus;</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s9">Out</span>.kr(bus, <span class="s9">LFNoise1</span>.kr(freq, mul:mul, add:add));</p>
+<p class="p9">}).send(s);</p>
+<p class="p9">)</p>
+<p class="p10"><br></p>
+<p class="p11">// coloca el oscilador a baja frecuencia:</p>
+<p class="p10"><br></p>
+<p class="p9">~lfo = <span class="s9">Synth</span>.head(s, <span class="s8">"LFNoise1"</span>, [<span class="s10">\freq</span>, 0.3, <span class="s10">\mul</span>, 0.68, <span class="s10">\add</span>, 0.7, <span class="s10">\bus</span>, l]);</p>
+<p class="p10"><br></p>
+<p class="p11">// luego coloca tu efecto:<span class="Apple-converted-space"> </span></p>
+<p class="p10"><br></p>
+<p class="p9">~dist = <span class="s9">Synth</span>.tail(~grupoEfecto, <span class="s8">"orden-de-ejecucion-distorsion"</span>, [<span class="s10">\bus</span>, b, <span class="s10">\preGain</span>, 8, <span class="s10">\postGain</span>, 0.6]);</p>
+<p class="p10"><br></p>
+<p class="p11">// transfiere los resultados a la salida principal, con el sintetizador que modifica el nivel de</p>
+<p class="p11">// amplitud de la señal tocando en la cola del grupo por defecto de s (¡toma en cuenta que<span class="Apple-converted-space"> </span></p>
+<p class="p11">// Function-play también recibe acciones de agregado!)</p>
+<p class="p10"><br></p>
+<p class="p9">~transferencia = { <span class="s9">Out</span>.ar(0, 0.25 * <span class="s9">In</span>.ar(b, 2)) }.play(s, addAction: <span class="s10">\addToTail</span>);<span class="Apple-converted-space">   </span></p>
+<p class="p10"><br></p>
+<p class="p11">// E inicia tu rutina:</p>
+<p class="p10"><br></p>
+<p class="p9">(</p>
+<p class="p13"><span class="s1">r = </span>Routine<span class="s1">({</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span>{</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s9">Synth</span>.tail(~grupoSintetizador, <span class="s8">"orden-de-ejecucion-cuadrada"</span>,</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[<span class="s10">\freq</span>, rrand(200, 800), <span class="s10">\ffreq</span>, rrand(1000, 15000), <span class="s10">\pan</span>, 1.0.rand2,</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> <span class="s10">\bus</span>, b, <span class="s10">\lfobus</span>, l]);</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.07.wait;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>}.loop;</p>
+<p class="p13"><span class="s1">}).play(</span>SystemClock<span class="s1">);</span></p>
+<p class="p9">)</p>
+<p class="p10"><br></p>
+<p class="p11"><span class="s1">~dist.run(</span><span class="s9">false</span><span class="s1">);<span class="Apple-tab-span">	</span></span>// demuestra que el efecto de distorsión está haciendo algo</p>
+<p class="p9">~dist.run(<span class="s9">true</span>);</p>
+<p class="p10"><br></p>
+<p class="p11">// para limpiar:</p>
+<p class="p9">(</p>
+<p class="p9">r.stop;</p>
+<p class="p9">[~grupoSintetizador, ~grupoEfecto, b, l, ~lfo, ~transferencia].do({ <span class="s9">arg</span> x; x.free });</p>
+<p class="p11"><span class="s1">currentEnvironment.clear; </span>// borra todas las variables de ambiente</p>
+<p class="p9">)</p>
+<p class="p2"><br></p>
+<p class="p4">Toma nota de que en la rutina, utilizar un grupo para los sintetizadores fuente permite que su orden sea especificado fácilmente en relación con sí mismos (son añadidos con el método .tail), sin preocuparnos de su orden en relación con el sintetizador efecto.</p>
+<p class="p2"><br></p>
+<p class="p4">Toma nota de de que esta disposición previene errores de orden de ejecución, a través del uso de una pequeña cantidad de código organizacional. Aunque simple en este caso, esta disposición podría ser fácilmente adaptada a un proyecto más grande.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Estilo Envío de Mensajes</b></p>
+<p class="p2"><br></p>
+<p class="p4">Los ejemplos anteriores están en "estilo objeto". Si prefirieras trabajar en "estilo envío de mensajes", existen los mensajes correspondientes a todos los métodos mencionados anteriormente. Ver <a href="NodeMessaging.html"><span class="s4">NodeMessaging</span></a> y <a href="Server-Command-Reference.html"><span class="s4">Server-Command-Reference</span></a> para más detalles.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Retroalimentación</b></p>
+<p class="p7"><br></p>
+<p class="p4">Cuando los diversos tipos de UGens de salida (<a href="../UGens/InOut/Out.html"><span class="s4">Out</span></a>, <a href="../UGens/InOut/OffsetOut.html"><span class="s4">OffsetOut</span></a>, <a href="../UGens/InOut/XOut.html"><span class="s4">XOut</span></a>) escriben datos a un canal, los <i>mezclan</i> con los demás datos del ciclo actual, pero <i>sobreescriben</i> cualquier dato del ciclo anterior.<span class="Apple-converted-space">  </span>(<a href="../UGens/InOut/ReplaceOut.html"><span class="s4">ReplaceOut</span></a> siempre sobreescribe todos los datos.) De esta manera, dependiendo del orden de los nodos, los datos en un determinado canal pueden ser del ciclo actual o ser del ciclo anterior. En el caso de los UGens de entrada (ver <a href="../UGens/InOut/In.html"><span class="s4">In</span></a> e <a href="../UGens/InOut/InFeedback.html"><span class="s4">InFeedback</span></a>), <b>In.ar </b>revisa la fecha de todos los datos que lee y convierte a ceros todos los datos del ciclo anterior (para su uso dentro de ese sintetizador; los datos permanece en el canal). Esto está bien para datos de audio, ya que evita la retroalimentación, pero para datos de control es útil el poder leer datos de cualquier lugar del orden de los nodos. Por esta razón, <b>In.kr</b> también lee datos anteriores al ciclo actual.</p>
+<p class="p2"><br></p>
+<p class="p4">En algunos casos, también podríamos querer leer el audio de un nodo que se encuentre después (más hacia la cola) en el orden de nodos actual. Esta es la función de <a href="../UGens/InOut/InFeedback.html"><span class="s4">InFeedback</span></a>. El retraso introducido por este UGen tiene una duración máxima de un bloque de control, equivalente a aproximadamente 0.0014 segundos (con el tamaño de bloque y la frecuencia de muestreo por defecto).</p>
+<p class="p2"><br></p>
+<p class="p4">El comportamiento variable de mezcla y sobreescritura de los UGens de salida puede hacer que el orden de ejecución sea crucial al utilizar <b>In.kr</b> o <b>InFeedback.ar</b>. Por ejemplo, con un orden de nodos como el siguiente, el UGen InFeedback en el Sintetizador 2 sólo recibirá datos del Sintetizador 1 (-&gt; = escribe salida; &lt;- = lee entrada):</p>
+<p class="p2"><br></p>
+<p class="p14"><span class="s1">Sintetizador 1 -&gt; Canal A<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// este sintetizador sobreescribe la salida del Sintetizador 3 antes de que llegue al Sintetizador 2</p>
+<p class="p4">Sintetizador 2 (con InFeedback) &lt;- Canal A<span class="Apple-converted-space"> </span></p>
+<p class="p4">Sintetizador 3 -&gt; Canal A</p>
+<p class="p2"><br></p>
+<p class="p4">Si el Sintetizador 1 fuera movido después del Sintetizador 2, entonces el InFeedback del Sintetizador 2 recibiría una mezcla de la salida de los Sintetizadores 1 y 3. Esto también sería así si el Sintetizador 2 viniese después de los Sintetizadores 1 y 3. En ambos casos, los datos de los Sintetizadores 1 y 3 tendrían la misma fecha (ya sea la actual o la del ciclo anterior), por lo que nada sería sobreescrito.</p>
+<p class="p2"><br></p>
+<p class="p4">(De la misma manera, si algún In.ar escribió al Canal A antes en el orden de nodos que el Sintetizador 2, convertiría a ceros los datos en el canal antes de que los datos del Sintetizador 3 alcanzasen al Sintetizador 2. Esto sería así incluso si no hubiera ningún nodo escribiendo en al Canal A antes que el Sintetizador 2.)</p>
+<p class="p2"><br></p>
+<p class="p4">Debido a esto, muchas veces es útil asignar un canal separado para retroalimentación. Con la siguiente disposición, el Sintetizador 2 recibirá datos del Sintetizador 3 a pesar de la posición del Sintetizador 1 en el orden de nodos.</p>
+<p class="p15"><br></p>
+<p class="p4">Sintetizador 1 -&gt; Canal A</p>
+<p class="p4">Sintetizador 2 (con InFeedback) &lt;- Canal B<span class="Apple-converted-space"> </span></p>
+<p class="p4">Sintetizador 3 -&gt; Canal B + Canal A<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">El siguiente ejemplo demuestra este punto con In.kr:</p>
+<p class="p9">(</p>
+<p class="p12"><span class="s5">SynthDef</span><span class="s1">(</span>"ayuda-FreqEntrada"<span class="s1">, { </span><span class="s5">arg</span><span class="s1"> bus;</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s5">Out</span>.ar(0, <span class="s5">FSinOsc</span>.ar(<span class="s5">In</span>.kr(bus), 0, 0.5));</p>
+<p class="p9">}).send(s);</p>
+<p class="p10"><br></p>
+<p class="p9"><span class="s5">SynthDef</span>(<span class="s8">"ayuda-FreqSalida"</span>, { <span class="s5">arg</span> freq = 400, bus;</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s5">Out</span>.kr(bus, <span class="s5">SinOsc</span>.kr(1, 0, freq/40, freq));</p>
+<p class="p9">}).send(s);</p>
+<p class="p10"><br></p>
+<p class="p9">b = <span class="s5">Bus</span>.control(s,1);</p>
+<p class="p9">)</p>
+<p class="p10"><br></p>
+<p class="p8">// añade el primer sintetizador de control en la cola del servidor por defecto; sin audio todavía</p>
+<p class="p9">x = <span class="s5">Synth</span>.tail(s, <span class="s8">"ayuda-FreqSalida"</span>, [<span class="s11">\bus</span>, b]);</p>
+<p class="p10"><br></p>
+<p class="p8">// añade el sintetizador que produce audio ANTES del sintetizador anterior; recibe los datos de x del ciclo anterior</p>
+<p class="p9">y = <span class="s5">Synth</span>.before(x, <span class="s8">"ayuda-FreqEntrada"</span>, [<span class="s11">\bus</span>, b]);</p>
+<p class="p10"><br></p>
+<p class="p8">// añade otro sintetizador de control antes de y, en la cabeza del servidor</p>
+<p class="p8">// este sintetizador ahora sobreescribe los datos del ciclo anterior de x antes de que y los reciba</p>
+<p class="p9">z = <span class="s5">Synth</span>.head(s, <span class="s8">"ayuda-FreqSalida"</span>, [<span class="s11">\bus</span>, b, <span class="s11">\freq</span>, 8000]);</p>
+<p class="p10"><br></p>
+<p class="p8">// obtén otro canal</p>
+<p class="p9">c = <span class="s5">Bus</span>.control(s, 1);</p>
+<p class="p10"><br></p>
+<p class="p8">// ahora y recibe los datos de x a pesar de que z todavía está ahí<span class="Apple-converted-space"> </span></p>
+<p class="p9">y.set(<span class="s11">\bus</span>, c); x.set(<span class="s11">\bus</span>, c);</p>
+<p class="p10"><br></p>
+<p class="p9">x.free; y.free; z.free;</p>
+</body>
+</html>

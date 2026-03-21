@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0000bf}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; color: #000000; min-height: 16.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #bf0000}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; color: #000000; min-height: 17.0px}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+span.s1 {color: #000000}
+span.s2 {color: #0000bf}
+span.s3 {color: #606060}
+span.s4 {color: #007300}
+span.s5 {color: #bf0000}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Husmeando alrededor de SuperCollider</b></p>
+<p class="p2"><br></p>
+<p class="p3">Puedes inspeccionar mucha de la estructura interna de la librería de clases y de otras estructuras de datos.</p>
+<p class="p3">Frecuentemente, esto es útil para fines de investigación y de depuración.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Definiciones de Clase, Implementaciones y Referencias</b></p>
+<p class="p2"><br></p>
+<p class="p3">Seleccionar el nombre de cualquier clase (e.g. <b>Object</b>) y pulsar Cmd-j abrirá su archivo de definición de clase.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>** Nota:</b> Cualquier pulsamiento de teclas que abra archivos indetifica los archivos utilizando las Cadenas de Caracteres de Supercollider, las cuales sólo pueden contener caracteres ASCII hasta el punto de código 127. Si alguna parte de la ruta de tu instalación SuperCollider contiene códigos de caracteres mayores que 127 (como la vieja convención de Mac para identificar carpetas de programas con Option-F), la apertura de archivos va a fallar automáticamente.</p>
+<p class="p2"><br></p>
+<p class="p3">El seleccionar el nombre de cualquier método (e.g. <b>play</b>) y pulsar Cmd-y abrirá una ventana mostrando todas las implementaciones de ese método y sus argumentos. El seleccionar una de esas clases y métodos (e.g. <b>Sample:play</b>) y pulsar Cmd-j abrirá la definición de clase a la altura de ese método. (Tomar en cuenta que Cmd-y sólo muestra implementaciones y no indica herencia).</p>
+<p class="p2"><br></p>
+<p class="p3">El seleccionar cualquier texto (e.g. <b>SCWindow </b>o <b>asStream</b>) y pulsar Shift-Cmd-y abrirá una ventana mostrando todas las referencias al texto seleccionado, e.g. cada lugar en el que es usado dentro de la librería de clase (esto no va a encontrar llamadas de métodos compilados con "byte-codes" especiales como "value").</p>
+<p class="p2"><br></p>
+<p class="p3">SC tiene un navegador de Clases gráfico, el cual muestra todos los métodos, argumentos, subclases, variables de instancia y variables de clase. Utilizando los botones del navegador, puedes fácilmente desplazarte a la superclase de la clase, a las subclases, la fuente de la clase, la fuente de los métodos, el archivo de ayuda (si hay alguno), revisar referencias o implementaciones de métodos, e incluso abrir un navegador de red para ver la entrada correspondiente en el repositorio SVN en línea.</p>
+<p class="p2"><br></p>
+<p class="p5">SequenceableCollection<span class="s1">.browse;</span></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Husmeando en Clases</b></p>
+<p class="p2"><br></p>
+<p class="p3">El archivo de ayuda <b>Class</b> documenta algunos de estos métodos de husmeo.</p>
+<p class="p2"><br></p>
+<p class="p3">A pesar de que puedes accesar estas estructuras de datos, si guardas cosas en ellas, puedes romper algo.</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.dumpInterface;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// imprime todos los métodos de instancia definidos para esta clase</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.class.dumpInterface;<span class="Apple-tab-span">	</span></span>// imprime todos los métodos de clase definidos para esta clase</p>
+<p class="p8"><br></p>
+<p class="p8"><br></p>
+<p class="p7">// El siguiente árbol incluye los métodos heredados</p>
+<p class="p8"><br></p>
+<p class="p9"><span class="s2">Collection</span>.methods.collect(<span class="s2">_</span>.name);<span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// imprime todos los métodos de instancia a los que esta clase responde</p>
+<p class="p8"><br></p>
+<p class="p9"><span class="s2">Collection</span>.class.methods.collect(<span class="s2">_</span>.name);<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// imprime todos los métodos de clase a los que esta clase responde</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.dumpFullInterface;<span class="Apple-tab-span">	</span></span>// imprime todos los métodos de instancia y de clase a los que</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>//<span class="Apple-converted-space">  </span>esta clase responde</p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.dumpMethodList;<span class="Apple-tab-span">	</span></span>// imprime los métodos de instancia de esta clase y de sus superclases,<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// en orden alfabético</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// también muestra de qué clase el método es heredado</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// no incluye los métodos de las clases Object o Class</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// para métodos de clase, haz Meta_Collection.dumpMethodList</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.dumpClassSubtree;<span class="Apple-tab-span">	</span></span>// imprime todas las subclases de esta clase</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.dumpSubclassList;<span class="Apple-tab-span">	</span></span>// imprime todas las subclases, en orden alfabético</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">SCWindow</span><span class="s1">.instVarNames.dump;<span class="Apple-tab-span">	</span></span>// imprime todos los nombres de las variables de instancia de esta clase</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">SCWindow</span><span class="s1">.classVarNames.dump; </span>// imprime todos los nombres de las variables de clase de esta clase</p>
+<p class="p7"><span class="s2">SCWindow</span><span class="s1">.filenameSymbol.postln;<span class="Apple-tab-span">	</span></span>// la ruta al archivo que define a esta clase</p>
+<p class="p8"><br></p>
+<p class="p9">(</p>
+<p class="p7">// imprime todas las clases cuyo nombre inicie con 'F'</p>
+<p class="p9"><span class="s2">Class</span>.allClasses.do({ <span class="s2">arg</span> class;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>if (class.name.asString.at(0) == $F, { class.name.postln; });</p>
+<p class="p9">})</p>
+<p class="p9">)</p>
+<p class="p8"><br></p>
+<p class="p9">(</p>
+<p class="p7">// encuentra e imprime todas los nombres de variables de clase definidos en el sistema</p>
+<p class="p9"><span class="s2">Class</span>.allClasses.do({ <span class="s2">arg</span> class;</p>
+<p class="p9"><span class="Apple-converted-space">    </span>if (class.classVarNames.notNil, {</p>
+<p class="p7"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// classVarNames es un Arreglo de Símbolos</p>
+<p class="p9"><span class="Apple-converted-space">        </span>class.classVarNames.do({ <span class="s2">arg</span> varname;</p>
+<p class="p9"><span class="Apple-converted-space">            </span>(class.name.asString ++ <span class="s3">" "</span> ++ varname.asString).postln;</p>
+<p class="p9"><span class="Apple-converted-space">        </span>})</p>
+<p class="p9"><span class="Apple-converted-space">    </span>});</p>
+<p class="p9">});</p>
+<p class="p9">)</p>
+<p class="p8"><br></p>
+<p class="p9">(</p>
+<p class="p7">// encuentra e imprime todos los métodos que contengan "ascii"</p>
+<p class="p9"><span class="s2">Class</span>.allClasses.do({ <span class="s2">arg</span> class;</p>
+<p class="p9"><span class="Apple-converted-space">   <span class="Apple-tab-span">	</span></span>class.methods.do({ <span class="s2">arg</span> sel;</p>
+<p class="p9"><span class="Apple-converted-space">   <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>if(sel.name.asString.find(<span class="s3">"ascii"</span>).notNil) {</p>
+<p class="p9"><span class="Apple-converted-space">            <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>(class.name.asString + <span class="s3">"-"</span> + sel.name).postln;</p>
+<p class="p9"><span class="Apple-converted-space">            </span>}</p>
+<p class="p9"><span class="Apple-converted-space">      </span>});</p>
+<p class="p9">}); <span class="s3">""</span></p>
+<p class="p9">)</p>
+<p class="p6"><br></p>
+<p class="p4"><b>Husmeando en Métodos</b></p>
+<p class="p10"><br></p>
+<p class="p3">Lo mismo sucede aquí, si guardas cosas en los Métodos, puedes romper algo.</p>
+<p class="p10"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.findMethod(</span><span class="s4">'select'</span><span class="s1">); </span>// ¿tiene este métodos?</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Array</span><span class="s1">.findMethod(</span><span class="s4">'select'</span><span class="s1">); </span>// esta clase no</p>
+<p class="p6"><br></p>
+<p class="p7"><span class="s2">Array</span><span class="s1">.findRespondingMethodFor(</span><span class="s4">'select'</span><span class="s1">); </span>// trepa el árbol de clases para encontrar el método</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.findMethod(</span><span class="s4">'select'</span><span class="s1">).dump; </span>// encuentra un objeto Método</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.findMethod(</span><span class="s4">'select'</span><span class="s1">).argNames.dump; </span>// imprime el nombre de sus argumentos</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.findMethod(</span><span class="s4">'select'</span><span class="s1">).varNames.dump; </span>// imprime el nombre de sus variables locales</p>
+<p class="p8"><br></p>
+<p class="p7">// imprime su código ( principalmente para depurar el compilador).</p>
+<p class="p9"><span class="s2">Collection</span>.findMethod(<span class="s4">'select'</span>).dumpByteCodes;<span class="Apple-tab-span">	</span></p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Collection</span><span class="s1">.dumpByteCodes(</span><span class="s4">'select'</span><span class="s1">);<span class="Apple-tab-span">	</span></span>// una versión más corta de lo anterior</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s1">{ 1 + 2 }.dump; </span>// esto es una Función ("Function")</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s1">{ 1 + 2 }.def.dump;<span class="Apple-tab-span">	</span></span>// obtén su FunctionDef</p>
+<p class="p8"><br></p>
+<p class="p9">{ 1 + 2 }.def.dumpByteCodes;<span class="Apple-tab-span">	</span><span class="s5">// imprime su código</span></p>
+<p class="p11"><br></p>
+<p class="p10"><br></p>
+<p class="p4"><b>Husmeando en Ventanas</b></p>
+<p class="p12"><br></p>
+<p class="p9">(</p>
+<p class="p7">// crea algunas ventanas en las que husmear</p>
+<p class="p9">5.do({ <span class="s2">arg</span> i;</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s2">var</span> w, b;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>w = <span class="s2">Window</span>.new(<span class="s3">"husmear "</span> ++ i.asString,<span class="Apple-converted-space"> </span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Rect</span>.new( 200 + 400.rand, 69 + 300.rand, 172, 90 ));</p>
+<p class="p9"><span class="Apple-tab-span">	</span>w.front;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>b = <span class="s2">Button</span>.new( w, <span class="s2">Rect</span>.new( 23, 28, 127, 25 ));</p>
+<p class="p9"><span class="Apple-tab-span">	</span>b.states = [[<span class="s3">"BLAM-O"</span>, <span class="s2">Color</span>.red]];</p>
+<p class="p9">}))</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Window</span><span class="s1">.allWindows.dump;<span class="Apple-tab-span">	</span></span>// imprime una lista de todas las Windows ("Ventanas") abiertas</p>
+<p class="p8"><br></p>
+<p class="p7">// un poco más útil, imprime sus nombres</p>
+<p class="p9"><span class="s2">Window</span>.allWindows.collect({ <span class="s2">arg</span> w; w.name }).postln;<span class="Apple-tab-span">	</span></p>
+<p class="p8"><br></p>
+<p class="p9">(</p>
+<p class="p7">// cambia el color de fondo de todas las ventanas abiertas</p>
+<p class="p9"><span class="s2">Window</span>.allWindows.do({ <span class="s2">arg</span> window;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>window.view.background = <span class="s2">Color</span>.new(0.5 + 0.5.rand, 0.5 + 0.5.rand, 0.5 + 0.5.rand);</p>
+<p class="p9">}))</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">Window</span><span class="s1">.closeAll; </span>// cierra todas las ventanas (esto cerrará las ventanas del servidor)</p>
+<p class="p8"><br></p>
+<p class="p4"><b>Husmeando en SynthDefs</b></p>
+<p class="p10"><br></p>
+<p class="p7">// Primero ejecuta esto:</p>
+<p class="p9">(</p>
+<p class="p13"><span class="s1">f = </span><span class="s2">SynthDef</span><span class="s1">(</span>"Help-SnoopSynthDef"<span class="s1">,<span class="Apple-converted-space"> </span></span></p>
+<p class="p9"><span class="Apple-tab-span">	</span>{ <span class="s2">arg</span> out=0;</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">Out</span>.ar(out, <span class="s2">PinkNoise</span>.ar(0.1))</p>
+<p class="p9"><span class="Apple-tab-span">	</span>});</p>
+<p class="p9">)</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s1">f.dumpUGens;<span class="Apple-tab-span">	</span></span>// obtén las unidades generadoras (UGens), enlistadas en orden de ejecución, con velocidad, índice y entradas</p>
+<p class="p11"><br></p>
+<p class="p4"><b>Husmeando en el Intérprete</b></p>
+<p class="p2"><br></p>
+<p class="p3">Al evaluar texto en el intérprete, la variable 'this' siempre se refiere al intérprete.</p>
+<p class="p10"><br></p>
+<p class="p7"><span class="s2">this</span><span class="s1">.dump;<span class="Apple-tab-span">	</span></span>// muestra los valores de todas las variables a-z del intérprete<span class="Apple-converted-space"> </span></p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">this</span><span class="s1">.clearAll;<span class="Apple-tab-span">	</span></span>// define a todas las variables a-z como nil</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s1">g = </span><span class="s2">this</span><span class="s1">.compile(</span><span class="s3">"(1 + 2).postln"</span><span class="s1">);<span class="Apple-tab-span">	</span></span>// compila algún texto en una Función</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s1">g.postln;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// ves, g es una Función</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s1">g.value;<span class="Apple-tab-span">	</span></span>// evalúa g</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">this</span><span class="s1">.interpret(</span><span class="s3">"(1 + 2).postln"</span><span class="s1">);<span class="Apple-tab-span">	</span></span>// interpreta algún texto</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s2">this</span><span class="s1">.interpretPrint(</span><span class="s3">"1 + 2"</span><span class="s1">);<span class="Apple-tab-span">	</span></span>// interpreta algún texto e imprime el resultado</p>
+<p class="p11"><br></p>
+<p class="p11"><br></p>
+<p class="p10"><br></p>
+</body>
+</html>

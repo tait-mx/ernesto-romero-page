@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="1038.11">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #990012}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #3f7400}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0000ee}
+span.s1 {color: #0800c7}
+span.s2 {color: #3f7400}
+span.s3 {color: #0425c7}
+span.s4 {color: #000000}
+span.s5 {color: #606060}
+span.s6 {font: 12.0px Helvetica; text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Manipulando datos de patrones</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Combinando (entrelazando) flujos independientes</b></p>
+<p class="p2"><br></p>
+<p class="p4">Supongamos que queremos un patrón que genere alturas en el rango grave el 70% del tiempo y en el rango agudo el otro 30%. Para patrones puramente aleatorios esto es simple, ya que el patrón de cada rango no tiene memoria (el valor subsiguiente no depende del estado previo de manera perceptible). El generador de números aleatorios (<a href="../Patterns/Pwhite.html"><span class="s1">Pwhite</span></a>) retorna un elemento antes de ceder el control de regreso al selector (<a href="../Patterns/Pwrand.html"><span class="s1">Pwrand</span></a>).</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwrand</span>([<span class="s1">Pwhite</span>(-7, 11, 1), <span class="s1">Pwhite</span>(7, 18, 1)], #[0.7, 0.3], <span class="s1">inf</span>)</p>
+<p class="p2"><br></p>
+<p class="p4">Esto no funciona si las tesituras deben mantener su propia integridad. Para esto, Pnsym1 es ideal. Creamos un diccionario con patrones nominados, cada uno de los cuales mantiene sus propios flujos. Entonces seleccionamos al azar entre sus nombres, obteniendo el valor del flujo que haya sido escogido en este ciclo.</p>
+<p class="p2"><br></p>
+<p class="p4">El uso de <a href="../Patterns/Pseries.html"><span class="s1">Pseries</span></a><span class="s1"> </span>es esencialmente una caminata aleatoria sobre grados de la escala. Tiene más continuidad lineal que la distribución equitativa generada por Pwhite. A pesar de que el rango agudo interrumpe de vez en cuando, la continuidad se mantiene audible.</p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">var</span><span class="Apple-tab-span">	</span>melodias = (</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>melodiaGrave: <span class="s1">Pseries</span>(4, <span class="s1">Prand</span>(#[-2, -1, 1, 2], <span class="s1">inf</span>), <span class="s1">inf</span>).fold(-7, 11),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>melodiaAguda: <span class="s1">Pseries</span>(14, <span class="s1">Prand</span>(#[-3, -2, 2, 3], <span class="s1">inf</span>), <span class="s1">inf</span>).fold(7, 18)</p>
+<p class="p5"><span class="Apple-tab-span">	</span>);</p>
+<p class="p6"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pnsym1</span>(<span class="s1">Pwrand</span>(#[melodiaGrave, melodiaAguda], [0.7, 0.3], <span class="s1">inf</span>), melodias),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, <span class="s1">Pwrand</span>(#[0.25, 0.5], #[0.4, 0.6], <span class="s1">inf</span>)</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Leyendo un arreglo arbitrariamente hacia adelante o hacia atrás<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p4">Aquí hay un ejemplo interesante. Tenemos un arreglo de posibles valores de salida y queremos que el patrón se mueva hacia adelante o hacia atrás a través del arreglo dependiendo de algún tipo de entrada por parte del usuario.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">En realidad ya hay un patrón que trata esto, basado en el concepto estándar de programación de una caminata aleatoria. En esta, hay un 'observador' que está en alguna posición dentro del arreglo. El observador se mueve aleatoriamente por algún número de pasos hacia adelante o hacia atrás. En la implementación del patrón <a href="../Patterns/Pwalk.html"><span class="s3">Pwalk</span></a><span class="s3"> </span>en SuperCollider, el tamaño de los pasos no tiene que ser aleatorio. En este caso determinamos el valor del tamaño del paso desde un deslizador gráfico.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">En general, objetos GUI ('Interface Gráfica de Usuario') no deben ser usados para almacenaje de datos. La aproximación que se usa aquí es salvar el tamaño del paso en una variable y luego referir a esa variable en el patrón Pwalk.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p7"><span class="s1">var</span><span class="s4"><span class="Apple-tab-span">	</span>alturas = (0..14),<span class="Apple-tab-span">	</span></span>// reemplazar con las alturas que uno desee</p>
+<p class="p5"><span class="Apple-tab-span">	</span>mover = 0,</p>
+<p class="p5"><span class="Apple-tab-span">	</span>ventana, deslizador;</p>
+<p class="p6"><br></p>
+<p class="p5">ventana = <span class="s1">Window</span>.new(<span class="s5">"Transporte con Mouse"</span>, <span class="s1">Rect</span>(5, 100, 500, 50));</p>
+<p class="p5">deslizador = <span class="s1">Slider</span>.new(ventana, <span class="s1">Rect</span>(5, 5, 490, 20))</p>
+<p class="p5"><span class="Apple-tab-span">	</span>.action_({ <span class="s1">|vista|</span></p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mover = (vista.value * 4 - 2).round;</p>
+<p class="p5"><span class="Apple-tab-span">	</span>})</p>
+<p class="p5"><span class="Apple-tab-span">	</span>.value_(0.5);</p>
+<p class="p5">ventana.front;</p>
+<p class="p6"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// Pfunc obtiene de la variable mover la dirección para moverse a través del arreglo.</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// El dato puede provenir de diversas fuentes:</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// <span class="Apple-converted-space">  </span>- puede leer de MIDI o HID y convertirlo en un paso</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// <span class="Apple-converted-space">  </span>- puede ser un control de GUI, como es el caso aquí</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwalk</span>(alturas, <span class="s1">Pfunc</span> { mover }, 1, 7),</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.25</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p8"><br></p>
+<p class="p3"><b>Cambiando valores de Pbind sobre la marcha</b></p>
+<p class="p2"><br></p>
+<p class="p4">Los patrones se convierten en flujos para generar valores (o eventos). Por diseño, no hay manera de tener acceso al estado interno del flujo. Esto significa, para Pbind y patrones similares, que los flujos que producen valores para las llaves del evento son invisibles. Por lo tanto no es posible alcanzar adentro de un flujo y cambiarlo mientras el patrón esté reproduciendo.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">Lo que podemos hacer en su lugar es basar el Pbind en un representantes de patrones ('pattern proxy') -- objetos que toman el lugar de un patrón. El <a href="../../Libraries/JITLib/Patterns/PatternProxy.html"><span class="s1">PatternProxy</span></a><span class="s1"> </span>es un sólo objeto que crea un sólo flujo dentro de Pbind, pero busca sus valores del patrón y flujo creados dentro del representante. Cambiando el patrón del representante remplaza el flujo, sin tener que tocar la caja cerrada del Pbind.</p>
+<p class="p2"><br></p>
+<p class="p4">En el primer ejemplo, representantes de patrones se guardan en variables de entorno y se pueden manipular a través de ellas.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5">~grado = <span class="s1">PatternProxy</span>(<span class="s1">Pn</span>(<span class="s1">Pseries</span>(0, 1, 8), <span class="s1">inf</span>));</p>
+<p class="p5">~dur = <span class="s1">PatternProxy</span>(<span class="s1">Pn</span>(0.25, <span class="s1">inf</span>));</p>
+<p class="p6"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, ~grado,</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, ~dur</p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5">~grado.source = (<span class="s1">Pexprand</span>(1, 8, <span class="s1">inf</span>) - 1).round;</p>
+<p class="p6"><br></p>
+<p class="p5">~dur.source = <span class="s1">Pwrand</span>(#[0.25, 0.5, 0.75], #[0.5, 0.3, 0.2], <span class="s1">inf</span>);</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4">Otra forma es usando <a href="../../Libraries/JITLib/Patterns/Pdefn.html"><span class="s1">Pdefn</span></a>, que es un espacio de nombres global de representantes para patrones de valor. (Debido a los diferentes requerimientos para manejar patrones de eventos y de valores, hay dos tipos de espacios de nombres: <a href="../../Libraries/JITLib/Patterns/Pdef.html"><span class="s1">Pdef</span></a><span class="s1"> </span>para patrones de evento como Pbind, y Pdefn para patrones de valor tales como en los casos de \grados y \dur aquí). El trabajo de almacenaje se hace automáticamente, no se necesitan usar variables propias.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5">(</p>
+<p class="p5"><span class="s1">Pdefn</span>(<span class="s2">\grados</span>, <span class="s1">Pn</span>(<span class="s1">Pseries</span>(0, 1, 8), <span class="s1">inf</span>));</p>
+<p class="p5"><span class="s1">Pdefn</span>(<span class="s2">\dur</span>, <span class="s1">Pn</span>(0.25, <span class="s1">inf</span>));</p>
+<p class="p6"><br></p>
+<p class="p5">p = <span class="s1">Pbind</span>(</p>
+<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span></span>\degree<span class="s4">, </span><span class="s1">Pdefn</span><span class="s4">(</span>\grados<span class="s4">),</span></p>
+<p class="p9"><span class="s4"><span class="Apple-tab-span">	</span></span>\dur<span class="s4">, </span><span class="s1">Pdefn</span><span class="s4">(</span>\dur<span class="s4">)</span></p>
+<p class="p5">).play;</p>
+<p class="p5">)</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s1">Pdefn</span>(<span class="s2">\grados</span>, (<span class="s1">Pexprand</span>(1, 8, <span class="s1">inf</span>) - 1).round);</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s1">Pdefn</span>(<span class="s2">\dur</span>, <span class="s1">Pwrand</span>(#[0.25, 0.5, 0.75], #[0.5, 0.3, 0.2], <span class="s1">inf</span>));</p>
+<p class="p6"><br></p>
+<p class="p5">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p10"><span class="s4">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Recetario01_Secuenciacion_basica.html"><span class="s6">GP_Recetario01_Secuenciacion_basica</span></a></span></p>
+<p class="p10"><span class="s4">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_Recetario03_Control_externo.html"><span class="s6">GP_Recetario03_Control_externo</span></a></span></p>
+</body>
+</html>

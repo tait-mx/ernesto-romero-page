@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #324765; min-height: 12.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -29.0px; font: 12.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -29.0px; font: 9.0px Monaco}
+p.p6 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -29.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -29.0px; font: 9.0px Monaco; color: #7a2d25}
+p.p8 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -29.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -29.0px; font: 12.0px Lucida Grande; min-height: 15.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -29.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande; min-height: 15.0px}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #852b24}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {font: 12.0px Helvetica}
+span.s3 {color: #0034a3}
+span.s4 {color: #000000}
+span.s5 {font: 12.0px Helvetica; color: #000000}
+span.s6 {font: 9.0px Monaco}
+span.s7 {font: 12.0px Lucida Grande}
+span.s8 {font: 12.0px Monaco}
+span.s9 {color: #7a2d25}
+span.s10 {font: 11.0px Monaco; color: #000000}
+span.s11 {color: #002ea8}
+span.s12 {color: #4f6929}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>TempoClock<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(RelojTempo) </b></span><b>planificador basado en tempo</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>hereda de la clase anstracta Clock (reloj).</b></p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p1">TempoClock es un planificador como SystemClock, pero planifica en relación a un tempo en beats por segundo (golpes por segundo)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>*new(tempo, beats, seconds, queueSize)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>*nuevo(tempo, beats, segundos, tamañoCola)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>crea un nuevo planificador TempoClock con los tiempos de tempo e inicio. Si no son dados, <b>tempo</b> toma el valor por omisión de uno, <b>beats</b> toma el valor de cero y <b>seconds</b> toma el tiempo actual transcurrido desde que SuperCollider inició. El valor por omisión para <b>queueSize</b> es 256, ver <b>queue</b>.</p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span></span>t = <span class="s3">TempoClock</span>.new(1, 0, <span class="s3">Main</span>.elapsedTime.ceil);</p>
+<p class="p6"><br></p>
+<p class="p4"><b>stop<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>alto</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>destruye el planificador y libera el proceso del OS (Sistema Operativo) que corre el planificador.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>clear<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>borrar</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>remueve todas las tareas de la cola de espera del planificador.</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>tempo<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>tempo</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el tempo actual en beats por segundo.</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>tempo_(newTempo)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>tempo_(nuevoTempo)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>define el nuevo tempo en beats por segundo</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>t.tempo_(2.0); </span>// equivalente a t.tempo = 2.0;</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>t.tempo_(72/60) </span>// 72 beats por minuto (bpm)</p>
+<p class="p6"><br></p>
+<p class="p4"><b>permanent<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>permanente</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve un valor Booleano indicando si el reloj sobrevivirá cmd-punto. false por defecto</p>
+<p class="p6"><br></p>
+<p class="p4"><b>permanent_(bool)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>permanente_(bool)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>define si el reloj sobrevivirá cmd-punto. <b>bool</b> es false<span class="Apple-converted-space">  </span>(falso) por defecto. Si es false el reloj es detenido (y por lo tanto removido) cuando se teclea cmd-punto. Si es true (verdadero) entonces el reloj sobrevive cmd-punto.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>default<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>valor por defecto</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el del TempoClock por defecto permanente instanciado al inicio</p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span></span><span class="s3">TempoClock</span><span class="s4">.default.beats </span>// beats desde que el TempoClock por defecto fue inicado</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>default_(aTempoClock)<span class="Apple-tab-span">	</span></b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>define el TempoClock por defecto.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>beats<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>golpes</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el tiempo del beat apropiado del reloj de cualquier proceso. Si el receptor es el reloj del proceso actual, este devuelve el tiempo lógico actual:<span class="Apple-converted-space">  </span><span class="s6">thisThread.beats</span>. Si<span class="Apple-converted-space">  </span>el receptor no es el reloj del proceso actual entonces esto traduce el tiempo lógico del proceso actual en segundos al tiempo lógico de este reloj en beats.</p>
+<p class="p9"><span class="s2"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>schedAbs(beat, function)<span class="Apple-tab-span">	</span></b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>planifica una función para ser evaluada en un <b>beat</b> particular. Si la función devuelve un Integer (entero) o un Float (decimal), será re-evaluada en el tiempo lógico mas el valor devuelto. La función recibe un número de argumentos por defecto, ver el ejemplo de <b>play</b> abajo.</p>
+<p class="p9"><br></p>
+<p class="p4"><b>sched(delta, function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>planifica(delta, función)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>planifica una función a ser evaluada <b>delta</b> beats a partir del tiempo lógico actual en este reloj. Si el receptor es el reloj del proceso actual, el delta es aplicado al tiempo lógico actual. Si el receptor no es el reloj del proceso actual entonces el delta es aplicado al tiempo transcurrido del reloj.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>play(task, quant)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>ejecuta(tarea, cuantificación)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>ejecuta el task (una función) en el siguiente beat, donde <b>quant</b> es 1 por defecto. Atajo para <b>schedAbs</b>; ver <b>seconds</b> y <b>nextTimeOnGrid</b> para mas detalles sobre tiempo y quant.</p>
+<p class="p5"><span class="s7"><span class="Apple-tab-span">	</span></span>t.play({<span class="s3">arg</span> beats, tiempo, reloj; [beats, tiempo, reloj].postln})</p>
+<p class="p6"><br></p>
+<p class="p4"><b>playNextBar(task)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>ejecutaPróximoCompás(tarea)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>ejecuta <b>task</b> (una función) en el siguiente compás usando <b>schedAbs.</b></p>
+<p class="p10"><br></p>
+<p class="p4"><b>queue<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>cola de espera</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el Array de lista de espera de planificaciones en la forma [beat, función]. El número máximo de elementos es determinado por el argumento queueSize del reloj al instanciarse. El valor por defecto de 256 del queueSize permite que 128 funciones sean enlistadas en la cola en cualquier momento.</p>
+<p class="p6"><span class="s8"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>beatDur<span class="Apple-tab-span">	</span></b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve la duración en segundos de un beat entero actual</p>
+<p class="p6"><br></p>
+<p class="p4"><b>beatsPerBar<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>beatsPorCompás</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el número de beats por compás. El valor por defecto es 4.</p>
+<p class="p9"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>beatsPerBar_(newBeatsPerBar)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>beatsPorCompás_(nuevoBeatsPorCompás)</b></p>
+<p class="p4"><b><span class="Apple-tab-span">	</span></b>define el número de beats por compás. Esto debe ser hecho desde el proceso de planificación, e.g.</p>
+<p class="p5"><span class="Apple-tab-span">	</span>t.schedAbs(t.nextBar, {t.beatsPerBar_(3)});</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>bar<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>compás</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el compás actual. Ver <b>bars2beats</b> para devolver el beat del compás actual.</p>
+<p class="p9"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>nextBar(beat)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>siguienteCompás(beat)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el número de beats en la siguiente barra de compás relacionado con el argumento<span class="Apple-converted-space">  </span>beat. Si <b>beat</b> no es dado, devuelve el beat en el que comienza el siguiente compás.</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><b>beatInBar<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>beatEnCompás</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el beat actual en el compás (como decimal) en relación a <b>beatsPerBar</b>. Los valores van entre 0 y &lt; beatsPerBar.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>baseBar<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>compásBase</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el compás en el que <b>beatsPerBar</b> fue cambiado por última vez. Si beatsPerBar no ha sido cambiado desde que el reloj se creó, devuelve cero.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>baseBarBeat<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>BeatCompásBase</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el beat en el que el beatsPerBar fue cambiado por última vez. Si beatsPerBar no ha sido cambiado desde que el reloj se creó, devuelve cero.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>beats2bars(beats)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>beatsAcompases(beats)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve un compás como un decimal en relación a <b>basePerBeat</b>.</p>
+<p class="p9"><br></p>
+<p class="p4"><b>bars2beats(bar)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>beatsAcompases(compás)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span> devuelve un beat en relación a <b>baseBar.</b></p>
+<p class="p7"><span class="s5"><b><span class="Apple-tab-span">	</span></b></span><span class="s4"> t.bars2beats(t.bar) </span>// tiempo fuerte del compás actual</p>
+<p class="p6"><br></p>
+<p class="p4"><b>timeToNextBeat(quant)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>tiempoParaBeatSiguiente(cuantificación)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span> devuelve el tiempo lógico que falta para l siguiente beat. <b>quant</b> es 1 por defecto, en relación al <b>baseBarBeat</b>, ver <b>nextTimeOnGrid</b>.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>nextTimeOnGrid(quant, phase)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>siguienteTiempoEnMatriz(cuantificación, fase)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>con los valores por defecto, devuelve el siguiente beat entero. <b>quant</b> es 1 por defecto, fase es 0. quant es relativo a <b>baseBarBeat</b>, de tal modo que</p>
+<p class="p5"><span class="Apple-tab-span">	</span>t.nextTimeOnGrid(t.beatsPerBar) == t.nextBar <span class="s9">// =&gt; true (verdadero)</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>Juntos <b>quant</b> y <b>phase</b> son útiles para encontrar el siguiente beat <i>n</i> en un compás, e.g. nextTimeOnGrid(4, 2) devolverá el siguiente 3er beat de un compás (de 4 beats), donde nextBar-2 puede devolver un beat transcurrido.</p>
+<p class="p9"><br></p>
+<p class="p4"><b>elapsedBeats<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>beatsTranscurridos</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el tiempo actual transcurrido en beats. Esto es equivalente a TempoClock.secs2beats(Main.elapsedTime). Frecuentemente es preferible usar <b>beats</b> en vez de <b>elapsedBeats</b> por que beats usa un tiempo l'ogico de un proceso.</p>
+<p class="p6"><br></p>
+<p class="p4"><b>seconds<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>segundos</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>devuelve el tiempo transcurrido actual. (Este método es heredado de Clock)</p>
+<p class="p6"><br></p>
+<p class="p4"><b>beats2secs(beats)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>beatsAsegundos(beats)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>convierte <b>beats</b> absolutos a <b>seconds</b> (segundos) absolutos, devolviendo el tiempo transcurrido del reloj en el <b>beats</b> dado. Sólo funciona para tiempos en el tempo actual. Si el tempo cambia cualquier tiempo calculado en el futuro estara mal.</p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span></span><span class="s4">t.beats2secs(t.beats) </span>// equivalente a t.seconds</p>
+<p class="p7"><span class="s4"><span class="Apple-tab-span">	</span>t</span><span class="s10">.</span><span class="s4">beats2secs(0) </span>// cuántos segundos después del inicio ocurrió el beat 0?</p>
+<p class="p6"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p4"><b>secs2beats(seconds)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>//<span class="Apple-tab-span">	</span>segundosAbeats(segundos)</b></p>
+<p class="p4"><span class="Apple-tab-span">	</span>convierte <b>seconds</b> (segundos) absolutos a beats absolutos. Sólo funciona para tiempos en el tempo actual. Si el tempo cambia cualquier tiempo calculado en el futuro estara mal.</p>
+<p class="p6"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-converted-space"> </span></p>
+<p class="p11"><br></p>
+<p class="p12"><b>Examples</b></p>
+<p class="p2"><br></p>
+<p class="p13">////////////////////////</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="s4">t = </span><span class="s11">TempoClock</span><span class="s4">(1); </span>// crea un TempoClock</p>
+<p class="p14"><br></p>
+<p class="p13">// planifica un evento para el siguiente beat entero</p>
+<p class="p15">t.schedAbs(t.beats.ceil, { <span class="s11">arg</span> beat, sec; [beat, sec].postln; 1 });</p>
+<p class="p14"><br></p>
+<p class="p15">t.tempo = 2;</p>
+<p class="p15">t.tempo = 4;</p>
+<p class="p15">t.tempo = 0.5;</p>
+<p class="p15">t.tempo = 1;</p>
+<p class="p14"><br></p>
+<p class="p15">t.clear;</p>
+<p class="p14"><br></p>
+<p class="p15">t.schedAbs(t.beats.ceil, { <span class="s11">arg</span> beat, sec; [beat, sec].postln; 1 });</p>
+<p class="p14"><br></p>
+<p class="p15">t.stop;</p>
+<p class="p14"><br></p>
+<p class="p13">////////////////////////</p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p13">// obtiene el tiempo transcurrido, redondeado al siguiente segundo.</p>
+<p class="p15">v = <span class="s11">Main</span>.elapsedTime.ceil;</p>
+<p class="p14"><br></p>
+<p class="p13">// crea dos relojes en una relación 5:2, comenzando en tiempo v.</p>
+<p class="p15">t = <span class="s11">TempoClock</span>(1, 0, v);</p>
+<p class="p15">u = <span class="s11">TempoClock</span>(0.4, 0, v);</p>
+<p class="p14"><span class="Apple-converted-space"> </span></p>
+<p class="p13">// inicia dos funciones en el beat cero en cada reloj.</p>
+<p class="p15">t.schedAbs(0, { <span class="s11">arg</span> beat, sec; [<span class="s12">\t</span>, beat, sec].postln; 1 });</p>
+<p class="p15">u.schedAbs(0, { <span class="s11">arg</span> beat, sec; [<span class="s12">\u</span>, beat, sec].postln; 1 });</p>
+<p class="p15">)</p>
+<p class="p14"><br></p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p15">u.tempo = u.tempo * 3;</p>
+<p class="p15">t.tempo = t.tempo * 3;</p>
+<p class="p15">)</p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p15">u.tempo = u.tempo * 1/4;</p>
+<p class="p15">t.tempo = t.tempo * 1/4;</p>
+<p class="p15">)</p>
+<p class="p14"><br></p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p15">t.stop;</p>
+<p class="p15">u.stop;</p>
+<p class="p15">)</p>
+<p class="p14"><br></p>
+<p class="p13">////////////////////////</p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p13">// obtiene el tiempo transcurrido, redondeado al siguiente segundo</p>
+<p class="p15">v = <span class="s11">Main</span>.elapsedTime.ceil;</p>
+<p class="p14"><br></p>
+<p class="p13">// crea dos relojes en una relación 5:2, comenzando en tiempo v.</p>
+<p class="p15">t = <span class="s11">TempoClock</span>(1, 0, v);</p>
+<p class="p15">u = <span class="s11">TempoClock</span>(1, 0, v);</p>
+<p class="p14"><br></p>
+<p class="p13">// inicia dos funciones en el beat cero en cada reloj.</p>
+<p class="p13">// t controla el tempo de u.<span class="Apple-converted-space">  </span>Deben permanecer sincronizados</p>
+<p class="p15">t.schedAbs(0, { <span class="s11">arg</span> beat, sec; u.tempo = t.tempo * [1,2,3,4,5].choose; [<span class="s12">\t</span>, beat, sec].postln; 1 });</p>
+<p class="p15">u.schedAbs(0, { <span class="s11">arg</span> beat, sec; [<span class="s12">\u</span>, beat, sec].postln; 1 });</p>
+<p class="p15">)</p>
+<p class="p14"><br></p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p15">u.tempo = u.tempo * 3;</p>
+<p class="p15">t.tempo = t.tempo * 3;</p>
+<p class="p15">)</p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p15">u.tempo = u.tempo * 1/4;</p>
+<p class="p15">t.tempo = t.tempo * 1/4;</p>
+<p class="p15">)</p>
+<p class="p14"><br></p>
+<p class="p14"><br></p>
+<p class="p15">(</p>
+<p class="p15">t.stop;</p>
+<p class="p15">u.stop;</p>
+<p class="p15">)</p>
+</body>
+</html>

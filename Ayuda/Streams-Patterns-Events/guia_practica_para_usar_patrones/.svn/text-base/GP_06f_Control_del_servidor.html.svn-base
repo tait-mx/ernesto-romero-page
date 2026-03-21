@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="949.46">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #1400d1}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #950008}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #427800}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #950008}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #1400d1}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #427800}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0b00f4}
+span.s1 {color: #1400d1}
+span.s2 {color: #427800}
+span.s3 {color: #000000}
+span.s4 {color: #606060}
+span.s5 {color: #950008}
+span.s6 {text-decoration: underline}
+span.Apple-tab-span {white-space:pre}
+ul.ul1 {list-style-type: disc}
+</style>
+</head>
+<body>
+<p class="p1"><b>Métodos de control del servidor</b></p>
+<p class="p2"><br></p>
+<p class="p3">Un manojo de patrones de sirven para aislar señales en un canal privado y/o un grupo y también para aplicarle sintes de efectos. Una buena característica es que los recursos en el servidor que se asignan al principio del patrón son removidos al final. Esto es especialmente útil en el caso de los efectos, donde uno no quiere tener muchos sintes de efectos permaneciendo activos y consumiendo CPU sin estar procesando audio.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pbus(patrón, dur, tiempoDeAtenuación, numCanales, velocidad):</b> Crea un grupo privado y canal para los sintes tocados por el patrón. El grupo y canal son liberados cuando el patrón acaba. Útil para aislar señales entre distintos patrones.<span class="Apple-converted-space"> </span></li>
+</ul>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pgroup(patrón):</b> Crea un grupo privado (sin canal privado) para los sintes del patrón.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfx(patrón, nombreDeEfecto, pares)</b></li>
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica"><b>Pfxb(patrón, nombreDeEfecto, pares):</b> Ambos patrones reproducen un sinte de efectos en la cola del grupo actual. Este sinte debe leer de un canal identificado por el argumento 'out' y escribir la señal procesada al mismo canal usando ya sea ReplaceOut o XOut. Pfx usa el mismo canal y grupo especificados en el evento entrante. Pfxb reparte un canal y grupo separado para el efecto y para el patrón.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3">Hay muchas permutaciones cuando se trata de rutas de señal y administración de efectos, demasiadas para<span class="Apple-converted-space">  </span>ser discutidas en profundidad aquí. Algunos escenarios principales son:</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Separar efectos que deben aplicarse individualmente: los patrones y efectos deben ser aislados en canales separados. <a href="../Patterns/Pfxb.html"><span class="s1">Pfxb</span></a> maneja este aislamientos automáticamente: dos patrones como <span class="s1">Pfxb</span>(<span class="s1">Pbind</span>(...), <span class="s2">\nombreDeEfecto</span>, <span class="s2">\argumentoDeEfecto</span>, valor, <span class="s2">\nombre</span>, valor...) tocaran en canales separados y sus señales no se interferirán entre sí.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica">Efectos que deban aplicarse en cadena: todos los efectos deberán usar el mismo canal y los patrones de efectos deberán estar anidados para quedar en fila:<span class="Apple-converted-space">  </span>el último efecto en aplicarse debe usar <a href="../Patterns/Pfxb.html"><span class="s1">Pfxb</span></a> para asignar un grupo y canal separado para la cadena de señales; los efectos anteriores deben usar <a href="../Patterns/Pfx.html"><span class="s1">Pfx</span></a> para estar montados a cuestas sobre ese canal. <span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p4">Pfxb<span class="s3">(</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>Pfx<span class="s3">(</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>(patrón de eventos aquí),</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\nombreDelSynthDefDelPrimerEfectoEnLaCadena<span class="s3">,</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>(lista de argumentos para el primer efecto),</p>
+<p class="p3"><span class="Apple-tab-span">	</span>)</p>
+<p class="p6"><span class="s3"><span class="Apple-tab-span">	</span></span>\nombreDelSynthDefDelSegundoEfectoEnLaCadena<span class="s3">,</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span></span>(lista de argumentos para el segundo efecto)</p>
+<p class="p3">).play;</p>
+<p class="p2"><br></p>
+<p class="p3">Arreglos más complejos son posibles a través del anidamiento y la paralelización de patrones Pfx o Pfxb usando <a href="../Patterns/Ppar.html"><span class="s1">Ppar</span></a> y sus primos.</p>
+<p class="p2"><br></p>
+<p class="p3">Este ejemplo utiliza Pfxb para aislar un par de patrones que suenan separadamente en distintos canales y luego se pasan los flujos de las dos señales por distintos controles de volumen. El sinte de efectos, para el volumen, se mantiene deliberadamente simple para el ejemplo, pero se puede realizar cualquier tipo de procesamiento que uno desee.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">Parecerá raro al principio usar una envoltura con compuerta para un efecto, pero esto es importante para mantener la integridad de la señal. Si la compuerta no estuviera, el sinte de efectos se cortaría abruptamente al recibir el mensaje n_free, probablemente antes de que los nodos que reproducen el patrón fuente hayan terminado. En este caso producirían al final un repentino y corto brinco en el volumen. La compuerta, combinada con un tiempo de relajamiento de un segundo, mantiene el sinte de efectos activo el tiempo suficiente para que los sintes fuente lleguen primero al silencio.<span class="Apple-converted-space">   </span></p>
+<p class="p2"><br></p>
+<p class="p3">Hay que recordar que los flujos hechos a partir de patrones no exponen su funcionamiento interno. Eso significa que uno no puede ajustar los parámetros de un sinte de efectos directamente, ya que no se tiene manera de encontrar cuál es su identificador de nodo. El ejemplo aborda este problema asignando un par de canales de control para los valores de amplitud y asignando los sintes de volumen a esos canales de control. Entonces el pequeño GUI (Interface Gráfico de Usuario, GUI por sus siglas en inglés) sólo necesita actualizar los valores de los canales de control.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p7">// Demuestra cómo Pfxb aísla señales en canales diferentes</p>
+<p class="p7">// Aquí el sinte de efectos es un simple control de volumen</p>
+<p class="p7">// pero pudiera ser más complejo</p>
+<p class="p8"><br></p>
+<p class="p9">(</p>
+<p class="p10">SynthDef<span class="s3">(</span><span class="s2">\controlDeVolumen</span><span class="s3">, { </span>|out, amp = 1, gate = 1|</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>sig = <span class="s1">In</span>.ar(out, 2) * amp;</p>
+<p class="p9"><span class="Apple-tab-span">	</span>sig = sig * <span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>(#[1, 1, 0], #[1, 1], -3, releaseNode: 1), gate, doneAction: 2);</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s1">ReplaceOut</span>.ar(out, sig)</p>
+<p class="p9">}).memStore;</p>
+<p class="p8"><br></p>
+<p class="p9">~vbus1 = <span class="s1">Bus</span>.control(s, 1).set(0.5);</p>
+<p class="p9">~vbus2 = <span class="s1">Bus</span>.control(s, 1).set(0.5);</p>
+<p class="p8"><br></p>
+<p class="p9">~window = <span class="s1">Window</span>.new(<span class="s4">"mezcladoras"</span>, <span class="s1">Rect</span>(10, 100, 320, 60));</p>
+<p class="p9">~window.view.decorator = <span class="s1">FlowLayout</span>(~window.view.bounds, 2@2);</p>
+<p class="p9"><span class="s1">EZSlider</span>(~window, 310@20, <span class="s4">"parte baja"</span>, <span class="s2">\amp</span>, { <span class="s1">|ez|</span> ~vbus1.set(ez.value) }, 0.5);</p>
+<p class="p9">~window.view.decorator.nextLine;</p>
+<p class="p9"><span class="s1">EZSlider</span>(~window, 310@20, <span class="s4">"parte alta"</span>, <span class="s2">\amp</span>, { <span class="s1">|ez|</span> ~vbus2.set(ez.value) }, 0.5);</p>
+<p class="p9">~window.front.onClose_({ ~vbus1.free; ~vbus2.free });</p>
+<p class="p9">)</p>
+<p class="p8"><br></p>
+<p class="p9">(</p>
+<p class="p9">p = <span class="s1">Ppar</span>([</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span></span>Pfxb<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pseq</span>([0, 7, 4, 3, 9, 5, 1, 4], <span class="s1">inf</span>),</p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>\octave<span class="s3">, 4,</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.5</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span>), </span><span class="s2">\controlDeVolumen</span><span class="s3">, </span><span class="s2">\amp</span><span class="s3">, ~vbus1.asMap),<span class="Apple-tab-span">	</span></span>// asignar al canal de control aquí</p>
+<p class="p10"><span class="s3"><span class="Apple-tab-span">	</span></span>Pfxb<span class="s3">(</span>Pbind<span class="s3">(</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">\degree</span>, <span class="s1">Pwhite</span>(0, 11, <span class="s1">inf</span>),</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, 0.25</p>
+<p class="p9"><span class="Apple-tab-span">	</span>), <span class="s2">\controlDeVolumen</span>, <span class="s2">\amp</span>, ~vbus2.asMap)<span class="Apple-tab-span">	</span><span class="s5">// ... y aquí</span></p>
+<p class="p9">]).play;</p>
+<p class="p9">)</p>
+<p class="p8"><br></p>
+<p class="p9">p.stop;</p>
+<p class="p2"><br></p>
+<p class="p12"><b>Pproto: Asignando otros recursos durante la duración de un patrón</b></p>
+<p class="p2"><br></p>
+<p class="p3">También es posible cargar un archivo de sonido o una tabla de onda a un buffer o tocar sintes como parte de una preparación para correr un patrón estilo Pbind. Cuando el Pbind se detiene esos recursos son removidos automáticamente del servidor.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">El mecanismo para hacer esto es un poco diferente a los protocolos para usar el servidor en SuperCollider. Para crear los recursos, Pproto toma una función en la cual uno o más objetos Event (eventos) contienen las instrucciones para crearlos. Estos eventos deberán usar tipos específicos de eventos, descritos en la página de ayuda de Pproto. El patrón es capaz de limpiar los recursos debido a que cada evento tiene una acción de limpiado asociada a él (ver la clase de 'tipos de eventos con limpieza'). Por lo tanto, Pproto sólo necesita recordar los eventos que representan los recursos y ejecutar su acciones de limpieza al final.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">La página de ayudad de Pproto tiene varios ejemplos complejos que vale la pena leer. Lo que sigue es un caso simple que carga el archivo de ejemplo a11wlk01.wav y lo toca en fragmentos.</p>
+<p class="p2"><br></p>
+<p class="p9">(</p>
+<p class="p10">SynthDef<span class="s3">(</span><span class="s2">\playbuf</span><span class="s3">, { </span>|bufnum, start, dur = 1, amp = 0.2, out|</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s1">var</span><span class="Apple-tab-span">	</span>sig = <span class="s1">PlayBuf</span>.ar(1, bufnum, <span class="s1">BufRateScale</span>.ir(bufnum), 0, start);</p>
+<p class="p9"><span class="Apple-tab-span">	</span>sig = sig * amp * <span class="s1">EnvGen</span>.kr(<span class="s1">Env</span>.linen(0.01, dur, 0.01), doneAction: 2);</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(out, sig ! 2)</p>
+<p class="p9">}).memStore;</p>
+<p class="p9">)</p>
+<p class="p8"><br></p>
+<p class="p9">(</p>
+<p class="p9"><span class="s1">TempoClock</span>.default.tempo = 1;</p>
+<p class="p9">p = <span class="s1">Pproto</span>({</p>
+<p class="p9"><span class="Apple-tab-span">	</span>~buf = (type: <span class="s2">\allocRead</span>, path: <span class="s4">"sounds/a11wlk01.wav"</span>).yield;</p>
+<p class="p10"><span class="s3">}, </span>Pbind<span class="s3">(</span></p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span>\instrument<span class="s3">, </span>\playbuf<span class="s3">,</span></p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// acceso a los recursos en el protoevento mediante Pkey:</p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span>\bufnum<span class="s3">, </span><span class="s1">Pkey</span><span class="s3">(</span>\buf<span class="s3">),</span></p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s2">\dur</span>, <span class="s1">Pwhite</span>(1, 4, <span class="s1">inf</span>) * 0.25,</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el límite superior del Pwhite está basado en la duración de manera que</p>
+<p class="p7"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// start (comienzo) + (dur * velocidadDeMuestreo) nunca llega más allá del</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// final del buffer</p>
+<p class="p9"><span class="Apple-tab-span">	</span><span class="s2">\start</span>, <span class="s1">Pwhite</span>(0, 188893 - (<span class="s1">Pkey</span>(<span class="s2">\dur</span>) * 44100), <span class="s1">inf</span>)</p>
+<p class="p9">)).play;</p>
+<p class="p9">)</p>
+<p class="p8"><br></p>
+<p class="p7">// muestra el número de buffer asignado ('true' ContiguousBlock)</p>
+<p class="p9">s.bufferAllocator.debug;</p>
+<p class="p8"><br></p>
+<p class="p9">p.stop;</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="s3">s.bufferAllocator.debug;<span class="Apple-tab-span">	</span></span>// después de stop, el buffer se ha ido</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p13"><span class="s3">Previo:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06e_Control_de_Lenguaje.html"><span class="s6">GP_06e_Control_de_Lenguaje</span></a></span></p>
+<p class="p13"><span class="s3">Siguiente:<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><a href="GP_06g_Compartiendo_Datos.html"><span class="s6">GP_06g_Compartiendo_Datos</span></a></span></p>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #94271c}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #000000}
+span.s2 {color: #0025af}
+span.s3 {color: #606060}
+span.s4 {font: 12.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Redes y el cliente/servidor</b></p>
+<p class="p2"><br></p>
+<p class="p3">SuperCollider 3 utiliza un modelo de cliente/servidor para operar a través de una red. Esto significa que los usuarios escriben programas cliente que le indican al servidor que debe realizar una acción, es decir, solicitan servicio. Dichas solicitudes pueden ocurrir localmente dentro de un ordenador o pueden estar distribuidas de manera remota entre dos o más ordenadores. Ya sea que los ordenadores estén localizados en el mismo espacio o distribuidos en distintos puntos del mundo no significa ninguna diferencia mientras estén conectados en una red.</p>
+<p class="p2"><br></p>
+<p class="p3">Los programas cliente dentro de Supercollider normalmente especificarán las definiciones de síntesis (cómo un sonido en particular será realizado) y la programación de la síntesis (en qué momento un sonido particular será ejecutado). El servidor (o servidores) sintetizará(n) el audio de acuerdo a las instrucciones del cliente (o clientes).</p>
+<p class="p2"><br></p>
+<p class="p3">Como resumen, los clientes solicitan, los servidores responden.</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Ejemplos de cliente/servidor:</b></p>
+<p class="p2"><br></p>
+<p class="p3">// EJ. 1 - ejecuta cada línea, una cada vez:</p>
+<p class="p3">// definir un proceso de síntesis y hacer una solicitud al servidor a través del cliente.</p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">// define un servidor con un nombre y una dirección:</p>
+<p class="p3">s = Server("aServer", NetAddr("127.0.0.1", 56789)); // "localhost" es un sínonimo para la dirección IP // "127.0.0.1"</p>
+<p class="p2"><br></p>
+<p class="p3">// inicia el servidor:</p>
+<p class="p3">s.boot;</p>
+<p class="p2"><br></p>
+<p class="p3">// definir un sintetizador:</p>
+<p class="p3">SynthDef("sine", { Out.ar(0, SinOsc.ar(440, 0, 0.2)) }).send(s);</p>
+<p class="p2"><br></p>
+<p class="p3">// programar (ejecutar) la síntesis:</p>
+<p class="p3">s.sendMsg("s_new", "sine", n = s.nextNodeID, 0, 1);</p>
+<p class="p2"><br></p>
+<p class="p3">// detener el síntetizador (eliminarlo):</p>
+<p class="p3">s.sendMsg("/n_free", n);</p>
+<p class="p2"><br></p>
+<p class="p3">// (opcionalmente) detener el servidor</p>
+<p class="p3">s.quit;</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3">// EJ. 2</p>
+<p class="p3">// Igual que el anterior, excepto que es realizado en 2 computadoras conectadas en red</p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3">// definir un servidor (remoto); representa un ordenador "en algún lugar" conectado al internet</p>
+<p class="p3">// el número IP tiene que ser válido y el servidor, donde sea que esté, tiene que estar activo</p>
+<p class="p3">// los servidores no pueden ser iniciados remotamente, p. ej., un programa en un ordenador no puede iniciar un servidor en otro</p>
+<p class="p3">// este ejemplo asume que el servidor en el ordenador remoto fue iniciado desde supercollider y no desde la terminal</p>
+<p class="p3">s = Server("aServer", NetAddr("... un número ip ...", 56789));</p>
+<p class="p2"><br></p>
+<p class="p3">// define un sintetizador... exactamente como en el ejemplo anterior:</p>
+<p class="p3">SynthDef("sine", { Out.ar(0, SinOsc.ar(440, 0, 0.2)) }).send(s);</p>
+<p class="p2"><br></p>
+<p class="p3">// programar la síntesis ... exactamente como en el ejemplo anterior:</p>
+<p class="p3">s.sendMsg("s_new", "sine", n = s.nextNodeID, 0, 1);</p>
+<p class="p2"><br></p>
+<p class="p3">// detener el sintetizador (eliminarlo):</p>
+<p class="p3">s.sendMsg("/n_free", n);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3">// EJ. 3:</p>
+<p class="p3">// cliente/servidor en un ordenador vs. cliente/servidor en dos ordenadores</p>
+<p class="p3">// el ejemplo anterior sin comentarios</p>
+<p class="p3">// son idénticos, excepto que el ejemplo ejecutado en un ordenador explícitamente inicia el servidor</p>
+<p class="p3">// el ejemplo en 2 ordenadores _asume_ que el servidor está "en algún lugar" del internet y ha sido iniciado</p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p3">// en un ordenador:</p>
+<p class="p4"><span class="s1">s = </span><span class="s2">Server</span><span class="s1">(</span>"aServer"<span class="s1">, </span><span class="s2">NetAddr</span><span class="s1">(</span>"localhost"<span class="s1">, 56789));<span class="Apple-tab-span">	</span></span></p>
+<p class="p3">s.boot;</p>
+<p class="p3"><span class="s2">SynthDef</span>(<span class="s3">"sine"</span>, { <span class="s2">Out</span>.ar(0, <span class="s2">SinOsc</span>.ar(440, 0, 0.2)) }).send(s);</p>
+<p class="p3">s.sendMsg(<span class="s3">"s_new"</span>, <span class="s3">"sine"</span>, n = s.nextNodeID, 0, 1);</p>
+<p class="p3">s.sendMsg(<span class="s3">"/n_free"</span>, n);</p>
+<p class="p2"><br></p>
+<p class="p3">vs.</p>
+<p class="p2"><br></p>
+<p class="p5">// on two computers ... the server has to have a valid ip address</p>
+<p class="p4"><span class="s1">s = </span><span class="s2">Server</span><span class="s1">(</span>"aServer"<span class="s1">, </span><span class="s2">NetAddr</span><span class="s1">(</span>"... an ip number ..."<span class="s1">, 56789));</span></p>
+<p class="p3"><span class="s2">SynthDef</span>(<span class="s3">"sine"</span>, { <span class="s2">Out</span>.ar(0, <span class="s2">SinOsc</span>.ar(440, 0, 0.2)) }).send(s);</p>
+<p class="p3">s.sendMsg(<span class="s3">"s_new"</span>, <span class="s3">"sine"</span>, n = s.nextNodeID, 0, 1);</p>
+<p class="p3">s.sendMsg(<span class="s3">"/n_free"</span>, n);</p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Servidores localhost e interno</b></p>
+<p class="p2"><br></p>
+<p class="p3">El ejemplo anterior define objetos de servidor. Pero, generalmente, esto no es necesario ya que SuperCollider define dos objetos tales, el servidor localhost y los servidores internos al inicio. Son representados por ventanas en la parte inferior de la pantalla. Cada una de las ventanas tiene un botón de inicio para iniciar el servidor correspondiente.</p>
+<p class="p2"><br></p>
+<p class="p3">Ver los documentos <span class="s4"><b>ClientVsServer</b></span> (ClienteVsServidor), <span class="s4"><b>Server</b></span> (Servidor), y <span class="s4"><b>ServerOptions</b></span> (OpcionesDeSevidor) y <span class="s4"><b>Tutorial</b></span> dentro del sistema de ayuda de SuperCollider para más información.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">Ir a <b>2_Prerrequisitos</b></p>
+</body>
+</html>

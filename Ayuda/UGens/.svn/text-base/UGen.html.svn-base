@@ -1,0 +1,530 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20091026;12581300">
+	<META NAME="CocoaVersion" CONTENT="824.44">
+	<META NAME="Info 2" CONTENT="">
+	<META NAME="Info 3" CONTENT="">
+	<META NAME="Info 4" CONTENT="">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 10pt }
+		P.p2 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p3 { margin-bottom: 0in; color: #0021e7; font-family: "Helvetica"; font-size: 9pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p5 { margin-bottom: 0in; font-family: "Trebuchet MS"; font-size: 9pt }
+		P.p6 { margin-bottom: 0in; color: #7f2f1a; font-family: "Monaco"; font-size: 6pt }
+		P.p7 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p8 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p9 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p10 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p11 { margin-bottom: 0in; color: #bf0000; font-family: "Monaco"; font-size: 6pt }
+		P.p12 { margin-bottom: 0in; color: #613724; font-family: "Monaco"; font-size: 6pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Ugen superclase
+abstracta de todas las unidades generadores</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Hereda de: <A HREF="../Core/Object.html">Object</A></B>
+<B>: <A HREF="../Core/Kernel/AbstractFunction.html">AbstractFunction</A></B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Las unidades generadoras
+son los bloques básicos de construcción de synths en el servidor, y
+son utilizados para generar o procesar señales de audio o control.
+Las muchas subclases de Ugen son las representaciones del lado del
+cliente de las unidades generadoras, y son utilizadas para
+especificar sus parámetros durante la construcción de las
+definiciones de synth (ver <A HREF="../ServerArchitecture/SynthDef.html">SynthDef</A>).&nbsp;</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Ver también:</B>
+<A HREF="UGens.html">UGens</A>, <A HREF="Tour_of_UGens.html">Tour_of_UGens</A>,
+and <A HREF="../Tutorials/UGens-and-Synths.html">UGens-and-Synths</A>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Documentación de los
+argumentos mul y add</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Una gran parte de los
+Ugens toman los argumentos <B>mul </B><SPAN STYLE="font-weight: normal">y
+</SPAN><B>add</B> <SPAN STYLE="font-weight: normal">en sus métodos
+</SPAN><B>*ar</B> <SPAN STYLE="font-weight: normal">y </SPAN><B>*kr</B><SPAN STYLE="font-weight: normal">.
+Estos simplemente se refieren a una constante o señal por la cual
+multiplicar la salida del Ugen, y una constante o señal a ser sumada
+a la salida del Ugen. (</SPAN><B>mul</B> <SPAN STYLE="font-weight: normal">sucede
+antes de </SPAN><B>add</B><SPAN STYLE="font-weight: normal">.) De
+este modo, corresponden en muchos casos a un escalamiento en la
+amplitud de un Ugen, en el caso de </SPAN><B>mul</B><SPAN STYLE="font-weight: normal">,
+y una suma de una constante o un desfazamiento en DC (DC offset) en
+el caso de </SPAN><B>add</B><SPAN STYLE="font-weight: normal">. En la
+mayoría de los casos, los valores por defecto de </SPAN><B>mul</B> <SPAN STYLE="font-weight: normal">y
+</SPAN><B>add</B> <SPAN STYLE="font-weight: normal">son 1 y 0
+respectivamente, y, por motivos de eficiencia, están normalmente
+implementados utilizando una instancia del Ugen <A HREF="Filters/MulAdd.html">MulAdd</A>
+automáticamente generada. Ver también los métodos </SPAN><B>range
+</B><SPAN STYLE="font-weight: normal">y </SPAN><B>madd</B> <SPAN STYLE="font-weight: normal">debajo.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>N.B.</B> Debido a que
+éstos argumentos son tan claramente comprensibles, generalmente no
+están documentados en los archivos de ayuda individuales.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Métodos de
+conveniencia</B></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>scope(name, bufsize,
+zoom)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Muestra la salida de este
+Ugen en una ventana individual <A HREF="../GUI/Main-GUI/Stethoscope.html">Stethoscope</A>.
+<B>name</B> es el nombre de la ventana.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Server.default = s =
+Server.internal.boot; // scope sólo funciona para el servidor
+interno</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">{
+Ringz.ar(PinkNoise.ar([0.1, 0.2]).scope(\pink), 2000, 1, 0.25)
+}.play; // funciona en multicanal</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">s.scope; // todavía puede
+servir para la salida del servidor</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in">Server.default = s =
+Server.local.boot; // volver al servidor local</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>poll(trig, label,
+trigid)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Pregunta la señal de este
+UGen cada <B>interval</B> <SPAN STYLE="font-weight: normal">segundos,
+y escribe el resultado. El valor </SPAN><B>trig</B> <SPAN STYLE="font-weight: normal">es
+por defecto 10, que lo convierte a 10 impulsos por segundo (o cada
+0.1 segundos). Ver</SPAN> <A HREF="Triggers/Poll.html">Poll</A> para
+más información.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">{
+SinOsc.ar(LFNoise0.ar(2).range(420, 460).poll(label: \LFNoise), 0,
+0.2) }.play;</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in">// 'polling' multicanal:</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">(</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">{&nbsp;</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">var freqs =
+SinOsc.ar([0.2, 0.3]).range(420, 460);</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">freqs.poll(label: [\freq1,
+\freq2]);</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">SinOsc.ar(freqs, 0, 0.2);</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">}.play;</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">)</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>range(lo, hi)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Escala la señal de salida
+de este UGen para que esté en el rango entre <B>lo</B> <SPAN STYLE="font-weight: normal">y
+</SPAN><B>hi</B><SPAN STYLE="font-weight: normal">. Observa que
+'range' espera el rango de señal por defecto, y por lo tanto no
+deberá ser utilizado en conjunción con los argumentos </SPAN><B>mul
+</B><SPAN STYLE="font-weight: normal">y </SPAN><B>add</B><SPAN STYLE="font-weight: normal">.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">{
+SinOsc.ar(SinOsc.ar(0.3).range(440, 660), 0, 0.5) * 0.1 }.play;</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>exprange(lo, hi)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Mapea la salida de este
+UGen exponencialmente para que quede en el rango entre <B>lo</B> <SPAN STYLE="font-weight: normal">y
+</SPAN><B>hi</B> <SPAN STYLE="font-weight: normal">utilizando el UGen
+</SPAN><A HREF="Filters/LinExp.html">LinExp</A>. <B>Lo</B> <SPAN STYLE="font-weight: normal">y
+</SPAN><B>hi</B> <SPAN STYLE="font-weight: normal">deberán ser
+diferentes a cero y deben tener el mismo signo. Observa que
+'exprange' espera el rango de señal por defecto, y por lo tanto no
+deberá ser utilizado en conjunción con los argumentos </SPAN><B>mul
+</B><SPAN STYLE="font-weight: normal">y </SPAN><B>add</B><SPAN STYLE="font-weight: normal">.</SPAN></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">{
+SinOsc.ar(SinOsc.ar(0.3).exprange(440, 6600), 0, 0.5) * 0.1 }.play;</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>unipolar(mul)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Escala la salida de este
+UGen para estar en el rango entre <B>(0..mul)</B> (default 1).
+Observa que 'unipolar' <SPAN STYLE="font-weight: normal">espera el
+rango de señal por defecto, y por lo tanto no deberá ser utilizado
+en conjunción con los argumentos </SPAN><B>mul </B><SPAN STYLE="font-weight: normal">y
+</SPAN><B>add</B><SPAN STYLE="font-weight: normal">.</SPAN></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">{ SinOsc.ar(300, 0, 0.5) *
+SinOsc.kr(2).unipolar * 0.1 }.play;</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>bipolar(mul)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Escala la salida de este
+UGen para estar en el rango entre <B>(-mul..mul)</B> (default 1).
+Observa que 'bipolar' <SPAN STYLE="font-weight: normal">espera el
+rango de señal por defecto, y por lo tanto no deberá ser utilizado
+en conjunción con los argumentos </SPAN><B>mul </B><SPAN STYLE="font-weight: normal">y
+</SPAN><B>add</B><SPAN STYLE="font-weight: normal">.</SPAN> 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in">{ SinOsc.ar(500 +
+LFPulse.ar(4).bipolar(40), 0, 0.5) * 0.1 }.play;</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>clip(lo, hi)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Filters/Clip.html">Clip</A>, limitando su salida
+entre <B>lo</B> y <B>hi</B>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>fold(lo, hi)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Filters/Fold.html">Fold</A>, limitando su salida
+entre <B>lo</B> y <B>hi</B>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>wrap(lo, hi)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Filters/Wrap.html">Wrap</A>, envolviendo su salida
+entre <B>lo</B> y <B>hi</B>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>lag(lagTime,t2)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Filters/Lag.html">Lag</A>, suavizando su salida por
+el factor de tiempo <B>lagTime</B><SPAN STYLE="font-weight: normal">.
+Si se proporciona un segundo argumento, encasilla el receptor en un
+UGen <A HREF="Filters/LagUD.html">LagUD</A></SPAN>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">lag2(lagTime,t2) 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen Lag2, suavizando su salida por el factor de tiempo lagTime.
+Si se proporciona un segundo argumento, encasilla el receptor en un
+UGen Lag2UD. 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><B>lag3(lagTime,t2)</B> 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen Lag3, suavizando su salida por el factor de tiempo lagTime.
+Si se proporciona un segundo argumento, encasilla el receptor en un
+UGen Lag3UD. 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><B>lagud(lagtimeU,lagtimeD)</B>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen LagUD, suavizando su salida por lagtimeU y lagtimeD. 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>lag2ud(lagtimeU,lagtimeD)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Filters/Lag2UD.html">Lag2UD</A>, suavizando su
+salida por lagtimeU y lagtimeD. 
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>lag3ud(lagtimeU,lagtimeD)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Filters/Lag3UD.html">Lag3UD</A>, suavizando su
+salida por lagtimeU y lagtimeD.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>degreeToKey(scale,
+stepsPerOctave)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Synth%20control/DegreeToKey.html">DegreeToKey</A>.
+El valor por defecto de <B>stepsPerOctave</B> es 12.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>minNyquist</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="../BinaryOps/min.html">min</A>, de modo que el valor
+más bajo de la salida del receptor y la frecuencia de Nyquist son
+entregadas. Puede ser útil para prevenir 'aliasing'.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>linlin(inMin, inMax,
+outMin, outMax, clip)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Envuelve el receptor, de
+modo que un rango de entra<SPAN STYLE="font-weight: normal">da
+inputrange lineal es asignado a un rango de salida lineal.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">El argumento <B>clip </B><SPAN STYLE="font-weight: normal">puede
+ser uno de los siguientes cuatro:</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>nil</B> (no limitar a
+outMin o outMax).</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>\minmax</B> (limitar en
+outMin o outMax),</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>\min</B> (limitar en
+outMin),</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>\max </B>(limitar en
+outMax)</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>linexp(inMin, inMax,
+outMin, outMax, clip)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Envuelve el receptor de
+manera que un rango de entr<SPAN STYLE="font-weight: normal">ada
+inputrange lineal es mapeado a un rango de salida exponencial.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">outMin y outMax deben ser
+mayores a 0 y del mismo signo. Para el argumento <B>clip, </B><SPAN STYLE="font-weight: normal">ver
+</SPAN><B>linlin</B><SPAN STYLE="font-weight: normal">.</SPAN></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>explin(inMin, inMax,
+outMin, outMax, clip)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Envuelve el receptor de
+manera que un rango de e<SPAN STYLE="font-weight: normal">ntrada
+inputrange exponencial es mapeado a un rango de salida lineal.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><SPAN STYLE="font-weight: normal">outMin
+y outMax deben ser mayores a 0 y del mismo signo. Para el argumento
+</SPAN><B>clip, </B><SPAN STYLE="font-weight: normal">ver </SPAN><B>linlin</B><SPAN STYLE="font-weight: normal">.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>expexp(inMin, inMax,
+outMin, outMax, clip)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Envuelve el receptor de
+manera que un rango de e<SPAN STYLE="font-weight: normal">ntrada
+inputrange exponencial es mapeado a un rango de salida exponencial.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><SPAN STYLE="font-weight: normal">outMin
+y outMax deben ser mayores a 0 y del mismo signo. Para el argumento
+</SPAN><B>clip, </B><SPAN STYLE="font-weight: normal">ver </SPAN><B>linlin</B><SPAN STYLE="font-weight: normal">.</SPAN></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>prune(min, max, clip)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Limita el rango del
+receptor en alguno de los cuatro modos de <SPAN STYLE="font-weight: normal">clip
+(ver </SPAN><B>linlin</B><SPAN STYLE="font-weight: normal">).</SPAN></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>checkBadValues(id,
+post)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Encasilla el receptor en
+un UGen <A HREF="Info/CheckBadValues.html">CheckBadValues</A> con la
+id y post flag correspondiente.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>if(trueUGen, falseUGen)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Entrega <B>trueUGen</B>
+cuando el receptor entrega 1, <B>falseUGen</B> <SPAN STYLE="font-weight: normal">cuando
+entrega 0. Si el receptor entrega un valor entre 0 y 1, una mezcla de
+ambos será reproducida. (Esto es implementado de la siguente
+manera:</SPAN>^(this * (trueUGen - falseUGen)) + falseUGen) 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Observa que tanto <B>trueUGen
+</B><SPAN STYLE="font-weight: normal">como </SPAN><B>falseUGen</B>
+<SPAN STYLE="font-weight: normal">serán calculados
+independientemente de si suenan en la salida o no, así que este
+pueda no ser el método más eficiente.</SPAN></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in">// nota la diferente
+sintaxis en estos dos ejemplos</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">{ if( LFNoise1.kr(1.0,
+0.5, 0.5) , SinOsc.ar, Saw.ar ) * 0.1 }.play;</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">{ Trig1.ar(Dust.ar(3),
+0.2).lag(0.1).if(FSinOsc.ar(440), FSinOsc.ar(880)) * 0.1 }.play;</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>@ y</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Soporte para geometría
+dinámica. Entrega<B>Point(this, y)</B>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>asComplex</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Soporte para matemáticas
+complejas. Entrega <B>Complex(this, 0.0)</B>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>dumpArgs</B></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Escribe una lista de los
+argumentos para este UGen y sus valores.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Otros métodos de
+instancia</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Los siguientes métodos y
+variables de instanica son grandemente utilizados en la construcción
+de definiciones de synth, descripciones de synth (ver <A HREF="../ServerArchitecture/SynthDesc.html">SynthDesc</A>),
+definiciones de clase de UGen, etc., y usualmente no son necesarios
+para uso general. Los usuarios no deberían intentar modificar estos
+valores en código general.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>synthDef</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">La SynthDef que contiene
+el UGen.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>inputs</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">El arreglo de entradas al
+UGen.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>rate</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">La velocidad de salida del
+UGen que es uno de los símbolos 'audio' o 'control'.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>signalRange</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Entrega un símbolo
+indicando el rango de señal del receptor. Ya sea \bipolar o
+\unipolar.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>numChannels</B>&nbsp;</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Devuelve el número de
+canales de salida. Para un UGen, siempre será 1, pero <A HREF="../Collections/Array.html">Array</A>
+también implementa este método, así que la expansión multicanal
+está soportada. Ver <A HREF="../Other%20Topics/MultiChannel.html">MultiChannel</A>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>numInputs</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Devuelve el número de
+entradas de este UGen.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>numOutputs</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Devuelve el número de
+salidas ded este UGen.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>name</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Devuelve el nombre de
+clase (<A HREF="../Core/Kernel/Class.html">Class)</A> del receptor
+como un <A HREF="../Collections/String.html">String</A>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>madd(mul, add)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Envuelve el receptor en un
+UGen <A HREF="Filters/MulAdd.html">MulAdd</A>. Esto es mayormente
+sólo usado para las definiciones de clase de los Ugens para permitir
+una implementación eficiente de los argumentos <B>mul</B> y <B>add</B>.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>isValidUGenInput</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Devuelve 'true'.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>asUGenInput</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Devuelve el receptor. Este
+método es implementao en un número de clases para permitir pasarle
+objetos como Nodos, Buses y Buffers directamente a las entradas del
+UGen y argumentos de Synths.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>copy</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Devuelve el receptor. Así,
+UGen-dup eficientemente devuelve una referencia al original y es una
+forma conveniente de copiar una señal mono a canales múltiples.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">{ SinOsc.ar(Rand(200,
+4000), 0, 0.2).dup }.plot // this is the same UGen</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Function-dup evalúa dicha
+función múltiples veces, así devolviendo UGens potencialmente
+distintos.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in">{ {SinOsc.ar(Rand(200,
+4000), 0, 0.2)}.dup }.plot // these are different UGens</P>
+</BODY>
+</HTML>

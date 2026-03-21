@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #94271c}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #446c21; min-height: 12.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0025af}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+span.s1 {color: #0025af}
+span.s2 {color: #000000}
+span.s3 {color: #606060}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Errores durante la ejecución<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><b></b><br></p>
+<p class="p1"><b>(Runtime errors)</b></p>
+<p class="p3"><br></p>
+<p class="p4">Los errores durante la ejecución (Runtime errors) ocurren mientras un programa se está ejecutando.</p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1"><b>Errores comúnes</b></p>
+<p class="p3"><br></p>
+<p class="p4">1. un objeto recibe un mensaje que no entiende</p>
+<p class="p4">2. una operación binaria (suma, resta, multiplicación, etc) no puede ser realizada</p>
+<p class="p4">3. un valor distinto de true o false (verdadero o falso) aparece en una prueba condicional (un booleano)</p>
+<p class="p4">4. a file can't be opened (a primitive fails)</p>
+<p class="p4">4. un archivo no puede ser abierto (un primitivo (primitive) falló)</p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p6"><br></p>
+<p class="p1"><b>Un objeto no entiende</b></p>
+<p class="p3"><br></p>
+<p class="p4">En el caso de</p>
+<p class="p6"><br></p>
+<p class="p4">3.createRuntimeError</p>
+<p class="p6"><br></p>
+<p class="p4">SuperCollider imprime una notificación de cuatro partes en la ventana post. Las partes de la notificación son ERROR, RECEIVER, ARGS, y, CALL STACK como en</p>
+<p class="p3"><br></p>
+<p class="p4">ERROR: Message 'createRuntimeError' not understood.</p>
+<p class="p4">RECEIVER:</p>
+<p class="p4"><span class="Apple-converted-space">   </span>Integer 3</p>
+<p class="p4">ARGS:</p>
+<p class="p4">Instance of Array {<span class="Apple-converted-space">    </span>(057E7560, gc=01, fmt=01, flg=11, set=00)</p>
+<p class="p4"><span class="Apple-converted-space">  </span>indexed slots [0]</p>
+<p class="p4">}</p>
+<p class="p4">CALL STACK:</p>
+<p class="p4"><span class="Apple-tab-span">	</span>DoesNotUnderstandError-reportError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of DoesNotUnderstandError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Nil-handleError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg error = &lt;instance of DoesNotUnderstandError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-throw</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of DoesNotUnderstandError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-doesNotUnderstand</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = 3</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg selector = 'createRuntimeError'</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg args = [*0]</p>
+<p class="p4"><span class="Apple-tab-span">	</span>&lt; closed FunctionDef &gt;<span class="Apple-converted-space">  </span>(no arguments or variables)</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Interpreter-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Interpreter&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var res = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var func = &lt;instance of Function&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Process-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Main&gt;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p4">La sección ERROR explica qué ocurrió mal. La sección RECEIVER menciona la clase del objeto al que fué mandado el mensaje. La sección ARGS dice cuántos argumentos estan incluidos en el mensaje. Lee la sección CALL STACK de abajo hacia arriba para ver dónde ocurrió el error. Leer de abajo hacia arriba significa ir de</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s1">Process</span>-interpretPrintCmdLine<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">a<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s1">Interpreter</span>-interpretPrintCmdLine<span class="Apple-converted-space"> </span></p>
+<p class="p3"><br></p>
+<p class="p4">y luego a</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s1">Object</span>-doesNotUnderstand</p>
+<p class="p3"><br></p>
+<p class="p4">y luego a</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s1">Object</span>-throw</p>
+<p class="p3"><br></p>
+<p class="p4">y luego a</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="s1">Nil</span>-handleError</p>
+<p class="p3"><br></p>
+<p class="p4">y luego a</p>
+<p class="p3"><br></p>
+<p class="p7">DoesNotUnderstandError<span class="s2">-reportError</span></p>
+<p class="p3"><br></p>
+<p class="p4">que es la primera linea del montón (stack).</p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p7">DoesNotUnderstandError<span class="s2">-reportError<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><br></p>
+<p class="p4">es el mecanismo que imprime la notificación de error en la ventana post. Seleccionalo y oprime cmd-j para ver cómo funciona (cómo imprime la notificación).</p>
+<p class="p6"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p6"><br></p>
+<p class="p4">Ejecuta</p>
+<p class="p3"><br></p>
+<p class="p4">$a * $b</p>
+<p class="p3"><br></p>
+<p class="p4">para crear otro mensaje de error durante la ejecución.</p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p4">Los encabezados ERROR, RECEIVER, ARGS, y CALL STACK en la ventana post explican el problema: las instancias de la clase Char no tienen conocimiento sobre la multiplicación.</p>
+<p class="p3"><br></p>
+<p class="p4">ERROR: Message '*' not understood.</p>
+<p class="p4">RECEIVER:</p>
+<p class="p4"><span class="Apple-converted-space">   </span>Character 97 'a'</p>
+<p class="p4">ARGS:</p>
+<p class="p4">Instance of Array {<span class="Apple-converted-space">    </span>(067F5470, gc=C4, fmt=01, flg=00, set=01)</p>
+<p class="p4"><span class="Apple-converted-space">  </span>indexed slots [1]</p>
+<p class="p4"><span class="Apple-converted-space">      </span>0 : Character 98 'b'</p>
+<p class="p4">}</p>
+<p class="p4">CALL STACK:</p>
+<p class="p4"><span class="Apple-tab-span">	</span>DoesNotUnderstandError-reportError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of DoesNotUnderstandError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Nil-handleError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg error = &lt;instance of DoesNotUnderstandError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-throw</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of DoesNotUnderstandError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-doesNotUnderstand</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = $a</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg selector = '*'</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg args = [*1]</p>
+<p class="p4"><span class="Apple-tab-span">	</span>&lt; closed FunctionDef &gt;<span class="Apple-converted-space">  </span>(no arguments or variables)</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Interpreter-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Interpreter&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var res = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var func = &lt;instance of Function&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Process-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Main&gt;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p6"><br></p>
+<p class="p1"><b>Variable no inicializada (la operación binaria falla)</b></p>
+<p class="p2"><br></p>
+<p class="p4">Aqui, la variable a es inicializada con un entero y la variable b no es inicializada. Multiplicar a (el entero 10) por b (nil, el valor que SuperCollider usa para datos no inicializados) creará un error durante la ejecución.</p>
+<p class="p3"><br></p>
+<p class="p4">(</p>
+<p class="p5"><span class="s1">var</span><span class="s2"> a = 10;<span class="Apple-tab-span">	</span></span>// a es declarado e inicializado</p>
+<p class="p5"><span class="s1">var</span><span class="s2"> b;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// b es declarado pero no inicializado, asi que toma el valor nil por defecto</p>
+<p class="p3"><br></p>
+<p class="p4">t = <span class="s1">Task</span>({</p>
+<p class="p3"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span>4.do({ <span class="s1">arg</span> item, i;</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>if(i != 3)<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{ i.postln } <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// imprime el valor de i si no es igual a 3</p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>{ (a * b).postln };<span class="Apple-tab-span">	</span></span>// cuando i es igual a 3, realiza a * b</p>
+<p class="p5"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// ... lo cual es un problema si b es nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1.wait;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="Apple-tab-span">	</span>})</p>
+<p class="p3"><span class="Apple-tab-span">	</span></p>
+<p class="p4">});</p>
+<p class="p4">t.start;</p>
+<p class="p4">)</p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p4">La impresión muestra que el código corrió exitosamente hasta que el índice, i, alcanzó el valor 3, que es cuando la operación a * b ocurrió. Los encabezados ERROR, RECEIVER, ARGS, y CALL STACK describen el problema.</p>
+<p class="p3"><br></p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p4">a Task</p>
+<p class="p4">0</p>
+<p class="p4">1</p>
+<p class="p4">2</p>
+<p class="p4">ERROR: binary operator '*' failed.</p>
+<p class="p4">RECEIVER:</p>
+<p class="p4"><span class="Apple-converted-space">   </span>nil</p>
+<p class="p4">ARGS:</p>
+<p class="p4">Instance of Array {<span class="Apple-converted-space">    </span>(067D92B0, gc=CC, fmt=01, flg=00, set=01)</p>
+<p class="p4"><span class="Apple-converted-space">  </span>indexed slots [2]</p>
+<p class="p4"><span class="Apple-converted-space">      </span>0 : Integer 10</p>
+<p class="p4"><span class="Apple-converted-space">      </span>1 : nil</p>
+<p class="p4">}</p>
+<p class="p4">CALL STACK:</p>
+<p class="p4"><span class="Apple-tab-span">	</span>DoesNotUnderstandError-reportError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of BinaryOpFailureError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Nil-handleError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg error = &lt;instance of BinaryOpFailureError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-throw</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of BinaryOpFailureError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-performBinaryOpOnSomething</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg aSelector = '*'</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg thing = 10</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg adverb = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Integer-*</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = 10</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg aNumber = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg adverb = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span>&lt; FunctionDef in closed FunctionDef &gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg item = 3</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg i = 3</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Integer-do</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = 4</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg function = &lt;instance of Function&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var i = 3</p>
+<p class="p4"><span class="Apple-tab-span">	</span>&lt; FunctionDef in closed FunctionDef &gt;<span class="Apple-converted-space">  </span>(no arguments or variables)</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Routine-prStart</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Routine&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg inval = 758.000000</p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p1"><b>True, false, u otro<span class="Apple-converted-space">  </span>(verdadero, falso u otro)</b></p>
+<p class="p3"><br></p>
+<p class="p4">Un valor diferente de verdadero o falso en una prueba booleana, como en</p>
+<p class="p3"><br></p>
+<p class="p4">if(x=4) { <span class="s3">"this is ok"</span>};</p>
+<p class="p3"><br></p>
+<p class="p4">produce</p>
+<p class="p3"><br></p>
+<p class="p4">ERROR: Non Boolean in test.</p>
+<p class="p4">RECEIVER:</p>
+<p class="p4"><span class="Apple-converted-space">   </span>Integer 4</p>
+<p class="p4">CALL STACK:</p>
+<p class="p4"><span class="Apple-tab-span">	</span>MethodError-reportError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of MustBeBooleanError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Nil-handleError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg error = &lt;instance of MustBeBooleanError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-throw</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of MustBeBooleanError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-mustBeBoolean</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = 4</p>
+<p class="p4"><span class="Apple-tab-span">	</span>&lt; closed FunctionDef &gt;<span class="Apple-converted-space">  </span>(no arguments or variables)</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Interpreter-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Interpreter&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var res = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var func = &lt;instance of Function&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Process-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Main&gt;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p4">Corregir la cláusula arregla el problema.</p>
+<p class="p3"><br></p>
+<p class="p4">if(x==4) { <span class="s3">"this is ok"</span>};</p>
+<p class="p3"><br></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p3"><br></p>
+<p class="p1"><b>El Primitivo falla (Primitive)<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p4">Pedir el tamaño de un archivo no existente crea un error durante la ejecución. La notificación muestra lo que ocurrió mal (un primitivo de código C falló).</p>
+<p class="p3"><br></p>
+<p class="p8"><span class="s2">f = </span><span class="s1">File</span><span class="s2">(</span>"i_don't_exist"<span class="s2">, </span>"r"<span class="s2">);</span></p>
+<p class="p4">f.length;</p>
+<p class="p3"><br></p>
+<p class="p4">ERROR: Primitive '_FileLength' failed.</p>
+<p class="p4">Failed.</p>
+<p class="p4">RECEIVER:</p>
+<p class="p4">Instance of File {<span class="Apple-converted-space">    </span>(067D9970, gc=C4, fmt=00, flg=00, set=01)</p>
+<p class="p4"><span class="Apple-converted-space">  </span>instance variables [1]</p>
+<p class="p4"><span class="Apple-converted-space">    </span>fileptr : nil</p>
+<p class="p4">}</p>
+<p class="p4">CALL STACK:</p>
+<p class="p4"><span class="Apple-tab-span">	</span>MethodError-reportError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of PrimitiveFailedError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Nil-handleError</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg error = &lt;instance of PrimitiveFailedError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-throw</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of PrimitiveFailedError&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Object-primitiveFailed</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of File&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>File-length</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of File&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>&lt; closed FunctionDef &gt;<span class="Apple-converted-space">  </span>(no arguments or variables)</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Interpreter-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Interpreter&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var res = nil</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>var func = &lt;instance of Function&gt;</p>
+<p class="p4"><span class="Apple-tab-span">	</span>Process-interpretPrintCmdLine</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>arg this = &lt;instance of Main&gt;</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p5">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+</body>
+</html>

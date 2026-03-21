@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; color: #773127}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; color: #773127; min-height: 16.0px}
+span.s1 {font: 12.0px Helvetica}
+span.s2 {font: 12.0px Monaco}
+span.s3 {color: #000000}
+span.s4 {color: #0033a1}
+span.s5 {color: #54642e}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Mensajes</b><span class="s1"><span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p3">Mandar mensajes es la manera de hacer las cosas en un lenguaje orientado a objetos. Un mensaje consiste en un <b>selector</b> de mensaje quien nombra el tipo de operación, un <b>receptor</b> a quien es enviado el mensaje y en algunos casos una lista de <b>argumentos</b> que dan información adicional a la operación. Un mensaje siempre devuelve un resultado. El tipo de resultado depende del tipo de mensaje. En el caso por defecto, el valor devuelto es el receptor mismo.</p>
+<p class="p2"><br></p>
+<p class="p3">Los mensajes pueden ser escritos usando operadores binarios, notación funcional o notación de receptor.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Mensajes de operador binario</b></p>
+<p class="p2"><br></p>
+<p class="p3">Un selector de operador binario es cualquier cadena de caracteres (string) de la lista de caracteres de operadores binarios legales:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>! @ % &amp; * - + = | &lt; &gt; ? /</p>
+<p class="p2"><br></p>
+<p class="p3">Una excepción<span class="Apple-tab-span">	</span> es que ningún operador puede comenzar con <span class="s2">//</span> o <span class="s2">/*</span> que son delimitadores de comentario.</p>
+<p class="p2"><br></p>
+<p class="p3">Una expresión de operador binario consiste en dos expresiones con un operador binario entre ellas.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span>1 + 2<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// la suma de uno y dos</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span>a - b<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// la diferencia de a y b</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span>x &lt; 0.0<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// responde si x es menor que cero</p>
+<p class="p7"><br></p>
+<p class="p3">Un operador binario también puede ser un identificador seguido por<span class="Apple-converted-space">  </span>dos puntos.</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span></span>10 rrand: 100</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Jerarquía de operadores</b></p>
+<p class="p2"><br></p>
+<p class="p3">No hay tal. Todas las operaciones binarias tienen la misma jerarquía y se asocian de izquierda a derecha.</p>
+<p class="p3">Por ejemplo, la expresión:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a * b + c * d</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>es equivalente a:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>((a * b) + c) * d</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>y no:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(a * b) + (c * d)</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">Por lo tanto es usualmente un mejor estilo poner paréntesis<span class="Apple-converted-space">  </span>en tus expresiones.</p>
+<p class="p6"><br></p>
+<p class="p3"><b>Mensajes en notación de función</b></p>
+<p class="p2"><br></p>
+<p class="p3">El selector de mensaje precede la lista de argumentos entre paréntesis. El primer argumento de la lista de hecho es<span class="Apple-converted-space"> </span></p>
+<p class="p3">el receptor.</p>
+<p class="p2"><br></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span>sin(x)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el seno de x</p>
+<p class="p6"><span class="Apple-tab-span">	</span></p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span>max(a, b)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el máximo entre a y b</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p3"><b>Mensajes en notación de receptor</b></p>
+<p class="p2"><br></p>
+<p class="p3">Una llamada de método en notación de función puede ser convertida a notación de receptor poniendo el receptor antes del nombre del método seguido de un punto como se muestra abajo.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">max(a, b)</span><span class="Apple-converted-space">    </span>es equivalente a : <span class="Apple-converted-space">  </span><span class="s2">a.max(b)</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="s2">sin(x)<span class="Apple-converted-space">  </span></span><span class="Apple-converted-space">  </span>es equivalente a : <span class="Apple-converted-space">  </span><span class="s2">x.sin</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>otro ejemplo:</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>g(f(a, b), c)<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>es equivalente a :</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>g(a.f(b), c)</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>es equivalente a :</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>f(a, b).g(c)</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>es equivalente a :</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a.f(b).g(c)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Valores por Defecto de Argumentos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Podrías llamar a una función o a un método con menos o mas argumentos de los que fue declarado para aceptar. Si se pasan menos argumentos, aquellos argumentos que no se pasan son enviados a un valor por defecto si alguno es dado en la definición de la función o del método, si no son enviados a nil. Si demasiados argumentos son pasados, el exceso de argumentos se coleccionan en un Array o son ignorados dependiendo de si la función o el método tienen un argumento de elipsis (explicado en <b>Funciones</b>). Cuando se llama a una función o a un método con cero argumentos se pueden omitir los paréntesis:</p>
+<p class="p2"><br></p>
+<p class="p5">// It returns their sum. This syntax will be explained in the section on Functions.</p>
+<p class="p5">// Regresa su suma. Esta sintáxis será explicada en la sección de Funciones.</p>
+<p class="p7"><br></p>
+<p class="p4">x = { <span class="s4">arg</span> a=1, b=2; a + b };<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3">z = x.value;<span class="Apple-converted-space">    <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span></span>// el valor de z se fija en 3. (por defecto a es 1 y b es 2)</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3">z = x.value(10);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// el valor de z se fija en 12. (a es 10, y b por defecto es 2)</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3">z = x.value(10, 5);<span class="Apple-tab-span">	</span></span>// el valor de z se fija en 15. (a es 10, b es 5)</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s3">z = x.value(10, 5, 9);<span class="Apple-tab-span">	</span></span>// el valor de z se fija en 15. (a es 10, b es 5, 9 es ignorado)</p>
+<p class="p6"><br></p>
+<p class="p6"><br></p>
+<p class="p3"><b>Argumentos de Palabra Clave</b></p>
+<p class="p2"><br></p>
+<p class="p3">Los Argumentos para los Métodos pueden ser especificados con el nombre por el que fueron declarados en la definición del método. Estos argumentos son llamados argumentos de palabra clave (keyword). Cualquier argumento puede ser pasado como un argumento de palabra clave (keyword) a excepción del receptor 'this'. Los argumentos de palabra clave deben estar despues de cualquier argumento normal (conocidos como 'posicionales'), y pueden ser especificados en cualquier orden. Si una palabra clave es especificada y no hay un argumento que le corresponda entonces es ignorada y una advertencia será impresa. Esta advertencia puede ser apagada globalmente haciendo la siguiente llamada:</p>
+<p class="p6"><br></p>
+<p class="p4">keywordWarnings(false)</p>
+<p class="p2"><br></p>
+<p class="p3">Si un argumento de palabra clave y un argumento posicional especifican al mismo argumento, entonces el valor del argumento de palabra clave anula el valor del argumento posicional.</p>
+<p class="p2"><br></p>
+<p class="p3">Por ejemplo el método de clase 'ar' de la clase SinOsc toma los argumentos llamados <b>freq</b>, <b>phase</b>, <b>mul</b>, y <b>add </b>en ese orden. Todas las siguientes son llamadas legales para ese método.</p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s4">SinOsc</span><span class="s3">.ar(800, pi, 0.2, 0); </span>// todo los argumentos normales: freq, phase, mul, add</p>
+<p class="p6"><br></p>
+<p class="p5">// freq = 800, mul = 0.2, los otros toman los valores por defecto.</p>
+<p class="p4"><span class="s4">SinOsc</span>.ar(800, mul: 0.2);<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p5">// freq = 800, phase = pi, mul = 0.2, add toma su valor por defecto 0.</p>
+<p class="p4"><span class="s4">SinOsc</span>.ar(phase: pi, mul: 0.2, freq: 800);</p>
+<p class="p6"><br></p>
+<p class="p5">// el valor 1200 de la palabra clave anula el valor 800 del argumento posicional</p>
+<p class="p4"><span class="s4">SinOsc</span>.ar(800, freq: 1200);<span class="Apple-converted-space"> </span></p>
+<p class="p6"><br></p>
+<p class="p5"><span class="s4">SinOsc</span><span class="s3">.ar(zorg: 999); </span>// la palabra clave inválida imprime una advertencia</p>
+<p class="p2"><br></p>
+<p class="p3">Los argumentos de una Función pueden ser especificados también por argumentos de palabra clave cuando se usa el mensaje 'value'.</p>
+<p class="p2"><br></p>
+<p class="p5">// Los argumentos de funciones pueden ser especificados por palabra clave</p>
+<p class="p4">{ <span class="s4">arg</span> a=1, b=2, c=3; [a, b, c].postln }.value(b: 7, c: 8);</p>
+<p class="p6"><br></p>
+<p class="p3">También se pueden usar argumentos de palabra clave cuando se usa el método 'perform'</p>
+<p class="p6"><br></p>
+<p class="p4"><span class="s4">SinOsc</span>.perform(<span class="s5">'ar'</span>, phase: pi, mul: 0.2, freq: 800);</p>
+<p class="p6"><br></p>
+<p class="p3"><b>El costo de usar argumentos de palabra clave</b></p>
+<p class="p6"><br></p>
+<p class="p3">Cuando se usan argumentos de palabra clave hay un costo en la ejecución por establecer la correspondencia del que deberías estar conciente. El costo puede valer la pena si la velocidad no es crítica.</p>
+</body>
+</html>

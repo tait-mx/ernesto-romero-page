@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #0022e4}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco}
+p.p8 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p10 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #6a322a}
+p.p11 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #09379c}
+p.p12 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; color: #606060}
+p.p13 {margin: 0.0px 0.0px 0.0px 56.0px; text-indent: -56.0px; font: 9.0px Monaco}
+p.p14 {margin: 0.0px 0.0px 0.0px 56.0px; text-indent: -56.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p15 {margin: 0.0px 0.0px 0.0px 56.0px; text-indent: -56.0px; font: 9.0px Monaco; color: #6a322a}
+p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #6a322a}
+p.p17 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p18 {margin: 0.0px 0.0px 0.0px 57.0px; text-indent: -57.0px; font: 14.0px Helvetica}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #000000}
+span.s3 {text-decoration: underline}
+span.s4 {color: #09379c}
+span.s5 {font: 12.0px Helvetica}
+span.s6 {color: #606060}
+span.s7 {font: 9.0px Monaco}
+span.s8 {color: #5b6533}
+span.s9 {color: #6a322a}
+span.s10 {font: 14.0px Helvetica}
+span.s11 {font: 9.0px Monaco; color: #5b6533}
+span.s12 {font: 12.0px Helvetica; color: #000000}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>Node<span class="Apple-converted-space">  </span>(Nodo)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b></span><b>superclase abstracta de Synth and Group</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>superclase: Object</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s2"><b>También ver:</b> <a href="Server-Architecture.html"><span class="s3">Server-Architecture</span></a>, <a href="Synth.html"><span class="s3">Synth</span></a>, <a href="Group.html"><span class="s3">Group</span></a>, <a href="RootNode.html"><span class="s3">RootNode</span></a></span></p>
+<p class="p2"><br></p>
+<p class="p1">Esta clase es la super clase abstracta de <b>Synth</b> y <b>Group</b>, que representa nodos synth y group en el servidor. Los objetos Node no se hacen explícitamente, sino que Synth y Group son subclases y heredan los métodos documentados abajo.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Nodos Liberados y Status de Node</b></p>
+<p class="p2"><br></p>
+<p class="p1">Los nodos que liberas explícitamente usando los métodos free o release tendrán su grupo de variables de instancia fijado en nil.<span class="Apple-converted-space">  </span>Aunque los Nodos que son liberados automáticamente después de un cierto tiempo (por ejemplo por un <a href="../UGens/Synth control/Envelopes/EnvGen.html"><span class="s4">EnvGen</span></a> con un doneAction:2) no. Esto mantiene la implementación de las clases simple y ligera. Para obtener el estado actual de un Node rastreado se puede registrar con una instancia de <a href="../Control/NodeWatcher.html"><span class="s4">NodeWatcher</span></a>.<span class="Apple-converted-space">  </span>Esto permitirá dos variables, isPLaying e isRunning, las cuales se podrán usar con propósitos de comprobación.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Empaquetamiento (Bundling)</b></p>
+<p class="p2"><br></p>
+<p class="p1">Muchos de los métodos de abajo tienen dos versiones: una regular que envía su mensaje correspondiente el servidor inmediatamente, y otra que devuelve el mensaje en un Array de tal modo que pueda ser agregado a un paquete (bundle). También es posible capturar los mensajes generados por los métodos regulares usando las capacidades automáticas de empaquetamiento (bundling) del Servidor. Ver <a href="Server.html"><span class="s4">Server</span></a> y <a href="bundledCommands.html"><span class="s4">bundledCommands</span></a> para mas detalles.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p5"><br></p>
+<p class="p4"><b>Accediendo a las Variables de Clase</b></p>
+<p class="p5"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>*addActions </b>- Devuelve la lista de addActions (acciones de agregado) como un evento. Útil para convertir símbolos de addAction a sus códigos enteros correspondientes.</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Node.addActions.at(\addToTail)</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>// devuelve 1</p>
+<p class="p5"><br></p>
+<p class="p5"><br></p>
+<p class="p4"><b>Accediendo a las Variables de Instancia</b></p>
+<p class="p8"><br></p>
+<p class="p1">Los siguientes métodos getter (que obtienen) también tienen sus setters (que fijan) correspondientes,<span class="Apple-converted-space">  </span>pero deben de ser usados con extremo cuidado y solo si se está seguro de lo que se está haciendo.</p>
+<p class="p8"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>nodeID </b>- Devuelve el número de ID del Node. Normalmente no deberías de necesitar acceder a esto ya que las instancias de Node pueden ser pasadas directamente como entradas de UGens o argumentos de Synth.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>group<span class="Apple-converted-space"> </span></b> (grupo)- Devuelve una instancia de <b>Group</b> o <b>RootNode</b> correspondientes a este grupo del Node en el servidor.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>server</b> (servidor)- Devuelve una instancia de <b>Server</b> correspondiente al app. del servidor de este Node.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>isPlaying (estaTocando)</b>- Devuelve un booleano indicando si este nodo esta actualmente en el servidor, suponiendo que este Node ha sido registrado con un <b>NodeWatcher</b>. <b>N.B. </b>Si este Node no ha sido registrado esto será probablemente falso en cualquier caso.</p>
+<p class="p9"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>isRunning (estaCorriendo)</b>- Devuelve un booleano indicando si este nodo esta actualmente en el servidor, suponiendo que este Node ha sido registrado con un <b>NodeWatcher</b>. <b>N.B. </b>Si este Node no ha sido registrado esto sera probablemente falso en cualquier caso.</p>
+<p class="p2"><br></p>
+<p class="p5"><br></p>
+<p class="p4"><b>Comandos de Node</b></p>
+<p class="p8"><br></p>
+<p class="p1">Ver la sección de comandos de Node en <a href="Server-Command-Reference.html"><span class="s4">Server-Command-Reference</span></a><b> </b>para los equivalentes de OSC de los métodos subrayados abajo.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>free(sendFlag)<span class="Apple-converted-space"> </span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>freeMsg</b><span class="Apple-converted-space"> </span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Detiene este Node y lo libera de su grupo padre en el servidor. Una vez que un Node ha sido liberado, no se puede reiniciar. <b>sendFlag </b>es un booleano que indica si el mensaje free debería ser mandado. Si es falso un mensaje <b>n_free </b>no será mandado al servidor de este Node, sino que sus variables isPlaying e isRunning serán fijadas a false (falso). El valor por defecto de <b>sendFlag</b> es true (verdadero). Si este Node es un <b>Group</b> esto liberará a todos los Nodes en el Group.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s4">Synth</span>(<span class="s6">"default"</span>);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>run(booleano)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>runMsg(booleano)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Fija el el estado de ejecución de este Node de acuerdo a un booleano. False (falso) pondrá el nodo en pausa sin liberarlo. El valor por defecto es true (verdadero). Si este Node es un <b>Group </b>esto fijará el estado de ejecución de todos los Nodos en el Group.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s7">(</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s4">SynthDef</span>(<span class="s6">"ayuda-set-node"</span>, {<span class="s4">arg</span> freq = 440, out = 0;<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">Out</span>.ar(out, <span class="s4">SinOsc</span>.ar(freq, 0, 0.1));}).play(s);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.run(<span class="s4">false</span>);</p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.run; </span>// el valor por defecto es true</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>set(controlName, value ... moreArgs)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>setMsg(controlName, value ... moreArgs)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Fija los controles de este Node a valores. Los controles están definidos en un <b>SynthDef </b>como args (argumentos) o instancias de <b>Control</b>. Están especificados aqui mediante el uso de<span class="Apple-converted-space">  </span>symbols,<span class="Apple-converted-space">  </span>strings o indices (simbolos, cadenas de caracteres o indices), y están listados por pares con valores. Si este Node es un <b>Group</b> esto fijará a todos los Nodes del Group.</p>
+<p class="p8"><br></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.boot;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = </span>SynthDef<span class="s2">(</span><span class="s6">"ayuda-set-node"</span><span class="s2">, {</span>| freq = 440, out = 0 |</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">Out</span>.ar(out, <span class="s4">SinOsc</span>.ar(freq, 0, 0.1));</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = x.play(s);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(<span class="s8">\freq</span>, 880, <span class="s8">\out</span>, 1); <span class="s9">// dos pares</span></p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(0, 660, 1, 0); </span>// freq es el primer argumento, asi que su índice es 0. out es índice 1</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p8"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Los valores que sean arrays serán enviados usando las etiquetas de tipo array de OSC ($[ y $]).<span class="Apple-converted-space">  </span>Estos valores serán asignados a controles subsecuentes a la manera de setn.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.boot;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p11"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = </span>SynthDef<span class="s2">(</span><span class="s6">"ayuda-set-node"</span><span class="s2">, {</span>| freq = #[440, 450, 460], out = 0 |</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">Out</span>.ar(out, <span class="s4">Mix</span>(<span class="s4">SinOsc</span>.ar(freq, 0, 0.1)));</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = x.play(s);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(<span class="s8">\freq</span>, [1,2,3] * 400 + [1,2,3], <span class="s8">\out</span>, 1); <span class="s9">// dos pares</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(<span class="s8">\freq</span>, [3] * 400 + [1,2,3], <span class="s8">\out</span>, 1); <span class="s9">// dos pares</span></p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.set(0, [660, 680, 720], 1, 0); </span>// freq es el primer argumento, asi que su índice es 0. out es índice 1</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>setn(controlName, values ... moreArgs)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>setnMsg(controlName, values ... moreArgs)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span>Fija rangos de controles en secuencia en este Nodo a valores. Los controles están definidos en un <b>SynthDef </b>como args (argumentos) o instancias de <b>Control</b>. Están especificados aqui mediante el uso de<span class="Apple-converted-space">  </span>symbols,<span class="Apple-converted-space">  </span>strings o indices (simbolos, cadenas de caracteres o indices), y están listados por pares con arrays de valores. Si este Node es un <b>Group</b> esto fijará (setn) a todos los Nodes del Group.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p12"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = </span><span class="s4">SynthDef</span><span class="s2">(</span>"ayuda-setn-node"<span class="s2">, {</span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">arg</span> freq1 = 440, freq2 = 440, freq3 = 440, amp1 = 0.05, amp2 = 0.05, amp3 = 0.05;<span class="Apple-converted-space"> </span></p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">Out</span>.ar(0, <span class="s4">Mix</span>(<span class="s4">SinOsc</span>.ar([freq1, freq2, freq3], 0, [amp1, amp2, amp3])));}).play(s);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// fija 3 controles empezando desde \freq1, y 3 3 controles empezando desde \amp1</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.setn(<span class="s8">\freq1</span>, [440, 880, 441], <span class="s8">\amp1</span>, [0.3, 0.1, 0.3]);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>fill(controlName, numControls, value ... moreArgs)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>fillMsg(controlName, numControls, value ... moreArgs)</b></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Fija rangos de controles en secuencia en este nodo a un valor solo.<span class="Apple-converted-space">  </span>Los controles están definidos en un <b>SynthDef </b>como args (argumentos) o instancias de <b>Control</b>. Están especificados aqui mediante el uso de<span class="Apple-converted-space">  </span>symbols,<span class="Apple-converted-space">  </span>strings o indices (simbolos, cadenas de caracteres o indices), y están listados en grupos de tres junto con un entero indicando el n'umero de controles a fijar, y el valor al que los queremos fijar. Si este Node es un <b>Group</b> esto llenará (fill) a todos los Nodes del Group.</p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>map(controlName, bus ... moreArgs)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>mapMsg(controlName, bus ... moreArgs)</b></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Mapea controles en este Node leyendo de Buses de rate de control o de audio. Los controles están definidos en un <b>SynthDef </b>como args (argumentos) o instancias de <b>Control</b> o sus subclases. Están especificados aqui mediante el uso de<span class="Apple-converted-space">  </span>symbols,<span class="Apple-converted-space">  </span>strings o indices (simbolos, cadenas de caracteres o indices), y están listados por pares con objetos Bus. El número de controles en secuencia mapeados corresponde al número de canales del Bus. Si este Node es un <b>Group</b> esto mapeará a todos los Nodes del Group. Notese que con <b>mapMsg </b>si se mezclan rates de audio y control se obtendrá un Array de de dos mensajes en vez de un mensaje solo. Se asume que los inices de buses que sean enteros se refieren a buses de control. Para mapear un control a un bus de audio, se necesita usar un objeto Bus.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>b = <span class="s4">Bus</span>.control(s, 1); b.set(880);</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>c = <span class="s4">Bus</span>.control(s, 1);<span class="Apple-tab-span">	</span>c.set(884);</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s4">SynthDef</span>(<span class="s6">"help-Node-map"</span>, { <span class="s4">arg</span> freq1 = 440, freq2 = 440;<span class="Apple-converted-space"> </span></p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">Out</span>.ar(0, <span class="s4">SinOsc</span>.ar([freq1, freq2], 0, 0.1));</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}).play(s);)</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.map(<span class="s8">\freq1</span>, b, <span class="s8">\freq2</span>, c);</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free; b.free; c.free;</p>
+<p class="p14"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p15"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// igual que arriba pero con un Bus y Control multicanal</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>b = <span class="s4">Bus</span>.control(s, 2); b.set(880, 884);</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s4">SynthDef</span>(<span class="s6">"help-Node-map2"</span>, { <span class="s4">arg</span> freqs = #[440, 440];<span class="Apple-converted-space"> </span></p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s4">Out</span>.ar(0, <span class="s4">SinOsc</span>.ar(freqs, 0, 0.1));</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}).play(s);)</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.map(<span class="s8">\freqs</span>, b);</p>
+<p class="p13"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free; b.free;</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>mapn(controlName, index, numControls ... moreArgs)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>mapnMsg(controlName, index, numControls ... moreArgs)</b></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Mapea rangos de controles en secuencia en este Node leyendo de Buses con rate de control. Esto es similar a map arriba, pero se especifica el número de Controles en secuencia a mapear. Si este Node es un <b>Group</b> esto hará un mapn con todos los Nodes del Group.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>release(releaseTime)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>releaseMsg(releaseTime)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s10"><b><span class="Apple-tab-span">	</span></b></span>Este es un método conveniente que asume que el synth contiene un generador de envolvente (un <b>EnvGen</b>, <b>Linen</b> o <b>UGen </b>similar) corriendo una envolvente sostenida (ver <b>Env</b>) y que su argumento gate esta fijado a un control llamado<span class="Apple-converted-space">  </span><span class="s11">\gate</span>. Este método causará que la envolvente se libere. Si <b>releaseTime </b>no es nil, invalidará el tiempo de decaimiento o de liberación de la envolvente. Si este Node es un <b>Group</b> esto liberará a<span class="Apple-converted-space">  </span>todos los Nodes del Group.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>x = { <span class="s4">arg</span> gate=1; <span class="s4">BrownNoise</span>.ar(0.5) * <span class="s4">EnvGen</span>.kr(<span class="s4">Env</span>.cutoff(1), gate, doneAction:2) }.play;</p>
+<p class="p16"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.release(5); </span>// invalida el tiempo de liberación de 1 segundo especificado en el Env.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>query</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Sends an <b>n_query</b> message to the server, which will reply with a message containing information about this node and its place in the server's node tree. This information will be printed to the post window. (See also the queryAllNodes method of <b>Server</b>.) "parent" indicates the Node's enclosing group. If "prev" or "next" are equal to -1 that indicates that there are no other nodes in the enclosing group before or after this one, respectively.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Envía un mensaje <b>n_query </b>al servidor, quien responderá con un mensaje conteniendo información sobre este nodo y su lugar en el arbol de nodos del servidor. Esta información será impresa en la ventana post. (Ver también el método queryAllNodes de <b>Server</b>.) "parent" indica el grupo que encierra al<span class="Apple-converted-space">  </span>Node.<span class="Apple-converted-space">  </span>Si "prev" o "next" son iguales a -1 esto indica que no hay otros nodos<span class="Apple-converted-space">  </span>antes o despues de este en el grupo que lo encierra, respectivamente.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>g = <span class="s4">Group</span>.new;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s4">Synth</span>.head(g, <span class="s6">"default"</span>);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.query;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>g.query;</p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.queryAllNodes; </span>// Notar el RootNode (ID 0) y el Group por defecto (ID 1)</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free; g.free;</p>
+<p class="p17"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="s7"><span class="Apple-tab-span">	</span></span><b>trace</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Causa que un synth imprima los valores de las entradas y salidas de sus unidades generadoras durante un periodo de control en la ventana post. Causa que un grupo imprima la ID de nodo y los nombres de cada nodo en el grupo durante un periodo de control.</p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>g = <span class="s4">Group</span>.new;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s4">Synth</span>.head(g, <span class="s6">"default"</span>);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.trace;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>g.trace;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.free; g.free;</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p18"><b>Cambiando el orden de ejecución</b></p>
+<p class="p8"><br></p>
+<p class="p1">Los siguientes métodos pueden ser usados para cambiar el lugar del Node en el orden de ejecución. Ver el archivo de ayuda <b>Order-of-execution </b>para mayor información sobre este importante tema. Ver <b>Server-Command-Reference </b>para los equivalentes en OSC de estos métodos.</p>
+<p class="p8"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveAfter(aNode)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveAfterMsg(aNode)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Mueve este Node para que esté directamente después de aNode. <b>N.B. n_after</b>, el mensaje OSC que este método encapsula, permite que nodos ya liberados sean usados como objetivo (targets). Esto es para que uno pueda intentar una serie de movimientos, y que el último que tenga éxito tenga efecto. Por este motivo este método fallará silenciosamente en caso de que el objetivo (target) o el nodo hayan sido liberados anteriormente. Si se necesita revisar, se pueden registrar los nodos relevantes con un <b>NodeWatcher</b>.</p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveBefore(aNode)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveBeforeMsg(aNode)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Mueve este Node para que esté directamente antes de aNode. <b>N.B. n_after</b>, el mensaje OSC que este método encapsula, permite que nodos ya liberados sean usados como objetivo (targets). Esto es para que uno pueda intentar una serie de movimientos, y que el último que tenga éxito tenga efecto. Por este motivo este método fallará silenciosamente en caso de que el objetivo (target) o el nodo hayan sido liberados anteriormente. Si se necesita revisar, se pueden registrar los nodos relevantes con un <b>NodeWatcher</b>.</p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveToHead(aGroup)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveToHeadMsg(aGroup)</b></p>
+<p class="p8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Si <b>aGroup </b>es un <b>Group </b>entonces este método moverá a este Node a la cabeza de ese Group. Si es nil esto moverá a este Node a la cabeza del <b>default_group </b>del <b>Server </b>de este Node.</p>
+<p class="p8"><br></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveToTail(aGroup)</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>moveToTailMsg(aGroup)</b></p>
+<p class="p8"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Si <b>aGroup </b>es un <b>Group </b>entonces este método moverá a este Node a la cola de ese Group. Si es nil esto moverá a este Node a la cola del <b>default_group </b>del <b>Server </b>de este Node.</p>
+<p class="p8"><br></p>
+<p class="p18"><b>Otros Métodos</b></p>
+<p class="p8"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>asTarget</b> - Devuelve este Node. Ver el archivo de ayuda de <b>asTarget </b>para mayor información.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>printOn(stream)</b> - Imprime la Class de este Node (Synth o Group) y el nodeID en <b>stream</b>.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>hash</b> - Devuelve server.hash bitXor: nodeID.hash</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>== aNode </b>- Devuelve true (verdadero) si este Node y aNode tienen el mismo nodeID y el mismo objeto de Servidor, si no devuelve false (falso). Bajo ciertas circunstancias este Node y aNode pueden no ser el mismo objeto, aunque esto devuelva true.</p>
+<p class="p8"><span class="Apple-tab-span">	</span></p>
+<p class="p10"><span class="s12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s2">g = </span><span class="s4">Group</span><span class="s2">.basicNew(s, 1); </span>// el grupo por defecto de s</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>h = <span class="s4">Group</span>.basicNew(s, 1); <span class="s9">// y otra vez</span></p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>g == h; <span class="Apple-tab-span">	</span></span>// true (verdadero)</p>
+<p class="p10"><span class="s2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>g === h;<span class="Apple-tab-span">	</span></span>// false (falso)</p>
+<p class="p17"><br></p>
+</body>
+</html>

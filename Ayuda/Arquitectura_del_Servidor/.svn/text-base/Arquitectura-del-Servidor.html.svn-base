@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica; min-height: 22.0px}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Helvetica; min-height: 12.0px}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+span.s1 {color: #4d6fb1}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><br></p>
+<p class="p2">Arquitectura del Servidor de Síntesis de SuperCollider 3</p>
+<p class="p3"><br></p>
+<p class="p4">copyright © 2002 James McCartney</p>
+<p class="p1"><br></p>
+<p class="p2">Introducción</p>
+<p class="p5"><br></p>
+<p class="p6">El Servidor de Síntesis de SuperCollider 3 es un motor de síntesis simple y poderoso. Mientras hay síntesis corriendo, nuevos módulos pueden ser creados, destruidos o reconectados, buffers con muestras de audio pueden ser creados y reasignados. Procesos de efectos pueden ser creados y reconectados a un flujo de señal de forma dinámica y en tiempos programados. Todos los módulos que estén corriendo se encuentran ordenados en un árbol de nodos, el cual define el orden de ejecución. Las conexiones entre los módulos están hechas a través de canales globales de audio y de control.</p>
+<p class="p5"><br></p>
+<p class="p6">Todos los comandos son recibidos vía TCP o UDP, utilizando una versión simplificada de Open Sound Control (OSC). El servidor de síntesis y su(s) cliente(s) pueden estar en la misma máquina o en una red. El servidor de síntesis no manda ni recibe MIDI. Se espera que el cliente mande todos los comandos de control. Si se desea MIDI, es responsabilidad del cliente el recibirlo y convertirlo a los comandos OSC apropiados para el motor de síntesis.</p>
+<p class="p5"><br></p>
+<p class="p6">Las definiciones de sintetizadores son guardadas en archivos generados por el lenguaje SuperCollider. Las definiciones de unidades generadoras son paquetes Mach-O<span class="Apple-converted-space">  </span>(no confundirlos con CFBBundles). La API (Interfaz de programación de aplicaciones) de las unidades generadores es<span class="Apple-converted-space">  </span>una interfaz C simple.</p>
+<p class="p1"><br></p>
+<p class="p2">Principales Conceptos de Diseño</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Nodo ("Node")</b></p>
+<p class="p6">Un Nodo es un nodo con el que se puede establecer comunicación en un árbol de nodos ejecutado por el motor de síntesis. Hay dos tipos, Sintetizadores y Grupos. El árbol define el orden de ejecución de todos los Sintetizadores. Todos los nodos tienen un número entero como ID.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Grupo ("Group")</b></p>
+<p class="p6">Un Grupo es una colección de Nodos representado como una lista enlazada. Un nuevo Nodo puede ser añadido en la cabeza o en la cola del grupo. Los Nodos dentro de un grupo pueden ser controlados simultáneamente. Los Nodos en un Grupo pueden ser tanto Sintetizadores como otros Grupos. Al arrancar, existe un grupo de nivel superior, con un ID de 0, el cual define la raíz del árbol de nodos. Si el servidor fue arrancado desde SClang (y no desde la línea de comandos), también existirá un grupo por defecto (<a href="default_group.html"><span class="s1">default_group</span></a>) con un ID de 1, el cual es el objetivo por defecto para todos los nuevos Nodos. Ver <b>RootNode</b> y <b>default_group</b> para más información.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Sintetizador ("Synth")</b></p>
+<p class="p6">Un Sintetizador es una colección de unidades generadoras que corren juntas. Pueden ser llamados y controlados mediante comandos al motor de síntesis. Leen señales de entrada y escriben señales de salida a canales globales de audio y de control. Los Sintetizadores pueden tener sus propios controles locales los cuales son definidos mediante comandos al servidor.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Definición de Sintetizador ("Synth Definition")</b></p>
+<p class="p6">Los Sintetizadores son creados a partir de Definiciones de Sintetizadores. Los archivos con Definiciones de Sintetizadores son creados por el lenguaje SuperCollider y son cargados en el servidor de síntesis. Las Definiciones de Sintetizadores son llamadas por nombre.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Canales de Audio ("Audio Buses")</b></p>
+<p class="p6">Los Sintetizadores se envían señales de audio entre ellos mediante un solo arreglo global de canales de audio. Los canales de audio están indexados por números enteros, empezando por el número cero. Utilizar canales en vez de conectar los sintetizadores directamente entre ellos permite a los sintetizadores conectarse a la comunidad de otros sintetizadores sin tener que saber nada específico sobre ellos. Los números de canal con los índices más bajos se escriben a las salidas de audio del hardware. Siguiendo inmediatamente a los canales de salida están los canales de entrada, leen las entradas de audio del hardware. El número de canales definido como entradas y salidas no tiene que corresponder con el del hardware.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Canales de Control ("Control Buses")</b></p>
+<p class="p6">Los Sintetizadores pueden mandarse señales de control entre ellos mediante un solo arreglo global de canales de control. Los canales están indexados por números enteros, empezando por el número cero.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Canales de Control Compartidos ("Shared Control Buses")</b></p>
+<p class="p6">El servidor interno (el cual corre dentro del mismo espacio de direcciones que la aplicación cliente) también tiene un número de canales de control compartidos, a los cuales la aplicación cliente tiene acceso de lectura-escritura sincrónico. Estos canales están indexados por números enteros, empezando por el número cero.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Buffers</b></p>
+<p class="p6">Los Buffers son arreglos de valores de punto flotante de 32 bits con un encabezado descriptivo. Los Buffers son guardados en un sólo arreglo global indexado por números enteros, empezando por el número cero. Los Buffers pueden ser asignados de manera segura, cargados y liberados mientras hay síntesis corriendo, incluso mientras unidades generadoras están utilizándolos. Los Buffers pueden ser utilizados para tablas de ondas, buffers de muestras, líneas de retraso, envolventes, o para cualquier otra necesidad que pueda utilizar un arreglo de valores de punto flotante. Archivos de audio pueden ser cargados a buffers o escritos a partir de buffers.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Definiciones de Unidades Generadoras ("Unit Generator Definitions")</b></p>
+<p class="p6">Las Definiciones de Unidades Generadoras son plug-ins que son cargandos automáticamente al arrancar el programa. Son librerías de código binario utilizadas como bloques de construcción por los Sintetizadores para construir algoritmos de síntesis. Las Definiciones de Unidades Generadoras tienen nombres que corresponden con los nombres de clase del lenguaje SuperCollider utilizados al construir Definiciones de Sintetizadores.</p>
+<p class="p1"><br></p>
+<p class="p1"><br></p>
+<p class="p2">Argumentos de Línea de Comandos</p>
+<p class="p1"><br></p>
+<p class="p6">Una de las opciones -u o -t debe ser proporcionada. Ambas pueden ser proporcionadas.</p>
+<p class="p6">-u <i>udp-port-number</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>un número de puerto 0-65535.<span class="Apple-converted-space"> </span></p>
+<p class="p6">-t <i>tcp-port-number</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>un número de puerto 0-65535</p>
+<p class="p6">-v <i>verbosidad</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>controla la verbosidad de los mensajes del servidor. Un valor de 0 es el comportamiento normal, -1 suprime</p>
+<p class="p6"><span class="Apple-tab-span">	</span>los mensajes informativos y -2 surprime los mensajes informativos y muchos mensajes de error.</p>
+<p class="p6">-a <i>num-audio-bus-channels</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>número de canales de audio (por defecto = 128).</p>
+<p class="p6"><span class="Apple-tab-span">	</span>El espacio asignado para los canales de audio es:<span class="Apple-converted-space">  </span>(número de canales * (tamaño del bloque + 1) * 4)<span class="Apple-converted-space"> </span></p>
+<p class="p6">-i <i>num-input-bus-channels</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>número de canales de entrada de audio (por defecto = 8)</p>
+<p class="p6">-o <i>num-output-bus-channels</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>número de canales de salida de audio (por defecto = 8)</p>
+<p class="p6">-c <i>num-control-bus-channels</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>número de canales de control (por defecto = 4096</p>
+<p class="p6"><span class="Apple-tab-span">	</span>El espacio asignado para los canales de control es: (número de canales * 8)</p>
+<p class="p6">-b <i>num-buffers</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>número de buffers de muestras (por defecto = 1024)</p>
+<p class="p6">-n <i>max-nodes</i></p>
+<p class="p6"><i><span class="Apple-tab-span">	</span></i>máximo número de nodos (por defecto = 1024)</p>
+<p class="p6">-d <i>max-synth-defs</i></p>
+<p class="p6"><i><span class="Apple-tab-span">	</span></i>máximo número de definiciones de síntesis (por defecto = 1024)</p>
+<p class="p6">-D <i>1 or 0</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>si es cero, entonces las definiciones de síntesis no se cargarán al arrancar (por defecto = 1)</p>
+<p class="p6">-z <i>block-size</i></p>
+<p class="p6"><i><span class="Apple-tab-span">	</span></i>el número de muestras en un periodo de control. (por defecto = 64)</p>
+<p class="p6">-Z <i>preferred-hardware-buffer-size</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>si no es cero, intentará definir el tamaño de cuadro del buffer del hardware. (por defecto = 0)</p>
+<p class="p6">-S <i>preferred-sample-rate</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>si no es cero, intentará definir la frecuencia de muestreo del hardware. (por defecto = 0)</p>
+<p class="p6">-m <i>real-time-memory-size</i></p>
+<p class="p6"><i><span class="Apple-tab-span">	</span></i>El número de kilobytes de memoria en tiempo real.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>Esta memoria es usada para asignar sintetizadores y cualquier memoria que las unidades generadoras<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>mismas asignen. (por defecto = 8192)</p>
+<p class="p6">-r <i>random-number-generators</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>El número de generadores de números aleatorios a los que se les puede colocar una semilla. (por defecto = 64)</p>
+<p class="p6">-w <i>max-interconnect-buffers</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>El máximo número de buffers que son asignados para interconectar unidades generadoras. Esto fija el<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>límite de complejidad de los SynthDefs que pueden ser cargados durante el tiempo de ejecución. Este<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>valor será incrementado si un SynthDef más complejo es cargado al arrancar, pero no puede ser<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>incrementado una vez haya empezado la síntesis. (por defecto = 64)<span class="Apple-tab-span">	</span></p>
+<p class="p6">-l <i>max-logins</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>máximo número de direcciones de retorno con nombre que van a ser guardadas (por defecto = 64)</p>
+<p class="p6"><span class="Apple-tab-span">	</span>también máximo número de conecciones TCP aceptadas</p>
+<p class="p6">-p <i>session-password</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Al utilizar TCP, la contraseña de la sesión debe ser el primer comando enviado.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>Por defecto no se requiere contraseña.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>Los puertos UDP nunca requieren contraseña, por lo que si se desea protección con contraseña, utilizar TCP.</p>
+<p class="p6">-H <i>device-name</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>nombre del disposivo de hardware de entrada/salida. Si no se provee, el dispositivo por defecto es usado.</p>
+<p class="p6">-I <i>input-streams-enable-string</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Permite apagar los flujos de entrada que no te interesan en un dispositivo de audio.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Si la Cadena de Caracteres es "01100", por ejemplo, entonces sólo el segundo y el<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>tercer flujo de entrada en el dispositivo serán habilitados. Apagar flujos puede reducir<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>la carga del CPU.<span class="Apple-converted-space"> </span></p>
+<p class="p6">-O <i>output-streams-enable-string</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Permite apagar los flujos de salida que no te interesen en un dispositivo de audio. Si la<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Cadena de Caracteres es "11000", por ejemplo, entonces sólo el primero y el segundo<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>flujo de salida en el dispositivo serán habilitados. Apagar flujos puede reducir la carga del<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>CPU.<span class="Apple-converted-space"> </span></p>
+<p class="p6">-N <i>cmd-filename input-filename output-filename sample-rate header-format sample-format</i></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Correr en modo en-tiempo-diferido.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>El <i>cmd-filename</i> debe ser un archivo que contenga paquetes OSC en orden ascendente.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>Si <i>cmd-filename</i> es el caracter guión bajo _, entonces el OSC fluirá de la entrada estándar.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>La entrada de audio será tomada de <i>input-filename</i>.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Si <i>input-filename</i> es el caracter guión bajo _, entonces ningún archivo de entrada será leído.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>La salida será escrita en <i>output-filename</i>.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>La frecuencia de muestreo del archivo de salida es especificada por <i>sample-rate</i></p>
+<p class="p6"><i><span class="Apple-tab-span">	</span></i>El formato del encabezado del archivo de salida debe ser uno de: AIFF, WAVE, NeXT.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>El formato de muestra del archivo de salida debe ser uno de: int16, int24, int32, float, double.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>El número de canales en el archivo de salida es especificado con el argumento -o.</p>
+<p class="p5"><br></p>
+<p class="p5"><br></p>
+<p class="p6">Ejemplo:</p>
+<p class="p5"><br></p>
+<p class="p6">scscynth -u 57117 &gt;synth_log &amp;</p>
+<p class="p5"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Aceptar comandos via UDP en el puerto 57117.<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Mandar la salida al archivo "synth_log"</p>
+<p class="p6"><span class="Apple-tab-span">	</span>Correr asincrónicamente: &amp;.</p>
+<p class="p5"><br></p>
+<p class="p6">scsynth -N score.osc _ out.aiff 48000 AIFF int24<span class="Apple-converted-space"> </span></p>
+<p class="p5"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>Correr en modo en-tiempo-diferido con el archivo de comandos score.osc, sin archivo de entrada de audio y con un archivo de</p>
+<p class="p6"><span class="Apple-tab-span">	</span>salida llamado out.aiff. La frecuencia de muestreo es 48000. El formato del encabezado del archivo de salida es aiff, el formato<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>de muestra es enteros de 24 bits.</p>
+<p class="p1"><br></p>
+<p class="p2">Formato Binario de los Mensajes</p>
+<p class="p1"><br></p>
+<p class="p6">Los mensajes son similares en formato a los mensajes Open Sound Control, salvo que los paquetes OSC no pueden ser anidados, y que no se lleva a cabo emparejamiento de formas de nombres de comando. Al fluir via TCP, todos los mensajes son precedidos por un entero de 32 bits que da el tamaño del mensaje en bytes. Los datagramas UDP ya contienen esta información de tamaño.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Tipos:</b></p>
+<p class="p6">Todos los valores están en orden de byte de red.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>long</b> - un entero de 64 bits. Utilizado únicamente para las fechas.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>int</b> - un entero de 32 bits.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>float</b> - un número de punto flotate de precisión sencilla de 32 bits.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>double</b> - un número de punto flotante de doble precisión de 64 bits.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>string</b> - una cadena de caracteres ASCII de 8 bits, cero extendidos a múltiplos de 4 bytes.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><b>bytes</b> - un buffer de datos precedidos por un campo de 32 bits de tamaño y extendido a múltiplos de 4 bytes.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Etiquetas:</b></p>
+<p class="p6">Los argumentos de los comandos tienen etiquetas de un solo caracter que ocurren en una cadena de caracteres etiqueta para identificar sus tipos.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>'i' - un entero (int).</p>
+<p class="p6"><span class="Apple-tab-span">	</span>'f' - un número de<span class="Apple-converted-space">  </span>punto flotante (float).</p>
+<p class="p6"><span class="Apple-tab-span">	</span>'s' - una cadena de caracteres (string).</p>
+<p class="p6"><span class="Apple-tab-span">	</span>'b' - bytes</p>
+<p class="p5"><br></p>
+<p class="p6"><b>un Comando consiste de:</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span></b>cadena de caracteres - el nombre del comando. Ver la Referencia de Comandos que se encuentra más adelante.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>cadena de caracteres - una cadena de caracteres con etiquetas definidas por los tipos de los argumentos que siguen.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>La etiqueta cadena de caracteres inicia con una caracter de coma ','.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>...cualquier combinación de tipos de argumentos:<span class="Apple-converted-space">  </span>entero, punto flotante, cadena de caracteres o bytes.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>un Paquete ("Bundle") consiste de:</b></p>
+<p class="p6"><span class="Apple-tab-span">	</span>fecha - long. Las fechas están en el formato definido por Open Sound Control: los 32 bits de arriba son segundos, a partir de 1900 y los 32 bits más abajo representa la fracción de 32 bits de un segundo.</p>
+<p class="p6"><span class="Apple-tab-span">	</span>...una serie de Comandos, cada uno precedido por tamaño de byte de entero de 32 bits.</p>
+<p class="p5"><span class="Apple-tab-span">	</span></p>
+<p class="p6"><b>un Mensaje consiste de:</b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>utilizando UDP :<span class="Apple-converted-space"> </span></b></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un Paquete o un Comando.</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span>utilizando TCP :<span class="Apple-converted-space"> </span></b></p>
+<p class="p6"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>int - el tamaño en bytes del mensaje que viene a continuación.</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un Paquete o un Comando.</p>
+<p class="p5"><span class="Apple-tab-span">	</span></p>
+<p class="p5"><br></p>
+<p class="p5"><br></p>
+<p class="p5"><br></p>
+<p class="p2">Glosario</p>
+<p class="p5"><br></p>
+<p class="p6"><b>buffer</b> - un encabezado y un arreglo de datos de muestras de punto flotante.<span class="Apple-converted-space">  </span>Los Buffers son usados para archivos de audio, líneas de retraso, arreglos de controles globales y arreglos de puntos de conexión entre sintetizadores.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>group</b> - una lista enlazada de nodos. Los grupos proveen formas de controlar la ejecución simultánea de muchos nodos. Un grupo es un tipo de nodo.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>MIDI</b> - un protocolo para mandar datos de control musical entre sintetizadores.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>node</b> - un objeto en un árbol de objetos ejecutados primero en profundidad por el motor de síntesis. Hay dos tipos de nodos, sintetizadores y grupos.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>Open Sound Control</b> - un protocolo definido por CNMAT en UCBerkeley para controlar sintetizadores. Ver http://cnmat.cnmat.berkeley.edu/OSC/</p>
+<p class="p5"><br></p>
+<p class="p6"><b>OSC</b> - ver Open Sound Control.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>synth</b> - un módulo de procesamiento de sonido. Similar a "voz" ("voice") en otros sistemas. Los sintetizadores son llamados por número.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>synth definition</b> - una definición para crear nuevos sintetizadores. Similar a "instrumento" ("instrument") en otros sistemas.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>TCP</b> - un protocolo para enviar datos a través de una red.</p>
+<p class="p5"><br></p>
+<p class="p6"><b>UDP</b> - un protocolo para enviar datagramas a través de una red.</p>
+<p class="p5"><br></p>
+<p class="p4">copyright © 2002 James McCartney</p>
+<p class="p3"><br></p>
+<p class="p5"><br></p>
+</body>
+</html>

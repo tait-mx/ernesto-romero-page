@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20091026;12513500">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+	<STYLE TYPE="text/css">
+	<!--
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p2 { margin-bottom: 0in; color: #001bb9; font-family: "Monaco"; font-size: 5pt }
+		P.p3 { margin-bottom: 0in; color: #001bb9; font-family: "Helvetica"; font-size: 7pt }
+		P.p4 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p5 { margin-left: 0.12in; text-indent: -0.12in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 7pt }
+		P.p6 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p7 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p8 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p9 { margin-bottom: 0in; font-family: "Monaco"; font-size: 5pt }
+		P.p10 { margin-bottom: 0in; color: #ad140d; font-family: "Monaco"; font-size: 5pt }
+		P.p11 { margin-bottom: 0in; color: #2c7014; font-family: "Monaco"; font-size: 5pt }
+		P.p12 { margin-bottom: 0in; color: #606060; font-family: "Monaco"; font-size: 5pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>InFeedback</B>
+lee una señal de un bus con una marca de tiempo del ciclo actual o
+el anterior.</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Hereda de:
+<A HREF="../../Core/Object.html">Object</A></B></FONT> <FONT SIZE=1><B>:
+<A HREF="../../Core/Kernel/AbstractFunction.html">AbstractFunction</A></B></FONT>
+<FONT SIZE=1><B>: <A HREF="../UGen.html">UGen</A></B></FONT> <FONT SIZE=1><B>:
+<A HREF="../Multichannel/MultiOutUGen.html">MultiOutUGen</A></B></FONT>
+<FONT SIZE=1><B>: <A HREF="AbstractIn.html">AbstractIn</A></B></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>*ar(bus,
+numChannels)</B></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>bus –</B>
+el índice del bus del cual leer.</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>numChannels
+–</B> el número de canales (p.ej. canales adyacentes) de los
+cuales leer. El valor por defecto es 1. No se puede modular este
+número asignándolo como argumento en una SynthDef.</FONT></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Cuando los
+diferentes ugens de salida </FONT><A HREF="Out.html"><FONT SIZE=1><B>Out</B></FONT></A><FONT SIZE=1>,
+</FONT><A HREF="OffsetOut.html"><FONT SIZE=1><B>OffsetOut</B></FONT></A><FONT SIZE=1>,
+</FONT><A HREF="XOut.html"><FONT SIZE=1><B>XOut</B></FONT></A><FONT SIZE=1>)
+escriben datos a un bus, los </FONT><FONT SIZE=1><I>mezclan </I></FONT><FONT SIZE=1><SPAN STYLE="font-style: normal">con
+los del ciclo actual, pero </SPAN></FONT><FONT SIZE=1><I>sobreescriben</I></FONT>
+<FONT SIZE=1><SPAN STYLE="font-style: normal">todos los datos del
+ciclo anterior. </SPAN></FONT><FONT SIZE=1>(</FONT><A HREF="ReplaceOut.html"><FONT SIZE=1><B>ReplaceOut</B></FONT></A>
+<FONT SIZE=1>sobreescribe todos los datos por igual.) Así,
+dependiendo del orden de los nodos y qué synths están escribiendo
+al bus, los datos en un bus dado pueden ser del ciclo actual o del
+anterior en el momento de la lectura. </FONT><FONT SIZE=1><B><A HREF="In.html">In</A>.ar</B></FONT>
+<FONT SIZE=1>revisa la marca de tiempo de cualquier data que lee y
+asigna 0 a cualquier dato del ciclo anterior (para usar dentro del
+nodo, los datos permanecen el bus). Esto es suficiente para datos de
+audio, pues evita la retroalimentación, pero para datos de control,
+es útil poder leer datos desde cualquier lugar en el orden de nodos.
+Por esta razón, </FONT><FONT SIZE=1><B>In.kr</B></FONT> <FONT SIZE=1><SPAN STYLE="font-weight: normal">también
+lee los datos que son anteriores al ciclo actual.</SPAN></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>En algunos
+casos también podemos leer datos de audio desde un nodo posterior en
+el orden actual de nodos. Este es el propósito de <SPAN STYLE="font-style: normal">InFeedback.
+El retardo introducido por esto es el del tamaño del bloque, que
+equivale a aproximadamente 0.0014 sec en el tamaño por defecto de
+bloque (default block size) y la velocidad de muestreo. (Ver el
+archivo resonador para ver las implicaciones de esto.)</SPAN></FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>El
+comportamiento variable de mezcla y sobreescritura de los ugens de
+salida puede hacer que el orden de ejecución sea crucial. Por
+ejemplo, con un orden de nodos como el siguiente, el UGen InFeedback
+en el Synth 2 sólo recibirá datos del Synth 1</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(-&gt; =
+write out; &lt;- = read in):</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth 1 -&gt;
+busA este synth sobreescribe la salida de Synth3 antes de que llegue
+a Synth2</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth 2 (con
+InFeedback) &lt;- busA&nbsp;</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth 3 -&gt;
+busA</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Si Synth 1
+fuera movido después de Synth 2, entonces el InFeedback del Synth 2
+recibiría una mezcla de la salida entre Synth 1 y Synth 3. Esto
+también sería cierto si Synth 2 estuviera después de Synth 1 y
+Synth 3. En ambos casos, los datos del Synth 1 y Synth 3 tendrían la
+misma marca de tiempo (ya sea del ciclo actual o anterior), así que
+nada sería sobreescrito.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Debido a
+esto, es útil alocar un bus separado para retroalimentación. Con la
+siguiente combinación el Synth 2 recibirá datos del Synth 3 sin
+importar la posición del Synth 1 en el orden de nodos.</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth 1 -&gt;
+busA</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth 2 (con
+InFeedback) &lt;- busB&nbsp;</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Synth 3 -&gt;
+busB + busA&nbsp;</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>El segundo
+ejemplo debajo demuestra este asunto.</FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Ver también
+</FONT><A HREF="LocalIn.html"><FONT SIZE=1><B>LocalIn</B></FONT></A>
+<FONT SIZE=1>y </FONT><A HREF="LocalOut.html"><FONT SIZE=1><B>LocalOut</B></FONT></A><FONT SIZE=1>.</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p6" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT SIZE=1><B>Ejemplos</B></FONT></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>modulación
+de retroalimentación de audio:</FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(\help_InFeedback,
+{ arg out=0, in=0;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var input,
+sound;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>input =
+InFeedback.ar(in, 1);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>sound =
+SinOsc.ar(input * 1300 + 300, 0, 0.4);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(out,
+sound);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).play;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>esto muestra
+cómo un nodo puede leer audio de un bus que está siendo escrito por
+un synth posterior:</FONT></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(\help_InFeedback,
+{ arg out=0, in=0;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(out,</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>InFeedback.ar(in,
+1)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(\help_SinOsc,
+{ arg out=0, freq=440;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>Out.ar(out,
+SinOsc.ar(freq, 0, 0.1))</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).send(s);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>x =
+Bus.audio(s, 1);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// lee del
+bus n play al bus 0 (silencioso)</FONT></P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>a =
+Synth(\help_InFeedback,[\in, x, \out, 0]);</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// ahora
+reproduce un synth después de este, tocando en el bus x</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>b =
+Synth.after(a, \help_SinOsc, [\out, x]);</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// añade
+otro synth antes de a que también escribe al bus x</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// ahora no
+puedes oir b, pues sus datos son del ciclo anterior, y está siendo
+sobreescrito por c</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>c =
+Synth.before(a, \help_SinOsc, [\out, x, \freq, 800]);</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// libera c
+y puedes oir a b de nuevo</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>c.free;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>x.free;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>a.free;
+b.free;</FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>El ejemplo
+debajo implementa un resonador. Observa que deberás substraer el
+tamaño de bloque (blockSize) para que la afinación sea correcta. Ve
+<B>LocalIn</B> para un ejemplo equivalente.</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>(</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>var play,
+imp, initial;</FONT></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>SynthDef(&quot;testRes&quot;,
+{</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>play =
+InFeedback.ar(10, 1); // 10 es el canal del feedback </FONT>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>imp =
+Impulse.ar(1);</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// feedback</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>OffsetOut.ar(10,
+DelayC.ar(imp + (play * 0.995), 1,&nbsp;</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>440.reciprocal
+- ControlRate.ir.reciprocal)); // subtract block size</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>OffsetOut.ar(0,
+play);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>}).play(s);</FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>// Compara
+esto para afinación</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>{
+SinOsc.ar(440, 0, 0.2) }.play(s, 1);</FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT SIZE=1>)</FONT></P>
+</BODY>
+</HTML>

@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #bf0000}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica; min-height: 16.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Helvetica; min-height: 18.0px}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px Helvetica}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #000000; min-height: 12.0px}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0000bf}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #2e5092; min-height: 12.0px}
+p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #000000; min-height: 14.0px}
+p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #4d3530; min-height: 12.0px}
+p.p18 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #007300}
+span.s1 {font: 18.0px Helvetica}
+span.s2 {color: #2e5092}
+span.s3 {color: #000000}
+span.s4 {color: #5974a8}
+span.s5 {color: #0000bf}
+span.s6 {font: 12.0px Helvetica; color: #000000}
+span.s7 {color: #606060}
+span.s8 {font: 9.0px Monaco}
+span.s9 {color: #007300}
+span.s10 {color: #bf0000}
+span.s11 {color: #3a69c4}
+span.s12 {text-decoration: underline ; color: #0021e7}
+span.s13 {color: #595959}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><span class="s1"><b>Server</b></span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>objeto que representa a una aplicación sc-server</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>superclase: Model</b></p>
+<p class="p2"><br></p>
+<p class="p1">Un objeto Server es la representación del lado del cliente de una aplicación servidor y es usado para controlar a esta aplicación desde la aplicación SuperCollider lenguaje. (Ver <a href="ClienteVsServidor.html"><span class="s2">ClienteVsServidor</span></a> para más detalles sobre esta distinción). La clase Server envía mensajes OSC y tiene un número de asignadores que llevan el control de IDs para nodos, canales y buffers. La aplicación servidor es un programa de línea de comandos, por lo tanto, todos los comandos, aparte de los mensajes OSC, son comandos Unix. La aplicación servidor representada por un objeto Server puede estar corriendo en la misma máquina que el cliente (en el mismo espacio de direcciones que la aplicación lenguaje o por separado; ver más abajo) o en una máquina remota.</p>
+<p class="p2"><br></p>
+<p class="p1">La mayor parte de las opciones de una instancia de la clase Server se controlan a través de su instancia de la clase <b>ServerOptions</b>. Ve el archivo de ayuda de <a href="ServerOptions.html"><span class="s2">ServerOptions</span></a> para más detalles.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Rutas</b></p>
+<p class="p2"><br></p>
+<p class="p1">Las aplicaciones servidor que corren en la máquina local tienen dos variables de entorno Unix: SC_SYNTHDEF_PATH y SC_PLUGIN_PATH. Estas indican las carpetas de SynthDefs y de plugins de UGens que serán cargadas al arrancar. Estas carpetas pueden ser definidas dentro de SuperCollider, utilizando los métodos getenv y setenv de la clase <a href="../Collections/String.html"><span class="s2">String</span></a>, y serán cargadas además de las carpetas por defecto de SynthDefs y de plugins, las cuales están codificadas "en duro".</p>
+<p class="p2"><br></p>
+<p class="p4">// todas las definiciones en este directorio serán cargadas cuando el servidor local arranque</p>
+<p class="p5">"SC_SYNTHDEF_PATH"<span class="s3">.setenv(</span>"~/scwork/"<span class="s3">.standardizePath);<span class="Apple-converted-space"> </span></span></p>
+<p class="p5">"echo $SC_SYNTHDEF_PATH"<span class="s3">.unixCmd;</span></p>
+<p class="p2"><br></p>
+<p class="p6"><b>El grupo por defecto</b></p>
+<p class="p7"><br></p>
+<p class="p1">Cuando un servidor es arrancado, existe un grupo de nivel superior, con un ID de 0, el cual define la raíz del árbol de nodos (este grupo está representado por la subclase <a href="RootNode.html"><span class="s4">RootNode</span></a> de la clase <a href="Group.html"><span class="s4">Group</span></a>). Si la aplicación servidor es arrancada desde SCLang (en oposición a desde la línea de comandos), el método initTree será llamado automáticamente después de arrancar. Esto también creará un grupo por defecto (<a href="default_group.html"><span class="s4">default_group</span></a>), con un ID de 1, el cual es el grupo por defecto de todos los nodos en el estilo objeto. Esto provee un árbol de nodos básico y predecible para que métodos como Server:scope, Server:record, etc. puedan funcionar si tener problemas de orden de ejecución. El grupo por defecto es persistente, i.e. es recreado después de reiniciar, presionar Command-., etc. Ver <a href="RootNode.html"><span class="s2">RootNode</span></a> y <a href="default_group.html"><span class="s2">default_group</span></a> para más información. Toma nota de que si un servidor ha sido arrancando desde la línea de comandos, deberás llamar a initTree manualmente para que inicialice al grupo por defecto, si es que lo necesitas. Ver <b>initTree</b> más abajo.</p>
+<p class="p2"><br></p>
+<p class="p6"><b>Local vs. Internal</b></p>
+<p class="p2"><br></p>
+<p class="p1">En general, al trabajar con una sola máquina, probablemente utilicemos uno de los dos objetos Server que son creados al arrancar el programa y guardados en las variables de clase <b>local </b>e<b> internal</b>. Por defecto, dos ventanas de gráfica de usuario son creadas para controlarlos. La diferencia entre los dos es que el servidor local corre como una aplicación separada, con su propio espacio de direcciones, mientras que el servidor interno corre dentro del mismo espacio que la aplicación lenguaje/cliente. El servidor interno tiene la ventaja de poder accesar memoria compartida, permitiendo de esta manera conveniencias como osciloscopios (ver más abajo) y <a href="../UGens/InOut/SharedIn.html"><span class="s2">SharedIn</span></a>/<a href="../UGens/InOut/SharedOut.html"><span class="s2">SharedOut</span></a>. El servidor interno también minimiza la latencia en el envío de mensajes. El servidor local, y cualquier otra aplicación servidor que corra en tu máquina local, tiene la ventaja de que si el lenguaje se "crashea" (y con esto posiblemente tu pieza), el servidor continuará corriendo. De esta forma, utilizar al servidor local es una disposición inherentemente más robusta.</p>
+<p class="p2"><br></p>
+<p class="p6"><b>El servidor por defecto</b></p>
+<p class="p8"><br></p>
+<p class="p1">Siempre hay un servidor por defecto, el cual está guardado en la variable de clase <b>default</b>. Cualquier instancia de la clase Synth o Group que sea creada sin un objetivo ("target") será creada en el servidor por defecto. Al arrancar, el servidor <b>local</b> (ver más arriba) es definido como servidor por defecto, pero cualquier otro servidor puede serlo.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p9"><b>Métodos de Clase</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>*new(name, addr, options, clientID)</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>name</b> <b>- </b>un símbolo; cada objeto Server es guardado con su nombre en una variable de clase global.</p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>addr - </b>una instancia de <a href="../Control/NetAddr.html"><span class="s2">NetAddr</span></a> opcional, que provea la dirección IP del ordenador anfitrión y el número puerto. El valor por defecto es la dirección del localhost utilizando el puerto 57110; igual que el servidor local.</p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>options</b> <b>- </b>una instancia de <b>ServerOptions </b>opcional. Si nil, una instancia de ServerOptions será creada, utilizando los valores por defecto.</p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>clientID - </b>un entero. En situaciones multi-cliente, a cada cliente se le puede dar un rango seprado de nodeIDs. El valor por defecto es 0.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><b>*local - </b>devuelve al servidor local, guardado en la variable de clase local (ya creada en initClass)</p>
+<p class="p2"><br></p>
+<p class="p1"><b>*internal - </b>devuelve al servidor interno, guardado en la variable de clase internal (ya creada en initClass)</p>
+<p class="p2"><br></p>
+<p class="p1"><b>*default - </b>devuelve el servidor por defecto. Por defecto, éste es el servidor local (ver arriba)</p>
+<p class="p2"><br></p>
+<p class="p1"><b>*default_(aServer) - </b>define a aServer como servidor por defecto</p>
+<p class="p2"><br></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="s5">Server</span><span class="s3">.default = </span><span class="s5">Server</span><span class="s3">.internal; </span>// define al servidorinterno como servidor por defecto</p>
+<p class="p10"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>*all</b> - el conjunto de todos los servidores</p>
+<p class="p2"><br></p>
+<p class="p1"><b>*quitAll - </b>apaga todos los servidores registrados</p>
+<p class="p2"><br></p>
+<p class="p1"><b>*killAll - </b>consulta al sistema acerca de las aplicaciones sc-server y las apaga a la fuerza</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>*freeAll - </b>libera a todos los nodos en todos los servidores registrados</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Métodos de Instancia</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>sendMsg(arg1, arg2, arg3, ... argN) - </b>manda un mensaje OSC al servidor.</p>
+<p class="p2"><br></p>
+<p class="p11"><span class="s6"><span class="Apple-tab-span">	</span></span>s.sendMsg(<span class="s7">"/s_new"</span>, <span class="s7">"default"</span>, s.nextNodeID, 0, 1);</p>
+<p class="p2"><br></p>
+<p class="p1"><b>sendBundle(time, array1, array1, array1, ... arrayN) - </b>manda un paquete OSC al servidor. Ya que la red puede tener un rendimiento irregular, el argumento <b>time</b> permite que el paquete sea evaluado en un punto específico en el futuro. Por lo tanto, todos los mensajes son síncronos en relación a sí mismos, pero retrasados una misma cantidad de tiempo. Si un paquete llega tarde, el servidor contesta con un mensaje de "tarde", pero lo evalúa de todas formas.<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="s6"><span class="Apple-tab-span">	</span></span>s.sendBundle(0.2, [<span class="s7">"/s_new"</span>, <span class="s7">"default"</span>, x = s.nextNodeID, 0, 1], [<span class="s7">"/n_set"</span>, x, <span class="s7">"freq"</span>, 500]);</p>
+<p class="p2"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>sendRaw(aRawArray)</b></p>
+<p class="p2"><br></p>
+<p class="p1"><b>listSendMsg([arg1, arg2, arg3, ... argN]) - </b>como sendMsg, pero toma un arreglo como argumento.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>listSendBundle(time, [array1, array1, array1, ... arrayN]) - </b>como sendBundle, pero toma un arreglo como argumento. Esto te permite reunir mensajes en un arreglo y mandarlos después.</p>
+<p class="p2"><br></p>
+<p class="p11"><span class="s6"><span class="Apple-tab-span">	</span></span>s.listSendBundle(0.2, [[<span class="s7">"/s_new"</span>, <span class="s7">"default"</span>, x = s.nextNodeID, 0, 1],<span class="Apple-converted-space"> </span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[<span class="s7">"/n_set"</span>, x, <span class="s7">"freq"</span>, 600]]);</p>
+<p class="p2"><span class="s3"><span class="Apple-tab-span">	</span></span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>sendSynthDef(name, dir) - </b>envía al servidor un SynthDef que fue escrito en un directorio local</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>loadSynthDef(name, completionMsg, dir) - </b>carga un SynthDef que reside en un directorio remoto</p>
+<p class="p2"><br></p>
+<p class="p1"><b>loadDirectory(dir, completionMsg) - </b>carga todos los SynthDefs en el directorio <b>dir</b>. El argumento <b>dir</b> es una Cadena de Caracteres ("String") con una ruta válida.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>nextNodeID - </b>obtén un ID de nodo único</p>
+<p class="p2"><br></p>
+<p class="p1"><b>nextPermNodeID</b> <b>-</b> obtén un ID de nodo permanente. Este ID de nodo se encuentra en un rango reservado y se mantendrá hasta que lo liberes explicitamente</p>
+<p class="p2"><br></p>
+<p class="p1"><b>freePermNodeID</b> <b>-</b> libera un ID de nodo permanente para que sea reutilizado después</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>wait(responseName) - </b>este mensaje puede ser utilizado desde dentro de una Routine para esperar una respuesta del servidor</p>
+<p class="p2"><br></p>
+<p class="p1"><b>waitForBoot(func, limit) - </b>evalúa la función <b>func</b> tan pronto como el servidor haya arrancando. Si está corriendo, es evaluada inmediatamente. Si no está corriendo, arranca al servidor y evalúa la función.<b> </b>El argumento <b>limit</b> indica el máximo número de intentos. (5 veces/segundo)</p>
+<p class="p2"><br></p>
+<p class="p1"><b>doWhenBooted(func, limit) - </b>evalúa la función tan pronto como el servidor haya arrancando. Si está corriendo, es evaluada inmediatamente. El argumento <b>limit</b> indica el máximo número de intentos. (5 veces/segundo)</p>
+<p class="p2"><br></p>
+<p class="p1"><b>boot(startAliveThread) -</b> arranca el servidor remoto, crea nuevos asignadores. <b>startAliveThread</b>: si es definido como falso, el servidor no es consultado para dar información a la ventana. <b>N.B.</b> No puedes arrancar localmente una aplicación servidor que se encuentre en una máquina remota.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>quit - </b>apaga la aplicación servidor</p>
+<p class="p2"><br></p>
+<p class="p1"><b>reboot - </b>apaga y reinicia la aplicación servidor</p>
+<p class="p2"><br></p>
+<p class="p1"><b>freeAll - </b>libera todos los nodos en este servidor</p>
+<p class="p2"><br></p>
+<p class="p1"><b>status - </b>consulta el estado del servidor</p>
+<p class="p2"><br></p>
+<p class="p1"><b>notify(flag) - </b>el servidor manda notificaciones, por ejemplo: si un nodo fue creado, un mensaje 'tr' de un SendTrig o una acción /done. Si el argumento <b>flag</b> es definido como falso, estos mensajes no son enviados. El valor por defecto es true (cierto).</p>
+<p class="p2"><br></p>
+<p class="p1"><b>dumpOSC(code)</b></p>
+<p class="p1"><b><span class="Apple-tab-span">	</span>code</b>:</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0 - apaga el vaciado ("dumping")</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1 - imprime el análisis sintáctico del contenido del mensaje</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2 - imprime el contenido en hexadecimal</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>3 - imprime ambas representanciones del contenido: la analizada y la hexadecimal</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>queryAllNodes -</b> Imprime en la ventana "post" una representación del árbol de nodos actual de este servidor. Muy útil durante la depuración de programas. Utiliza g_dumpTree en los servidores locales y<span class="Apple-converted-space">  </span>g_queryTree en los remotos. Ve <a href="Group.html"><span class="s2">Group</span></a> y <a href="Server-Command-Reference.html"><span class="s2">Server-Command-Reference</span></a> para más información.</p>
+<p class="p10"><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span>s.queryAllNodes; <span class="Apple-tab-span">	</span></span>// observa el nodo raíz o "root node" (ID 0) y el<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// grupo por defecto o "default group" (ID 1)</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.quit;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>ping(numberOfTimes, waitBewteen, completionFunction)</b></p>
+<p class="p1"><span class="s8"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>mide el tiempo entre servidor y cliente, el cual puede variar. La función en el argumento<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>completionFunction</b> es evaluada después del número de mediciones especificado</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>en el argumento <b>numberOfTimes</b>; el máximo resultante es enviado a la función como</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>argumento.</p>
+<p class="p10"><br></p>
+<p class="p1"><b>options - </b>devuelve al objeto <a href="ServerOptions.html"><span class="s2">ServerOptions</span></a> de este servidor. Los cambios entrarán en efecto cuando el servidor sea reiniciado.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>options_(aServerOptions) - </b>define el objeto <a href="ServerOptions.html"><span class="s2">ServerOptions</span></a> de este servidor. Los cambios entrarán en efecto cuando el servidor sea reiniciado.</p>
+<p class="p10"><br></p>
+<p class="p1"><b>defaultGroup - </b>devuelve al grupo por defecto de este servidor.</p>
+<p class="p10"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>volume -</b> una instancia de la clase Volume que corre después del grupo por defecto.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>volume_(level) -</b> ajusta el volumen de la salida del servidor a través de su instancia de la clase Volume. Los niveles están en decibelios.</p>
+<p class="p10"><br></p>
+<p class="p1"><b>mute - </b>silencia la salida del servidor. Esto puede ser conmutado desde la ventana del servidor, con la letra 'm'.</p>
+<p class="p10"><br></p>
+<p class="p1"><b>unmute - </b>deja de silenciar al servidor. Esto también puede ser conmutado desde la ventana del servidor, con la letra 'm'.</p>
+<p class="p10"><br></p>
+<p class="p9"><b>Empaquetamiento Automático de Mensajes</b></p>
+<p class="p8"><br></p>
+<p class="p1">La clase Server provee soporte para el empaquetamiento automático de mensajes. Esto asegura la ejecución sincrónica y es bastante conveniente en 'estilo objeto'. Ver también <b>bundledCommands</b>.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>makeBundle(time, func, bundle) </b>- La función <b>func</b> es evaluada, y todos los mensajes OSC generados por ella son diferidos y añadidos al paquete. Este método devuelve al paquete para que, de ser necesario, pueda continuar utilizándose. Si el argumento <b>time</b> es definido como nil o como un número, el paquete va a ser enviado automáticamente y ejecutado después del correspondiente retraso en segundos. Si <b>time</b> es definido como falso, el paquete no será enviado. El argumento <b>bundle</b> te permite pasar un paquete preexistente y continuar añadiéndole mensajes. Si sucede une error al evaluar <b>func</b>, este método lanzará un error y detendrá el aplazamiento de los mensajes.</p>
+<p class="p2"><br></p>
+<p class="p11"><span class="s3"><span class="Apple-tab-span">	</span></span>s.boot;</p>
+<p class="p11"><span class="Apple-tab-span">	</span>(</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// envía un sintetizador al servidor</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="s5">SynthDef</span>(<span class="s7">"tpulso"</span>, { <span class="s5">arg</span> out=0,frec=700, serruchofrec=440.0;</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s5">Out</span>.ar(out, <span class="s5">SyncSaw</span>.ar(frec, serruchofrec, 0.1) )</p>
+<p class="p11"><span class="Apple-tab-span">	</span>}).send(s);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>)</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// todos los comandos OSC generados en la función contenida en el siguiente código</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// van a ser añadidos a un paquete y ejecutados simultáneamente después de 2 segundos</p>
+<p class="p11"><span class="Apple-tab-span">	</span>(</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.makeBundle(2.0, {</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = <span class="s5">Synth</span>.new(<span class="s7">"tpulso"</span>);</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a = <span class="s5">Bus</span>.control.set(440);</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x.map(<span class="s9">\frec</span>, a);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>});</p>
+<p class="p11"><span class="Apple-tab-span">	</span>)</p>
+<p class="p11"><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// no envíes</p>
+<p class="p11"><span class="Apple-tab-span">	</span>(</p>
+<p class="p11"><span class="Apple-tab-span">	</span>b = s.makeBundle(<span class="s5">false</span>, {<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span></span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = { <span class="s5">PinkNoise</span>.ar(0.1) * <span class="s5">In</span>.kr(0, 1); }.play;</p>
+<p class="p11"><span class="Apple-tab-span">	</span>});</p>
+<p class="p11"><span class="Apple-tab-span">	</span>)</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// ahora pasa b como un paquete preexistente y arranca ambos sintetizadores sincrónicamente</p>
+<p class="p11"><span class="Apple-tab-span">	</span>(</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span>s.makeBundle(</span><span class="s5">nil</span><span class="s3">, { </span>// nil ejecuta tan pronto como sea posible</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>y = { <span class="s5">SinOsc</span>.kr(0.2).abs }.play(x, 0, 0, <span class="s9">\addBefore</span>); <span class="s10">// sine envelope</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>}, b);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>)</p>
+<p class="p11"><span class="Apple-tab-span">	</span>x.free; y.free;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// lanza un error</p>
+<p class="p11"><span class="Apple-tab-span">	</span>(</p>
+<p class="p11"><span class="Apple-tab-span">	</span>try {</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.makeBundle(<span class="s5">nil</span>, {</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.farkermartin;</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p13"><span class="s3"><span class="Apple-tab-span">	</span>} { </span>|error|</p>
+<p class="p5"><span class="s3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</span>"Mira Ma, las operaciones normales se reaunudan a pesar de:\n"<span class="s3"> + error.errorString).postln;<span class="Apple-converted-space"> </span></span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>x = { <span class="s5">FSinOsc</span>.ar(440, 0, 0.2) }.play; <span class="s10">// esto funciona bien</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>}</p>
+<p class="p11"><span class="Apple-tab-span">	</span>)</p>
+<p class="p11"><span class="Apple-tab-span">	</span>x.free;</p>
+<p class="p2"><br></p>
+<p class="p1"><b>bind(func) </b>- Igual que en <b>makeBundle</b>, la función <b>func </b>es evaluada, y todos los mensajes OSC generados por ella son diferidos y añadidos a un paquete, el cual es enviado al servidor, utilizando la latencia por defecto de éste.</p>
+<p class="p10"><br></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// ejemplo</p>
+<p class="p11"><span class="Apple-tab-span">	</span>(</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.bind {</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a = { <span class="s5">|frec=100|</span> <span class="s5">SinOsc</span>.ar(frec, <span class="s5">LFTri</span>.ar(frec)) * 0.2 }.play;</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>s.sync;</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a.set(<span class="s9">\frec</span>, 400);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>}</p>
+<p class="p11"><span class="Apple-tab-span">	</span>)</p>
+<p class="p8"><br></p>
+<p class="p9"><b>Controles Compartidos</b></p>
+<p class="p2"><br></p>
+<p class="p1">El servidor interno tiene un número de canales de control compartidos. Sus valores pueden ser ajustados o consultados utilizando los siguientes métodos:</p>
+<p class="p2"><br></p>
+<p class="p1"><b>getSharedControl(num)</b> - obtén el valor actual de un canal de control compartido. El argumento <b>num</b> es el índice del canal a consultar. Este comando es sincrónico y sólo funciona con el servidor interno.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>setSharedControl(num, value)</b> - define el valor de un canal de control compartido. El argumento <b>num</b> es el índice del canal a definir. Este comando es sincrónico y sólo funciona con el servidor interno.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>allocSharedControls(numControls)</b> - define el número de canales de control compartidos. Esto debe de ser hecho antes de que el servidor interno sea arrancado. El número por defecto es 1024.</p>
+<p class="p2"><br></p>
+<p class="p9"><b>Arboles de Nodos Persistentes</b></p>
+<p class="p2"><br></p>
+<p class="p1">La clase <a href="../Control/ServerTree.html"><span class="s11">ServerTree</span></a> puede ser utilizada para guardar funciones, las cuales serán evaluadas después de que el servidor sea arrancado, después de que todos los nodos sean liberados, y después de que Command-. sea presionado. Esto permite, por ejemplo, crear una estructura de nodos básica que sea persistente. ServerTree es evaluado en el método <b>initTree</b>, después de que el grupo por defecto es creado, por lo que se puede contar con su existencia.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>initTree</b> - Este método inicializa al grupo por defecto (<a href="default_group.html"><span class="s2">default_group</span></a>) y corre a ServerTree. Este método es llamado automáticamente cuando inicias un servidor desde el lenguaje. <b>N.B. </b>Si prendiste una aplicación servidor desde la línea de comandos y necesitas de esta funcionalidad, tendrás que llamar a initTree manualmente.</p>
+<p class="p2"><br></p>
+<p class="p11"><span class="s6"><span class="Apple-tab-span">	</span></span>s.quit;</p>
+<p class="p11"><span class="Apple-tab-span">	</span>f = {<span class="s5">Group</span>.new(s.defaultGroup); <span class="s7">"Tambien puede evaluarse otro codigo"</span>.postln;};</p>
+<p class="p13"><span class="s3"><span class="Apple-tab-span">	</span></span>ServerTree<span class="s3">.add(f);</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.boot;</p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span>s.queryAllNodes; </span>// observa al grupo dentro del grupo por defecto</p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="s5">ServerTree</span>.remove(f);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="s12"><a href="../Control/ServerBoot.html">ServerBoot</a></span> y <a href="../Control/ServerQuit.html"><span class="s11">ServerQuit</span></a> proveen una funcionalidad similar al arrancar y al apagar el servidor.</p>
+<p class="p2"><br></p>
+<p class="p9"><b>Accesos Rápidos</b></p>
+<p class="p2"><br></p>
+<p class="p1">Cuando la ventana de un servidor es seleccionada, los siguientes accesos rápidos pueden ser utilizados:</p>
+<p class="p2"><br></p>
+<p class="p1"><b>espacio</b>:<span class="Apple-tab-span">	</span>arranca el servidor</p>
+<p class="p1"><b>d</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>conmuta dumpOSC</p>
+<p class="p1"><b>n</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>imprime una representación del árbol de nodos</p>
+<p class="p1"><b>N<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>i</b>mprime una representación del árbol de nodos y los valores actuales de todos los sintetizadores</p>
+<p class="p1"><b>s</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>osciloscopio (sólo en el servidor interno)</p>
+<p class="p2"><br></p>
+<p class="p9"><b>Osciloscopio</b></p>
+<p class="p2"><br></p>
+<p class="p1">Sólo funciona con el servidor interno y, actualmente, sólo en OS X.</p>
+<p class="p2"><br></p>
+<p class="p1">Ver<b> </b><a href="../GUI/Main-GUI/Stethoscope.html"><span class="s2">Stethoscope</span></a><b> </b>para más detalles.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>scope(numChannels, index, bufsize, zoom, rate) - </b>Abre una ventana de osciloscopio que muestra la señal de salida del servidor.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>numChannels </b>- el número de canales que mostrar. El valor por defecto es 2.</p>
+<p class="p1"><b>index </b>- el primer canal que mostrar. El valor por defecto es 0.</p>
+<p class="p1"><b>bufsize </b>- el tamaño del buffer para el ScopeView. El valor por defecto es 4096.</p>
+<p class="p1"><b>zoom</b> - un valor de zoom para el eje de la X del osciloscopio. Los valores grandes muestran más. El valor por defecto es 1.</p>
+<p class="p1"><b>rate</b> - si mostrar canales de audio o de control (ya sea \audio o \control)</p>
+<p class="p2"><br></p>
+<p class="p9"><b>Soporte para Grabaciones</b></p>
+<p class="p2"><br></p>
+<p class="p1">Los siguientes métodos son para usarse por conveniencia. Si necesitas hacer grabaciones con tiempos de inicio y de fin con una precisión a nivel de muestra de digital, deberás crear tus propios nodos. Ve el archivo de ayuda de <a href="../UGens/Playback and Recording/DiskOut.html"><span class="s2">DiskOut</span></a> para más información. Para grabaciones a tiempo diferido, ve el archivo de ayuda de <a href="../Other Topics/Non-Realtime-Synthesis.html"><span class="s2">Non-Realtime-Synthesis</span></a>.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Esta funcionalidad también está disponible a través del botón de grabación de las ventanas de los servidores. Presionándolo una vez se llama a <b>prepareForRecord</b>, presionándolo otra vez se llama a <b>record</b>, y presionándolo una tercera vez se llama a <b>stopRecording</b> (ver más abajo). Al hacer esto, el archivo creado estará en tu carpeta de grabaciones y tendrá como nombre la fecha y la hora del momento en que se haya llevado a cabo la grabación. La ubicación por defecto de la carpeta de grabaciones varía de una plataforma a otra pero siempre es guardada en <b>thisProcess.platform.recordingsDir</b>. Definir a esta variable te permite cambiar la ubicación por defecto.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>NOTA:</b> <b>record</b> coloca al sintetizador que graba después del grupo por defecto del servidor y este sintetizador utiliza <b>In.ar</b>. Es por esto que si añades nodos después del sintetizador que lleva a cabo la grabación, su salida no será capturada. Para prevenir esto, utiliza, ya sea objetos <b>Node</b> (los cuales usan el grupo por defecto como objetivo) o (al utilizar "estilo envío de mensajes") usa como objetivo un ID de nodo de 1.</p>
+<p class="p14"><br></p>
+<p class="p15">s.sendMsg(<span class="s13">"/s_new"</span>, <span class="s13">"default"</span>, s.nextNodeID, 1,1);</p>
+<p class="p2"><br></p>
+<p class="p1">Para más detalles sobre este tema ve <a href="Order-of-execution.html"><span class="s2">Order-of-execution</span></a><b>,</b> <a href="default_group.html"><span class="s2">default_group</span></a>, y <a href="NodeMessaging.html"><span class="s2">NodeMessaging</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>prepareForRecord(path) - </b>Asigna el buffer necesario, etc. para grabar la salida del servidor. (Ve <b>record</b> más adelante)<b> </b>El argumento<b> path</b> es una Cadena de Caracteres ("String") que representa la ruta y el nombre del archivo generado. Si no especificas una ruta,<span class="Apple-converted-space">  </span>entonces el archivo va a ser creado en tu carpeta de grabaciones (ver la nota anterior al respecto) con el nombre SC_estaFecha_y_Hora. Los cambios al tipo de encabezado o al formato de muestra o al número de canales, deben hacerse ANTES de llamar a este método.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>record - </b>Inicia o reanuda la grabación de la salida. Tienes que haber llamado antes al método prepareForRecord (ver arriba).</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>pauseRecording - </b>Pausa la grabación. Puede ser reanudada al ejecutar el método <b>record</b> de nuevo.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>stopRecording - </b>Detiene la grabación, cierra el archivo y libera los recursos asociados. Tienes que llamar a este método al terminar de grabar; si no lo haces, el archivo con la grabación quedará inusable. Cmd-. al estar grabando tiene el mismo efecto.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>recordNode - </b>Devuelve al sintetizador que está llevando a cabo la grabación, para que pueda ser utilizado como objetivo. Esto sólo debe de ser necesario para los nodos que no estén creados en el grupo por defecto.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1">Los siguientes métodos "setter" tienen sus correspondientes "getters". Ve <a href="../Files/SoundFile.html"><span class="s2">SoundFile</span></a> para información acerca de los distintos tipos de formatos de muestra y de encabezado. No todos los formatos de muestra y de encabezado son compatibles.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>recChannels_(anInteger) - </b>Define el número de canales a grabar. El valor por defecto es dos. Tiene que ser llamado ANTES que prepareForRecord.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>recHeaderFormat_(aString) - </b>Define el formato de encabezado de la grabación. El valor por defecto es "aiff".<span class="Apple-converted-space">  </span>Tiene que ser llamado ANTES que prepareForRecord.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p1"><b>recSampleFormat_(aString) - </b>Define el formato de muestra.<span class="Apple-converted-space">  </span>El valor por defecto es "float".<span class="Apple-converted-space">  </span>Tiene que ser llamado ANTES que prepareForRecord.</p>
+<p class="p2"><br></p>
+<p class="p1">Toma en cuenta que la frecuencia de muestreo de la grabación será la misma que la de la aplicación servidor. Esto puede ser definido utilizando la instancia <a href="ServerOptions.html"><span class="s2">ServerOptions</span></a> del servidor.</p>
+<p class="p2"><br></p>
+<p class="p16"><br></p>
+<p class="p4"><span class="s3">s.boot; </span>// arranca el servidor</p>
+<p class="p12"><br></p>
+<p class="p4">// algo que grabar</p>
+<p class="p11">(</p>
+<p class="p5"><span class="s5">SynthDef</span><span class="s3">(</span>"burbujas"<span class="s3">, {</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="s5">var</span> f, zout;</p>
+<p class="p11"><span class="Apple-tab-span">	</span>f = <span class="s5">LFSaw</span>.kr(0.4, 0, 24, <span class="s5">LFSaw</span>.kr([8,7.23], 0, 3, 80)).midicps; <span class="s10">// función de glissando</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>zout = <span class="s5">CombN</span>.ar(<span class="s5">SinOsc</span>.ar(f, 0, 0.04), 0.2, 0.2, 4); <span class="s10">// añadiendo ecos a una sinusoidal</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="s5">Out</span>.ar(0, zout);</p>
+<p class="p11">}).send(s);</p>
+<p class="p11">)</p>
+<p class="p12"><br></p>
+<p class="p11">x = <span class="s5">Synth</span>.new(<span class="s7">"burbujas"</span>);</p>
+<p class="p12"><br></p>
+<p class="p4"><span class="s3">s.prepareForRecord; </span>// tienes que llamar a este método primero</p>
+<p class="p12"><br></p>
+<p class="p11">s.record;</p>
+<p class="p12"><br></p>
+<p class="p4"><span class="s3">s.pauseRecording; </span>// se puede poner pausa</p>
+<p class="p12"><br></p>
+<p class="p4"><span class="s3">s.record </span>// reanuda la grabación</p>
+<p class="p12"><br></p>
+<p class="p4"><span class="s3">s.stopRecording; </span>// esto cierra el archivo y libera al nodo que llevó a cabo la grabación, etc.</p>
+<p class="p12"><br></p>
+<p class="p4"><span class="s3">x.free; </span>// detén a los sintetizadores</p>
+<p class="p12"><br></p>
+<p class="p4">// busca en tu carpeta de grabaciones y encontrarás un archivo que lleva por nombre la fecha y hora</p>
+<p class="p4">// en que se llevó a cabo la grabación</p>
+<p class="p12"><br></p>
+<p class="p17"><br></p>
+<p class="p9"><b>Comandos Asíncronos</b></p>
+<p class="p8"><br></p>
+<p class="p1">El servidor provee soporte para esperar la finalización de los comandos OSC asíncronos, como son el leer o escribir archivos de audio. <b>N.B. </b>Los siguientes métodos deben ser llamados desde una <a href="../Core/Kernel/Routine.html"><span class="s2">Routine</span></a> que esté corriendo. Pasar una <a href="../Scheduling/Condition.html"><span class="s2">Condition</span></a> explicitamente permite que múltiples elementos dependan de diferentes condiciones. Los ejemplos que se encuentran más abajo deben evidenciar la manera en que esto funciona.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>bootSync(condition) - </b>Arranca el servidor y espera hasta que haya acabado antes de reanudar las subrutina. El argumento <b>condition</b> es una instancia de <a href="../Scheduling/Condition.html"><span class="s2">Condition</span></a><b> </b>opcional utilizada para esta evaluación.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>sendMsgSync(condition, args) - </b>Envía el siguiente mensaje al servidor y espera hasta que haya acabado antes de reanudar la subrutina. El argumento <b>condition </b>es una instancia de <a href="../Scheduling/Condition.html"><span class="s2">Condition</span></a><b> </b>opcional utilizada para esta evaluación. El argumento <b>arg</b> debe de consistir de uno o más mensajes OSC válidos.</p>
+<p class="p2"><br></p>
+<p class="p1"><b>sync(condition, bundles, latency)</b> - Envía un mensaje /sync al servidor, el cual contestará con el mensaje /synced cuando todos los comandos asíncronos pendientes hayan finalizado. El argumento <b>condition </b>es una instancia de <a href="../Scheduling/Condition.html"><span class="s2">Condition</span></a><b> </b>opcional utilizada para esta evaluación. En UDP dentro de una red de área amplia (WAN), este método puede ser un poco menos seguro que <b>sendMsgSync</b>, ya que los paquetes pueden llegar en desorden, pero en una red local debe de funcionar bien. En TCP, este método siempre debe de ser seguro. El argumento <b>bundles</b> debe de consistir de uno o más mensajes OSC que serán empaquetados antes del mensaje /sync (de esta forma se garantiza que llegarán antes que el mensaje /sync). El argumento <b>latency</b> permite que el mensaje sea evaluado en un punto específico en el futuro.</p>
+<p class="p16"><br></p>
+<p class="p11">(</p>
+<p class="p13">Routine<span class="s3">.run {</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="s5">var</span> c;</p>
+<p class="p12"><br></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// crea una instancia de la clase Condition para controlar la ejecución de la Routine</p>
+<p class="p11"><span class="Apple-tab-span">	</span>c = <span class="s5">Condition</span>.new;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.bootSync(c);</p>
+<p class="p18"><span class="s3"><span class="Apple-tab-span">	</span></span>\ARRANCADO<span class="s3">.postln;</span></p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.sendMsgSync(c, <span class="s7">"/b_alloc"</span>, 0, 44100, 2);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.sendMsgSync(c, <span class="s7">"/b_alloc"</span>, 1, 44100, 2);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.sendMsgSync(c, <span class="s7">"/b_alloc"</span>, 2, 44100, 2);</p>
+<p class="p18"><span class="s3"><span class="Apple-tab-span">	</span></span>\b_alloc_HECHO<span class="s3">.postln;</span></p>
+<p class="p11">};</p>
+<p class="p11">)</p>
+<p class="p12"><br></p>
+<p class="p11">(</p>
+<p class="p13">Routine<span class="s3">.run {</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span><span class="s5">var</span> c;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p4"><span class="s3"><span class="Apple-tab-span">	</span></span>// crea una instancia de la clase Condition para controlar la ejecución de la Routine</p>
+<p class="p11"><span class="Apple-tab-span">	</span>c = <span class="s5">Condition</span>.new;</p>
+<p class="p12"><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.bootSync(c);</p>
+<p class="p18"><span class="s3"><span class="Apple-tab-span">	</span></span>\ARRANCADO<span class="s3">.postln;</span></p>
+<p class="p12"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.sendMsg(<span class="s7">"/b_alloc"</span>, 0, 44100, 2);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.sendMsg(<span class="s7">"/b_alloc"</span>, 1, 44100, 2);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.sendMsg(<span class="s7">"/b_alloc"</span>, 2, 44100, 2);</p>
+<p class="p11"><span class="Apple-tab-span">	</span>s.sync(c);</p>
+<p class="p18"><span class="s3"><span class="Apple-tab-span">	</span></span>\b_alloc_HECHO<span class="s3">.postln;</span></p>
+<p class="p11">};</p>
+<p class="p11">)</p>
+<p class="p16"><br></p>
+<p class="p2"><br></p>
+<p class="p8"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+<p class="p17"><br></p>
+</body>
+</html>

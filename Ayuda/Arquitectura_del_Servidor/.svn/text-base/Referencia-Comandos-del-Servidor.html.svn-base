@@ -1,0 +1,906 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #563731}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Helvetica}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Helvetica; min-height: 12.0px}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Monaco; color: #20438b}
+p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Monaco}
+p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px Monaco; min-height: 14.0px}
+span.s1 {font: 12.0px Helvetica}
+span.s2 {color: #20438b}
+span.s3 {color: #000000}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Referencia de Comandos del Motor de Síntesis de SuperCollider</b></p>
+<p class="p2"><br></p>
+<p class="p3">La siguiente es una lista de todos los comandos del servidor y sus argumentos</p>
+<p class="p2"><br></p>
+<p class="p3">Cada comando tiene un número de comando que puede ser enviado a un servidor como un entero de 32 bit en vez de un string (cadena de caracteres) del tipo OSC.</p>
+<p class="p2"><br></p>
+<p class="p3">Si la descripción de un comando contiene la palabra <b>Asynchronous</b>, entonces ese comando será pasado a un proceso de fondo para completarse de modo que no robe tiempo de CPU al proceso de<span class="Apple-converted-space">  </span>síntesis de audio. Todos los comandos asíncronos mandan una respuesta al cliente cuando se han completado. Muchos comandos asíncronos pueden contener un mensaje o paquete OSC que se ejecuta al completarse el comando.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>eg.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="s1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>["/d_load", "synthdefs/void.scsyndef",<span class="Apple-converted-space"> </span></p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>["/s_new", "void", 1001, 1, 0] // mensaje de compleción</p>
+<p class="p4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>]</p>
+<p class="p5"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Controles maestros</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/quit<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>sale del programa</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>sin argumentos.</p>
+<p class="p2"><br></p>
+<p class="p3">Sale del servidor de síntesis.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con <b>/done</b> justo antes de la compleción.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/notify</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>registro para recibir notificaciones del servidor</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int (entero) - uno para recibir notificaciones, cero para dejar de recibirlas.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Si el argumento es uno, el servidor recordará tu dirección de regreso y te enviará notificaciones. Si el argumento es cero, el servidor dejará de enviar notificaciones.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> cuando se completa</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/status<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>interroga sobre el estatus</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>sin argumentos.</p>
+<p class="p2"><br></p>
+<p class="p3">Responde al remitente con el siguiente mensaje</p>
+<p class="p3">status.reply</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - 1. sin usar. (entero)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de unidades generadoras (UGens). (entero)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de<span class="Apple-converted-space">  </span>synths. (entero)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de grupos. (entero)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de SynthDefs cargados. (entero)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>float - porcentaje promedio de uso de CPU para el proceso de señal (decimal ó punto flotante)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>float - pico del porcentaje de uso de CPU para el proceso de señal<span class="Apple-converted-space">  </span>(decimal ó punto flotante)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>double - frecuencia de muestreo nominal (doble)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>double - frecuencia de muestreo actual (doble)</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/cmd<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>comando definido por plug-in</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - nombre del comando</p>
+<p class="p3"><span class="Apple-tab-span">	</span>...cualquier argumento</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Los comandos están definidos por plug-ins</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/dumpOSC<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Muestra los mensajes OSC entrantes (dumping)</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - código (entero)</p>
+<p class="p2"><br></p>
+<p class="p3">Enciende y apaga la impresión de los contenidos de los mensajes Open Sound Control entrantes. Esto es útil cuando se está depurando el flujo de comandos.</p>
+<p class="p3">Los valores para el código son como sigue:</p>
+<p class="p3">0 - apaga el dumping (despliegue de los mensajes).</p>
+<p class="p3">1 - imprime los contenidos del mensaje analizados sintacticamente.</p>
+<p class="p3">2 - imprime los contenidos en hexadecimal.</p>
+<p class="p3">3 - imprime ambas representaciones hexadecimal y analizadas sintacticamente</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/sync<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>notifica cuando los comandos asíncronos han sido completados</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - un número único que identifica este comando. (entero)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Responde con un mensaje /synced cuando todos los comandos asíncronos recibidos antes de este han sido completados. La respuesta contendrá el identificador iD único enviado.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<span class="Apple-converted-space">  </span><b>/synced, ID </b>cuando este completado.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/clearSched<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>quita todos los paquetes en itinerario</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Remueve todos los paquetes de la fila de espera en el itinerario.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/error<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>habilita/deshabilita la impresión de mensajes de error</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - modo (entero)</p>
+<p class="p2"><br></p>
+<p class="p3">Prende o apaga el envío de mensajes de error a la ventana post del SuperCollider. Util al enviar un mensaje, como /n_free, cuya falla no necesariamente indica que algo este mal.</p>
+<p class="p2"><br></p>
+<p class="p3">Lo valores para el modo son como siguen:</p>
+<p class="p3">0 = apaga la impresión de errores hasta el siguiente mensaje<span class="Apple-converted-space">  </span>['/error', 1]</p>
+<p class="p3">1 = prende la impresión de errores</p>
+<p class="p2"><br></p>
+<p class="p3">Para conveniencia de los métodos del lado del cliente, también se pueden suprimir los errores temporalmente para el ámbito de un solo paquete.</p>
+<p class="p2"><br></p>
+<p class="p3">-1 = apaga localmente en el paquete -- la impresión de errores se revierte a modo "permanente" para el siguiente mensaje o paquete.</p>
+<p class="p3">-2 = Enciende localmente en el paquete</p>
+<p class="p2"><br></p>
+<p class="p3">Estos estados "temporales" se acumulan dentro de un solo paquete -- asi que si se tienen llamados anidados para métodos que usan supresión de errores locales de paquete, la impresión de errores se mantiene apagada hasta que todas las capas hayan sido desenvueltas. Si se usa ['/error', -1] dentro de un método que se autoempaca (self-bundling), siempre se deberá de cerrar con ['/error', -2] de tal forma que los mensajes empacados subsecuentes tendrán el estatus de impresión de error correcto. De cualquier forma, si esto no se hace el siguiente paquete o mensaje recibido comenzará con el estatus de impresión estándar, como esté especiicado por los modos 0 o 1.</p>
+<p class="p2"><br></p>
+<p class="p3">La supresión temporal de errores puede no afectar a los comandos asíncronos en todos los casos.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Comandos de Definición de Síntesis (Synth Definition)</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/d_recv</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>recive un archivo de difinición de síntesis</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - buffer de datos.<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC que se ejecuta al completarse (opcional)</p>
+<p class="p2"><br></p>
+<p class="p3">Carga un archivo de definiciones de síntesis desde un buffer en el mensaje. Definiciones residentes con los mismos nombres son sobre escritas.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con <b>/done </b>cuando se completa.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/d_load</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>carga una definición de síntesis</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - ruta del archivo. Puede ser un patron como "synthdefs/perc-*"</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC a ejecutar cuando se complete. (opcional)</p>
+<p class="p2"><br></p>
+<p class="p3">Carga un archivo de definiciones de síntesis. Las definiciones residentes con el mismo nombre serán sustituidas.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con <b>/done</b> cuando se complete.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/d_loadDir<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>carga un directorio de definiciones de síntesis</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - ruta del directorio</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC a ejecutar cuando se complete. (opcional)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Carga un directorio de archivos de definiciones de síntesis. Las definiciones residentes con el mismo nombre serán sustituidas.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con <b>/done</b> cuando se complete.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/d_free</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><b>borrar definición de síntesis</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>string - nombre del synth</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3">Remueve una definición de síntesis una vez que todos los synths que lo estaban usando han terminado.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Comandos de Nodo</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_free<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>borrar un nodo.</b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span></b>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID (identificador) del nodo<span class="Apple-converted-space"> </span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Detiene un nodo abruptamente, lo remueve del grupo y libera su memoria. Una lista de ID puede ser especificada. Usar este método puede causar un click (ruido) si el nodo no esta en silencio en el momento en que es liberado.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_run<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>prender o apagar un nodo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - run flag (bandera de inicio)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Si el run flag se define como cero el nodo no será ejecutado.</p>
+<p class="p3">Si el run flag se define como uno, entonces el nodo será ejecutado.</p>
+<p class="p3">Usar este método para iniciar y detener nodos puede causar un click si el nodo no esta en silencio en el momento en que el run flag es cambiado.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_set<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>define el valor o valores de control de un nodo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice o nombre de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - un valor de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma una lista de pares de índices de control y valores y define los controles con esos valores. Si el nodo es un grupo, entonces define los controles de todos los nodos en ese grupo.</p>
+<p class="p2"><br></p>
+<p class="p3">Este mensaje ahora soporta etiquetes de tipo arreglo ($[ y $]) en el componente control/valor del mensaje OSC. Los valores de control en arreglo son aplicados en la manera de n_setn (i.e., secuencialmente empezando en el control nombrado o indexado)</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_setn<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>define valores de control de un nodo dentro de un rango</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice de control o nombre</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - el número de controles secuenciales a cambiar (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - un valor de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * M</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Define rangos contiguos de índices de control con grupos de valores. Para cada rango, el índice de control inicial es seguido por el número de controles a cambiar, seguido de los valores. Si el nodo es un grupo, entonces define los controles para todos los nodos en el grupo.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_fill<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>llena rangos de valores de control de un nodo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice de control o nombre</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de valores a llenar (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - valor</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Define rangos contiguos de índices de control con un solo valor. Para cada rango, el índice de control inicial es seguido por el número de controles a cambiar, seguido del<span class="Apple-converted-space">  </span>valor con el cual llenar. Si el nodo es un grupo, entonces define los controles para todos los nodos en el grupo.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_map<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mapea el control de un nodo para leer de un bus</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int or string - un índice de control o nombre</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice del bus de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma una lista de pares de nombres o índices de control e índices de bus y causa que ésos controles lean continuamente de un bus de control global. Si el nodo es eun grupo, entonces mapea los controles de todos los nodos en el grupo.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_mapn<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mapea los controles de un nodo para leer de varios buses</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice de control o nombre</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int -<span class="Apple-converted-space">  </span>índice del bus de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de controles a mapear</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma lista de triadas de nombres o índices de control, índices de bus y número de controles a mapear y causa que esos controles sean mapeados secuencialmente a los buses. Si el nodo es un grupo, entonces mapea los controles de todos los nodos en el grupo.<span class="Apple-converted-space">  </span>Si el índice del bus de control es -1 entonces cualquier mapeo actual se deshace. Cualquier comando <b>n_set, n_setn </b>y<b> n_fill</b> también deshará el mapeo.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_mapa<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mapea los controles de un nodo para leer de un bus de audio</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice de control o nombre</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice del bus de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma una lista de pares de nombres o índices de control e índices de buses de audio y causa quelos controles lean continuamente de un bus de audio global. Si el nodo es un grupo, entonces mapea los controles de todos los nodos en el grupo.<span class="Apple-converted-space">  </span>Si el índice del bus de control es -1 entonces cualquier mapeo actual se deshace. Cualquier comando <b>n_set, n_setn </b>y<b> n_fill</b> también deshará el mapeo. Para la señal de velocidad de audio completa (audio rate), el argumento debe tener su rate (velocidad) definido en \ar.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_mapan<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>mapea los controles de un nodo para leer de varios buses de audio</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice de control o nombre</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice del bus de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de controles a mapear</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma una lista de triadas de nombres o índices de control, buses de audio y número de controles a mapear y causa que estos controles sean mapeados secuencialmente a buses. Si el nodo es un grupo, entonces mapea los controles de todos los nodos en el grupo.<span class="Apple-converted-space">  </span>Si el índice del bus de control es -1 entonces cualquier mapeo actual se deshace. Cualquier comando <b>n_set, n_setn </b>y<b> n_fill</b> también deshará el mapeo. Para la señal de velocidad de audio completa (audio rate), el argumento debe tener su rate (velocidad) definido en \ar.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_before<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>coloca un nodo antes de otro</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - la ID del nodo a colocar (A)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - la ID del nodo antes del cual el de arriba es colocado (B)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3">Coloca el nodo A en el mismo grupo que el nodo B, para ejecutarse inmediatamente antes de B.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_after<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>coloca un nodo después de otro</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - la ID del nodo a colocar (A)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - la ID del nodo después del cual el de arriba es colocado (B)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3">Coloca el nodo A en el mismo grupo que el nodo B, para ejecutarse inmediatamente después de B.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_query<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>obtiene información acerca de un nodo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3">El servidor envía un mensaje <b>/n_info</b> de cada nodo a los clientes registrados</p>
+<p class="p3">Ver <b>Node Notifications</b> abajo para el formato de los mensajes <b>/n_info</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_trace<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>rastrea un nodo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3">Causa que un synth imprima los valores de las entradas y salidas de sus unidades generadoras durante un periodo de control. Causa que un grupo imprima los ID<span class="Apple-converted-space">  </span>y los nombres de cada nodo en el grupo durante un periodo de control.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Comandos de Synth</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/s_new<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>crear un nuevo synth</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - nombre de la definición de síntesis (synth definition)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del synth</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - acción de agregado (0,1,2, 3 o 4 ver abajo)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del objetivo de agregado (add target)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice u nombre de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - un valor de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Crea un nuevo synth de una definición de síntesis, le da un ID, y lo agrega al árbol de nodos. Existen cuatro maneras de agregar el nodo al árbol como lo determina el argumento de acción de agregado que es definida como sigue:</p>
+<p class="p3"><b>acciones de agregado:</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>0 - agrega el nuevo nodo a la cabeza del grupo especificado por el ID del objetivo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>1 - agrega el nuevo nodo a la cola del grupo especificado por el ID del objetivo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>2 - agrega el nuevo nodo justo antes del nodo especificado por el ID del objetivo de agregado</p>
+<p class="p3"><span class="Apple-tab-span">	</span>3 - agrega el nuevo nodo justo después del nodo especificado por el ID del objetivo de agregado</p>
+<p class="p3"><span class="Apple-tab-span">	</span>4 - el nuevo nodo remplaza al nodo especificado por el ID del objetivo de agregado. El nodo objetivo es liberado.</p>
+<p class="p3">Los controles pueden ser definidos al crear el synth. Los argumentos de control son los mismos que para el comando <b>n_set</b></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Si se manda <b>/s_new</b> con un ID de synth de -1, entonces el servidor generará un ID para nosotros. El servidor se reserva todos los ID negativos. Como no se sabe que ID es, no se puede hablar después con este nodo directamente. Asi que esto es útil para nodos que tienen una duración finita y que obtienen la información de control que necesitan de argumentos y buses o de mensajes dirigidos a su grupo. Además no se envían notificaciones cuando hay cambios de estado para este nodo, como /go, /end u /off.</p>
+<p class="p2"><br></p>
+<p class="p3">Si se usa un ID de -1 para cualquier otro comando, como <b>/n_map</b>, entonces se refiereirá al nodo que se haya creado mas recientemente por <b>/s_new</b> (con un ID autogenerado o no). Asi es como se pueden mapear los controles de un nodo con un ID autogenerado. En una situación de multi-cliente,<span class="Apple-converted-space">  </span>la única manera en la que se puede saber con seguridad a qué nodo se refiere -1 es poniendo los mensajes en un paquete.</p>
+<p class="p2"><br></p>
+<p class="p3">Este mensaje ahora soporta etiquetas de tipo arreglo ($[ y $]) en el componente control/valor del mensaje OSC. Loa valores de control en arreglos son aplicados de la misma manera que en n_setn (i.e., iniciando secuencialmente en el control indexado o nombrado). Ver al archivo de ayuda <a href="NodeMessaging.html"><span class="s2">NodeMessaging</span></a><span class="s2">.</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/s_get<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> obtener valores de control</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del synth</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice o nombre de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Responde al remitente con el correspondiente comando <b>/n_set</b>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/s_getn<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>obtener valores de control dentro de un rango</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del synth</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int o string - un índice o nombre de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de controles secuenciales a obtener (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Obtiene valores de controles contiguos dentro de un rango. Responde al remitente con el correspondiente comando <b>/n_setn</b>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/s_noid<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>auto-reasigna el ID de un synth a un valor reservado</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del synth</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este comando es usado cuando el cliente no necesita comunicarse mas con el synth y quiere tener la libertad de reusar el ID. El servidor reasignará este synth a un número negativo reservado. Este comando es para la conveniencia puramente documental del cliente. No se envía ninguna notificación cuando esto ocurre.</p>
+<p class="p2"><br></p>
+<p class="p7"><br></p>
+<p class="p6"><b>Comandos de Grupo</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/g_new<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>crea un nuevo grupo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del nuevo grupo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - acción de agregado (0,1,2, 3 o 4 ver abajo)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del objetivo de agregado (add target)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Crea un nuevo grupo y lo agrega al árbol de nodos</p>
+<p class="p3">Existen cuatro maneras de agregar el nodo al árbol como lo determina el argumento de acción de agregado que es definida como sigue: (igual que en "/s_new"):</p>
+<p class="p3"><b>acciones de agregado:</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>0 - agrega el nuevo grupo a la cabeza del grupo especificado por el ID del objetivo de agregado</p>
+<p class="p3"><span class="Apple-tab-span">	</span>1 - agrega el nuevo grupo a la cola del grupo especificado por el ID del objetivo de agregado</p>
+<p class="p3"><span class="Apple-tab-span">	</span>2 - agrega el nuevo grupo justo antes del nodo especificado por el ID del objetivo de agregado</p>
+<p class="p3"><span class="Apple-tab-span">	</span>3 - agrega el nuevo grupo justo después del nodo especificado por el ID del objetivo de agregado</p>
+<p class="p3"><span class="Apple-tab-span">	</span>4 - el nuevo nodo remplaza al nodo especificado por el ID del objetivo de agregado. El nodo objetivo es liberado.</p>
+<p class="p3">Se pueden crear múltiples grupos en un solo comando agregando argumentos.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/g_head<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>agregar un nodo a la cabeza de un grupo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del grupo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Agrega el nodo a la cabeza (el primero a ser ejecutado) del grupo.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/g_tail<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>agregar un nodo a la cola de un grupo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del grupo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Agrega el nodo a la cola (el primero a ser ejecutado) del grupo.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/g_freeAll<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>borra todos los nodos de un grupo.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del grupo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Libera todos lo nodos en el grupo. Una lista de grupos puede ser especificada</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/g_deepFree<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>libera todos los synths en este grupo y todos sus sub-grupos.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del grupo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Atraviesa todos los grupos debajo de este grupo y libera todos los synths. Los sub-grupos no son liberados. Una lista de grupos puede ser especificada</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/g_dumpTree<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>imprime una representación del subárbol de nodos de este grupo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del grupo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - bandera (flag); si no es cero los valores actuales de control (arg) de los synths serán impresos.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Imprime una representación del subárbol de nodos de este grupo, i.e. todos los grupos y synths contenidos en este, incluyendo opcionalmente los valores actuales de control de los synths.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/g_queryTree<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>obtener una representación del subárbol de nodos de este grupo.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del grupo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - bandera (flag); si no es cero los valores actuales de control (arg) de los synths serán incluidos.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Pide una representación del subárbol de nodos de este grupo, i.e. todos los grupos y synths contenidos en él. Responde al remitente con un memsaje <b>/g_queryTree.reply </b>enlistando todos los nodos contenidos dentro del grupo con el siguiente formato:</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - bandera (flag): si los valores de control de los synths están incluidos es 1, si no entonces es 0</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo del grupo requerido</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de nodos 'hijos' contenidos dentro del nodo requerido</p>
+<p class="p3"><span class="Apple-tab-span">	</span><i>después, para cada nodo en el subárbol:</i></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de nodos 'hijos' contenidos dentro de este nodo. Si es -1 este es un synth,<span class="Apple-converted-space">  </span>si es &gt;=0 es un grupo.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><i>luego, si este nodo es un synth:</i></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>symbol - el nombre del SynthDef de este nodo.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><i>luego, si la bandera (ver arriba) es true (verdadero):</i></p>
+<p class="p3"><i><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></i>int - numControls (número de controles) para este synth (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>symbol o int: nombre o índice del control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float o symbol: símbolo de mapeo del valor o del bus de control (e.g. 'c1')</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * M</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * el número de nodos en el subárbol</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><b>N.B.</b> El orden de los nodos corresponde a su orden de ejecución en el servidor. Asi que los nodos 'hijos' (aquellos contenidos dentro de un grupo) son enlistados inmediatamente después de sus 'padres'. Ver el método Server:queryAllNodes para un ejemplo de cómo procesar esta respuesta.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Comandos de Unidades Generadoras</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/u_cmd<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>enviar un comando a una unidad generadora.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - índice de la unidad generadora</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - nombre del comando</p>
+<p class="p3"><span class="Apple-tab-span">	</span>...cualquier argumento</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Envía todos los argumentos después del nombre del comando a la unidad generadora que será ejecutada. Los comandos son definidos por plug ins de la unidad generadora.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Comandos de Buffer</b></p>
+<p class="p2"><br></p>
+<p class="p3">Los Buffers son guardados en un arreglo global, indexados por enteros comenzando por el cero.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_alloc<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>asigna espacio de buffer</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de cuadros (frames)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de canales (opcional. valor por defecto = 1 canal)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC para ser ejecutado al completarse (opcional)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Asigna al buffer lleno de ceros un número de canales y muestras (samples)</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_allocRead<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>asigna espacio de buffer y lee un archivo de audio</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - ruta de un archivo de audio</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - cuadro inicial en el archivo (opcional. valor por defecto = 0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de cuadros a leer (opcional. valor por defecto<span class="Apple-converted-space">  </span>= 0, ver abajo)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC para ser ejecutado al completarse (opcional)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Asigna al buffer el número de canales de un archivo y el número de cuadros requeridos, o menos si el archivo de audio es más pequeño que lo requerido. Lee los datos del archivo de sonido desde el cuadro de inicio dado. Si el argumento número de cuadros es menor o igual a cero, el archivo entero el leído.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_allocReadChannel<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>asigna espacio de buffer y lee los canales de un archivo de audio</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int<span class="Apple-converted-space">  </span>- número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - ruta de un archivo de audio</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - cuadro inicial en el archivo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de cuadros a leer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>int<span class="Apple-converted-space">  </span>- índice del canal del archivo fuente</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N<span class="Apple-converted-space">    </span>N &gt;= 0</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC para ser ejecutado al completarse (opcional)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Como b_allocRead, pero lee canales individuales y los coloca en el buffer asignado en el orden especificado.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_read<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>lee los datos de un archivo de audio y los coloca en un buffer existente.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - ruta de un archivo de audio</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - cuadro inicial en el archivo (opcional. valor por defecto = 0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de cuadros a leer (opcional. valor por defecto<span class="Apple-converted-space">  </span>= 0, ver abajo)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - cuadro inicial en el buffer (opcional, valor por defecto<span class="Apple-converted-space">  </span>= 0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - dejar el archivo abierto (opcional, valor por defecto<span class="Apple-converted-space">  </span>= 0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC para ser ejecutado al completarse (opcional)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Lee les datos de un archivo de audio empezando en un cuadro inicial dado en el archivo y los escribe en el cuadro inicial dado en el buffer. Si el número de cuadros es menor que cero, el archivo entero es leído.</p>
+<p class="p3">Si se esta leyendo un archivo para usarse en un ugen DiskIn hay que definir "dejar archivo abierto" en uno, si no hay que dejarlo en cero.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_readChannel<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>lee los datos de un canal de un archivo de audio y los coloca en un buffer existente</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - ruta de un archivo de audio</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - cuadro inicial en el archivo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de cuadros a leer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - cuadro inicial en el buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - dejar el archivo abierto</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>int<span class="Apple-converted-space">  </span>-<span class="Apple-converted-space">  </span>índice del canal del archivo fuente</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N<span class="Apple-converted-space">    </span>N &gt;= 0</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - mensaje de compleción</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Como b_read, pero lee canales individuales en el orden especificado. El número de canales requerido debe coincidir con el número de canales en el buffer.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_write<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>escribe datos de un archivo de audio</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - ruta de un archivo de audio</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - formato de encabezamiento</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - formato de muestreo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de cuadros a escribir (opcional. valor por defecto = -1, ver abajo)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - cuadro de inicio en el buffer (opcional. valor por defecto = 0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - dejar el archivo abierto (opcional, valor por defecto<span class="Apple-converted-space">  </span>= 0)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC para ser ejecutado al completarse (opcional)</p>
+<p class="p2"><br></p>
+<p class="p3">Escribe un buffer como un archivo de audio.</p>
+<p class="p3">El formato de encabezamiento es uno de los siguientes:</p>
+<p class="p3"><span class="Apple-tab-span">	</span>"aiff", "next", "wav", "ircam"", "raw"</p>
+<p class="p3">El formato de muestreo es uno de los siguientes:</p>
+<p class="p3"><span class="Apple-tab-span">	</span>"int8", "int16", "int24", "int32", "float", "double", "mulaw", "alaw"</p>
+<p class="p3">No todas las combinaciones de formato de encabezamiento y formato de muestreo son posibles.</p>
+<p class="p3">Si el número de cuadros es menor que cero, todas la muestras desde el cuadro de inicio hasta el final del buffer son escritas.</p>
+<p class="p3">Si se esta abriendo un archivo para usarse en un ugen DiskOut hay que definir "dejar archivo abierto" en uno, si no hay que dejarlo en cero. Si se define "dejar archivo abierto" como uno entonces el archivo es creado, pero no se escribe ningún cuadro hasta que el ugen DiskOut lo haga.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_free<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>libera los datos de un buffer</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC para ser ejecutado al completarse (opcional)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Libera espacio de buffer asignado para este buffer</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_zero<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>datos de muestras en cero</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>bytes - un mensaje OSC para ser ejecutado al completarse (opcional)</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Define todos las muestras en el buffer como cero.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> al completarse.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_set<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Define los valores de las muestras</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - un índice de una muestra</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - un valor de una muestra</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma una lista pares de índices de muestras y valores y define las muestras con esos valores.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_setn<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>define rangos de valores de muestras</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice de inicio de la muestra</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de muestras secuenciales a cambiar (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - un valor de una muestra</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * M</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Define rangos de índices contiguos de muestras con un conjunto de valores. Para cada rango, el índice de la muestra inicial es dado seguido de el número de muestras a cambiar, seguido de los valores.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_fill<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>llena rangos de valores de muestras</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice de inicio de la muestra</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de muestras a llenar (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - valor</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Define rangos de índices contiguos de muestras con un solo valor.<span class="Apple-converted-space">  </span>Para cada rango, el índice de la muestra inicial es dado seguido de el número de muestras a cambiar, seguido del valor con el cual llenar. Esto esta pensado para cambiar los valores de unas cuantas muestras, no para buffers enteros o secciones largas.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_gen<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>llama un comando para llenar un buffer</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - nombre del comando</p>
+<p class="p3"><span class="Apple-tab-span">	</span>.. argumentos del comando</p>
+<p class="p2"><br></p>
+<p class="p3">Los Plug-ins pueden definir comandos que operan sobre buffers. Los argumentos después de los nombres de comandos son definidos por el comando. Los comandos de llenado de buffers actualmente definidos están enlistados abajo en una sección aparte.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_close<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>cierra un archivo de audio usado por un buffer con DiskOut</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Después de usar un buffer con DiskOut, cierra el archivo de audio y escribe la información de cabecera</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_query<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>interroga sobre la información de un buffer</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Responde al remitente con un mensaje <b>/b_info</b>. Los argumentos para<b> /b_info</b> son los siguientes:</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de muestras</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de canales</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - frecuencia de muestreo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_get<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>obtener el valor de una muestra</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - un índice de una muestra</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Responde al remitente con el correspondiente comando <b>/b_set</b>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/b_getn<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>obtiene rangos de valores de muestras</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - número de buffer</p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice de muestra inicial</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de muestras secuenciales a obtener (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Obtiene los valores de muestras contiguas dentro de un rango. Responde al remitente con el correspondiente comando <b>/b_setn</b>. Esto esta pensado solamente para obtener el valor de unos pocas muestras, no para buffers enteros ni secciones grandes.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Comandos de Bus de Control</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/c_set<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>define los valores de un bus</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - un índice de un bus</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - un valor de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma una lista de pares de índices de bus y valores y define los buses a esos valores.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/c_setn<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>define rangos de valores de bus</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice del bus inicial</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de buses secuenciales a cambiar (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - un valor de control</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * M</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Define buses contiguos dentro de un rango con un conjunto de valores. Para cada rango, el índice del bus inicial es dado seguido del número de canales a cambiar, seguido por los valores.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/c_fill<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>llena rangos de valores de bus</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice del bus inicial</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de buses a llenar (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - valor</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Define buses contiguos dentro de un rango con un solo valor. Para cada rango, el índice del bus inicial es dado seguido del número de canales a cambiar, seguido por el valor con el cual llenar.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/c_get<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>obtener valores de bus</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - el índice de un bus</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Toma una lista de buses y responde al remitente con el comando <b>/c_set</b> correspondiente.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/c_getn<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>obtener rangos de valores de bus</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - índice del bus inicial</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de buses secuenciales cuyos valores se quiere obtener (M)</p>
+<p class="p3"><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Obtiene valores de buses contiguos dentro de un rango. Responde al remitente con el comando <b>/c_setn</b> correspondiente.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Comandos de Modo de Tiempo No Real</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>/nrt_end<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>terminar modo de tiempo real, cerrar archivo</b></p>
+<p class="p3"><b>no esta implementado aún</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>sin argumentos.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este mensaje debe ser enviado en un paquete en modo de tiempo no real.</p>
+<p class="p3">La marca de tiempo del paquete establecerá el tiempo de finalizado del archivo</p>
+<p class="p3">Este comando terminará el modo de tiempo no real y cerrará el archivo de audio.</p>
+<p class="p3">Responde al remitente con <b>/done</b> al completarse</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p7"><br></p>
+<p class="p6"><b>Respuestas a Comandos</b></p>
+<p class="p2"><br></p>
+<p class="p3">Estos mensajes son enviados por el servidor en respuestas a ciertos comandos</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/done<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un mensaje asíncrono se completó.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - el nombre del comando</p>
+<p class="p2"><br></p>
+<p class="p3">Enviado en respuesta a todos los comandos asíncronos. Enviado sólo al remitente del mensaje original.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/fail<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un error ocurrió.</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - el nombre del comando</p>
+<p class="p3"><span class="Apple-tab-span">	</span>string - el mensaje de error.</p>
+<p class="p2"><br></p>
+<p class="p3">Hubo un problema. Enviado sólo al remitente del mensaje original.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/late<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un comando fue recibido demasiado tarde.</b></p>
+<p class="p8"><b>no implementado aún</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - los 32 bits de arriba de la marca de tiempo original.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - los 32 bits de abajo de la marca de tiempo original.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - los 32 bits de arriba del tiempo que fue ejecutado.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int -<span class="Apple-converted-space">  </span>los 32 bits de abajo del tiempo que fue ejecutado.</p>
+<p class="p2"><br></p>
+<p class="p3">El comando fue recibido demasiado tarde para ser ejecutado a tiempo. Enviado sólo al remitente del mensaje original.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6"><b>Notificaciones del Servidor</b></p>
+<p class="p2"><br></p>
+<p class="p3">These messages are sent as notification of some event to all clients who have registered via the /notify command .</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Notificaciones de Nodo</b></p>
+<p class="p2"><br></p>
+<p class="p3">Todos estos tienen los mismos argumentos:</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - el ID del grupo padre del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - el ID del nodo previo, -1 si no hay nodo previo.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - el ID del nodo siguiente, -1 si no hay nodo siguiente.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - 1 si el nodo es un grupo, 0 si es un synth.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><i>Los siguientes dos argumentos son enviados sólo si el nodo es un grupo:</i></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - el ID del nodo en la cabeza, -1 si no hay nodo en la cabeza.</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - el ID del nodo en la cola, -1 si no hay nodo en la cola.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_go<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un nodo fue iniciado.</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este comando es enviado a todos los clientes registrados cuando un nodo es creado.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_end<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un nodo terminó</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este comando es enviado a todos los clientes registrados cuando un nodo termina y su espacio es liberado.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_off<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un nodo fue apagado</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este comando es enviado a todos los clientes registrados cuando un nodo es apagado.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_on<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un nodo fue encendido</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este comando es enviado a todos los clientes registrados cuando un nodo es encendido.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_move<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un nodo fue movido</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este comando es enviado a todos los clientes registrados cuando un nodo es movido.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/n_info<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>responder a /n_query</b></p>
+<p class="p2"><br></p>
+<p class="p3">Este comando es enviado a todos los clientes registrados<span class="Apple-converted-space">  </span>en respuesta a un comando <b>/n_query</b>.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p9"><b>Notificación de Disparo (Trigger)</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3">Este comando es enviado a todos los clientes registrados cuando un nodo es movido de un grupo a otro.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>/tr<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un mensaje de diparo</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del nodo</p>
+<p class="p3"><span class="Apple-tab-span">	</span>int - ID del disparador</p>
+<p class="p3"><span class="Apple-tab-span">	</span>float - valor del disparo</p>
+<p class="p2"><br></p>
+<p class="p3">Este comando es el mecanismo que los synths pueden usar para disparar eventos en clientes.</p>
+<p class="p3">El ID de nodo es el nodo que está enviando el disparo. El ID y valor del disparo son determinados por entradas en la unidad generadora SendTrig quien es el originador de este mensaje.</p>
+<p class="p2"><br></p>
+<p class="p10">copyright © 2002 James McCartney</p>
+<p class="p11"><br></p>
+<p class="p11"><br></p>
+<p class="p11"><br></p>
+<p class="p6"><b>Comandos de llenado de Buffer</b></p>
+<p class="p2"><br></p>
+<p class="p3">Estas son las rutinas de llenado actualmente definidas para usarse con el comando <b>/b_gen</b>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Comandos de llenado de Onda</b></p>
+<p class="p11"><br></p>
+<p class="p3">Existen tres rutinas de llenado definidas para ondas sinusoidales.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Las banderas estan definidas como sigue:</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>1 - normalizar - Normaliza el pico de la amplitud a 1.0.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>2 - tabla de onda - si se define, el buffer es escrito en formato de tabla de onda (wavetable) de modo que pueda ser leído por osciladores interpoladores.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>4 - borrar - si se define entonces el buffer es limpiado antes de que nuevos parciales sean escritos en él. De otra forma los parciales son sumados a los<span class="Apple-converted-space"> <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>     </span>contenidos existentes en el buffer.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>sine1</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - banderas, ver arriba</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - amplitud de los parciales</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Llena un buffer con una serie de parciales de onda. El primer valor decimal (float) especifica la amplitud del primer parcial, el segundo valor decimal especifica la amplitud del segundo parcial, y asi.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>sine2</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - banderas, ver arriba</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - frecuencia de los parciales (en ciclos por buffer)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - amplitud de los parciale</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Similar a sine1 excepto que cada frecuencia parcial es especificada explicitamente en vez de ser un serie entera de parciales. Frecuencias no-enteras de parciales son posibles.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>sine3</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - banderas, ver arriba</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - frecuencia de los parciales (en ciclos por buffer)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - amplitud de los parciale</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - fase de los parciales</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Similar a sine2 excepto que cada parcial puede tener un inicio de fase diferente de cero.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>cheby</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - banderas, ver arriba</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>[</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>float - amplitud</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>] * N</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Llena un buffer con una serie de polinomios de chebyshev, que pueden ser definidos como:</p>
+<p class="p3">cheby(n) = amplitud<span class="Apple-converted-space">  </span>* cos(n * acos(x))</p>
+<p class="p3">El primer valor decimal (float) especifica la amplitud para n = 1, el segundo valor decimal especifica la amplitud para n = 2, y asi. Para eliminar un desfase DC cuando se usa como un formador de onda (waveshaper), la tabla de onda (wavetable) es desplazada de manera que el valor central sea cero.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Otros comandos</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>copy</b></p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - posición de la muestra en el destino</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de buffer fuente</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - posición de la muestra en la fuente</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>int - número de muestras a copiar</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Copia muestras del buffer fuente al buffer destino especificado en el comando <b>b_gen</b>. Si el número de muestras a copiar es negativo, el número máximo posible de muestras es copiado.</p>
+<p class="p3"><b>Asynchronous</b>. Responde al remitente con<b> /done</b> cuando se completa</p>
+<p class="p2"><br></p>
+<p class="p10">copyright © 2002 James McCartney</p>
+<p class="p2"><br></p>
+<p class="p11"><br></p>
+<p class="p3"><b>Números de Comando</b></p>
+<p class="p11"><br></p>
+<p class="p3">Estos son los números de comando actualmente definidos. En el futuro pueden ser añadidos mas al final de la lista.</p>
+<p class="p11"><br></p>
+<p class="p12">enum<span class="s3"> {</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_none = <span class="s2">0</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_notify = <span class="s2">1</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_status = <span class="s2">2</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_quit = <span class="s2">3</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_cmd = <span class="s2">4</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_d_recv = <span class="s2">5</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_d_load = <span class="s2">6</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_d_loadDir = <span class="s2">7</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_d_freeAll = <span class="s2">8</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_s_new = <span class="s2">9</span>,</p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_trace = <span class="s2">10</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_free = <span class="s2">11</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_run = <span class="s2">12</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_cmd = <span class="s2">13</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_map = <span class="s2">14</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_set = <span class="s2">15</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_setn = <span class="s2">16</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_fill = <span class="s2">17</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_before = <span class="s2">18</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_after = <span class="s2">19</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_u_cmd = <span class="s2">20</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_g_new = <span class="s2">21</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_g_head = <span class="s2">22</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_g_tail = <span class="s2">23</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_g_freeAll = <span class="s2">24</span>,</p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_c_set = <span class="s2">25</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_c_setn = <span class="s2">26</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_c_fill = <span class="s2">27</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_alloc = <span class="s2">28</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_allocRead = <span class="s2">29</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_read = <span class="s2">30</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_write = <span class="s2">31</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_free = <span class="s2">32</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_close = <span class="s2">33</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_zero = <span class="s2">34</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_set = <span class="s2">35</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_setn = <span class="s2">36</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_fill = <span class="s2">37</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_gen = <span class="s2">38</span>,</p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_dumpOSC = <span class="s2">39</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_c_get = <span class="s2">40</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_c_getn = <span class="s2">41</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_get = <span class="s2">42</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_getn = <span class="s2">43</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_s_get = <span class="s2">44</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_s_getn = <span class="s2">45</span>,</p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_query = <span class="s2">46</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_query = <span class="s2">47</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_mapn = <span class="s2">48</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_s_noid = <span class="s2">49</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_g_deepFree = <span class="s2">50</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_clearSched = <span class="s2">51</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_sync = <span class="s2">52</span>,</p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_d_free = <span class="s2">53</span>,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_allocReadChannel = <span class="s2">54</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_b_readChannel = <span class="s2">55</span>,</p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_g_dumpTree = <span class="s2">56</span>,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_g_queryTree = <span class="s2">57</span>,</p>
+<p class="p14"><br></p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-converted-space">     </span>cmd_error = 58,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-converted-space">     </span>cmd_s_newargs = 59,</p>
+<p class="p14"><br></p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_mapa = 60,</p>
+<p class="p13"><span class="Apple-tab-span">	</span>cmd_n_mapan = 61,</p>
+<p class="p14"><span class="Apple-tab-span">	</span></p>
+<p class="p13"><span class="Apple-tab-span">	</span>NUMBER_OF_COMMANDS = <span class="s2">62</span></p>
+<p class="p13">};</p>
+<p class="p10">copyright © 2002 James McCartney</p>
+</body>
+</html>

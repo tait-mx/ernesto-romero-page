@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 19.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Objetos, Mensajes (Objects, Messages)</b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>El lenguaje SuperCollider es un lenguaje orientado a objetos. Todas las entidades en el lenguaje son objetos. Un <b>objeto</b> es algo que tiene datos, representando el estado del objeto, y una serie de operaciones que pueden ser realizadas en el objeto. Todos los objetos son <b>instancias</b> de alguna <b>clase</b> que describe la estructura del objeto y sus operaciones. Los objetos en SuperCollider incluyen números, cadenas de caracteres, colecciones de objetos, unidades generadoras, muestras de onda, puntos, rectángulos, ventanas gráficas, botones gráficos, deslizadores y mucho mas.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Las operaciones sobre objetos son invocadas por medio de mensajes. Un <b>mensaje</b> es un requerimiento hacia un objeto, llamado el <b>receptor</b>, para realizar una de sus operaciones.<span class="Apple-converted-space">  </span>Los medios para realizar esta operación<span class="Apple-converted-space">  </span>están determinados por la clase del objeto.<span class="Apple-converted-space">  </span>Objetos de diferentes clases podrían implementar el mismo mensaje de maneras diferentes, cada una apropiada para la clase del objeto. Por ejemplo todos los objetos entienden el mensaje 'value'. Muchos objetos simplemente se regresan a ellos mismos en respuesta a 'value', pero otros objetos tales como funciones o flujos (streams) primero se evalúan a si mismos y después regresan el resultado de la evaluación. La habilidad de diferentes objetos para reaccionar de manera diferente al mismo mensaje es conocida como <b>polimorfismo</b> y es tal vez el concepto más importante en la programación orientada a objetos ya que permite que el comportamiento de los objetos sea abstracto desde el punto de vista del usuario del objeto (el cliente).</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>El conjunto de mensajes a los que un objeto responde es conocido como su <b>interface</b>. Un conjunto de mensajes que implementan un tipo específico de comportamiento es conocido como <b>protocolo</b>. La interface de un objeto puede incluir varios protocolos que le permiten al objeto interactuar en varios distintos contextos. Por ejemplo todos los objetos implementan el protocolo 'dependancy' (dependencia) que permite al objeto notificar a otros objetos dependientes que el objeto ha cambiado y que el dependiente debería hacer cualquier acción necesaria para actualizarse a sí mismo.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>El estado interno de un objeto podrá ser cambiado unicamente enviandole mensajes. Esto permite que la implementación del objeto permanezca escondida al cliente. La ventaja de esto es que el cliente no depende de la implementación del objeto y que esa implementación puede ser cambiada sin tener que cambiar al cliente.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Clases, Variables de Instancia y Métodos<span class="Apple-converted-space"> </span></b></p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>La <b>clase</b> de un objeto contiene la descripción de los datos<span class="Apple-converted-space">  </span>y las operaciones del objeto. Una clase también describe como crear un objeto que sea una instancia de esta clase.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Los datos de un objeto estan contenidos en sus variables de instancia. Estas son variables nombradas que describen el estado del objeto. Los valores de las variables de instancia son objetos ellos mismos. Por ejemplo, las instancias de la clase Point (punto) tienen variables de instancia llamadas 'x' y 'y' las cuales contienen los valores de las coordenadas de Point.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Solo se puede tener acceso a una variable de instancia desde la clase misma. El autor de la clase puede decidir exponer el acceso de las variables de instacia a los clientes al añadir los mensajes <b>getter</b> (que obtene) y/o <b>setter</b> (que fija) a la clase.</p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span>Un <b>método</b> (method) es una descripción de las operaciones necesarias para implementar un mensaje para una clase en particular. Los métodos en una clase dicen cómo implementar mensajes enviados a sus instancias. Una clase contiene una definición de método para cada mensaje al que sus instancias responden. Los métodos generalmente pueden pertenecer a varias categorías. Algunos métodos preguntan sobre alguna propiedad acerca del receptor. Otros piden al receptor que haga algún cambio a su estado interno. Y aún otros pueden pedir al receptor que devuelva algún valor computado.</p>
+<p class="p2"><br></p>
+<p class="p4"><b>Sumario de Terminología</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>objecto</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> algo que tiene datos, representando el estado del objeto, y un conjunto de operaciones que pueden ser <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>realizadas por el objeto.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><b>mensaje</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>una petición hacia un objeto para realizar una operación.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>receptor</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>el objeto al que le es enviado un mensaje.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>clase</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>una descripción del estado y comportamiento de una coleccón de objetos.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>interface</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>el conjunto de mensajes a los que un objeto responde.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>protocolo</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>un conjunto de mensajes que implementan un tipo específico de comportamiento.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>polimorfismo</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>la habilidad que tienen diferentes objetos para responder de diferente manera al mismo mensaje.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>método</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>la descripción de las operaciones necesarias para implementar un mensaje para una clase en particular.</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3"><b>instancia</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>uno de los objetos descritos por una clase.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>variable de instacia</b><span class="Apple-tab-span">	</span> una parte del estado interno de un objeto.</p>
+<p class="p2"><br></p>
+</body>
+</html>

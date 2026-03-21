@@ -1,0 +1,807 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.4  (Linux)">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGED" CONTENT="20090725;20084300">
+	<META NAME="CocoaVersion" CONTENT="949.43">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in }
+		P.p1 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p2 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p3 { margin-bottom: 0in; font-family: "Helvetica"; font-size: 10pt }
+		P.p4 { margin-left: 0.29in; text-indent: -0.29in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p5 { margin-left: 0.29in; text-indent: -0.29in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p7 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p8 { margin-bottom: 0in; color: #007300; font-family: "Monaco"; font-size: 6pt }
+		P.p9 { margin-bottom: 0in; color: #bf0000; font-family: "Monaco"; font-size: 6pt }
+		P.p10 { margin-left: 0.58in; text-indent: -0.58in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p11 { margin-left: 0.58in; text-indent: -0.58in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p12 { margin-left: 0.29in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p13 { margin-left: 0.29in; margin-bottom: 0in; font-family: "Helvetica"; font-size: 9pt }
+		P.p14 { margin-left: 0.58in; text-indent: -0.58in; margin-bottom: 0in; color: #007300; font-family: "Monaco"; font-size: 6pt }
+		P.p15 { margin-left: 0.58in; text-indent: -0.58in; margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p16 { margin-left: 0.58in; text-indent: -0.58in; margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p17 { margin-bottom: 0in; font-family: "Helvetica" }
+		P.p18 { margin-bottom: 0in; font-family: "Monaco"; font-size: 6pt }
+		P.p19 { margin-bottom: 0in; color: #000000; font-family: "Monaco"; font-size: 6pt }
+		P.p20 { margin-bottom: 0in; color: #0000bf; font-family: "Monaco"; font-size: 6pt }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>SynthDef representación
+de una definición de sintetizador del lado del cliente</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>superclass: Object</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">La aplicación del
+servidor utiliza las definiciones de sintetizadores como plantillas
+para crear nodos de <A HREF="Synth.html">Synth</A>. (Los métodos
+como <B>Function-play</B>, etc. son simplemente métodos de
+conveniencia que automáticamente crean dichas definiciones.) La
+clase SynthDef encapsula la representación del lado del cliente de
+dicha definición, y ofrece métodos para crear nuevas definiciones,
+escribirlas en el disco, y transmitirlas a un servidor. 
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">SynthDef es una de las
+clases más complicadas en SC y una explicación exhaustiva de ella
+está más allá de las miras de este documento. Como tal, los
+ejemplos más adelante y aquellos encontrados en los diversos
+tutoriales disponibles en <A HREF="../Help.html">Help</A> podrán ser
+necesarios para aclarar algunos aspectos de su utilización.</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Funciones de
+Graficación de UGen (UGen Graph Functions) y Formas Especiales de
+Argumentos </B>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">El núcleo de una
+definición es su <B>función de graficación de generadores de
+unidades</B>. Esta es una instancia de <A HREF="../Core/Kernel/Function.html">Function</A>
+que detalla cómo los generadores de unidades de la definición están
+interconectados, sus entradas y salidas, y qué parámetros están
+disponibles para control externo. En un sintetizador basado en una
+definición, los argumentos de la función serán instancias de
+<A HREF="../UGens/Synth%20control/Control.html">Control</A>. Éstas
+podrán tener valores por defecto, o podrán ser establecidas en el
+momento de creación de un sintetizador. Después de la creación
+serán controlables a través de los métodos set y setn de Nodo
+(Node), o los mensajes OSC n_set y n_setn. 
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Hay cuatro tipos
+especiales de argumentos, que son tratados de maneras diferentes:</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><B>velocidad de audio
+(audio rate) </B>- Los argumentos que empiecen con &quot;a_&quot;
+(p.ej. a_input), o que estén especificados como <B>\ar</B> en el
+argumento de velocidades de la definición (ver debajo), podrán leer
+de un bus de velocidad de audio al ser asignados a él mediante
+/n_mapa. 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><B>velocidad inicial
+(initial rate)</B> - Los argumentos que empiecen con &quot;i_&quot;
+(p. ej. f_freq), o que estén especificados como <B>\ir</B> en el
+argumento de velocidades de la definición (ver debajo), serán
+estáticos y no modulables. No responderán a /n_set o /n_map. Esto
+es ligeramente más eficiente en términos de utilización del CPU
+que un argumento regular. 
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><B>velocidad de trigger
+(disparo) (trigger rate)</B> - Los argumentos que empiecen con &quot;t_&quot;
+(p. ej. t_trig), o que estén especificados como <B>\tr</B> en el
+argumento de velocidades de la definición (ver debajo), serán
+creados como un <B>TrigControl</B>. Asignar el argumento creará un
+impulso del valor elegido a velocidad de control. Esto es útil para
+los triggers.</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><B>arreglos literales
+(literal arrays) -</B> Los argumentos que tengan arreglos literales
+como valores por defecto (ver <A HREF="../Language/Literals.html">Literals</A>)
+resultan en controles multicanal, que pueden ser modificados en grupo
+con Node-setn o n_setn. Al editar dichos controles, no se verificará
+el límite del arreglo, así que el usuario tiene la responsabilidad
+de cerciorarse de que edite el número correcto de argumentos. 
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Ve los ejemplos debajo
+para más detalles sobre cómo funciona esto. 
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Ciertos nombres de
+argumentos (como 'out' para especificar un bus de salida) son tan
+comúnmente utilizados que adoptarlos puede ser considerado como un
+'buen estilo'. Uno de éstos, '<B>gate</B>', al ser usado para
+controlar la entrada de compuerta de un <A HREF="../UGens/Synth%20control/Envelopes/EnvGen.html">EnvGen</A>,
+merece una mención especial, ya que permite al usuario utilizar el
+método release (liberar) de un Nodo. Ver <A HREF="Node.html">Node</A>
+para una explicación y más detalles. 
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Elementos estáticos
+versus dinámicos</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Es importante entender
+que, a pesar de que una única definición puede proveer una gran
+flexibilidad a través de sus argumentos, etc., es, sin embargo, una
+unidad estática. La función de graficación de un UGen (y el código
+de SC detrás de ella) es evaluada <I>únicamente</I> cuando la
+definición es creada. De este modo, la utilización de enunciados
+'if', etc., no tendrán ningún efecto en el momento que la
+definición es usada para crear un Synth, y es importante entender
+que la función de graficación de un UGen no deberá ser diseñada
+de la misma manera que las funciones en el lenguaje, donde múltiples
+evaluaciones pueden entregar resultados distintos. Será evaluada
+<I>únicamente una vez. </I>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><SPAN STYLE="font-weight: medium">Hay
+otras formas de obtener resultados similares, sin embargo, a menudo
+utilizando UGens como <A HREF="../UGens/Random/Rand.html">Rand</A>.
+Por ejemplo, la siguiente definición tendrá una única frecuencia
+generada aleatoriamente, que será utilizada para cada Synth basado
+en ella:</SPAN></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\help_notRand,
+{ Out.ar(0, SinOsc.ar(rrand(400, 800), 0, 0.2)&nbsp;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">*
+Line.kr(1, 0, 1, doneAction: 2)); }).send(s);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a
+= Synth(\help_notRand);</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">b
+= Synth(\help_notRand); // la misma frecuencia que a</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Ésta, por otra parte,
+tendrá una frecuencia aleatoria diferente para cada Synth creado: 
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\help_isRand,
+{ Out.ar(0, SinOsc.ar(Rand(400, 800), 0, 0.2)&nbsp;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">*
+Line.kr(1, 0, 1, doneAction: 2)); }).send(s);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">a
+= Synth(\help_isRand);</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">b
+= Synth(\help_isRand); // una frecuencia elegida aleatoriamente</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Métodos de la Clase</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>*new(name,
+ugenGraphFunc, rates, prependArgs, variants, metadata)</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Crear una instancia de un
+SynthDef, evaluar la ugenGraphFunc y construir la ugenGraph. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>name </B>- Una cadena
+de caracteres (<A HREF="../Collections/String.html">String</A>) o
+símbolo (<A HREF="../Core/Symbol.html">Symbol</A>) (p. ej. &quot;nombre&quot;
+o \nombre). Este nombre será utilizado para referirse a la SynthDef
+al crear un <A HREF="Synth.html">Synth</A> basado en ella y debe ser
+único.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>ugenGraphFunc</B><SPAN STYLE="font-weight: medium">
+(función de graficación de los generadores de unidades) - Una
+instancia de <A HREF="../Core/Kernel/Function.html">Function</A>
+especificando como los UGens de la definición están
+interconectados. Ver la discusión arriba para información de cómo
+los argumentos de la función son especificados. </SPAN>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>rates</B> -
+(velocidades) - Un arreglo opcional de especificaciones para los
+argumentos de la <B>ugenGraphFunc</B>. El orden corresponde al orden
+de los argumentos. Ver los ejemplos de bajo para observar cómo son
+usadas.</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in; font-weight: medium">Una
+especificación puede ser: 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>nil/cero</B> <SPAN STYLE="font-weight: medium">Un
+<A HREF="../UGens/Synth%20control/Control.html">Control</A> estándard
+a velocidad de control es creado. </SPAN>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in; font-weight: medium"><B>\ar</B>
+Un AudioControl a velocidad de audio es creado. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in; font-weight: medium"><B>un
+número con punto decimal -</B> el Control tendrá un retardo de la
+duración del tiempo especificado. Esto podrá ser usado para crear
+transiciones suaves entre diferentes valores. Los argumentos t_ y i_
+no podrán ser retardos. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in; font-weight: medium"><B>\ir</B>
+El Control podrá ser asignado sólo al crear el Synth ('initial
+rate'). Ver la discusión arriba. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><SPAN STYLE="font-weight: medium"><B>\tr
+</B>El Control es usado como un trigger. Ver la discusión arriba. </SPAN>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>prependArgs - </B><SPAN STYLE="font-weight: medium">Un
+arreglo opcional de objetos que serán pasados como los primeros
+argumentos a la </SPAN><B>ugenGraphFunc</B> <SPAN STYLE="font-weight: medium">cuando
+sea evaluada. Los argumentos que reciban valores de este modo no
+serán convertidos a instancias de <A HREF="../UGens/Synth%20control/Control.html">Control</A>
+Ver el ejemplo de </SPAN><B>*wrap</B> <SPAN STYLE="font-weight: medium">debajo
+para un ejemplo de cómo puede ser utilizado esto. </SPAN>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>variants</B> <SPAN STYLE="font-weight: medium">-
+Un <A HREF="../Collections/Event.html">Event</A> opcional que
+contiene propiedades de argumentos por defecto. Podrá ignorar los
+valores por defecto especificados en la ugenGraphFunc. Al crear un
+Synth, una variante podrá ser solicitada añadiendo al argumento del
+nombre de la definición en la siguiente forma 'nombre.variante' o
+&quot;nombre.variante&quot;. Ver el ejemplo debajo. </SPAN>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>metadata</B> <SPAN STYLE="font-weight: medium">-
+Un <A HREF="../Collections/Event.html">Event</A> opcional conteniendo
+información adicional, definida por el usuario, que es relevante
+para el uso del SynthDef enel cliente. El SynthDef en sí es enviado
+al servidor para la generación del sonido; la metadata es
+estrictamente información descriptiva del lado del cliente. En este
+momento, el valor 'specs' en el evento está reservado para
+ControlSpecs a ser asociadas con los argumentos de una SynthDef (esto
+es útil para la construcción automáticamente de una GUI). La
+metadata puede ser almacenada en el disco y cargada automáticamente
+como parte de una SynthDesc. Ver el archivo de ayuda de <A HREF="SynthDesc.html">SynthDesc</A>
+para más detalles. </SPAN>
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>*writeOnce(name,
+ugenGraphFunc, rates, prependArgs, dir, metadata)</B></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in">Crear una nueva SynthDef
+y escribirla al disco, pero sólo si el archivo de la definición no
+existe. Esto es útil en definiciones de clase para que la definición
+no sea escrita cada vez que la librería es compilada. Es importante
+notar que esto no revisará si existen diferencias, así que el
+usuario tendrá que eliminar el archivo de definición para que se
+vuelva a crear. Por defecto, el <B>dir</B> donde los archivos se
+almacenan está en la ruta especificada por SynthDef.synthDefDir. 
+</P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in"><B>*wrap(ugenGraphFunc,
+rates, prependArgs)</B></P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in">Envuelve una función
+dentro de una SynthDef contenedora. Los argumentos a ser contenidos
+son automáticamente convertidos a controles de SynthDef, utilizando
+las mismas reglas aplicadas a los argumentos de la función de UGen
+principal. Un ejemplo muy sencillo: 
+</P>
+<P CLASS="p13" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p14" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">d
+= SynthDef(\demoWrapping, { |out|</FONT></FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Out.ar(out,
+SynthDef.wrap({ |freq| SinOsc.ar(freq) }))</FONT></FONT></P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">});</FONT></FONT></P>
+<P CLASS="p16" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p15" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">d.allControlNames;</FONT></FONT></P>
+<P CLASS="p10" STYLE="margin-bottom: 0.2in">Nos muestra: [
+ControlName&nbsp; P 0 <B>out</B> control 0, ControlName&nbsp; P 1
+<B>freq</B> control 0 ]</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in">La función externa
+declara el argumento 'out', y la función envuelta tiene 'freq' como
+su argumento. La SynthDef resultante tiene ambos argumentos y
+controles, exactamente como si la función externa incluyera ambos
+como sus argumentos.</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in">El arreglo de <B>velocidades</B>
+(<B>rates</B>)se comporta como fue descrito anteriormente.
+<B>PrependArgs</B> permite que valores o generadores de unidades sean
+pasados a la función interior desde el contexto de SynthDef
+contenedor. Cualquier argumento interior que recibe un valor de
+prependArg (incluyendo nil) utilizará dicho valor, suprimiendo la
+creación de un control para dicho argumento. El ejemplo largo debajo
+ilustra esta técnica. 
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in">Esto es muy útil para
+producir SynthDefs en masa que tengan una &quot;corteza&quot; común
+definiendo características como los envolventes o desencadenando
+mecanismos que apliquen a distintas subgráficas de generadores de
+unidades. Las características comunes deberán ser escritas sólo
+una vez; los UGens que sean diferentes entre los SynthDefs son
+conectados en la estructura de soporte. 
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><B>*synthDefDir </B>
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in"><B>*synthDefDir_(dir) </B>
+</P>
+<P CLASS="p12" STYLE="margin-bottom: 0.2in">Obtener o cambiar el
+directorio donde por defecto se escriben las definiciones. 
+</P>
+<P CLASS="p11" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p3" STYLE="margin-bottom: 0.2in"><B>Métodos de Instancia</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>writeDefFile(dir)</B>&nbsp;</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Escribe la definición
+como un archivo llamado nombre.scsyndef de una forma legible para el
+servidor. Por defecto, <B>dir</B> <SPAN STYLE="font-weight: medium">es
+synthdefs/. Las definiciones almacenadas en dicho directorio serán
+cargadas automáticamente por los servidores interno y local al ser
+iniciados.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>load(server,
+completionMessage, dir)</B></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Escribir el archivo de
+definición y enviar un mensaje al <B>servidor</B> <SPAN STYLE="font-weight: medium">para
+cargar dicho archivo. Cuando este comando asincrónico es completado,
+el </SPAN><B>mensaje de completación</B> <SPAN STYLE="font-weight: medium">(un
+mensaje OSC válido) es ejecutado inmediatamente por el servidor. El
+directorio por defecto para </SPAN><B>dir </B><SPAN STYLE="font-weight: medium">es
+synthdefs/.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>send(server,
+completionMessage)</B></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Compilar la definicón y
+enviarla al <B>servidor</B> <SPAN STYLE="font-weight: medium">sin
+escribir a disco (evitando de este modo la molesta acumulación de
+Synth</SPAN>Defs). Cuando este comando asincrónico es completado, el
+<B>mensaje de completación</B> <SPAN STYLE="font-weight: medium">(un
+mensaje OSC válido) es inmediatamente ejecutado por el servidor.</SPAN></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>store(libname, dir,
+completionMessage, mdPlugin)&nbsp;</B></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Escribir el archivo de
+definición y guardarlo en la <B>SynthDescLib </B><SPAN STYLE="font-weight: medium">especificada
+por </SPAN><B>libname</B><SPAN STYLE="font-weight: medium">, y enviar
+un mensaje al servidor de la libería para cargar dicho archivo.
+Cuando este comando asincrónico es completado, el </SPAN><B>mensaje
+de completación</B> <SPAN STYLE="font-weight: medium">(un mensaje
+OSC válido) es inmediatamente ejecutado por el servidor. Por
+defecto, </SPAN><B>libname</B> <SPAN STYLE="font-weight: medium">es
+\global, </SPAN><B>dir</B> <SPAN STYLE="font-weight: medium">es
+synthdefs/. Esto se necesita para utilizar las definiciones con el
+sistema de transmisión de eventos. Ver </SPAN><A HREF="../Streams-Patterns-Events/Streams.html">Streams</A>
+y <A HREF="../Streams-Patterns-Events/Patterns/Pattern.html">Pattern</A>.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">mdPlugin (opcional) es la
+clase plug-in que será utilizada para almacenar la metadata. Si no
+es provista, el plug-in por defecto es utilizado. Ver el archivo de
+ayuda <A HREF="SynthDesc.html">SynthDesc</A> para más detalles.</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>memStore(libname,
+completionMsg)</B></P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in">Almacena la synthdef en la
+SynthDescLib especificada por <B>libname</B><SPAN STYLE="font-weight: medium">,
+y la envía a los servidores de la librería. No se escribirá ningún
+archivo de definición; todas las operaciones ocurren en la memoria.
+Después de utilizar dicho método, la synthdef podrá ser usada con
+eventos de transmisión como en .store(), pero sin los efectos
+permanentes de un archivo en el disco.</SPAN></P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in">Nota que los argumentos
+“dir” y “mdPlugin” no existen para este método. Debido a que
+no se escribe ningún archivo, no hay necesidad de especificar un
+directorio o un archivo de metadata.</P>
+<P CLASS="p4" STYLE="margin-bottom: 0.2in"><B>play(target, args,
+addAction)</B></P>
+<P CLASS="p5" STYLE="margin-bottom: 0.2in">Un método de conveniencia
+que compila la definición y la envía al servidor <B>destino
+(target)</B><SPAN STYLE="font-weight: medium">. Cuando este comando
+asincrónico es completado, creará un sintetizador a partir de esta
+definicón, utilizando los valores de argumentos especificados en el
+arreglo </SPAN><B>args</B><SPAN STYLE="font-weight: medium">. Entrega
+un objeto</SPAN> <B>Synth</B> <SPAN STYLE="font-weight: medium">correspondiente.
+Para una lista de</SPAN> <B>acciones de agregado</B> <SPAN STYLE="font-weight: medium">ver
+</SPAN><A HREF="Synth.html">Synth</A>. Por defecto es \addToHead.</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>name</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Entrega el nombre de esta
+definición.</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>variants</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in">Entrega un <A HREF="../Collections/Event.html">Event</A>
+conteniendo las variantes de esta definición.</P>
+<P CLASS="p17" STYLE="margin-bottom: 0.2in"><B>Ejemplos</B></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Básico</B></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Nota que construcciones como SynthDef(...) y Synth(...) son
+abreviaciones para SynthDef.new(...), etc.</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Con SynthDef es común conectar esto con llamadas a la instancia
+resultante, p. ej.SynthDef(...).send(s) or SynthDef(...).play</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+crear una definición simple y enviarla al servidor</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">s.boot;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\SimpleSine,
+{|freq = 440| Out.ar(0, SinOsc.ar(freq, 0, 0.2)) }).send(s);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+lo anterior es esencialmente lo mismo que lo siguiente</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">d
+= SynthDef.new(\SimpleSine, {|freq = 440| Out.ar(0, SinOsc.ar(freq,
+0, 0.2)) });</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">d.send(s);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahora crea un Synth a partir de la definición, utilizando los
+valores por defecto de freq, y luego otro con otro valor</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth(\SimpleSine);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y
+= Synth(\SimpleSine, [\freq, 660]);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahroa cambia el valor de freq para x</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.set(\freq,
+880);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.free;
+y.free;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+utilizando el método de conveniencia 'play'</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= SynthDef(\SimpleSine, {|freq = 440| Out.ar(0, SinOsc.ar(freq, 0,
+0.2)) }).play</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.free;</FONT></FONT></P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Argument Rates</B></P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Las siguientes dos definiciones son equivalentes. La primera utiliza
+el un argumento 't_':</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\trigTest,
+{|t_trig=0, freq=440| // t_trig create un TrigControl</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Out.ar(0,
+SinOsc.ar(freq+[0,1], 0, Decay2.kr(t_trig, 0.005, 1.0)));</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">},
+[0, 4] // retrasa la freq por 4 segundos (el segundo argumento), pero
+no t_trig (no funcionaría de todos modos)</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Esta segunda versión hace a trig un arg \tr al especificarlo en el
+arreglo de velocidades. Envía ésta.</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\trigTest2,
+{|trig=0, freq=440|&nbsp;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Out.ar(0,
+SinOsc.ar(freq+[0,1], 0, Decay2.kr(trig, 0.005, 1.0)));</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">},
+[\tr, 4] // retrasa la freq (tiempo: 4s), \tr crea un TrigControl
+para trig</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">).send(s);&nbsp;
+</FONT></FONT>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Utilizando la segunda versión para crear un synth</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= Synth.head(s, \trigTest2);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahora detona el envolvente de decaimienton</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.set(\trig,
+1); // puedes hacer esto múltiples veces</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.set(\trig,
+1, \freq, 220); // escucha cómo la frecuencia tiene un retraso</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.set(\trig,
+1, \freq, 880);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.free;
+//libera el sintetizador</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Variantes</B></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+crea una definición con algunas variantes</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\vartest,
+{|out=0, freq=440, amp=0.2, a = 0.01, r = 1|</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+el EnvGen con doneAction: 2 libera al sintetizador automáticamente
+al terminar</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Out.ar(out,
+SinOsc.ar(freq, 0, EnvGen.kr(Env.perc(a, r, amp), doneAction: 2)));</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">},
+variants: (alpha: [a: 0.5, r: 0.5], beta: [a: 3, r: 0.01], gamma: [a:
+0.01, r: 4])</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">).send(s);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahora crea unos sintetizadores. Primero usando los argumentos por
+defecto.</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Synth(\vartest);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Ahora con las variantes:</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Synth('vartest.alpha');</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Synth('vartest.beta');</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Synth('vartest.gamma');</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ignora una variante:</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Synth('vartest.alpha',
+[\release, 3, \freq, 660]);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Arreglos Literales como
+Argumentos </B>
+</P>
+<P CLASS="p2" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+freqs tiene un arreglo literal de valores. Esto crea un control
+multicanal del mismo tamaño.</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\arrayarg,
+{ | amp = 0.1, freqs = #[300, 400, 500, 600], gate = 1 |</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">var
+env, sines;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">env
+= Linen.kr(gate, 0.1, 1, 1, 2) * amp;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">sines
+= SinOsc.ar(freqs +.t [0,0.5]).cubed.sum; // A mix of 4 oscillators</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Out.ar(0,
+sines * env);&nbsp;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">},
+[0, 0.1, 0]).send(s);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth(\arrayarg);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.setn(\freqs,
+[440, 441, 442, 443]);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+No asignes demasiados valores, o podrás tener resultados inesperados</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+El código siguiente inconscientemente cambia el argumento gate, y
+libera el sintetizador.</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.setn(\freqs,
+[300, 400, 500, 600, 0]);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+El ejemplo más complejo de Mr. McCartney</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">fork
+{&nbsp; </FONT></FONT>
+</P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= Synth(\arrayarg);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">2.wait;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">10.do
+{</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.setn(\freqs,
+{exprand(200,800.0)} ! 4);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(2
+** (0..3).choose * 0.2).wait;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">};</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.set(\amp,
+-40.dbamp);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">10.do
+{</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.setn(\freqs,
+{exprand(200,800.0)} ! 4);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(2
+** (0..3).choose * 0.2).wait;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">};</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">2.wait;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.release;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">};</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>Ejemplo de Wrapping:
+producción “en masa“ de definiciones de efectos</B></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+La función makeEffect debajo envuelve una función más simple
+dentro de sí misma y provee</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+una transición hacia el efecto (para que puedas añadirlo sin
+escuchar clicks), control de mezcla entre señales, etc.</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Dicha funcionalidad es útil para una variedad de efectos, y
+SynthDef.wrap te permite reutilizar código común</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+el envolvente básico</FONT></FONT></P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">~makeEffect
+= {| name, func, lags, numChannels = 2 |</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(name,
+{| i_bus = 0, gate = 1, wet = 1|</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">var
+in, out, env, lfo;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">in
+= In.ar(i_bus, numChannels);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">env
+= Linen.kr(gate, 2, 1, 2, 2); // fade in the effect</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+llama al a función envuelta. Los argumentos in y env son pasados a
+la función como</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+los primeros dos argumentos (prependArgs).&nbsp;</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Cualquier otro argumento de la función envuelta será un Control.</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">out
+= SynthDef.wrap(func, lags, [in, env]);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">XOut.ar(i_bus,
+wet * env, out);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">},
+[0, 0, 0.1] ).send(s);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">};</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahora crea un wah</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">~makeEffect.value(\wah,
+{|in, env, rate = 0.7, ffreq = 1200, depth = 0.8, rq = 0.1|</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+in y env provienen del envolvente. El resto son controles</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in">&nbsp; <FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">var
+lfo;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">lfo
+= LFNoise1.kr(rate, depth * ffreq, ffreq);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">RLPF.ar(in,
+lfo, rq, 10).distort * 0.15; },</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">[0.1,
+0.1, 0.1, 0.1],&nbsp; // retrasos para la velocidad de ffreq, depth y
+rq</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">2
+// numChannels</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+ahora un reverb simple</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">~makeEffect.value(\reverb,
+{|in, env|</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+in y env vienen del envolvente.</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">var
+input;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">input
+= in;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">16.do({
+input = AllpassC.ar(input, 0.04, Rand(0.001,0.04), 3)});</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">input;
+},</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">nil,&nbsp;
+// sin retraso</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">2
+// numChannels</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+algo para procesar</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= { {Decay2.ar(Dust2.ar(3), mul: PinkNoise.ar(0.2))} ! 2}.play;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y
+= Synth.tail(s, \wah);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z
+= Synth.tail(s, \reverb, [\wet, 0.5]);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+usamos un argumento llamado gate, para que Node-release pueda
+realizar las transiciones entre los efectos</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">y.release;&nbsp;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+cambiar el valor de gate a 0 tiene el mismo resultado</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">z.set(\gate,
+0);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.free;</FONT></FONT></P>
+<P CLASS="p18" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><B>common argument names:
+</B><I><B>out</B></I> and <I><B>gate</B></I></P>
+<P CLASS="p1" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+los argumentos llamados 'out' y 'gate' son usados comúnmente para
+especificar un bus de salida y la compuerta de EnvGen
+respectivamente. Aunque no son requeridos, usarlos puede crear
+consistencia y intercambiabilidad 'gate' es particularmente útil, ya
+que permite el método .release de Node.</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+método.</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">SynthDef(\synthDefTest,
+{|out, gate=1, freq=440|</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+doneAction: 2 libera al Synth una vez que EnvGen termina</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Out.ar(out,
+SinOsc.ar(freq) * EnvGen.kr(Env.asr(0.1, 0.3, 1.3), gate,
+doneAction:2));</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">}).store;
+// utilizaremos store para compatibilidad con el ejemplo de patrones
+debajo</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth(\synthDefTest, [\out, 0]); // tocar el sintetizador a través
+del bus de salida 0 de hardware (ver Out.help)</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.release;
+// Libera y elimina el sintetizador (si doneAction es &gt; 2; ver
+EnvGen)</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//equivalente:</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth(\synthDefTest); // el valor por defecto de out es 0, si no se
+le proporciona una argumento.</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.set(\gate,
+0);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+si el valor es negativo, asigna el tiempo de liberacion, a gate-1</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth(\synthDefTest);</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.set(\gate,
+-5); // liberación de 4 segundos</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//equivalente:</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth(\synthDefTest);</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.release(4);</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Si el argumento arg es usado de manera estándar, siempre puede ser
+cambiado sin conocer la synthdef</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x
+= Synth(\synthDefTest, [\out, 0]);</FONT></FONT></P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.set(\out,
+1); //tocar a través del canal 1</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">x.release;</FONT></FONT></P>
+<P CLASS="p19" STYLE="margin-bottom: 0.2in"><BR><BR>
+</P>
+<P CLASS="p9" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">//
+Otro buen ejemplo de esto es con patrones, donde se puede usar 'gate'
+para liberar las notas</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">(</FONT></FONT></P>
+<P CLASS="p20" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">Pbind(</FONT></FONT></P>
+<P CLASS="p8" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">\instrument,
+\synthDefTest,</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">\freq,
+Pseq([500, 600, Prand([200, 456, 345],1)], inf),</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">\legato,
+Pseq([1.5, 0.2], inf),</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">\dur,
+0.4,</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">\out,
+Pseq([0, 1], inf)</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">).play;</FONT></FONT></P>
+<P CLASS="p7" STYLE="margin-bottom: 0.2in"><FONT FACE="Times New Roman, serif"><FONT SIZE=1 STYLE="font-size: 8pt">)</FONT></FONT></P>
+</BODY>
+</HTML>

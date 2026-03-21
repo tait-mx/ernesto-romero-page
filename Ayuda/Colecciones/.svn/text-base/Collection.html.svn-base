@@ -1,0 +1,410 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 0.0px 57.0px; font: 12.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 57.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 57.0px; font: 9.0px Monaco}
+p.p9 {margin: 0.0px 0.0px 0.0px 57.0px; font: 9.0px Monaco; color: #852b24}
+p.p10 {margin: 0.0px 0.0px 0.0px 57.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 57.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p13 {margin: 0.0px 0.0px 0.0px 57.0px; font: 9.0px Monaco; color: #55682e}
+p.p14 {margin: 0.0px 0.0px 0.0px 57.0px; font: 9.0px Monaco; color: #7a2d25}
+p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica}
+p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Helvetica; min-height: 16.0px}
+p.p18 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+span.s1 {font: 12.0px Helvetica}
+span.s2 {color: #0041cc}
+span.s3 {color: #0034a3}
+span.s4 {color: #000000}
+span.s5 {color: #002ea8}
+span.s6 {color: #55682e}
+span.s7 {color: #4f6929}
+span.s8 {color: #003de0}
+span.s9 {color: #7a2d25}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Collection<span class="Apple-tab-span">	</span>(Colección)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b><span class="s1"><b>groupo de objetos</b></span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>hereda de: </b><a href="../Core/Object.html"><span class="s2"><b>Object</b></span></a></p>
+<p class="p2"><br></p>
+<p class="p3">Las colecciones son grupos de objetos. Ver la revisión general de<span class="Apple-converted-space">  </span><a href="Collections.html"><span class="s3">Collections</span></a> para un listado completo de todas las subclases.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Collection es una clase abstracata. Uno no crea instancias directas de Collection.</p>
+<p class="p3">Existen muchos tipos de colecciones incluyendo <a href="List.html"><span class="s3">List</span></a>, <a href="Array.html"><span class="s3">Array</span></a>, <a href="Dictionary.html"><span class="s3">Dictionary</span></a>, <a href="Bag.html"><span class="s3">Bag</span></a>, <a href="Set.html"><span class="s3">Set</span></a>, <a href="SortedList.html"><span class="s3">SortedList</span></a>, etc.<span class="Apple-converted-space"> </span></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Métodos de Clase:</b></p>
+<p class="p4"><br></p>
+<p class="p3"><b>*newFrom(collection) <span class="Apple-converted-space">  </span></b>// *nevo(colección)</p>
+<p class="p6">Crea una nueva Collection a partir de otra colección. Esto soporta la interface para el método "as"</p>
+<p class="p7"><br></p>
+<p class="p8"><span class="s3">Array</span>.newFrom(<span class="s3">Set</span>[4, 2, 1]);</p>
+<p class="p8"><span class="s3">Set</span>.newFrom(<span class="s3">Array</span>[4, 2, 1]);</p>
+<p class="p9"><span class="s4">[1, 2, 3, 4, 3, 2].as(</span><span class="s5">Set</span><span class="s4">); </span>// as(algunaClase) llama a algunaClase.newFrom(this)</p>
+<p class="p10"><br></p>
+<p class="p4"><br></p>
+<p class="p3"><b>*with(collection) <span class="Apple-converted-space">    </span></b>// *con(colección)</p>
+<p class="p6">Crea una nueva Collection con los argumentos.</p>
+<p class="p7"><br></p>
+<p class="p8"><span class="s3">Array</span>.with(4, 2, 1);</p>
+<p class="p4"><br></p>
+<p class="p3"><b>*fill(size, function) <span class="Apple-converted-space">    </span></b>// *llenar(tamaño, función)</p>
+<p class="p6">Crea una Collection del tamaño especificado, sus elementos se determinan a partir de evaluar la función dada.</p>
+<p class="p6">La función pasa el índice como un argumento.</p>
+<p class="p7"><br></p>
+<p class="p8"><span class="s3">Array</span>.fill(4, { <span class="s3">arg</span> i; i * 2 });</p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Acceso:</b></p>
+<p class="p4"><br></p>
+<p class="p3"><b>size<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// tamañ<b>o</b></p>
+<p class="p6">Responde con el número de objetos contenidos en una Collections.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].size;</p>
+<p class="p2"><br></p>
+<p class="p3"><b>isEmpty<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// estaVacío</p>
+<p class="p6">Responde si el receptor no contiene objetos.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[].isEmpty;</p>
+<p class="p12"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Añadiendo y Removiendo:</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>add(anObject)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// agregar(unObjeto)</p>
+<p class="p6">Agrega anObject al receptor</p>
+<p class="p11"><br></p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2].add(3);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>addAll(aCollection)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// agregaTodo(unaCollection)</p>
+<p class="p6">Agrega al receptor todos los elementos que estáan en aCollection<span class="Apple-converted-space"> </span></p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2].addAll(<span class="s3">List</span>[3, 4]);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>remove(anObject)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// remover(unObjeto)</p>
+<p class="p6">Remueve (quita) anObject del receptor. Responde con el objeto removido.</p>
+<p class="p11"><br></p>
+<p class="p8">(</p>
+<p class="p8"><span class="s3">var</span> a;</p>
+<p class="p8">a = <span class="s3">List</span>[1, 2, 3, 4];</p>
+<p class="p8">a.remove(3);</p>
+<p class="p8">a;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p3"><b>removeAll(aCollection)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// removerTodo(unaColección)</p>
+<p class="p6">Remueve (quita) del receptor todos los elementos que estén en aCollection.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].removeAll(<span class="s3">List</span>[2, 3]);</p>
+<p class="p11"><br></p>
+<p class="p6">Notar que no necesariamente se removerán multiples objetos del receptor:</p>
+<p class="p11"><br></p>
+<p class="p13"><span class="s4">~closet = [</span>\sombrero<span class="s4">, </span>\sombrero<span class="s4">, </span>\sombrero<span class="s4">, </span>\abrigo<span class="s4">, </span>\abrigo<span class="s4">, </span>\zapato<span class="s4">, </span>\zapato<span class="s4">];</span></p>
+<p class="p14"><span class="s4">~closet.removeAll([</span><span class="s6">\sombrero</span><span class="s4">, </span><span class="s6">\abrigo</span><span class="s4">, </span><span class="s6">\zapato</span><span class="s4">, </span><span class="s6">\zapato</span><span class="s4">]); </span>// No vacíá el closet, solo quita lo que queremos</p>
+<p class="p11"><br></p>
+<p class="p6">Ver removeEvery (abajo) para un método relacionado que remueve <i>todos</i> las elementos repetidos.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>removeEvery(aCollection)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// removerCadaUna(unaColección)</p>
+<p class="p6">Remueve del receptor <i>todas</i> <i>las<span class="Apple-converted-space">  </span>incidencias</i><span class="Apple-converted-space">  </span>de los elementos presentes en aCollection.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 2, 3, 2, 3, 4].removeEvery(<span class="s3">List</span>[2, 3]);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>removeAllSuchThat(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// removerTodosLosQue(función)</p>
+<p class="p6">Remueve del receptor todos los elementos para los que la función responde true (verdadero). A la función se le pasan dos argumentos, el elemento y un índice entero. Responde con los elementos que han sido removidos.</p>
+<p class="p11"><br></p>
+<p class="p8">(</p>
+<p class="p8"><span class="s3">var</span> a;</p>
+<p class="p8">a = <span class="s3">List</span>[1, 2, 3, 4];</p>
+<p class="p8">a.removeAllSuchThat({ <span class="s3">arg</span> item, i; item &lt; 3 });</p>
+<p class="p8">a;</p>
+<p class="p8">)</p>
+<p class="p3"><b>putEach(keys, values)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// ponCada(claves, valores)</p>
+<p class="p6">Pone los <b>values (valores)</b> en los índices correspondientes indicados por <b>keys (claves)</b>. Si uno de los dos arreglos de argumentos es mas grande entonces recirculará.</p>
+<p class="p2"><br></p>
+<p class="p11"><br></p>
+<p class="p8">y = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];</p>
+<p class="p8">y.putEach([4, 7], [<span class="s6">\olorosa</span>, <span class="s6">\cabeza</span>])</p>
+<p class="p8">y.putEach([2, 3, 5, 6], <span class="s6">\epa</span>);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>atAll(keys)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// enTodos(claves)</p>
+<p class="p6">Devuelve una colección de todos los elementos para las claves (keys).</p>
+<p class="p11"><br></p>
+<p class="p8">y = [<span class="s7">\a</span>, <span class="s7">\b</span>, <span class="s7">\c</span>];</p>
+<p class="p8">y.atAll([0, 2])</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Probando:</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>includes(anObject)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// incluye(unObjeto)</p>
+<p class="p6">Contesta si anObject está contenido en el receptor.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].includes(3);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>includesAny(aCollection)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// incluyeAlguno(unaColección)</p>
+<p class="p6">Contesta si alguno de los elementos en aCollection está contenido en el receptor.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].includesAny(<span class="s3">List</span>[4, 5]);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>includesAll(aCollection)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// incluyeTodos(unaCollección)</p>
+<p class="p6">Contesta si todos los elementos en aCollection están contenidos en el receptor.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].includesAll(<span class="s3">List</span>[4, 5]);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>matchItem(item)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// emparejaElemento(elemento)</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Devuelve true (verdadero) si <b>this</b> (el receptor) incluye el elemento.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>Ver tambien: <a href="../interfaces/matchItem.html"><span class="s8">matchItem</span></a></p>
+<p class="p2"><br></p>
+<p class="p5"><b>Iteración:</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>do(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// hacer(función)</p>
+<p class="p6">Evalúa a funcón para cada elemento de la colección. La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].do({ <span class="s3">arg</span> item, i; item.postln });</p>
+<p class="p2"><br></p>
+<p class="p3"><b>collect(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// colecta(función)</p>
+<p class="p6">Responde con una nueva colección que consiste en los resultados de la función evaluada para cada elemento de la colección. La función pasa dos argumentos,</p>
+<p class="p6">el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].collect({ <span class="s3">arg</span> item, i; item + 10 });</p>
+<p class="p11"><br></p>
+<p class="p6">Si se quiere tener control de qué tipo de colección es devuelta, usar <b>collectAs(function, class)</b>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>select(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// seleccionar(función)</p>
+<p class="p6">Responde con una nueva collección que consiste en todos los elementos para los que la función responde true (verdadero). La función pasa dos argumentos,</p>
+<p class="p6">el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].select({ <span class="s3">arg</span> item, i; item.even });</p>
+<p class="p11"><br></p>
+<p class="p6">Si se quiere tener control de qué tipo de colección es devuelta, usar <b>selectAs(function, class)</b>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>reject(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// rechazar(función)</p>
+<p class="p6">Responde con una nueva collección que consiste en todos los elementos para los que la función responde false (falso). La función pasa dos argumentos,</p>
+<p class="p6">el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].reject({ <span class="s3">arg</span> item, i; item.even });</p>
+<p class="p11"><br></p>
+<p class="p6">Si se quiere tener control de qué tipo de colección es devuelta, usar <b>rejectAs(function, class)</b>.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>detect(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// detectar(función)</p>
+<p class="p6">Responde con el primer elemento en el receptor para el que la función responde true.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].detect({ <span class="s3">arg</span> item, i; item.even });</p>
+<p class="p11"><br></p>
+<p class="p3"><b>detectIndex(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// detectarIndice(función)</p>
+<p class="p6">Similar a detect pero devuelve el índice en vez del elemento.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].detectIndex({ <span class="s3">arg</span> item, i; item.even });</p>
+<p class="p2"><br></p>
+<p class="p3"><b>inject(initialValue, function)</b></p>
+<p class="p6">Es la operación conocida como fold (pliegue) en programación funcional.</p>
+<p class="p6">Inject toma un valor inicial y una función y combina los elementos de una colección aplicándo la función al valor acumulado y un elemento de la colección. La función toma dos argumentos y devuelve un nuevo valor. El valor acumulado es inicializado a initialValue.</p>
+<p class="p11"><br></p>
+<p class="p11"><br></p>
+<p class="p8">[1,2,3,4,5].inject(0, <span class="s3">_</span>+<span class="s3">_</span>); <span class="s9">// 15</span></p>
+<p class="p10"><br></p>
+<p class="p8">[1,2,3,4,5].inject(1, <span class="s3">_</span>*<span class="s3">_</span>); <span class="s9">// 120</span></p>
+<p class="p10"><br></p>
+<p class="p14">// igual que en .collect(_.squared)</p>
+<p class="p8">[1,2,3,4,5].inject([], {<span class="s3">|a,b|</span> a ++ b.squared }); <span class="s9">// [ 1, 4, 9, 16, 25 ]</span></p>
+<p class="p8">[1,2,3,4,5].inject([], {<span class="s3">|a,b|</span> [b] ++ a ++ [b]}); <span class="s9">// [ 5, 4, 3, 2, 1, 1, 2, 3, 4, 5 ]</span></p>
+<p class="p8">[1,2,3,4,5].inject([], {<span class="s3">|a,b|</span> a ++ b ++ a});</p>
+<p class="p8">[1,2,3,4,5].inject([], {<span class="s3">|a,b|</span> a ++ a ++ b});</p>
+<p class="p15"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>any(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// cualquier(función)</p>
+<p class="p6">Responde si la función responde true para cualquier elemento en el receptor.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].any({ <span class="s3">arg</span> item, i; item.even });</p>
+<p class="p2"><br></p>
+<p class="p3"><b>every(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// todos(función)</p>
+<p class="p6">Responde si la función responde true para todos los elementos en el receptor.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].every({ <span class="s3">arg</span> item, i; item.even });</p>
+<p class="p2"><br></p>
+<p class="p3"><b>count(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// cuenta(función)</p>
+<p class="p6">Responde el número de elementos para los que la función responde true.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].count({ <span class="s3">arg</span> item, i; item.even });</p>
+<p class="p2"><br></p>
+<p class="p3"><b>occurrencesOf(anObject)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// incidenciasDe(unObjeto)</p>
+<p class="p6">Responde el número de elementos en el receptor que son iguales a anObject.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 3, 4, 3, 4, 3].occurrencesOf(3);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>sum(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// suma(función)</p>
+<p class="p6">Responde con la suma de los resultados de la función evaluada para cada elemento en el receptor.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].sum;</p>
+<p class="p10"><br></p>
+<p class="p8">(0..8).sum { <span class="s3">|i|</span> 1 / (2 ** i) };</p>
+<p class="p2"><br></p>
+<p class="p3"><b>maxItem(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// máximoElemento(función)</p>
+<p class="p6">Responde con el máximo de los resultados de la función evaluada para cada elemento del receptor.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p6">Si la función es nil, entonces responde el máximo de todos los elementos en el receptor.</p>
+<p class="p11"><br></p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].maxItem({ <span class="s3">arg</span> item, i; item + 10 });</p>
+<p class="p2"><br></p>
+<p class="p3"><b>minItem(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// mínimoElemento(función)</p>
+<p class="p6">Responde con el mínimo de los resultados de la función evaluada para cada elemento del receptor.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p6">Si la función es nil, entonces responde el mínimo de todos los elementos en el receptor.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].minItem({ <span class="s3">arg</span> item, i; item + 10 });</p>
+<p class="p2"><br></p>
+<p class="p3"><b>maxIndex(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// máximoIndice(función)</p>
+<p class="p6">Responde con el índice del máximo de los resultados de la función evaluada para cada elemento del receptor.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p6">Si la función es nil, entonces responde el índice del máximo de todos los elementos en el receptor.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].maxIndex({ <span class="s3">arg</span> item, i; item + 10 });</p>
+<p class="p8">[3.2, 12.2, 13, 0.4].maxIndex</p>
+<p class="p2"><br></p>
+<p class="p3"><b>minIndex(function)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// mínimoIndice(función)</p>
+<p class="p6">Responde con el índice del mínimo de los resultados de la función evaluada para cada elemento del receptor.</p>
+<p class="p6">La función pasa dos argumentos, el elemento y un índice entero.</p>
+<p class="p6">Si la función es nil, entonces responde el índice del mínimo de todos los elementos en el receptor.</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].minIndex({ <span class="s3">arg</span> item, i; item + 10 });</p>
+<p class="p8"><span class="s3">List</span>[3.2, 12.2, 13, 0.4].minIndex</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>iter<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// iterar</p>
+<p class="p6">Devuelve una <a href="../Core/Kernel/Routine.html"><span class="s3">Routine</span></a> que devuelve los elementos uno por uno</p>
+<p class="p11"><br></p>
+<p class="p8">r = <span class="s3">Set</span>[10, 2, -3, -4].iter;</p>
+<p class="p8">r.next;</p>
+<p class="p8">r.next;</p>
+<p class="p8">r.next;</p>
+<p class="p8">r.next; <span class="s9">// nil.</span></p>
+<p class="p15"><br></p>
+<p class="p4"><br></p>
+<p class="p4"><br></p>
+<p class="p5"><b>Conversión:</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>asBag<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// comoBolsa</p>
+<p class="p6">Responde con un Bag al que todos los elementos del receptor han sido agregados</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].asBag;</p>
+<p class="p2"><br></p>
+<p class="p3"><b>asList<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// comoLista</p>
+<p class="p6">Responde con un List al que todos los elementos del receptor han sido agregados</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">Set</span>[1, 2, 3, 4].asList;</p>
+<p class="p2"><br></p>
+<p class="p3"><b>asSet<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// comoConjunto</p>
+<p class="p6">Responde con un Set al que todos los elementos del receptor han sido agregados</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[1, 2, 3, 4].asSet;</p>
+<p class="p2"><br></p>
+<p class="p3"><b>asSortedList<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// comoListaGuardada</p>
+<p class="p6">Responde con un StoredList al que todos los elementos del receptor han sido agregados</p>
+<p class="p11"><br></p>
+<p class="p8"><span class="s3">List</span>[2, 1, 4, 3].asSortedList;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>powerset<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// conjunto potencia</p>
+<p class="p6">Devuelve todas las posibles combinaciones de los elementos de la colección</p>
+<p class="p10"><br></p>
+<p class="p8"><span class="s3">Set</span>[1, 2, 3].powerset;</p>
+<p class="p10"><br></p>
+<p class="p14">// genera los ordinales de Von Meumann. (Advertencia: cuenta hasta cuatro máximo!)</p>
+<p class="p8">a = <span class="s3">Set</span>[];</p>
+<p class="p8">a = a.powerset;</p>
+<p class="p8">a = a.powerset;</p>
+<p class="p8">a = a.powerset;</p>
+<p class="p10"><br></p>
+<p class="p14"><span class="s4">u = { </span><span class="s3">|set|</span><span class="s4"> set.unify }; </span>// unión (cuenta regresiva)</p>
+<p class="p14"><span class="s4">n = { </span><span class="s3">|set|</span><span class="s4"> set.powerset }; </span>// conjunto potencia (cuenta adelante)</p>
+<p class="p14"><span class="s4">a = </span><span class="s3">Set</span><span class="s4">[]; </span>// conjunto vacío (cero)</p>
+<p class="p8">n.(n.(a)); <span class="s9">// dos</span></p>
+<p class="p8">u.(n.(n.(a))) == n.(a); <span class="s9">// dos - uno == uno</span></p>
+<p class="p8">u.(u.(n.(n.(a)))) == u.(n.(a)); <span class="s9">// dos - dos == uno - uno<span class="Apple-converted-space"> </span></span></p>
+<p class="p2"><br></p>
+<p class="p3"><b>flopDict(unbubble)</b></p>
+<p class="p6">Takes a collection of dictionaries and returns a single dictionary with arrays of all dictionaries' elements.</p>
+<p class="p6">If unbubble is true (default), and if one element is singular, the array is replaced by this element.</p>
+<p class="p10"><br></p>
+<p class="p8">[(degree: 7, x: 4), (degree: 8, x: 5), (degree: -2, dur: 2.5)].flopDict;</p>
+<p class="p8">[(degree: 7, x: 4), (degree: 8, x: 5), (degree: -2, dur: 2.5)].flopDict(<span class="s3">false</span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>histo(steps, min, max)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// histo(pasos,min,max)</p>
+<p class="p6">Devuelve un histograma de la colección al contar el número de valores que caen en cada ranura de una cantidad de steps (valor por defecto: 100) subdivisiones entre min y max. Si existen valores fuera de este rango imprime una nota. Si no se dan valores para min y max, el más pequeño (o el valor más grande respectivamente) es usado.</p>
+<p class="p11"><br></p>
+<p class="p10"><br></p>
+<p class="p8">{ 1.0.linrand }.dup(10000).histo(100).plot;</p>
+<p class="p8">{ 8.rand }.dup(10000).histo(8).plot(discrete: <span class="s3">true</span>);</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>printOn(stream)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// imprimeEn(stream)</p>
+<p class="p6">Imprime una representación de la colección en un stream.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>storeOn(stream)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// guardaEn(stream)</p>
+<p class="p6">Escribe una representación compilable de la colección en un stream.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>printItemsOn(stream)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// imprimeelementosEn(stream)</p>
+<p class="p6">Imprime en un stream una representación compilable de los elementos en una colección separados por comas.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>storeItemsOn(stream)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>// guardaelementosEn(stream)</p>
+<p class="p6">Escribe en un stream una representación compilable de los elementos en una colección separados por comas.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p16"><b>Operaciones específicas de conjuntos:</b></p>
+<p class="p17"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>sect(that)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>devuelve la intersección en teoría de conjuntos de <b>this </b>y<b> that (esto </b>y<b> aquello).</b></p>
+<p class="p15"><br></p>
+<p class="p18">a = [1, 2, 3]; b = [2, 3, 4, 5];</p>
+<p class="p18">sect(a, b);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>union(that)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>devuelve la unión en teoría de conjuntos de<span class="Apple-converted-space">  </span><b>this </b>y<b> that (esto </b>y<b> aquello).</b></p>
+<p class="p15"><br></p>
+<p class="p18">a = [1, 2, 3]; b = [2, 3, 4, 5];</p>
+<p class="p18">union(a, b);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>difference(that)<span class="Apple-tab-span">	</span></b><span class="Apple-tab-span">	</span>devuelve el conjunto de todos los elementos que son elementos de <b>this</b> pero no de <b>that</b>.</p>
+<p class="p15"><br></p>
+<p class="p18">a = [1, 2, 3]; b = [2, 3, 4, 5];</p>
+<p class="p18">difference(a, b);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>symmetricDifference(that)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>devuelve el conjunto de todos los elementos que no pertenecen ni a <b>this</b> ni a <b>that</b>.</p>
+<p class="p3"><b>this -- that</b></p>
+<p class="p15"><br></p>
+<p class="p18">a = [1, 2, 3]; b = [2, 3, 4, 5];</p>
+<p class="p18">symmetricDifference(a, b);</p>
+<p class="p2"><br></p>
+<p class="p3"><b>isSubsetOf(that)</b><span class="Apple-tab-span">	</span>devuelve true si todos los elementos de <b>this</b> son también elementos de <b>that</b>.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p18">a = <span class="s3">Set</span>[1, 2, 3, 4];</p>
+<p class="p18"><span class="s3">Set</span>[1, 2].isSubsetOf(a); <span class="s9">// true</span></p>
+<p class="p18"><span class="s3">Set</span>[1, 5].isSubsetOf(a); <span class="s9">// false</span></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

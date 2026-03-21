@@ -1,0 +1,826 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 19.0px 0.0px; font: 10.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 19.0px 0.0px; font: 9.0px Helvetica}
+p.p3 {margin: 0.0px 0.0px 19.0px 0.0px; font: 11.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 19.0px 46.0px; text-indent: -46.0px; font: 10.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 19.0px 46.0px; text-indent: -46.0px; font: 9.0px Helvetica}
+p.p6 {margin: 0.0px 0.0px 19.0px 0.0px; font: 10.0px Monaco}
+p.p7 {margin: 0.0px 0.0px 19.0px 45.0px; text-indent: -45.0px; font: 10.0px Helvetica}
+p.p8 {margin: 0.0px 0.0px 19.0px 69.0px; text-indent: -69.0px; font: 10.0px Helvetica}
+p.p9 {margin: 0.0px 0.0px 19.0px 46.0px; text-indent: -46.0px; font: 10.0px Monaco; color: #992119}
+p.p10 {margin: 0.0px 0.0px 19.0px 46.0px; text-indent: -46.0px; font: 10.0px Monaco}
+p.p11 {margin: 0.0px 0.0px 19.0px 45.0px; text-indent: -45.0px; font: 9.0px Helvetica}
+p.p12 {margin: 0.0px 0.0px 19.0px 69.0px; text-indent: -69.0px; font: 9.0px Helvetica}
+p.p13 {margin: 0.0px 0.0px 19.0px 0.0px; font: 7.0px Lucida Grande}
+p.p14 {margin: 0.0px 0.0px 19.0px 0.0px; font: 10.0px Monaco; color: #992119}
+p.p15 {margin: 0.0px 0.0px 19.0px 45.0px; text-indent: -45.0px; font: 10.0px Monaco}
+p.p16 {margin: 0.0px 0.0px 19.0px 69.0px; text-indent: -69.0px; font: 10.0px Monaco; color: #992119}
+p.p17 {margin: 0.0px 0.0px 19.0px 69.0px; text-indent: -69.0px; font: 10.0px Monaco}
+p.p18 {margin: 0.0px 0.0px 19.0px 69.0px; text-indent: -69.0px; font: 10.0px Monaco; color: #606060}
+p.p19 {margin: 0.0px 0.0px 19.0px 69.0px; text-indent: -69.0px; font: 7.0px Lucida Grande}
+p.p20 {margin: 0.0px 0.0px 19.0px 69.0px; text-indent: -69.0px; font: 10.0px Monaco; color: #416d1f}
+p.p21 {margin: 0.0px 0.0px 19.0px 0.0px; font: 10.0px Monaco; color: #606060}
+p.p22 {margin: 0.0px 0.0px 19.0px 46.0px; text-indent: -46.0px; font: 7.0px Lucida Grande}
+span.s1 {text-decoration: underline ; color: #0022e4}
+span.s2 {font: 9.0px Helvetica}
+span.s3 {font: 18.0px Helvetica}
+</style>
+</head>
+<body>
+<p class="p1"><b>Representación de un buffer en el servidor, del lado del cliente</b></p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>superclase: Object</b></p>
+<p class="p2"><br>
+</p>
+<p class="p1">Un buffer es comúnmente usado para almacenar audio grabado, como puede ser un archivo de sonido almacenado en la memoria; pero puede ser usado para almacenar otros tipos de datos también. Es un arreglo globalmente disponible de valores de punto flotante en el servidor. La clase Buffer encapsula un número de tareas comunes, mensajes OSC, y capacidades relacionadas a los buffers existentes en el servidor – ve en los ejemplos debajo en este documento cómo se utilizan los Buffers para reproducir y grabar sonido.</p>
+<p class="p2"><br>
+</p>
+<p class="p1">Los Buffers son comúnmente usados con <a href="../UGens/Playback and Recording/PlayBuf.html"><span class="s1">PlayBuf</span></a>, <a href="../UGens/Playback and Recording/RecordBuf.html"><span class="s1">RecordBuf</span></a>, <a href="../UGens/Playback and Recording/DiskIn.html"><span class="s1">DiskIn</span></a>, <a href="../UGens/Playback and Recording/DiskOut.html"><span class="s1">DiskOut</span></a>, <a href="../UGens/Oscillators/BufWr.html"><span class="s1">BufWr</span></a>, <a href="../UGens/Oscillators/BufRd.html"><span class="s1">BufRd</span></a>, y otros <a href="../UGens/UGen.html"><span class="s1">UGens</span></a>. (Ve los archivos de ayuda individuales para más ejemplos.) Los Buffers pueden ser liberados o alterados incluso mientras están siendo accesados. Ver <a href="Server-Architecture.html"><span class="s1">Server-Architecture</span></a> para algunos detalles técnicos.</p>
+<p class="p1">Los objetos Buffer no deben ser creados dentro de un <a href="SynthDef.html"><span class="s1">SynthDef</span></a>. Si esto es necesario, ve <a href="../UGens/InOut/LocalBuf.html"><span class="s1">LocalBuf</span></a>.</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>Números de los Buffers y Alocamiento.</b></p>
+<p class="p1">Aunque el número de Buffers en un servidor es establecido en el momento en que es arrancado, la memoria debe de todos modos ser alocada dentro de la aplicación del servidor antes de que puedan almacenar valores. (Al arrancar el servidor, todos los buffers tienen un tamaño de 0.)</p>
+<p class="p2"><br>
+</p>
+<p class="p1">Los buffers del lado del servidor son identificados con un número, iniciando desde 0. Al usar objetos Buffer, los números de los buffers son alocados automáticamente desde el bufferAllocator del Servidor, a menos que explícitamente se especifique uno. Al utilizar el método <b>.free</b><span class="s2"> </span>en un objeto Buffer, se liberará la memoria en el servidor, así como el número de buffer para una futura realocación. Ver <a href="ServerOptions.html"><span class="s1">ServerOptions</span></a> para los detalles acerca de cómo se establece el número de Buffers disponibles.</p>
+<p class="p2"><br>
+</p>
+<p class="p1">Normalmente, no es necesario que especifiques un número de buffer. Sólo deberás hacerlo si estás seguro de lo que estás haciendo. Del mismo modo, en el uso normal no necesitarás acccesar el número de buffer, ya que las instancias de Buffer pueden ser utilizadas directamente como entradas para los Ugens o argumentos para los Synths.</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>Buffers multicanal</b></p>
+<p class="p2"><br>
+</p>
+<p class="p1">Los buffers multicanal entrelazan sus datos. Así, el número real de valores disponibles, al solicitar o establecer valores por índice, usando métodos como set, setn, get, getn, etc., es igual a numFrames * numChannels. Los índices empiezan a partir de 0 y van hasta (numFrames * numChannels) – 1. En un buffer de dos canales, por ejemplo, el índice 0 será el primer valor del primer canal, el índice 1 será el primer valor del segundo canal, el índice 2 será el segundo valor del primer canal, y así sucesivamente.</p>
+<p class="p2"><br>
+</p>
+<p class="p1">En algunos casos es más sencillo utilizar múltiples buffers de un solo canal, en vez de un buffer multicanal único.</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>Mensajes de completación y Funciones de Acción</b></p>
+<p class="p2"><br>
+</p>
+<p class="p1">Muchas operaciones de buffer (como leer y escribir archivos) son asincrónicas, lo cual significa que tardan una cantidad de tiempo arbitraria para ser completadas. Los comandos asincrónicos son pasados a un 'thread' de fondo en el procesador, para no utilizar tiempo del CPU del 'thread' de procesamiento de audio. Debido a que pueden tomarse una cantidad arbitraria de tiempo, es conveniente poder especificar otra cosa que pueda ser realizada inmediatamente al completarse. La capacidad de realizar esto está implementada de dos maneras en los varios métodos de Buffer: mensajes de completación y funciones de acción.</p>
+<p class="p2"><br>
+</p>
+<p class="p1">Un mensaje de completación es un segundo mensaje OSC que es incluido en el mensaje enviado al servidor. (Ver <a href="NodeMessaging.html"><span class="s1">NodeMessaging</span></a> para una discusión acerca de los mensajes OSC.) El servidor ejecutará estos inmediatamente después de completar el primer comando. Una función de acción es una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que será evaluada cuando el cliente recibe la respuesta apropiada del servidor, indicando que el comando previo ha sido completado. Las funciones de acción son, por lo tanto, inherentemente más flexibles que los mensajes de completación, pero ligeramente menos eficientes debido a la pequeña cantidad de latencia añadida debido al tráfico de mensajes. Las funciones de acción son pasadas al objeto Buffer como argumentos cuando son evaluadas.</p>
+<p class="p2"><br>
+</p>
+<p class="p1">Con los métodos de Buffer que reciben un mensaje de completación, es también posible pasar una función que entrega un mensaje OSC. Como en las funciones de acción, éste será pasado al Buffer como argumento. Es importante comprender, sin embargo, que esta función será evaluada una vez que el Buffer ha sido creado (para que el bufnum (número de buffer) y otros detalles sean accesibles), pero <i>antes </i>de que el mensaje correspondiente sea enviado al servidor.</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>Empaquetamiento</b></p>
+<p class="p2"><br>
+</p>
+<p class="p1">Muchos de los siguientes métodos tienen dos versiones: una normal que envía sus mensajes correspondientes al servidor inmediatamente, y una que devuelve un mensaje en un <a href="../Collections/Array.html"><span class="s1">Array</span></a> para que pueda ser añadido a un paquete. También es posible capturar los mensajes generados por los métodos regulares utilizando las capacidades de empaquetamiento automático del servidor. Ver <a href="Server.html"><span class="s1">Server</span></a> y <a href="bundledCommands.html"><span class="s1">bundledCommands</span></a> para más detalles.</p>
+<p class="p3"><br>
+</p>
+<p class="p1"><b>Accesando variables de instancia</b></p>
+<p class="p2"><br>
+</p>
+<p class="p4">Las siguientes variables tienen métodos de obtención.</p>
+<p class="p5"><br>
+</p>
+<p class="p4"><b>server</b><span class="s2"> – </span>Devuelve el objeto <a href="Server.html"><span class="s1">Server</span></a> del Buffer.</p>
+<p class="p4"><b>bufnum</b> – Devuelve el número del buffer del lado del servidor correspondiente. Normalmente no necesitarás accesar este valor, ya que las instancias de Buffer pueden ser utilizadas directamente como entradas para Ugens o argumentos de Synths.</p>
+<p class="p4"><b>numFrames</b> – Devuelve el número de muestras en el buffer en el servidor. Observa que los buffers multicanal entrelazan sus muestras, así que al lidiar con los indices en métodos como get y getn, el número real de muestras es numFrames * numChannels.</p>
+<p class="p4"><b>numChannels</b> – Devuelve el número de canales en en el buffer correspondiente del servidor. </p>
+<p class="p4"><b>sampleRate</b> – Devuelve la velocidad de muestreo del buffer correspondiente del servidor. </p>
+<p class="p4"><b>path</b> – Devuelve un string que contiene la ruta a un archivo de audio que ha sido cargado al buffer correspondiente del servidor. </p>
+<p class="p5"><br>
+</p>
+<p class="p6">s.boot;</p>
+<p class="p6">b = Buffer.alloc(s,44100 * 8.0,2);</p>
+<p class="p6">b.bufnum.postln;</p>
+<p class="p6">b.free;</p>
+<p class="p3"><br>
+</p>
+<p class="p1"><b>Creación con alocamiento de memoria inmediato.</b></p>
+<p class="p3"><br>
+</p>
+<p class="p4"><b>*alloc(server, numFrames, numChannels, completionMessage, bufnum)</b></p>
+<p class="p7">Crea y devuelve un Buffer e inmediatamente aloca la memoria necesaria en el servidor. Los valores de los Buffers serán inicializados a 0.0.</p>
+<p class="p8"><b>server </b><span class="s2"> </span>- Un servidor en el cual alocar el buffer. Por defecto, será el <a href="Server.html"><span class="s1">Server</span></a> por defecto.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a alocar. El uso real de la memoria corresponderá a numFrames * numChannels.</p>
+<p class="p8"><b>numChannels</b> – El número de canales para el Buffer. El valor por defecto es 1.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devolverá uno. A la Función le será pasado este Buffer como un argumento al ser evaluada.</p>
+<p class="p8"><b>bufnum</b> – Un número de buffer especificado explícitamente. Generalmente, no es necesario.</p>
+<p class="p9">// Alocar un buffer estéreo de 8 segundos:</p>
+<p class="p10">s.boot;</p>
+<p class="p10">b = Buffer.alloc(s, s.sampleRate * 8.0, 2);</p>
+<p class="p10">b.free;</p>
+<p class="p11"><br>
+</p>
+<p class="p7">*<b>allocConsecutive(numBufs, server, numFrames, numChannels, completionMessage, bufnum) </b></p>
+<p class="p11"><br>
+</p>
+<p class="p7">Aloca un rango de buffers numerados consecutivamente, para utilizar con Ugens como <a href="../UGens/Oscillators/VOsc.html"><span class="s1">VOsc</span></a> y<a href="../UGens/Oscillators/VOsc3.html"><span class="s1">VOsc3</span></a> que requieren un bloque de buffers continuos, y devuelve un arreglo de objetos buffer correspondientes.</p>
+<p class="p11"><br>
+</p>
+<p class="p7"><b>numBufs</b> – El número de buffers con índices consecutivos a alocar.</p>
+<p class="p7"><b>server </b><span class="s2"> </span>- El servidor en el cual alocar los buffers. El valor por defecto es el <a href="Server.html"><span class="s1">Server</span></a> por defecto.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a alocar. El uso real de la memoria corresponderá a numFrames * numChannels.</p>
+<p class="p8"><b>numChannels</b> – El número de canales para el Buffer. El valor por defecto es 1.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devolverá uno. A la Función le será pasado cada Buffer y su índice en el arreglo como un argumento al ser evaluada.</p>
+<p class="p8"><b>bufnum</b> – Un número de buffer especificado explícitamente para el buffer inicial. Generalmente, no es necesario.</p>
+<p class="p12"><br>
+</p>
+<p class="p7"><b>N.B.</b> Deberás tratar al arreglo de Buffers como un grupo. Liberar algunos individualmente o reutilizarlos puede resultar en errores de alocamiento. Deberás liberar todos los Buffers en el arreglo en el mismo momento, iterando a través del con <b>do</b>.</p>
+<p class="p13"><br>
+</p>
+<p class="p6">s.boot;</p>
+<p class="p14">// alocar un arreglo de buffers y llenarlo con armónicos diferentes</p>
+<p class="p6">(</p>
+<p class="p6">b = Buffer.allocConsecutive(8, s, 4096, 1, { |buf, i|</p>
+<p class="p6">buf.sine1Msg((1..((i+1)*6)).reciprocal) //mensajes de completación</p>
+<p class="p6">});</p>
+<p class="p6">a = { VOsc.ar(SinOsc.kr(0.5, 0).range(b.first.bufnum + 0.1, b.last.bufnum - 0.1),</p>
+<p class="p6">[440, 441], 0, 0.2) }.play;</p>
+<p class="p6">)</p>
+<p class="p6">a.free; </p>
+<p class="p14">// iterar el arreglo y liberarlo</p>
+<p class="p15">b.do(_.free);</p>
+<p class="p11"><br>
+</p>
+<p class="p7"><b>*read(server, path, startFrame, numFrames, action, bufnum)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p1">Aloca un buffer e inmediatamente lee un archivo de sonido en él. Este método envía un mensaje pregunta (query) como un mensaje de completación para que las instancias de variable del Buffer sean actualizadas automáticamente. <b>N.B.</b> No puedes esperar que las variables del buffer sean actualizadas inmediatamente, ya que hay una pequeña cantidad de latencia involucrada. <b>action </b>será evaluada al recibir la respuesta al mensaje pregunta (query), así que utiliza este método en casos donde se necesita acceso a las variables de instancia.</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>server </b> - El servidor en el cual alocar el buffer.</p>
+<p class="p8"><b>path</b> - Una <b>String</b> (secuencia de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de audio a ser leida. El valor por defecto es 0, que es el inicio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, que leerá el archivo completo.</p>
+<p class="p8"><b>action</b> – Una Función a ser evaluada una vez que el archivo ha sido leido y las instancias de variable del Buffer han sido actualizadas. A esta función le será pasado el Buffer como argumento.</p>
+<p class="p8"><b>bufnum</b> – Un número de buffer especificado explícitamente. Generalmente esto no es necesario.</p>
+<p class="p16">// leer un archivo de sonido</p>
+<p class="p17">s.boot;</p>
+<p class="p18">b = Buffer.read(s, "sounds/a11wlk01.wav");</p>
+<p class="p16">// ahora, reproducirlo</p>
+<p class="p17">(</p>
+<p class="p17">x = SynthDef(\help_Buffer, { arg out = 0, bufnum;</p>
+<p class="p17">Out.ar( out,</p>
+<p class="p17">PlayBuf.ar(1, bufnum, BufRateScale.kr(bufnum))</p>
+<p class="p17">)</p>
+<p class="p17">}).play(s,[\bufnum, b]);</p>
+<p class="p17">)</p>
+<p class="p17">x.free; b.free;</p>
+<p class="p16">// con una función 'action'</p>
+<p class="p16">// observa que las variables no son inmediatamente actualizadas</p>
+<p class="p17">(</p>
+<p class="p17">b = Buffer.read(s, "sounds/a11wlk01.wav", action: { arg buffer; </p>
+<p class="p17">("After update:" + buffer.numFrames).postln;</p>
+<p class="p17">x = { PlayBuf.ar(1, buffer, BufRateScale.kr(buffer)) }.play;</p>
+<p class="p17">});</p>
+<p class="p17">("Before update:" + b.numFrames).postln;</p>
+<p class="p17">)</p>
+<p class="p17">x.free; b.free;</p>
+<p class="p19"><br>
+</p>
+<p class="p7"><b>*readChannel(server, path, startFrame, numFrames, channels, action, bufnum)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p7">Como <b>*read</b> arriba, pero recibe un arreglo de índices de canal para realizar la lectura, permitiendo leer los canales seleccionados.</p>
+<p class="p8"><b>server </b> - El servidor en el cual alocar el buffer.</p>
+<p class="p8"><b>path</b> - Una <b>String</b> (secuencia de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de audio a ser leida. El valor por defecto es 0, que es el inicio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, que leerá el archivo completo.</p>
+<p class="p8"><b>channels</b> – Un arreglo de canales a ser leidos del archivo de sonido. Los índices empiezan a partir de cero. Éstos serán leídos en el orden provisto.</p>
+<p class="p8"><b>action</b> – Una Función a ser evaluada una vez que el archivo ha sido leido y las instancias de variable del Buffer han sido actualizadas. A esta función le será pasado el Buffer como argumento.</p>
+<p class="p8"><b>bufnum</b> – Un número de buffer especificado explícitamente. Generalmente esto no es necesario.</p>
+<p class="p17">s.boot;</p>
+<p class="p16">// primero realizaremos una lectura estándar para ver qué contiene el</p>
+<p class="p16">// archivo.</p>
+<p class="p18">b = Buffer.read(s, "sounds/SinedPink.aiff");</p>
+<p class="p16">// "sounds/SinedPink.aiff" contiene un SinOsc en el canal izquierdo, PinkNoise en el derecho</p>
+<p class="p17">b.plot;</p>
+<p class="p17">b.free;</p>
+<p class="p16">// Ahora sólo el SinOsc</p>
+<p class="p17">b = Buffer.readChannel(s, "sounds/SinedPink.aiff", channels: [0]);</p>
+<p class="p17">b.plot;</p>
+<p class="p17">b.free;</p>
+<p class="p16">// Ahora sólo el Pink Noise.</p>
+<p class="p17">b = Buffer.readChannel(s, "sounds/SinedPink.aiff", channels: [1]);</p>
+<p class="p17">b.plot;</p>
+<p class="p17">b.free;</p>
+<p class="p16">// Ahora, invertir el orden de los canales</p>
+<p class="p17">b = Buffer.readChannel(s, "sounds/SinedPink.aiff", channels: [1, 0]);</p>
+<p class="p17">b.plot;</p>
+<p class="p17">b.free;</p>
+<p class="p19"><br>
+</p>
+<p class="p4"><b>*readNoUpdate(server, path, startFrame, numFrames, completionMessage, bufnum)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p7">Tal como <b>*read</b> arriba, pero sin la actualización automática de las variables de instancia. Llama el método <b>updateInfo </b>(ver abajo) para actualizar las variables.</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>server </b> - El servidor en el cual alocar el buffer.</p>
+<p class="p8"><b>path</b> - Una <b>String</b> (secuencia de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de audio a ser leida. El valor por defecto es 0, que es el inicio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, que leerá el archivo completo.</p>
+<p class="p8"><b>completionMessage – </b>Un mensaje OSC válido o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devolverá uno. A esta función le será pasado el Buffer como argumento.</p>
+<p class="p8"><b>bufnum – </b>Un número de buffer especificado explícitamente. Generalmente esto no es necesario.</p>
+<p class="p16">// con un mensaje de completación</p>
+<p class="p17">s.boot;</p>
+<p class="p17">(</p>
+<p class="p17">SynthDef(\help_Buffer,{ arg out=0, bufnum;</p>
+<p class="p17">Out.ar( out,</p>
+<p class="p17">PlayBuf.ar(1,bufnum,BufRateScale.kr(bufnum))</p>
+<p class="p17">)</p>
+<p class="p17">}).send(s);</p>
+<p class="p17">y = Synth.basicNew(\help_Buffer); // no ha sido enviado todavía</p>
+<p class="p17">b = Buffer.readNoUpdate(s,"sounds/a11wlk01.wav", </p>
+<p class="p17">completionMessage: { arg buffer;</p>
+<p class="p16">// el mensaje para crear un nuevo synth a ser enviado</p>
+<p class="p16">// una vez que la lectura del buffer ha sido completada.</p>
+<p class="p17">y.newMsg(s,[\bufnum, buffer],\addToTail)</p>
+<p class="p17">});</p>
+<p class="p17">)</p>
+<p class="p16">// observa que las variables no son precisas</p>
+<p class="p17">b.numFrames; // nil</p>
+<p class="p17">b.updateInfo;</p>
+<p class="p17">b.numFrames; // 188893</p>
+<p class="p16">// al terminar.....</p>
+<p class="p17">y.free;</p>
+<p class="p17">b.free;</p>
+<p class="p8"><b>*cueSoundFile(server, path, startFrame, numChannels, bufferSize, completionMessage)</b></p>
+<p class="p8">Alocar un buffer y precargar un archivo de sonido para ser transmitido (streamed) utilizando <a href="../UGens/Playback and Recording/DiskIn.html"><span class="s1">DiskIn</span></a>.</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>server </b> - El servidor en el cual alocar el buffer.</p>
+<p class="p8"><b>path</b> - Una <b>String</b> (secuencia de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de audio a ser leida. El valor por defecto es 0, que es el inicio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, que leerá el archivo completo.</p>
+<p class="p8"><b>completionMessage – </b>Un mensaje OSC válido o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devolverá uno. A esta función le será pasado el Buffer como argumento.</p>
+<p class="p8"><b>bufnum – </b>Un número de buffer especificado explícitamente. Generalmente esto no es necesario.s.boot;</p>
+<p class="p17">(</p>
+<p class="p17">SynthDef(\help_Buffer_cue,{ arg out=0,bufnum;</p>
+<p class="p17">Out.ar(out,</p>
+<p class="p17">DiskIn.ar( 1, bufnum )</p>
+<p class="p17">)</p>
+<p class="p17">}).send(s);</p>
+<p class="p17">)</p>
+<p class="p17">(</p>
+<p class="p17">s.makeBundle(nil, {</p>
+<p class="p17">b = Buffer.cueSoundFile(s,"sounds/a11wlk01-44_1.aiff", 0, 1);</p>
+<p class="p20">y = Synth(\help_Buffer_cue, [\bufnum, b], s);</p>
+<p class="p17">});</p>
+<p class="p17">)</p>
+<p class="p17">b.free; y.free;</p>
+<p class="p19"><br>
+</p>
+<p class="p4"><b>*loadCollection(server, collection, numChannels, action)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p7">Cargar una colección grande a un buffer en el servidor. Devuelve un objeto Buffer. Esto se logra escribiendo la colección en un <a href="../Files/SoundFile.html"><span class="s1">SoundFile</span></a> y cargándola desde ahí. Por esta razón, este método sólo funcionará con un servidor en tu computadora local. Para un servidor remoto utiliza <b>*sendCollection</b>, debajo. El archivo es automáticamente borrado después de ser cargado. Esto permite el uso de colecciones más grandes que <b>setn</b>, debajo, y es en general la manera más segura de introducir una colección grande en un buffer. La velocidad de muestreo del buffer será la del servidor en el cual fue creado.</p>
+<p class="p2"><br>
+</p>
+<p class="p8"><b>server </b> - El servidor en el cual crear el buffer.</p>
+<p class="p8"><b>collection</b><span class="s2"> – </span>Una subclase de <a href="../Collections/Collection.html"><span class="s1">Collection</span></a> (p.ej. un <a href="../Collections/Array.html"><span class="s1">Array</span></a>) conteniendo sólo valores enteros y de punto flotante. Los arreglos multidimensionales no funcionarán.</p>
+<p class="p8"><b>numChannels –</b> El número de canales que el buffer debe tener. Observa que los buffers entrelazan los datos multicanal. Tú eres responsable de proveer un una colección entrelazada si es necesario. Los arreglos multidimensionals no funcionarán.</p>
+<p class="p8"><b>action</b> – Una función a ser evaluada una vez que el archivo ha sido leido y las variables de instancia de este buffer han sido actualizadas. A la función le será pasado el Buffer como argumento.</p>
+<p class="p17">s.boot;</p>
+<p class="p6">(</p>
+<p class="p6">a = FloatArray.fill(44100 * 5.0, {1.0.rand2});</p>
+<p class="p6">// 5 segundos de ruido</p>
+<p class="p6">b = Buffer.loadCollection(s, a);</p>
+<p class="p6">)</p>
+<p class="p14">// probarlo</p>
+<p class="p6">b.get(20000,{|msg| (msg == a[20000]).postln});</p>
+<p class="p14">// tocarlo</p>
+<p class="p6">x = { PlayBuf.ar(1, b, BufRateScale.kr(b), loop: 0) * 0.5 }.play;</p>
+<p class="p6">b.free; x.free;</p>
+<p class="p14">// entrelazar un arreglo multidimensional</p>
+<p class="p6">(</p>
+<p class="p6">l = Signal.sineFill(16384, Array.fill(200, {0}).add(1));</p>
+<p class="p6">r = Array.fill(16384, {1.0.rand2});</p>
+<p class="p14">m = [Array.newFrom(l), r]; // un arreglo multidimensional</p>
+<p class="p14">m = m.lace(32768); // entrelazar las dos colecciones</p>
+<p class="p6">b = Buffer.loadCollection(s, m, 2, {|buf|</p>
+<p class="p6">x = { PlayBuf.ar(2, buf, BufRateScale.kr(buf), loop: 1) * 0.5 }.play;</p>
+<p class="p6">});</p>
+<p class="p6">)</p>
+<p class="p6">b.plot;</p>
+<p class="p6">x.free; b.free;</p>
+<p class="p4"><b>*sendCollection(server, collection, numChannels, wait, action)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p7">Transmite (Streams) una colección grande a un buffer en el servidor utilizando múltiples mensajes <b>setn</b>, debajo. Esto no es tan seguro como <b>*loadCollection</b>, arriba, pero servirá para servidores en ordenadores remotos. La velocidad de muestreo será la del servidor en la cual fue creado.</p>
+<p class="p8"><b>server </b> - El servidor en el cual crear el buffer.</p>
+<p class="p8"><b>collection</b><span class="s2"> – </span>Una subclase de <a href="../Collections/Collection.html"><span class="s1">Collection</span></a> (p.ej. un <a href="../Collections/Array.html"><span class="s1">Array</span></a>) conteniendo sólo valores enteros y de punto flotante. Los arreglos multidimensionales no funcionarán.</p>
+<p class="p8"><b>numChannels –</b> El número de canales que el buffer debe tener. Observa que los buffers entrelazan los datos multicanal. Tú eres respónsable de proveer un una colección entrelazada si es necesario. Los arreglos multidimensionals no funcionarán.</p>
+<p class="p8"><b>wait – </b>Un tiempo de espera opcional entre el envío de mensajes <b>setn</b>. En una situación de mucho tráfico, puede ser más seguro asignar un valor mayor a 0 (el valor por defecto) a este parámetro.</p>
+<p class="p8"><b>action</b><span class="s2"> – </span>Una función (<a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a>) a ser evaluada una vez que el archivo ha sido leido y las variables de instancia de este buffer han sido actualizadas. A la función le será pasado el Buffer como argumento.</p>
+<p class="p12"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p6">(</p>
+<p class="p6">a = Array.fill(2000000,{ rrand(0.0,1.0) });</p>
+<p class="p6">// una colección GRANDE</p>
+<p class="p6">b = Buffer.sendCollection(s, a, 1, 0, {arg buf; "finished".postln;});</p>
+<p class="p6">)</p>
+<p class="p6">b.get(1999999, {|msg| (msg == a[1999999]).postln});</p>
+<p class="p6">b.free;</p>
+<p class="p8"><b>*loadDialog(server, startFrame, numFrames, action, bufnum)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p7">Tal como <b>*read</b> arriba, pero te devuelve una ventana de diálogo para buscar y cargar un archivo. Compatible con Cocoa y SwingOSC.</p>
+<p class="p8"><b>server </b> - El servidor en el cual alocar el buffer.</p>
+<p class="p8"><b>path</b> - Una <b>String</b> (secuencia de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de audio a ser leida. El valor por defecto es 0, que es el inicio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, que leerá el archivo completo.</p>
+<p class="p8"><b>action – </b>Una <b>Función</b> a ser evaluada una vez que el archivo ha sido leido y que las variables de instancia del buffer han sido actualizadas. A la función le será pasado este Buffer como argumento.</p>
+<p class="p8"><b>bufnum – </b>Un número de buffer especificado explícitamente. Generalmente esto no es necesario.</p>
+<p class="p19"><br>
+</p>
+<p class="p19"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p17">(</p>
+<p class="p17">b = Buffer.loadDialog(s, action: { arg buffer; </p>
+<p class="p17">x = { PlayBuf.ar(buffer.numChannels, buffer, BufRateScale.kr(buffer)) }.play;</p>
+<p class="p17">});</p>
+<p class="p17">)</p>
+<p class="p17">x.free; b.free;</p>
+<p class="p1"><b>Creación sin alocamiento inmediato de memoria</b></p>
+<p class="p3"><br>
+</p>
+<p class="p8"><b>*new(server, numFrames, numChannels, bufnum)</b></p>
+<p class="p7">Crea y devuelve un nuevo objeto buffer, sin inmediatamente alocar la memoria correspondiente en el servidor. Esto, en combinación con los métodos de 'mensaje', puede ser muy flexible para utilizar paquetes.</p>
+<p class="p8"><b>server </b><span class="s2"> </span>- El servidor en el cual alocar el buffer. El valor por defecto es el <a href="Server.html"><span class="s1">Server</span></a> por defecto.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a alocar. La memoria usada corresponderá a numFrames * numChannels.</p>
+<p class="p8"><b>numChannels</b> – El número de canales para el Buffer. El valor por defecto es 1.</p>
+<p class="p8"><b>bufnum</b> – Un número de buffer explícitamente especificado. Generalmente esto no es necesario.</p>
+<p class="p17">s.boot;</p>
+<p class="p17">b = Buffer.new(s, 44100 * 8.0, 2);</p>
+<p class="p17">c = Buffer.new(s, 44100 * 4.0, 2);</p>
+<p class="p16">b.query; // numFrames = 0</p>
+<p class="p17">s.sendBundle(nil, b.allocMsg, c.allocMsg); // enviar ambos al mismo tiempo</p>
+<p class="p16">b.query; // ahora es correcto</p>
+<p class="p17">c.query;</p>
+<p class="p17">b.free; c.free;</p>
+<p class="p1"><b>alloc(completionMessage)</b></p>
+<p class="p1"><b>allocMsg(completionMessage)</b></p>
+<p class="p7">Aloca la memoria necesaria en el servidor para un Buffer previamente creado con <b>*new</b>, arriba.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p17">s.boot;</p>
+<p class="p17">b = Buffer.new(s, 44100 * 8.0, 2);</p>
+<p class="p16">b.query; // numFrames = 0</p>
+<p class="p17">b.alloc;</p>
+<p class="p16">b.query; // numFrames = 352800</p>
+<p class="p17">b.free;</p>
+<p class="p12"><br>
+</p>
+<p class="p1"><b>allocRead(argpath, startFrame, numFrames, completionMessage)</b></p>
+<p class="p1"><b>allocReadMsg(argpath, startFrame, numFrames, completionMessage)</b></p>
+<p class="p7">Leer un archivo de sonido en un buffer en el servidor para un Buffer previamente creado con <b>*new</b>, arriba. Observa que esto no actualizará las variables de instancia. Llama el método <b>updateInfo</b> para lograr esto.</p>
+<p class="p11"><br>
+</p>
+<p class="p8"><b>argpath</b><span class="s2"> </span>- Una <a href="../Collections/String.html"><span class="s1">String</span></a> (cadena de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de sonido a leer. El valor por defecto es 0, que es el principio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, lo cual leerá el archivo completo.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p17">s.boot;</p>
+<p class="p17">b = Buffer.new(s);</p>
+<p class="p18">b.allocRead("sounds/a11wlk01.wav");</p>
+<p class="p17">x = { PlayBuf.ar(1, b, BufRateScale.kr(b), loop: 1) * 0.5 }.play;</p>
+<p class="p17">x.free; b.free;</p>
+<p class="p12"><br>
+</p>
+<p class="p1"><b>allocReadChannel(argpath, startFrame, numFrames, channels, completionMessage)</b></p>
+<p class="p1"><b>allocReadChannelMsg(argpath, startFrame, numFrames, channels, completionMessage)</b></p>
+<p class="p7">Tal como <b>allocRead</b> arriba, pero te permite especificar qué canales leer.</p>
+<p class="p8"><b>argpath</b><span class="s2"> </span>- Una <a href="../Collections/String.html"><span class="s1">String</span></a> (cadena de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de sonido a leer. El valor por defecto es 0, que es el principio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, lo cual leerá el archivo completo.</p>
+<p class="p8"><b>channels</b><span class="s2"> – </span>Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> de canales a ser leidos a partir del archivo de sonido. Los índices inician a partir de cero. Éstos serán leidos en el orden provisto.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p17">s.boot;</p>
+<p class="p17">b = Buffer.new(s);</p>
+<p class="p16">// leer sólo el primer canal (una onda sinusoidal) de un archivo estéreo</p>
+<p class="p17">b.allocReadChannel("sounds/SinedPink.aiff", channels: [0]);</p>
+<p class="p17">x = { PlayBuf.ar(1, b, BufRateScale.kr(b), loop: 1) * 0.5 }.play;</p>
+<p class="p17">x.free; b.free;</p>
+<p class="p1"><b>Métodos de Instancia</b></p>
+<p class="p8"><b>read(path, fileStartFrame, numFrames, bufStartFrame, leaveOpen, action);</b></p>
+<p class="p8"><b>readMsg(path, fileStartFrame, numFrames, bufStartFrame, leaveOpen, completionMessage);</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Leer un archivo de sonido en un buffer ya alocado. Observa que si el número de muestras en el archivo es mayor que el número de muestras en el buffer, será truncado. Observa que <b>readMsg</b> no actualizará automáticamente las variables de instancia. Llama al método <b>updateInfo</b> para lograr esto.</p>
+<p class="p8"><b>path</b><span class="s2"> </span>- Una <a href="../Collections/String.html"><span class="s1">String</span></a> (cadena de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>fileStartFrame</b> – La primera muestra del archivo de sonido a leer. El valor por defecto es 0, que es el principio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, lo cual leerá el archivo completo.</p>
+<p class="p8"><b>bufStartFrame</b> – El índice de la muestra en el buffer en la cual empezar la lectura. El valor por defecto es 0, que es el inicio del buffer.</p>
+<p class="p8"><b>leaveOpen</b><span class="s2"> – </span>Una variable boolean que indica si el Buffer debe ser dejado 'abierto' o no. Para ser utilizado con <a href="../UGens/Playback and Recording/DiskIn.html"><span class="s1">DiskIn</span></a> debería ser 'true' (verdadero), ya que el buffer será utilizado para transmitir (streaming) el archivo de audio desde el disco. (Para esto el buffer deberá haber sido alocado con un múltiplo de (2 * synth block size). Un número común es 32768 muestras. <b>cueSoundFile</b><span class="s2"> </span>debajo, proporciona una forma más simple de realizar esto. El valor por defecto es 'false' que es el valor correcto para todos los demás casos.</p>
+<p class="p8"><b>action – </b>Una Función a ser evaluada una vez que el archivo ha sido leido y que las variables de instancia del buffer han sido actualizadas. A la función le será pasado este Buffer como argumento.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p8"><b>readChannel(path, fileStartFrame, numFrames, bufStartFrame, leaveOpen, channels, action);</b></p>
+<p class="p8"><b>readChannelMsg(path, fileStartFrame, numFrames, bufStartFrame, leaveOpen, channels, completionMessage);</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Tal como <b>read</b> arriba, pero te permite especificar cuáles canales leer.</p>
+<p class="p8"><b>path</b><span class="s2"> </span>- Una <a href="../Collections/String.html"><span class="s1">String</span></a> (cadena de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>fileStartFrame</b> – La primera muestra del archivo de sonido a leer. El valor por defecto es 0, que es el principio del archivo.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a leer. El valor por defecto es -1, lo cual leerá el archivo completo.</p>
+<p class="p8"><b>bufStartFrame</b> – El índice de la muestra en el buffer en la cual empezar la lectura. El valor por defecto es 0, que es el inicio del buffer.</p>
+<p class="p8"><b>leaveOpen</b><span class="s2"> – </span>Una variable boolean que indica si el Buffer debe ser dejado 'abierto' o no. Para ser utilizado con <a href="../UGens/Playback and Recording/DiskIn.html"><span class="s1">DiskIn</span></a> debería ser 'true' (verdadero), ya que el buffer será utilizado para transmitir (streaming) el archivo de audio desde el disco. (Para esto el buffer deberá haber sido alocado con un múltiplo de (2 * synth block size). Un número común es 32768 muestras. <b>cueSoundFile</b><span class="s2"> </span>debajo, proporciona una forma más simple de realizar esto. El valor por defecto es 'false' que es el valor correcto para todos los demás casos.</p>
+<p class="p8"><b>channels</b><span class="s2"> – </span>Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> de canales a ser leidos del archivo de sonido. Los índices empiezan desde cero. Éstos serán leidos en el orden proporcionado. El número de canales solicitados debe corresponder al valor <b>numChannels </b>del Buffer.</p>
+<p class="p8"><b>action – </b>Una Función a ser evaluada una vez que el archivo ha sido leido y que las variables de instancia del buffer han sido actualizadas. A la función le será pasado este Buffer como argumento.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p8"><b>cueSoundFile(path, startFrame, completionMessage)</b></p>
+<p class="p8"><b>cueSoundFileMsg(path, startFrame, completionMessage)</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Un método de conveniencia para colocar un archivo de sonido en un buffer utilizando <a href="../UGens/Playback and Recording/DiskIn.html"><span class="s1">DiskIn</span></a>. El buffer deberá haber sido alocado con un número de muestras que sea múltiplo de (2 * the server's block size) frames. Un número común es 32768 muestras.</p>
+<p class="p8"><b>path</b><span class="s2"> </span>- Una <a href="../Collections/String.html"><span class="s1">String</span></a> (cadena de caracteres) representando la ruta del archivo de sonido a leer.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de sonido a ser leida. El valor por defecto es 0, que es el inicio del archivo.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p17">s.boot;</p>
+<p class="p16">// crear con el metodo cueSondFile</p>
+<p class="p17">b = Buffer.cueSoundFile(s, "sounds/a11wlk01-44_1.aiff", 0, 1);</p>
+<p class="p6">x = { DiskIn.ar(1, b) }.play;</p>
+<p class="p14">b.close; // se debe llamar el metodo 'close' antes de cargar el archivo</p>
+<p class="p14">// ahora usado como con el metodo de instancias nombradas, pero con argumentos distintos</p>
+<p class="p21">b.cueSoundFile("sounds/a11wlk01-44_1.aiff");</p>
+<p class="p14">// se tiene que hacer todo lo siguiente para limpiar adecuadamente!</p>
+<p class="p6">x.free; b.close; b.free;</p>
+<p class="p8"><b>write(path, headerFormat, sampleFormat, numFrames, startFrame, leaveOpen, completionMessage)</b></p>
+<p class="p8"><b>writeMsg(path, headerFormat, sampleFormat, numFrames, startFrame, leaveOpen, completionMessage)</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Escribe los contenidos del buffer en un archivo. Ver <a href="../Files/SoundFile.html"><span class="s1">SoundFile</span></a> para información acerca del los parámetros válidos para <b>headerFormat</b><span class="s2"> </span>y <b>sampleFormat</b>.</p>
+<p class="p8"><b>path</b><span class="s2"> </span>- Una <a href="../Collections/String.html"><span class="s1">String</span></a> (cadena de caracteres) representando la ruta del archivo de sonido a escribir.</p>
+<p class="p8">Si no se proporciona una ruta, Buffer escribirá al directorio por defecto con un nombre genérico.</p>
+<p class="p8"><b>numFrames –</b> El número de muestras a escribir. El valor por defecto es -1, que es el buffer completo.</p>
+<p class="p8"><b>startFrame</b> – El índice de la muestra en el buffer a partir de la cual empezar a escribir. El valor por defecto es 0, que es el inicio del buffer.</p>
+<p class="p8"><b>leaveOpen</b><span class="s2"> – </span>Una variable boolean que indica si el Buffer debe ser dejado 'abierto' o no. Para ser utilizado con <a href="../UGens/Playback and Recording/DiskIn.html"><span class="s1">DiskIn</span></a> debería ser 'true' (verdadero).El valor por defecto es 'false' que es el valor correcto para todos los demás casos.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p8"><b>free(completionMessage)</b></p>
+<p class="p8"><b>freeMsg(completionMessage)</b></p>
+<p class="p7">Libera la memoria del buffer en el servidor y devuelve la ID del buffer al alocador de números de buffer del servidor para uso futuro.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>zero(completionMessage)</b></p>
+<p class="p8"><b>zeroMsg(completionMessage)</b></p>
+<p class="p8">Asigna 0.0 a todos los valores de este buffer.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p8"><b>set(index,float ... morePairs)</b></p>
+<p class="p8"><b>setMsg(index,float ... morePairs)</b></p>
+<p class="p7">Asigna el valor localizado en <b>index </b>en el buffer a ser igual a <b>float</b>. Pares adicionales de índices y valores pueden ser incluidos en el mismo mensaje. Observa que los buffers multicanal interlazan los datos de sus muestras, por lo que el número actual de valores disponibles es igual a numFrames * numChannels. Los índices comienzan en 0.</p>
+<p class="p17">s.boot;</p>
+<p class="p17">b = Buffer.alloc(s, 4, 2);</p>
+<p class="p16">b.set(0, 0.2, 1, 0.3, 7, 0.4); // asigna los valores en los índices 0,1 y 7</p>
+<p class="p17">b.getn(0, 8, {|msg| msg.postln});</p>
+<p class="p17">b.free;</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>setn(startAt,values ... morePairs)</b></p>
+<p class="p8"><b>setnMsg(startAt,values ... morePairs)</b></p>
+<p class="p7">Asigna un rango continuo de valores en el buffer, comenzando a partir del índice <b>startAt</b><span class="s2"> </span>a ser igual a un <a href="../Collections/Array.html"><span class="s1">Array</span></a> values de<span class="s2"> </span>valores de punto flotante o enteros. El número de valores asignados corresponde al tamaño de <b>values.</b><span class="s2"> </span>Pares adicionales de indices iniciales y arreglos de valores podrán ser incluidos en el mismo mensaje. Observa que los buffers multicanal entrelazan los datos de las muestras, por lo que el número de valores disponibles es igual a numFrames * numChannels. Eres responsable para entrelazar los datos en <b>values </b>si es necesario. Los arreglos multidimensionales no funcionan. Los índices empiezan en 0.</p>
+<p class="p7"><b>N.B.</b> El número máximo de valores que pueden ser asignados con un mensjae setn único es 1633 cuando el servidor está usando UDP como protocolo de comunicación. Utiliza <b>loadCollection</b> y <b>sendCollection</b> para asignar rangos más grandes de valores.</p>
+<p class="p17">s.boot;</p>
+<p class="p17">b = Buffer.alloc(s,16);</p>
+<p class="p17">b.setn(0, Array.fill(16, { rrand(0,1) }));</p>
+<p class="p17">b.getn(0, b.numFrames, {|msg| msg.postln});</p>
+<p class="p17">b.setn(0, [1, 2, 3], 4, [1, 2, 3]);</p>
+<p class="p17">b.getn(0, b.numFrames, {|msg| msg.postln});</p>
+<p class="p17">b.free;</p>
+<p class="p22"><br>
+</p>
+<p class="p4"><b>loadCollection(collection, startFrame, action)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p7">Cargar una colección grande en este buffer. Esto se logra escribiendo la colección en un <a href="../Files/SoundFile.html"><span class="s1">SoundFile</span></a> y cargándola desde ahí. Para un servidor remoto utiliza <b>sendCollection,</b><span class="s2"> </span>debajo. El archivo es borrado automáticamente después de cargar. Esto permite el uso de colecciones más grandes que <b>setn</b>, arriba, y es en general la manera más segura de introducir una colección grande en un buffer. La velocidad de muestreo del buffer será la del servidor en el cual fue creado. El número de canales y muestras será determinado en el momento de creación del buffer. Eres responsable de cerciorarte que el tamaño de la <b>collection</b><span class="s2"> </span>no sea mayor que <b>numFrames</b>, y de entrelazar los datos si es necesario.</p>
+<p class="p8"><b>collection</b><span class="s2"> – </span>Una subclase de <a href="../Collections/Collection.html"><span class="s1">Collection</span></a> (p.ej. un <a href="../Collections/Array.html"><span class="s1">Array</span></a>) conteniendo sólo valores enteros y de punto flotante. Los arreglos multidimensionales no funcionarán.</p>
+<p class="p8"><b>startFrame</b> – La primera muestra del archivo de audio a ser leida. El valor por defecto es 0, que es el inicio del archivo.</p>
+<p class="p8"><b>action</b><span class="s3"> – </span>Una función (<a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a>) a ser evaluada una vez que el archivo ha sido leido y las variables de instancia de este buffer han sido actualizadas. A la función le será pasado el Buffer como argumento.</p>
+<p class="p17">s.boot;</p>
+<p class="p6">(</p>
+<p class="p6">v = Signal.sineFill(128, 1.0/[1,2,3,4,5,6]);</p>
+<p class="p6">b = Buffer.alloc(s, 128);</p>
+<p class="p6">)</p>
+<p class="p6">(</p>
+<p class="p6">b.loadCollection(v, action: {|buf| </p>
+<p class="p6">x = { PlayBuf.ar(buf.numChannels, buf, BufRateScale.kr(buf), loop: 1) </p>
+<p class="p6">* 0.2 }.play;</p>
+<p class="p6">});</p>
+<p class="p6">)</p>
+<p class="p6">x.free; b.free;</p>
+<p class="p14">// entrelazar un arreglo multidimensional</p>
+<p class="p6">(</p>
+<p class="p6">l = Signal.sineFill(16384, Array.fill(200, {0}).add(1));</p>
+<p class="p6">r = Array.fill(16384, {1.0.rand2});</p>
+<p class="p14">m = [Array.newFrom(l), r]; // un arreglo multidimensional</p>
+<p class="p14">m = m.lace(32768); // entrelazar las dos colecciones</p>
+<p class="p6">b = Buffer.alloc(s, 16384, 2);</p>
+<p class="p6">)</p>
+<p class="p6">(</p>
+<p class="p6">b.loadCollection(m, 0, {|buf|</p>
+<p class="p6">x = { PlayBuf.ar(2, buf, BufRateScale.kr(buf), loop: 1) * 0.5 }.play;</p>
+<p class="p6">});</p>
+<p class="p6">)</p>
+<p class="p6">b.plot;</p>
+<p class="p6">x.free; b.free;</p>
+<p class="p4"><b>sendCollection(collection, startFrame, wait, action)</b></p>
+<p class="p5"><br>
+</p>
+<p class="p7">Transmite (Stream) una colección grande a este buffer utilizando múltiples mensajes <b>setn</b>. Esto permite colecciones más grandes que <b>setn</b>. No es tan seguro como <b>loadCollection</b>, arriba, pero funcionará con servidores en máquinas remotas. La velocidad de muestreo será del servidor en la que el buffer fue creado.</p>
+<p class="p2"><br>
+</p>
+<p class="p8"><b>collection</b><span class="s3"> – </span>Una subclase de <a href="../Collections/Collection.html"><span class="s1">Collection</span></a> (p.ej. un <a href="../Collections/Array.html"><span class="s1">Array</span></a>) conteniendo sólo valores enteros y de punto flotante. Los arreglos multidimensionales no funcionarán.</p>
+<p class="p8"><b>startFrame </b>- El índice de la muestra a partir de la cual empezar a transmitir a la colecciónl. El valor por defecto es 0, que es el inicio del buffer.</p>
+<p class="p8"><b>wait</b> – Un tiempo opcional de espera entre envíos sucesivos del mensaje <b>setn</b>. En una situación con mucho tráfico, podría ser más seguro asignar un valor mayor a cero, que es el valor por defecto.</p>
+<p class="p8"><b>action</b><span class="s2"> – </span>Una función (<a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a>) a ser evaluada una vez que el archivo ha sido leido y las variables de instancia de este buffer han sido actualizadas. A la función le será pasado el Buffer como argumento.</p>
+<p class="p6">s.boot;</p>
+<p class="p6">(</p>
+<p class="p6">a = Array.fill(2000000,{ rrand(0.0,1.0) });</p>
+<p class="p6">b = Buffer.alloc(s, 2000000);</p>
+<p class="p6">)</p>
+<p class="p6">b = b.sendCollection(a, action: {arg buf; "finished".postln;});</p>
+<p class="p6">b.get(1999999, {|msg| (msg == a[1999999]).postln});</p>
+<p class="p6">b.free;</p>
+<p class="p8"><b>get(index, action)</b></p>
+<p class="p8"><b>getMsg(index)</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Envía un mensaje solicitando el valor en un <b>index</b><span class="s2"> </span>del buffer. <b>action </b>es una función (<a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a>) a la que le será pasado el valor como argumento, y que será evaluada cuando la respuesta sea recibida.</p>
+<p class="p15">s.boot;</p>
+<p class="p17">b = Buffer.alloc(s,16);</p>
+<p class="p17">b.setn(0, Array.fill(16, { rrand(0.0, 1.0) }));</p>
+<p class="p17">b.get(0, {|msg| msg.postln});</p>
+<p class="p17">b.free;</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>getn(index, count, action)</b></p>
+<p class="p8"><b>getMsg(index, count)</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Envía un mensaje solicitando un rango contínuo de valores de tamaño <b>count</b><span class="s2"> </span>comenzando a partir de <b>index</b>. <b>action </b>es una función (<a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a>) a la que le serán pasados los valores en un arreglo como argumento, y que será evaluada cuando la respuesta sea recibida. Ver <b>setn</b><span class="s2"> </span>arriba para un ejemplo.</p>
+<p class="p11"><br>
+</p>
+<p class="p7"><b>N.B.</b> El número máximo de valores que se pueden obtener con un único mensjae <b>getn</b> es 1633 cuando el servidor utiliza UDP como protocolo de comunicación. Utiliza <b>loadToFloatArray</b> y <b>getToFloatArray</b> para obtener rangos más grandes de números.</p>
+<p class="p11"><br>
+</p>
+<p class="p7"><b>loadToFloatArray(index, count, action)</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Escribe el buffer a un archivo y luego lo carga a un <a href="../Collections/FloatArray.html"><span class="s1">FloatArray</span></a>. Es más seguro que <b>getToFloatArray</b><span class="s2"> </span>pero sólo funciona para un servidor en tu máquina local. En general es la manera más sencilla de obtener un rango grande de valores de un servidor en el buffer a la aplicación del cliente.</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>index</b> – El índice en el buffer a partir del cual empezar a escribir. El valor por defecto es 0.</p>
+<p class="p8"><b>count</b> – El número de valores a escoger. El número por defecto es -1, el cual escribe a partir del índice inicial hasta el final del buffer.</p>
+<p class="p8"><b>action</b><span class="s2"> – </span>Una Función a la cual será pasado el <a href="../Collections/FloatArray.html"><span class="s1">FloatArray</span></a> como argumento y evaluada al terminar de cargar.</p>
+<p class="p19"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p21">b = Buffer.read(s,"sounds/a11wlk01.wav");</p>
+<p class="p14">// tal como Buffer.plot</p>
+<p class="p6">b.loadToFloatArray(action: { arg array; a = array; {a.plot;}.defer; "done".postln;});</p>
+<p class="p6">b.free;</p>
+<p class="p11"><br>
+</p>
+<p class="p7"><b>getToFloatArray(index, count, wait, timeout, action)</b></p>
+<p class="p12"><br>
+</p>
+<p class="p7">Transmite el buffer al cliente utilizando una serie de mensajes <b>getn</b><span class="s2"> </span>y coloca el resultado en un <a href="../Collections/FloatArray.html"><span class="s1">FloatArray</span></a>. Es más arriesgado que <b>loadToFloatArray</b><span class="s2"> </span>pero funciona con máquinas remotas. En situaciones de alto tráfico es posible que algunos datos sean extraviados. Si este método no ha recibido todas las respuestas esperadas después de <b>timeout</b><span class="s2"> </span>mostrará una advertencia indicando que el método ha fallado. En general, en vez de este método utiliza <b>loadToFloatArray</b><span class="s2"> </span>cuando sea posible.</p>
+<p class="p11"><br>
+</p>
+<p class="p1"><b>index</b> – El índice en el buffer a partir del cual empezar a escribir. El valor por defecto es 0.</p>
+<p class="p8"><b>count</b> – El número de valores a escoger. El número por defecto es -1, el cual escribe a partir del índice inicial hasta el final del buffer.</p>
+<p class="p8"><b>wait</b> - Un tiempo opcional de espera entre envíos sucesivos del mensaje <b>getn</b>. Tiempos más largos son más seguros. El valor por defecto es 0.01 segundos, que parece ser confiable bajo circunstancias normales. Un valor de 0 <i>no</i> es recomendado.</p>
+<p class="p8"><b>timeout</b> – La cantidad de tiempo en segundos después de la cual dar una advertencia si todas las respuestas no han sido recibidas. El valor por defecto es 3.</p>
+<p class="p8"><b>action</b><span class="s2"> – </span>Una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a><span class="s2"> </span>a la cual será pasado el <a href="../Collections/FloatArray.html"><span class="s1">FloatArray</span></a> como argumento y evaluada al terminar de cargar.</p>
+<p class="p12"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p21">b = Buffer.read(s,"sounds/a11wlk01.wav");</p>
+<p class="p14">// así como Buffer.plot</p>
+<p class="p6">b.getToFloatArray(wait:0.01,action:{arg array; a = array; {a.plot;}.defer;"done".postln;});</p>
+<p class="p6">b.free;</p>
+<p class="p8"><b>normalize(newmax, asWavetable)</b></p>
+<p class="p8"><b>normalizeMsg(newmax, asWavetable)</b></p>
+<p class="p7">Normaliza el buffer de modo que el valor absoluto más alto es <b>newmax </b>(que por defecto es 1). Si tu buffer está en formato <a href="../Collections/Wavetable.html"><span class="s1">Wavetable</span></a> entonces asigna 'true' al argumento <b>asWavetable</b>.</p>
+<p class="p8"><b>fill(startAt, numFrames, value ... more)</b></p>
+<p class="p8"><b>fillMsg(startAt, numFrames, value ... more)</b></p>
+<p class="p7">Comenzando a partir del índice <b>startAt</b>, asigna los siguientes <b>numFrames</b> a cierto valor <b>value</b>. Rangos adicionales podrán ser incluidos en el mismo mensaje.</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>copyData(buf, dstStartAt, srcStartAt, numSamples)</b></p>
+<p class="p8"><b>copyMsg(buf, dstStartAt, srcStartAt, numSamples)</b></p>
+<p class="p7">Comenzando a partir del índice <b>srcSamplePos</b>, copia el número <b>numSamples</b> de muestras de este al buffer destino <b>buf</b> comenzando a partir de <b>dstSamplePos</b>. Si <b>numSamples</b> es negativo, el número máximo de muestras posible será copiado. Los valores por defecto son copiar a partir de 0 en el origen, copiando el número máximo posible de muestras empezando en 0 en el buffer destino.</p>
+<p class="p2"><br>
+</p>
+<p class="p7"><b>Nota:</b> Este método solía llamarse <b>copy</b>, pero esto es un conflicto con el método para copiar objetos. Por lo tanto, Buffer:copy ahora tiene la intención de crear una copia del objeto Buffer del lado del cliente. Su uso para copiar datos del buffer en el servidor es obsoleto (deprecated). Si ves una advertencia, los datos de todos modos serán copiados en el servidor y tu código también funcionará, pero deberías actualizar tu código con el nuevo nombre de método.</p>
+<p class="p11"><br>
+</p>
+<p class="p12"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p17">(</p>
+<p class="p17">SynthDef(\help_Buffer_copy, { arg out=0, buf;</p>
+<p class="p17">Line.ar(0, 0, dur: BufDur.kr(buf), doneAction: 2); // se libera a sí mismo</p>
+<p class="p17">Out.ar(out, PlayBuf.ar(1, buf));</p>
+<p class="p17">}).send(s);</p>
+<p class="p17">)</p>
+<p class="p17">(</p>
+<p class="p18">b = Buffer.read(s, "sounds/a11wlk01.wav");</p>
+<p class="p17">c = Buffer.alloc(s, 120000);</p>
+<p class="p17">)</p>
+<p class="p19"><br>
+</p>
+<p class="p20">Synth(\help_Buffer_copy, [\buf, b]);</p>
+<p class="p16">// copia todo el Buffer</p>
+<p class="p17">b.copyData(c);</p>
+<p class="p20">Synth(\help_Buffer_copy, [\buf, c]);</p>
+<p class="p16">// copia algunas muestras</p>
+<p class="p17">c.zero;</p>
+<p class="p17">b.copyData(c, numSamples: 4410);</p>
+<p class="p20">Synth(\help_Buffer_copy, [\buf, c]);</p>
+<p class="p16">// “composición” de buffers</p>
+<p class="p17">c.zero;</p>
+<p class="p17">b.copyData(c, numSamples: 4410);</p>
+<p class="p17">b.copyData(c, dstStartAt: 4410, numSamples: 15500);</p>
+<p class="p20">Synth(\help_Buffer_copy, [\buf, c]);</p>
+<p class="p12"><br>
+</p>
+<p class="p17">b.free;</p>
+<p class="p17">c.free;</p>
+<p class="p12"><br>
+</p>
+<p class="p8"><b>close(completionMessage)</b></p>
+<p class="p8"><b>closeMsg(completionMessage)</b></p>
+<p class="p7">Después de usar Buffer con <a href="../UGens/Playback and Recording/DiskOut.html"><span class="s1">DiskOut</span></a> o <a href="../UGens/Playback and Recording/DiskIn.html"><span class="s1">DiskIn</span></a>, es necesario cerrar el archivo de sonido. No hacerlo puede causar problemas.</p>
+<p class="p8"><b>completionMessage –</b><span class="s2"> </span>Un mensaje OSC válido, o una <a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a> que devuelva uno. Una función será pasada a este Buffer como argumento en el momento de la evaluación.</p>
+<p class="p8"><b>plot(name, bounds, minval = -1.0, maxval = 1.0, parent)</b></p>
+<p class="p7">Dibuja los contenidos de un Buffer en una ventana de GUI. Sólo en OSX.</p>
+<p class="p8"><b>name –</b> El nombre de la ventana resultante.</p>
+<p class="p8"><b>bounds</b><span class="s2"> – </span>Una instancia de <a href="../Geometry/Rect.html"><span class="s1">Rect</span></a> que determine el tamaño de la ventana resultante.</p>
+<p class="p8"><b>minval</b> – el valor mínimo en la gráfica.</p>
+<p class="p8"><b>maxval</b> - el valor máximo en la gráfica.</p>
+<p class="p8"><b>parent</b> – una ventana para colocar la gráfica. Si el valor es nil, una será creada.</p>
+<p class="p19"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p21">b = Buffer.read(s,"sounds/a11wlk01.wav");</p>
+<p class="p6">b.plot;</p>
+<p class="p6">b.free;</p>
+<p class="p8"><b>play(loop, mul)</b></p>
+<p class="p7">Reproduce los contenidos del buffer en el servidor y devuelve un <a href="Synth.html"><span class="s1">Synth </span></a>correspondiente.</p>
+<p class="p8"><b>loop –</b> Una variable Boolean indicando si debe repetirse (loop) la reproducción. Si el valor es 'false', el synth automáticamente será liberado al terminar. El valor por defecto es 'false'.</p>
+<p class="p8"><b>mul</b> – Un valor por el cual escalar la señal. El valor por defecto es 1.</p>
+<p class="p17">s.boot;</p>
+<p class="p21">b = Buffer.read(s,"sounds/a11wlk01.wav");</p>
+<p class="p14">b.play; // se libera a sí mismo.</p>
+<p class="p6">x = b.play(true);</p>
+<p class="p6">x.free; b.free;</p>
+<p class="p13"><br>
+</p>
+<p class="p8"><b>query</b></p>
+<p class="p7">Envía un mensaje b_query al servidor, pidiendo una descripción de este buffer. Los resultados serán colocados en la ventana de post. No actualiza las variables de instancia.</p>
+<p class="p2"><br>
+</p>
+<p class="p7"><b>updateInfo(action)</b></p>
+<p class="p7">Envía un mensaje b_query al servidor, pidiendo una descripción de este buffer. Al recibir una respuesta, las variables de instancia del Buffer son automáticamente actualizadas.</p>
+<p class="p8"><b>action</b><span class="s2"> – </span>Una función (<a href="../Core/Kernel/Function.html"><span class="s1">Function</span></a>) a ser evaluada una vez que el archivo ha sido leido y las variables de instancia de este buffer han sido actualizadas. A la función le será pasado el Buffer como argumento.</p>
+<p class="p17">s.boot;</p>
+<p class="p17">b = Buffer.readNoUpdate(s, "sounds/a11wlk01.wav");</p>
+<p class="p16">b.numFrames; // incorrecto, devuelve nil</p>
+<p class="p17">b.updateInfo({|buf| buf.numFrames.postln; }); //ahora es correcto.</p>
+<p class="p17">b.free;</p>
+<p class="p3"><br>
+</p>
+<p class="p1"><b>Comandos de llenado de Buffers</b></p>
+<p class="p3"><br>
+</p>
+<p class="p1">Corresponden a los diversos comandos OSC b_gen, que llenan el buffer con valores para ser usados. Ver <a href="Server-Command-Reference.html"><span class="s1">Server-Command-Reference</span></a> para más detalles.</p>
+<p class="p19"><br>
+</p>
+<p class="p8"><b>gen(genCommand, genArgs, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p8"><b>genMsg(genCommand, genArgs, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p7">Ésta es una versión generalizada de los comandos debajo.</p>
+<p class="p8"><b>genCommand </b>- Una <a href="../Collections/String.html"><span class="s1">String</span></a> (cadena de caracteres) indicando el nombre del comando a usar. Ver <a href="Server-Command-Reference.html"><span class="s1">Server-Command-Reference</span></a> para una lista de nombres de comandos válidos.</p>
+<p class="p8"><b>genArgs</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene los argumentos correspondientes para el comando.</p>
+<p class="p8"><b>normalize</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si el valor máximo del buffer debe ser normalizado a 1.0. El valor por defecto es 'true'.</p>
+<p class="p8"><b>asWaveTable</b><span class="s2"> </span>- Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe escribir al Buffer en el formato wavetable para que pueda ser leido por osciladores interpolantes. El valor por defecto es 'true'.</p>
+<p class="p8"><b>clearFirst</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe borrar el buffer antes de escribir en él. El valor por defecto es 'true'.</p>
+<p class="p8"><b>sine1(amps, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p8"><b>sine1Msg(amps, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p7">Llena este buffer con una serie de harmónicos sinoidales utilizando aplitudes especificadas.</p>
+<p class="p8"><b>amps</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene amplitudes para armónicos. El primer valor de punto flotante especifica la amplitud del primer parcial, el segundo valor, la del segundo parcial, y así sucesivamente.</p>
+<p class="p8"><b>normalize</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si el valor máximo del buffer debe ser normalizado a 1.0. El valor por defecto es 'true'.</p>
+<p class="p8"><b>asWaveTable</b><span class="s2"> </span>- Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe escribir al Buffer en el formato wavetable para que pueda ser leido por osciladores interpolantes. El valor por defecto es 'true'.</p>
+<p class="p8"><b>clearFirst</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe borrar el buffer antes de escribir en él. El valor por defecto es 'true'.</p>
+<p class="p12"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p17">(</p>
+<p class="p6">b = Buffer.alloc(s, 512, 1);</p>
+<p class="p6">b.sine1(1.0 / [1, 2, 3, 4], true, true, true);</p>
+<p class="p6">x = { Osc.ar(b, 200, 0, 0.5) }.play;</p>
+<p class="p6">)</p>
+<p class="p6">x.free; b.free;</p>
+<p class="p12"> </p>
+<p class="p8"><b>sine2(freqs, amps, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p8"><b>sine2Msg(freqs, amps, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p7">Llena este buffer con una serie de parciales sinusoidales utilizando frecuencias y amplitudes especificadas.</p>
+<p class="p8"><b>freqs</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene frecuencias (en ciclos por buffer) para las parciales.</p>
+<p class="p8"><b>amps</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene las amplitudes para las parciales. Éste deberá contener el mismo número de elementos que 'freqs'.</p>
+<p class="p8"><b>normalize</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si el valor máximo del buffer debe ser normalizado a 1.0. El valor por defecto es 'true'.</p>
+<p class="p8"><b>asWaveTable</b><span class="s2"> </span>- Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe escribir al Buffer en el formato wavetable para que pueda ser leido por osciladores interpolantes. El valor por defecto es 'true'.</p>
+<p class="p8"><b>clearFirst</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe borrar el buffer antes de escribir en él. El valor por defecto es 'true'.</p>
+<p class="p12"><br>
+</p>
+<p class="p17">s.boot;</p>
+<p class="p17">(</p>
+<p class="p6">b = Buffer.alloc(s, 512, 1);</p>
+<p class="p6">b.sine2([1.0, 3], [1, 0.5]);</p>
+<p class="p6">x = { Osc.ar(b, 200, 0, 0.5) }.play;</p>
+<p class="p6">)</p>
+<p class="p6">x.free; b.free;</p>
+<p class="p8"><b>sine3(freqs, amps, phases, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p8"><b>sine3Msg(freqs, amps, phases, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p7">Llena este buffer con una serie de parciales sinusoidales utilizando las frecuencias, amplitudes, y fases iniciales especificadas.</p>
+<p class="p8"><b>freqs</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene frecuencias (en ciclos por buffer) para las parciales.</p>
+<p class="p8"><b>amps</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene las amplitudes para las parciales. Éste deberá contener el mismo número de elementos que 'freqs'.</p>
+<p class="p8"><b>phases</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene la fase inicial para las parciales (en radianes). Éste deberá contener el mismo número de elementos que 'freqs'.</p>
+<p class="p8"><b>normalize</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si el valor máximo del buffer debe ser normalizado a 1.0. El valor por defecto es 'true'.</p>
+<p class="p8"><b>asWaveTable</b><span class="s2"> </span>- Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe escribir al Buffer en el formato wavetable para que pueda ser leido por osciladores interpolantes. El valor por defecto es 'true'.</p>
+<p class="p8"><b>clearFirst</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe borrar el buffer antes de escribir en él. El valor por defecto es 'true'.</p>
+<p class="p12"><br>
+</p>
+<p class="p19"><br>
+</p>
+<p class="p8"><b>cheby(amplitudes, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p8"><b>chebyMsg(amplitudes, normalize, asWaveTable, clearFirst)</b></p>
+<p class="p7">Llena este buffer con una serie de polinomios de chebyshev, que pueden ser definidos como: cheby(n) = amplitude * cos(n * acos(x)). Para eliminar el desfazamiento en DC cuando se utiliza como modelador de onda, la wavetable será desfazada para que el valor central sea 0.</p>
+<p class="p8"><b>amplitudes</b><span class="s2"> </span>- Un <a href="../Collections/Array.html"><span class="s1">Array</span></a> que contiene las amplitudes para los armónicos. El primer valor de punto flotante especifica la amplitud para n=1, el segundo valor para n=2, y así sucesivamente.</p>
+<p class="p8"><b>normalize</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si el valor máximo del buffer debe ser normalizado a 1.0. El valor por defecto es 'true'.</p>
+<p class="p8"><b>asWaveTable</b><span class="s2"> </span>- Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe escribir al Buffer en el formato wavetable para que pueda ser leido por osciladores interpolantes. El valor por defecto es 'true'.</p>
+<p class="p8"><b>clearFirst</b><span class="s2"> – </span>Una variable <a href="../Core/Boolean.html"><span class="s1">Boolean</span></a> que indica si se debe borrar el buffer antes de escribir en él. El valor por defecto es 'true'.</p>
+<p class="p12"><br>
+</p>
+<p class="p6">s.boot;</p>
+<p class="p6">b = Buffer.alloc(s, 512, 1, {arg buf; buf.chebyMsg([1,0,1,1,0,1])});</p>
+<p class="p6">(</p>
+<p class="p6">x = { </p>
+<p class="p6">Shaper.ar(</p>
+<p class="p6">b, </p>
+<p class="p6">SinOsc.ar(300, 0, Line.kr(0,1,6)),</p>
+<p class="p6">0.5</p>
+<p class="p6">) </p>
+<p class="p6">}.play;</p>
+<p class="p6">)</p>
+<p class="p6">x.free; b.free;</p>
+<p class="p13"><br>
+</p>
+<p class="p1"><b>Buffers almacenados temporalmente (cached)</b></p>
+<p class="p13"><br>
+</p>
+<p class="p1">Para asistir con la actualización automática de la información del buffer (ver <b>updateInfo </b>y <b>*read</b>) los objetos buffer son almacenados temporalmente en una colección asociada con el objeto Server que contiene los buffers. Liberar un buffer lo elimina del espacio temporal, o 'cache'; cerrar el servidor también despeja los buffers en 'cache'. (Esto también ocurre si el servidor se cierra inesperadamente).</p>
+<p class="p2"><br>
+</p>
+<p class="p1">Puedes accesar los buffers en el espacio temporal utilizando los siguientes métodos:</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>*cachedBufferAt(server, bufnum)</b></p>
+<p class="p2"><br>
+</p>
+<p class="p1">Accesar un búfer por su número.</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>*cachedBuffersDo(server, func)</b></p>
+<p class="p2"><br>
+</p>
+<p class="p1">Itera sobre todos los buffers en cache. La iteración no es en algún orden, pero pasará sobre todos los buffers.</p>
+<p class="p2"><br>
+</p>
+<p class="p2"><br>
+</p>
+<p class="p1">Podría tal vez ser más simple accesarlos a través de un objeto server:</p>
+<p class="p2"><br>
+</p>
+<p class="p1"><b>myServer.cachedBufferAt(bufnum)</b></p>
+<p class="p1"><b>myServer.cachedBuffersDo(func)</b></p>
+<p class="p2"><br>
+</p>
+<p class="p2"><br>
+</p>
+<p class="p6">b = Buffer.alloc(s, 2048, 1);</p>
+<p class="p14">Buffer.cachedBufferAt(s, 0); // asumiedo que b tiene un bufnum 0</p>
+<p class="p6">s.cachedBufferAt(0); //mismo resultado</p>
+<p class="p6">s.cachedBuffersDo({ |buf| buf.postln });</p>
+</body>
+</html>

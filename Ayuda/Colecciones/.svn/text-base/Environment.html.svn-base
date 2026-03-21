@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 18.0px Helvetica}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #663730}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #15409a}
+p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Monaco; min-height: 16.0px}
+p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #5d6338}
+p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+span.s1 {font: 12.0px Helvetica}
+span.s2 {color: #5d6338}
+span.s3 {color: #15409a}
+span.s4 {color: #000000}
+span.s5 {color: #606060}
+span.s6 {color: #1d54c8}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1"><b>Environment</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>superclase: IdentityDictionary</b></p>
+<p class="p3"><b>clases relacionadas: Event, IdentityDictionary</b></p>
+<p class="p2"><br></p>
+<p class="p3">Un Environment (Ambiente) es un IdentityDictionary (Diccionario Identidad) con características adicionales que le permiten servir como un 'name space' (espacio de nombres) con el que la funciones pueden ser definidas y/o evaluadas.</p>
+<p class="p2"><br></p>
+<p class="p3"><b>PseudoVariables (variables globales)</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>currentEnvironment<span class="Apple-tab-span">	</span></b>determina el ambiente usado por la sintaxis "~", valueEnvir, y valueArrayEnvir</p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>topEnvironment<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>el valor inicial del currentEnvironment, puede ser usado para 'variables globales'</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Variables de Clase</b></p>
+<p class="p2"><span class="Apple-tab-span">	</span></p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>stack</b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>Maintiene un montón de Environments que se acceden mediante <b>push </b>y <b>pop</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b>Métodos de Clase</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*make(función)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>crea un nuevo Environment y envía el mensaje make (hacer)</p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*use(función)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>crea un nuevo Environment y envía el mensaje use (usar)</p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*push<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>sguarda el currentEnvironment en el stack<span class="Apple-converted-space"> </span></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>*pop<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>restaura el currentEnvironment desde el stack</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Métodos</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>make(función)</b><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>evalúa la función dentro del ambiente, devuelve el ambiente</p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>use(función)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>evalúa la función dentro del ambiente, devuelve los valores devueltos de la función.</p>
+<p class="p3"><span class="Apple-tab-span">	</span><b>push<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>guarda al receptor en el stack</p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>pop<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>restaura al currentEnvironment desde el stack</p>
+<p class="p2"><br></p>
+<p class="p3"><b>Mensajes Relacionados</b></p>
+<p class="p2"><br></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>valueEnvir (arg1, arg2...)<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></b>evalua una función, buscando argumentos no especificados en <b>currentEnvironment</b></p>
+<p class="p3"><b><span class="Apple-tab-span">	</span>valueArrayEnvir (argArray)<span class="Apple-tab-span">	</span></b>igual que valueEnvir, pero con argumentos en un array</p>
+<p class="p2"><b><span class="Apple-tab-span">	</span></b></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Visión general: topEnvironment, currentEnvironment, make y use</b></p>
+<p class="p5"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Cuando SuperCollier inicia, crea un Environment que almacena en las pseudovariables</p>
+<p class="p3"><b>topEnvironment </b>y <b>currentEnvironment</b>.<span class="Apple-converted-space">  </span><b>topEnvironment </b>provee una colección universalmente<span class="Apple-converted-space"> </span></p>
+<p class="p3">accesible de valores nombrados similares a las variables de <b>Interpreter </b>(Intérprete) a, b, c, ...<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p3">El compilador provee una sintaxis de atajos (shortcuts) donde ~ es un marcador de posición</p>
+<p class="p3">(placeholder) para <b>currentEnvironment</b>.<span class="Apple-converted-space"> </span></p>
+<p class="p3">Esto hace la expersión</p>
+<p class="p2"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span>~mivariable;<span class="Apple-converted-space">  <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span><span class="s1">es equivalente a <span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>currentEnvironment.at(<span class="s2">\mivariable</span>);</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">y la expresión</p>
+<p class="p2"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span></span>~mivariable = 888;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">es equivalente a<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>currentEnvironment.put(<span class="s2">\mivariable</span>, 888);</p>
+<p class="p2"><br></p>
+<p class="p3">Los mensajes <b>make(función) </b>y <b>use(función) </b>(hacer y usar) remplazan a currentEnvironment con el receptor,</p>
+<p class="p3">evalúan a la función y después restablecen el valor original de currentEnvironment. El mensaje <b>make</b> (hacer)<span class="Apple-converted-space">  </span>tiene la intención de de ser utilizado al iniciar un Environment, asi que devuelve al Environmet. El mensaje <b>use </b>es para evaluar funciones dentro de un Environment, así que devuelve el valor de la función.</p>
+<p class="p2"><br></p>
+<p class="p3">Por ejemplo</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>(</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a = <span class="s3">Environment</span>.make({</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~a = 100;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~b = 200;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~c = 300;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>});</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a.postln;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p3">crea un ambiente (environmet), mientras que</p>
+<p class="p2"><br></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>a.use({</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~a + ~b + ~c</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>}).postln;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p3">evalúa la función dentro de ese ambiente.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>valueEnvir y valueArrayEnvir</b></p>
+<p class="p2"><br></p>
+<p class="p3">Cuando las Functions (Funciones) son evaluadas con <b>valueEnvir</b> y <b>valueArrayEnvir</b> argumentos no especificados son buscados en el Environment actual.</p>
+<p class="p3">Si el argumento no es encontrado en el Environment su valor por defecto es usado.</p>
+<p class="p2"><br></p>
+<p class="p6">(</p>
+<p class="p6"><span class="s3">var</span> f;</p>
+<p class="p7"><br></p>
+<p class="p8">// define una funcición</p>
+<p class="p6">f = { <span class="s3">arg</span> x, y, z; [x, y, z].postln; };</p>
+<p class="p7"><br></p>
+<p class="p9">Environment<span class="s4">.use({</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>~x = 7;</p>
+<p class="p6"><span class="Apple-tab-span">	</span>~y = 8;</p>
+<p class="p6"><span class="Apple-tab-span">	</span>~z = 9;</p>
+<p class="p7"><span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span>f.valueEnvir(1, 2, 3);<span class="Apple-tab-span">	</span></span>// todos los valores son dados</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span>f.valueEnvir(1, 2);<span class="Apple-tab-span">	</span></span>// z es buscado en el Environment actual</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span>f.valueEnvir(1);<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// tanto y como z son buscados en el Environment actual</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span>f.valueEnvir;<span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// todos los argumentos son buscados en el Environment actual</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span>f.valueEnvir(z: 1);<span class="Apple-tab-span">	</span></span>// tanto x como y son buscados en el Environment actual</p>
+<p class="p6">});</p>
+<p class="p6">)</p>
+<p class="p10"><br></p>
+<p class="p3">Ahora vermos como esto puede ser usado con una función instrumento. Los Environments permiten la definición de instrumentos sin tener que preocuparse acerca de los conflictos de orden. Aunque las tres funciones de abajo tienen los argumentos frec, amp y pan declarados en diferente orden no importa, por que valueEnvir los busca en el ambiente.</p>
+<p class="p2"><br></p>
+<p class="p6">s.boot;</p>
+<p class="p7"><br></p>
+<p class="p6">(</p>
+<p class="p6"><span class="s3">var</span> orc;</p>
+<p class="p6">orc = <span class="s3">Environment</span>.make {</p>
+<p class="p6"><span class="Apple-tab-span">	</span>~a = { <span class="s3">arg</span> freq, amp, pan;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Pan2</span>.ar(<span class="s3">SinOsc</span>.ar(freq), pan, amp);</p>
+<p class="p6"><span class="Apple-tab-span">	</span>};</p>
+<p class="p6"><span class="Apple-tab-span">	</span>~b =<span class="Apple-converted-space">  </span>{ <span class="s3">arg</span> amp, pan, freq;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Pan2</span>.ar(<span class="s3">RLPF</span>.ar(<span class="s3">Saw</span>.ar(freq), freq * 6, 0.1), pan, amp);</p>
+<p class="p6"><span class="Apple-tab-span">	</span>};</p>
+<p class="p6"><span class="Apple-tab-span">	</span>~c =<span class="Apple-converted-space">  </span>{ <span class="s3">arg</span> pan, freq, amp;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s3">Pan2</span>.ar(<span class="s3">Resonz</span>.ar(<span class="s3">GrayNoise</span>.ar, freq * 2, 0.1), pan, amp * 2);</p>
+<p class="p6"><span class="Apple-tab-span">	</span>};</p>
+<p class="p6"><span class="Apple-tab-span">	</span>~orc = [~a, ~b, ~c];</p>
+<p class="p6">};</p>
+<p class="p8">// 'reverb'</p>
+<p class="p6">{ <span class="s3">var</span> in; in = <span class="s3">In</span>.ar(0, 2); <span class="s3">CombN</span>.ar(in, 0.2, 0.2, 3, 1, in); }.play(addAction: <span class="s2">\addToTail</span>);</p>
+<p class="p7"><br></p>
+<p class="p6">{ loop({</p>
+<p class="p6"><span class="Apple-tab-span">	</span>orc.use({</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// define los valores del ambiente</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~freq = exprand(80, 600);</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~amp = 0.1;</p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>~pan = 1.0.rand2;</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// llama a una función instrumento escogida al azar</p>
+<p class="p8"><span class="s4"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></span>// con valores del ambiente</p>
+<p class="p7"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> x = { ~orc.choose.valueEnvir; }.play(fadeTime: 0.2, addAction: <span class="s2">\addToHead</span>);<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> 0.2.wait;<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span> x.release(0.2);<span class="Apple-converted-space"> </span></p>
+<p class="p6"><span class="Apple-tab-span">	</span>});</p>
+<p class="p6">}) }.fork;</p>
+<p class="p7"><span class="Apple-tab-span">	</span></p>
+<p class="p6">)</p>
+<p class="p7"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Ambientes y funciones asincrónicas</b></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Las variables locales declaradas en funciones, así como variables de clase e instancia tienen un ámbito [alcance] léxico. Es decir, el contexto en el que son entendidas depende de donde sea leída su declaración durante la compilación. Funciones asíncrónicas que ejecutarán afuera (después) del flujo de ejecución en curso -- cargan con ellas el ámbito [alcance] léxico de sus variables.</p>
+<p class="p2"><br></p>
+<p class="p6">f = { <span class="s3">var</span> a = <span class="s5">"lo tengo"</span>; { a.postln }.defer(0.5) };</p>
+<p class="p6">f.value;</p>
+<p class="p2"><br></p>
+<p class="p3">Las funciones asincrónicas incluyen funciones planificadas, funciones de respuesta asociadas con OSCresponder, MIDIResponder, HID o funciones de acción de GUI, o acciones usadas en mensajes del servidor (como Buffer.read, Buffer o Bus .get, y asi).</p>
+<p class="p2"><br></p>
+<p class="p3">Las variables de Environment tienen un ámbito dinámico; son leídas desde cualquier ambiente que sea el actual, sin importar si fueron declaradas en el ambiente actual. Por ejemplo, lo siguiente falla por que e no es mas el ambiente actual cuando la función diferida despierta.</p>
+<p class="p2"><br></p>
+<p class="p6">e = (a: <span class="s5">"lo tengo"</span>, f: { { ~a.postln }.defer(0.5) });</p>
+<p class="p6">e.use { e.f };</p>
+<p class="p2"><br></p>
+<p class="p3">El método de Function inEnvir de agrega una función a un ambiente especiífico. Si no es dado un ambiente, el ambiente actual al momento de ejecutar inEnvir<span class="Apple-converted-space">  </span>será el dado por defecto.</p>
+<p class="p2"><br></p>
+<p class="p6">e = (a: <span class="s5">"lo tengo"</span>, f: { { ~a.postln }.inEnvir.defer(0.5) });</p>
+<p class="p6">e.use { e.f };</p>
+<p class="p7"><br></p>
+<p class="p7"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p4"><b>Usando Ambientes como prototipos de objeto</b></p>
+<p class="p2"><br></p>
+<p class="p3">La variable <b>know</b> de Environment contiene un valor Booleano (Boolean) controlando si el Environment puede ser usado como un prototipo de objeto o no. Si <b>know </b>es verdadero (true), cualquier mensaje enviado al Environment que no entienda ya será pasado a elementos en el Environment. (si es falso, los mensajes que no se entiendan producirán mensajes de error estándar "does not understood" ("no se entiende")).</p>
+<p class="p2"><br></p>
+<p class="p3">El valor por defecto de <b>know</b> es false en Environment, y true en <a href="Event.html"><span class="s6">Event</span></a>.</p>
+<p class="p2"><br></p>
+<p class="p9"><span class="s4">e = </span>Environment<span class="s4">[</span></p>
+<p class="p11"><span class="s4"><span class="Apple-tab-span">	</span></span>'algunaVariable'<span class="s4"> -&gt; 5,</span></p>
+<p class="p6"><span class="Apple-tab-span">	</span><span class="s2">'imprimeme'</span> -&gt; { <span class="s3">|self, string|</span> string.postln }</p>
+<p class="p6">];</p>
+<p class="p7"><br></p>
+<p class="p6">e.know = <span class="s3">true</span>;</p>
+<p class="p2"><br></p>
+<p class="p3">Típicamente, los Events son usados para definir este tipo de prototipos ya que la sintaxis es mas simple.</p>
+<p class="p2"><br></p>
+<p class="p6">e = (<span class="s2">algunaVariable</span>: 5, <span class="s2">imprimeme</span>: { <span class="s3">|self, string|</span> string.postln });</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">Un prototipo de objeto busca el selector de método en el Environment para decidir qué hacer.</p>
+<p class="p2"><br></p>
+<p class="p3">La mayoría de los objetos son simplemente devueltos -- la llamada de método se comporta como un getter para cualquier otro objeto.</p>
+<p class="p2"><br></p>
+<p class="p6">e.algunaVariable;</p>
+<p class="p8">// es lo mismo que</p>
+<p class="p11"><span class="s4">e.at(</span>'algunaVariable'<span class="s4">);</span></p>
+<p class="p11"><span class="s4">e[</span>'algunaVariable'<span class="s4">];</span></p>
+<p class="p2"><br></p>
+<p class="p3">Si el selector es un setter, e.g.<span class="Apple-converted-space">  </span><b>algunaVariable_(valor) </b>o <b>e.algunaVariable = valor</b>, el nuevo valor es puesto dentro del Environment.</p>
+<p class="p2"><br></p>
+<p class="p6">e.algunaVariable = 10;</p>
+<p class="p8">// es lo mismo que</p>
+<p class="p11"><span class="s4">e.put(</span>'algunaVariable'<span class="s4">, 10);</span></p>
+<p class="p2"><br></p>
+<p class="p3">Si el elemento del Environment es una función, es evaluada como si fuera una definición de método. El primer argumento que se pase a la función es el Environment que contiene la función; argumentos para la llamada de método siguen como el segundo, tercero, etc. argumento pasado a la función</p>
+<p class="p2"><br></p>
+<p class="p6">e.imprimeme(<span class="s5">"Oh, hola"</span>);</p>
+<p class="p8">// es lo mismo que</p>
+<p class="p6">e[<span class="s2">'imprimeme'</span>].value(e, <span class="s5">"Oh, hola"</span>);</p>
+<p class="p2"><br></p>
+<p class="p3">La función puede tener acceso a los objetos en el Environment usando el argumento de la primera función.</p>
+<p class="p2"><br></p>
+<p class="p6">e.mul2 = { <span class="s3">|z|</span> z.algunaVariable * 2 };</p>
+<p class="p6">e.mul2;</p>
+<p class="p2"><br></p>
+<p class="p3">Las variables de Environment dentro de una función harán referencia al ambiente actualmente activo -- no al Environment al que se está dirigiendo. Esto es para permitir al prororipo de objeto que interactúe con el currentEnvironment.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p6">e.mul2 = { <span class="s3">|z|</span> ~algunaVariable * 2 };</p>
+<p class="p8">// esto arrojará´un error ya que ~algunaVariable es nil en el currentEnvironment</p>
+<p class="p6">e.mul2;</p>
+<p class="p2"><br></p>
+<p class="p3">Si se quiere tener acceso a los objetos en el ambiente usando sintaxis de variables de ambiente, use ('use') el ambiente dentro de la función.</p>
+<p class="p2"><br></p>
+<p class="p6">e.mul2 = { <span class="s3">|z|</span> z.use { ~algunaVariable * 2 } };</p>
+<p class="p6">e.mul2;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3"><b>IMPORTANTE:</b> Hay que ser cuidadoso en evitar nombres de método que estén definidos en cualquiera de las superclases de environment ( o event). Los prototipos de objetos funcionan conteniendo selectores de método que no están ya definidos como métodos de libraría de clase. Si se usa un selector de método genérico como 'stop" (detener) o 'reset' (reiniciar) esto causará que el método de librería de clase correspondiente responda, y los elementos en el Environment nunca serán revisados.</p>
+<p class="p2"><br></p>
+<p class="p3">Si se asigna un valor a un ambiente usando un setter -- <b>name_()</b> or <b>.name = ...</b> (nombre) -- esto imprimirá un mensaje de advertencia (warning) si el nombre ya está definido en la librería de clase.</p>
+<p class="p2"><br></p>
+<p class="p12"><span class="s4">e.reset = { </span>"Mi función de reinicio"<span class="s4">.postln };</span></p>
+<p class="p7"><br></p>
+<p class="p8">// imprime:</p>
+<p class="p6">WARNING:</p>
+<p class="p6">'reset' exists a method name, so you can't use it as pseudo-method.</p>
+<p class="p7"><br></p>
+<p class="p6">(ADVERTENCIA:</p>
+<p class="p6"><span class="Apple-tab-span">	</span>'reset' existe como nombre de m'etodo, asi que no se puede usar como pseudo-método)</p>
+<p class="p7"><br></p>
+<p class="p8">// esto NO ejecuta la función reset de arriba</p>
+<p class="p8">// por que Object:reset responde</p>
+<p class="p6">e.reset;</p>
+<p class="p2"><br></p>
+</body>
+</html>

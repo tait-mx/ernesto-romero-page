@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+<meta name="Generator" content="Cocoa HTML Writer">
+<meta name="CocoaVersion" content="824.48">
+<style type="text/css">
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco}
+p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; min-height: 12.0px}
+p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #606060}
+p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #752c1e}
+p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Helvetica; min-height: 11.0px}
+p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #752c1e; min-height: 12.0px}
+p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 9.0px Monaco; color: #0839a4}
+p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Lucida Grande}
+span.s1 {color: #0839a4}
+span.s2 {color: #000000}
+span.s3 {font: 12.0px Helvetica}
+span.s4 {color: #57672f}
+span.s5 {color: #001bb9}
+span.s6 {color: #606060}
+span.Apple-tab-span {white-space:pre}
+</style>
+</head>
+<body>
+<p class="p1">Los procesos de síntesis más simples usan un solo UGen.</p>
+<p class="p2"><br></p>
+<p class="p1">{ <span class="s1">Saw</span>.ar(500, 0.1) }.scope;</p>
+<p class="p2"><br></p>
+<p class="p1">o</p>
+<p class="p2"><br></p>
+<p class="p1">{ <span class="s1">Formlet</span>.ar(<span class="s1">Saw</span>.ar(22), 400, 0.01, 0.11, 0.022) }.scope</p>
+<p class="p2"><br></p>
+<p class="p1">La mayoría de los documentos de ayuda que hay en SuperCollider para los UGens muestran ejemplos similares. Evalúa la siguiente línea para navegar por todos los archivos de ayuda de UGens.</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">Help</span><span class="s2">(</span>"Help/UGens"<span class="s2">).gui</span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p5"><br></p>
+<p class="p1">Muchos procesos de síntesis, debido a que utilizan más que unos cuantos UGens, es mejor dividirlos en partes componentes. Esto puede hacer que el código sea modular, reutilizable, y más fácil de leer.</p>
+<p class="p2"><br></p>
+<p class="p1">La clase <span class="s3"><b>Group</b></span>, mediante la cual se especifica una colección de nodos, provee un mecanismo con el que se pueden controlar varios sintetizadores simultáneamente.</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p6"><b>Los grupos son listas enlazadas</b></p>
+<p class="p2"><br></p>
+<p class="p1">La característica técnica importante de los grupos es que los nodos que contienen son elementos en una lista enlazada. Una lista enlazada es una estructura de datos que facilita el ordenar y reordenar nodos. El primer elemento en una lista enlazada es la "cabeza" y el último elemento es la "cola".</p>
+<p class="p2"><br></p>
+<p class="p1">Los grupos, a través de sus mecanismos de cabeza y cola, permiten que los sintetizadores sean puestos en orden para que un sintetizador sea ejecutado antes que otro de forma verificable, e.g., el sintetizador cabeza corre antes que el sintetizador cola. La capacidad de ordenar sintetizadores es esencial al mandar audio fuente a través de un efecto, como un reverberador o un filtro.</p>
+<p class="p2"><br></p>
+<p class="p1">Otra característica de los grupos es que permiten a los sintetizadores recibir mensajes desde un solo punto de control, e.g., un mensaje al grupo va a todos los nodos que pertenecen al grupo.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p6"><b>Nodos, listas enlazadas, árboles</b></p>
+<p class="p2"><br></p>
+<p class="p1">Consulta el documento <span class="s3"><b>Server-Architecture</b></span> para una definición de un nodo en SuperCollider o mira la Wikipedia para una discusión general de nodos, listas enlazadas, y árboles (en inglés).</p>
+<p class="p2"><br></p>
+<p class="p1">http://en.wikipedia.org/wiki/Node</p>
+<p class="p1">http://en.wikipedia.org/wiki/Linked_list</p>
+<p class="p1">http://en.wikipedia.org/wiki/Tree_data_structure</p>
+<p class="p7"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p6"><b>RootNode y default_group</b></p>
+<p class="p2"><br></p>
+<p class="p1">Por defecto, los servidores local e interno arrancan con dos grupos predefinidos: el <span class="s3"><b>RootNode</b></span> (NodoRaíz)<span class="s3"><b> </b></span>y el <span class="s3"><b>default_group </b></span>(grupo_por_defecto)<span class="s3"><b> </b></span>(consulta sus archivos de ayuda). Para ver esto, arranca el servidor local y después evalúa:</p>
+<p class="p2"><br></p>
+<p class="p1">s.queryAllNodes;</p>
+<p class="p2"><br></p>
+<p class="p1">Las siguientes dos líneas</p>
+<p class="p2"><br></p>
+<p class="p1">NODE TREE Group 0</p>
+<p class="p1"><span class="Apple-converted-space">   </span>1 group</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1">aparecerán en la "post window".</p>
+<p class="p2"><br></p>
+<p class="p1">"Group 0" es el grupo "RootNode" y "1 group" es el default_group. El "1 group" aparece con sangría para mostrar que es una ramificación del "Group 0".</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1">Los nuevos sintetizadores son colocados por defecto en la cabeza del default_group.</p>
+<p class="p2"><br></p>
+<p class="p4">// 1ro, evalúa un SynthDef</p>
+<p class="p1">(</p>
+<p class="p3"><span class="s1">SynthDef</span><span class="s2">(</span>"modulacionDeAnillo"<span class="s2">, {<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Mix</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([440.067, 441.013], 0, 1)<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>*<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">SinOsc</span>.ar([111, 109], 0, 0.2)<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">// 2do, crea un sintetizador</p>
+<p class="p8">(</p>
+<p class="p3"><span class="s1">Synth</span><span class="s2">(</span>"modulacionDeAnillo"<span class="s2">);</span></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">// 3ro, dile al servidor que imprima una lista con sus nodos</p>
+<p class="p1">(</p>
+<p class="p1">s.queryAllNodes;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">NODE TREE Group 0</p>
+<p class="p1"><span class="Apple-converted-space">   </span>1 group</p>
+<p class="p1"><span class="Apple-converted-space">      </span>1000 modulacionDeAnillo</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1">aparecerá en la "post window". Muestra al grupo 0 como el "RootNode", al grupo 1 como la ramificación "default_node" y "1000 modulacionDeAnillo" (u otro número semejante) como una hoja conectada al the default_node.<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1">Rootnode - Group 0</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>|</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>|</p>
+<p class="p1">default_node - 1 group</p>
+<p class="p1"><span class="Apple-converted-space">      </span>/</p>
+<p class="p1"><span class="Apple-converted-space">     </span>/ <span class="Apple-converted-space"> </span></p>
+<p class="p1">1000 modulacionDeAnillo</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1">Un ejemplo con dos synths.</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p4">// 1ro, evalúa un SynthDef</p>
+<p class="p1">(</p>
+<p class="p3"><span class="s1">SynthDef</span><span class="s2">(</span>"tonoAPartirDeRuido"<span class="s2">, { </span><span class="s1">arg</span><span class="s2"> out = 0;</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>out,</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Resonz</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">WhiteNoise</span>.ar(15),</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">LFNoise0</span>.kr(2, 110, 660),</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.005</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">// 2do, crea 2 sintetizadores<span class="Apple-converted-space"> </span></p>
+<p class="p1">(</p>
+<p class="p3"><span class="s1">Synth</span><span class="s2">(</span>"modulacionDeAnillo"<span class="s2">);</span></p>
+<p class="p3"><span class="s1">Synth</span><span class="s2">(</span>"tonoAPartirDeRuido"<span class="s2">, [</span><span class="s4">\out</span><span class="s2">, 1]);</span></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">// 3ro, dile al servidor que imprima una lista con sus nodos</p>
+<p class="p1">(</p>
+<p class="p1">s.queryAllNodes;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">Lo que apareció impreso en la "post window"</p>
+<p class="p2"><br></p>
+<p class="p1">NODE TREE Group 0</p>
+<p class="p1"><span class="Apple-converted-space">   </span>1 group</p>
+<p class="p1"><span class="Apple-converted-space">      </span>1001 tonoAPartirDeRuido</p>
+<p class="p1"><span class="Apple-converted-space">      </span>1000 modulacionDeAnillo</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1">muestra que el grupo 0 es el RootNode y el grupo 1<span class="s3"><b><span class="Apple-converted-space"> </span></b></span> es el default_node.</p>
+<p class="p2"><br></p>
+<p class="p1">Los sintetizadores "1001 tonoAPartirDeRuido" y "1000 modulacionDeAnillo" (u otros números similares) son hojas conectadas al default_node. El sintetizador "1001 tonoAPartirDeRuido" está primero en la lista debido a que los nodos se conectan, por defecto, en la cabeza de una lista: el sintetizador "1000 modulacionDeAnillo" fue evaluado primero y colocado en la cabeza del grupo 1. Después, el sintetizador "1001 tonoAPartirDeRuido" fue evaluado y colocado en la cabeza de la lista (antes que el sintetizador "1000 modulacionDeAnillo").</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Rootnode - Group 0</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>|</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>|</p>
+<p class="p1"><span class="Apple-converted-space"> </span>default_node - Group 1</p>
+<p class="p1"><span class="Apple-converted-space">      </span>/ <span class="Apple-converted-space">    </span>\</p>
+<p class="p1"><span class="Apple-converted-space">     </span>/ <span class="Apple-converted-space">      </span>\</p>
+<p class="p1">Synth 1001<span class="Apple-converted-space">  </span>Synth 1000</p>
+<p class="p1">(cabeza)<span class="Apple-tab-span">	</span> <span class="Apple-converted-space">  </span>(cola)</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><span class="Apple-converted-space"> </span></p>
+<p class="p1">Es responsabilidad del usuario asegurarse de que los nodos en el servidor estén ordenados correctamente. Por esta razón, los siguientes dos sintetizadores deben ser evaluados en el orden en el que están escritos - debido a que el primer sintetizador es material fuente para el segundo sintetizador, un filtro que procesa su entrada.</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p3"><span class="s1">SynthDef</span><span class="s2">(</span>"primerNodo-fuente"<span class="s2">, {</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Saw</span>.ar([200, 201], 0.05)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p2"><br></p>
+<p class="p3"><span class="s1">SynthDef</span><span class="s2">(</span>"segundoNodo-filtro"<span class="s2">, {</span></p>
+<p class="p8"><span class="s2"><span class="Apple-tab-span">	</span></span>ReplaceOut<span class="s2">.ar(</span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">LPF</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">In</span>.ar(0, 2),</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">Lag</span>.kr(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">LFNoise0</span>.kr([4, 4.001], 500, 1000),</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0.1</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>)</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)</p>
+<p class="p1">}).load(s);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">// evalúa primero "segundoNodo-filtro"</p>
+<p class="p4">// "primerNodo-fuente" va a ir a la cabeza de default_node</p>
+<p class="p1">(</p>
+<p class="p3"><span class="s1">Synth</span><span class="s2">(</span>"segundoNodo-filtro"<span class="s2">);</span></p>
+<p class="p3"><span class="s1">Synth</span><span class="s2">(</span>"primerNodo-fuente"<span class="s2">);</span></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1">s.queryAllNodes;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1">O, usa los mensajes .head y .tail para conectar los nodos al default_group.</p>
+<p class="p2"><br></p>
+<p class="p8">(</p>
+<p class="p3"><span class="s5">Synth</span><span class="s2">.head(s, </span>"primerNodo-fuente"<span class="s2">);</span></p>
+<p class="p3"><span class="s5">Synth</span><span class="s2">.tail(s, </span>"segundoNodo-filtro"<span class="s2">)</span></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p1">s.queryAllNodes;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1">O, asigna los sintetizadores a grupos.</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p4"><span class="s2">~fuente = </span><span class="s1">Group</span><span class="s2">.head(s);<span class="Apple-tab-span">	</span></span>// conecta al grupo en la cabeza del default_node</p>
+<p class="p4"><span class="s2">~efecto = </span><span class="s1">Group</span><span class="s2">.tail(s);<span class="Apple-tab-span">	</span></span>// conecta al grupo en la cola del default_node</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p4">// añade los sintetizadores a los grupos adecuados</p>
+<p class="p3"><span class="s1">Synth</span><span class="s2">.head(~fuente, </span>"segundoNodo-filtro"<span class="s2">);</span></p>
+<p class="p3"><span class="s1">Synth</span><span class="s2">.head(~efecto, </span>"primerNodo-fuente"<span class="s2">);</span></p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">La idea es que los grupos estén primero conectados al default_group en el orden deseado. Los sintetizadores pueden entonces ser evaluados en cualquier orden, siempre y cuando estén conectados al grupo adecuado.</p>
+<p class="p2"><br></p>
+<p class="p4">// corre el código para ver un diagrama de los nodos</p>
+<p class="p1">(</p>
+<p class="p1">s.queryAllNodes;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-tab-span">	</span>Rootnode</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>|</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-converted-space">  </span>|</p>
+<p class="p1"><span class="Apple-converted-space"> </span>default_node</p>
+<p class="p1"><span class="Apple-converted-space">      </span>/\</p>
+<p class="p1"><span class="Apple-converted-space">     </span>/<span class="Apple-converted-space">  </span>\</p>
+<p class="p1">Group<span class="Apple-converted-space">    </span>Group</p>
+<p class="p1"><span class="Apple-converted-space">  </span>|<span class="Apple-converted-space">        </span>|</p>
+<p class="p1"><span class="Apple-converted-space">  </span>|<span class="Apple-converted-space">        </span>|</p>
+<p class="p1">Synth<span class="Apple-converted-space">   <span class="Apple-tab-span">	</span> </span>Synth</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p2"><br></p>
+<p class="p1">Establece un control para todos los sintetizadores en un grupo.</p>
+<p class="p2"><br></p>
+<p class="p4">// cada uno de los siguientes SynthDefs tiene un control para amplitud (mul)</p>
+<p class="p1">(</p>
+<p class="p4">// construye 3 SynthDefs y un grupo</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s6">"sinteNumero1"</span>, { <span class="s1">arg</span> mul = 0.2;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">BrownNoise</span>.ar(mul) * <span class="s1">LFNoise0</span>.kr([1, 1.01])</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>}, [0.1]).load(s);</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s6">"sinteNumero2"</span>, { <span class="s1">arg</span> mul = 0.2;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">WhiteNoise</span>.ar(mul) * <span class="s1">LFNoise1</span>.kr([2.99, 3])</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span>}, [0.1]).load(s);</p>
+<p class="p1"><span class="s1">SynthDef</span>(<span class="s6">"sinteNumero3"</span>, { <span class="s1">arg</span> mul = 0.2;</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="s1">Out</span>.ar(</p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span>0,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-tab-span">	</span><span class="Apple-tab-span">	</span><span class="s1">PinkNoise</span>.ar(mul) * <span class="s1">LFNoise2</span>.kr([0.79, 0.67])</p>
+<p class="p1"><span class="Apple-tab-span">	</span>)<span class="Apple-converted-space"> </span></p>
+<p class="p1">}, [0.1]).load(s);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p4">// crea un grupo</p>
+<p class="p1">~miGrupo = <span class="s1">Group</span>.new;</p>
+<p class="p8">)</p>
+<p class="p2"><br></p>
+<p class="p1">(</p>
+<p class="p4">// conecta 3 synths</p>
+<p class="p1"><span class="s1">Synth</span>.head(~miGrupo, <span class="s6">"sinteNumero1"</span>);</p>
+<p class="p1"><span class="s1">Synth</span>.head(~miGrupo, <span class="s6">"sinteNumero2"</span>);</p>
+<p class="p1"><span class="s1">Synth</span>.head(~miGrupo, <span class="s6">"sinteNumero3"</span>);</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">// cambia el control \mul de cada uno de los 3 sintetizadores en el grupo</p>
+<p class="p1">~miGrupo.set(<span class="s4">\mul</span>, 0.01.rrand(0.2))</p>
+<p class="p2"><br></p>
+<p class="p4">// ejecuta para ver un diagrama de los nodos</p>
+<p class="p1">(</p>
+<p class="p1">s.queryAllNodes;</p>
+<p class="p1">)</p>
+<p class="p2"><br></p>
+<p class="p4">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+<p class="p7"><br></p>
+<p class="p9">ir a <b>12_Playbuf</b></p>
+</body>
+</html>
